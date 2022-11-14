@@ -1,0 +1,33 @@
+.burger-menu {
+  @apply transition-all flex justify-between flex-col w-10
+    h-6 cursor-pointer;
+  &__line {
+    @apply transition-all h-1 w-full bg-nft-red-violet;
+  }
+  &__open {
+    transform: rotate(-90deg);
+    .burger-menu__line2 {
+      transform: scaleY(0);
+    }
+    .burger-menu__line1,
+    .burger-menu__line3 {
+      @apply bg-nft-gray-1;
+    }
+  }
+  &__items {
+    position: absolute;
+    animation: slide 300ms forwards;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px -5px 10px;
+    @keyframes slide {
+      0% {
+        opacity: 0;
+        bottom: -100vw;
+      }
+      100% {
+        opacity: 1;
+        bottom: 0;
+      }
+    }
+    @apply fixed left-0 bottom-0 w-full rounded-3xl;
+  }
+}

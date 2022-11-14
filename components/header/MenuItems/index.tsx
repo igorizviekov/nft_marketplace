@@ -35,7 +35,7 @@ export const MenuItems = ({
         ${
           active === link
             ? 'dark:text-white text-nft-black-1'
-            : 'dark:text-nft-gray-3 text-nft-gray-2'
+            : 'dark:text-nft-gray-2 text-nft-gray-2'
         }
         `}
         >

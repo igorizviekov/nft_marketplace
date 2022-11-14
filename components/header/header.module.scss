@@ -1,5 +1,5 @@
 .header {
-  @apply w-full fixed z-10 p-4 flex-row border-b gap-10 bg-white  border-nft-gray-1;
+  @apply w-full fixed z-10 p-4 flex-row border-b bg-white border-nft-gray-1;
   &__link {
     @apply flex flex-1 flex-row justify-start;
     &__logo {
@@ -19,7 +19,7 @@
     }
   }
   &__menu-items {
-    @apply md:hidden flex;
+    @apply md:hidden flex gap-4;
     &__list {
       @apply list-none flex-row;
     }

@@ -9,6 +9,7 @@ import DarkLogo from '../../assets/img/logo2.svg';
 import { FiMoon, FiSun } from 'react-icons/fi';
 import { MenuItems } from './MenuItems';
 import { ButtonGroup } from '../ui/ButtonGroup';
+import { BurgerMenu } from './BurgerMenu';
 
 export const Header = () => {
   const { theme, setTheme } = useTheme();
@@ -17,6 +18,7 @@ export const Header = () => {
   const [isWalletConnected, setIsWalletConnected] = useState(false);
   const menuTabs = ['Explore NFTs', 'Listed NFTs', 'My NFTs'];
   const [activeTab, setActiveTab] = useState(menuTabs[0]);
+  const [isSideMenuOpen, setSideMenuOpen] = useState(false);
 
   const classNames = [
     'flexBetween',
@@ -35,6 +37,61 @@ export const Header = () => {
     }
   }, [theme]);
 
+  const themeToggle = (
+    <div className={styles['header__theme']}>
+      <div className={styles['header__theme__toggle']}>
+        <input
+          type="checkbox"
+          className="checkbox"
+          id="checkbox"
+          onChange={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+        />
+        <label
+          htmlFor="checkbox"
+          className={[
+            'label',
+            'flexBetween',
+            styles['header__theme__toggle__label'],
+          ].join(' ')}
+        >
+          <FiSun color="yellow" size={13} />
+          <FiMoon color="white" size={12} />
+          <div
+            className={[
+              'ball',
+              styles['header__theme__toggle__label__ball'],
+            ].join(' ')}
+          />
+        </label>
+      </div>
+    </div>
+  );
+
+  const headerContent = (
+    <div className={styles['header__menu-items']}>
+      {themeToggle}
+      <MenuItems
+        isMob={false}
+        links={menuTabs}
+        active={activeTab}
+        setActiveTab={setActiveTab}
+      />
+      <ButtonGroup
+        options={[
+          isWalletConnected
+            ? {
+                label: 'Create',
+                handleClick: () => router.push('/create-nft'),
+              }
+            : {
+                label: 'Connect Wallet',
+                handleClick: () => console.log('connecting a wallet...'),
+              },
+        ]}
+      />
+    </div>
+  );
+
   return (
     <nav className={classNames}>
       <div className={styles['header__link']}>
@@ -44,51 +101,33 @@ export const Header = () => {
           </div>
         </Link>
       </div>
-
-      <div className={styles['header__theme']}>
-        <div className={styles['header__theme__toggle']}>
-          <input
-            type="checkbox"
-            className="checkbox"
-            id="checkbox"
-            onChange={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-          />
-          <label
-            htmlFor="checkbox"
-            className={[
-              'label',
-              'flexBetween',
-              styles['header__theme__toggle__label'],
-            ].join(' ')}
-          >
-            <FiSun color="yellow" size={13} />
-            <FiMoon color="white" size={12} />
-            <div
-              className={[
-                'ball',
-                styles['header__theme__toggle__label__ball'],
-              ].join(' ')}
+      {headerContent}
+      <BurgerMenu
+        isOpen={isSideMenuOpen}
+        onToggle={() => setSideMenuOpen(!isSideMenuOpen)}
+        content={
+          <div className="flex gap-5 flex-col p-5 dark:bg-nft-black-1 dark:p-4 dark:gap-10">
+            <ButtonGroup
+              options={[
+                isWalletConnected
+                  ? {
+                      label: 'Create',
+                      handleClick: () => router.push('/create-nft'),
+                    }
+                  : {
+                      label: 'Connect Wallet',
+                      handleClick: () => console.log('connecting a wallet...'),
+                    },
+              ]}
             />
-          </label>
-        </div>
-      </div>
-      <div className={styles['header__menu-items']}>
-        <MenuItems
-          isMob={false}
-          links={menuTabs}
-          active={activeTab}
-          setActiveTab={setActiveTab}
-        />
-      </div>
-      <ButtonGroup
-        options={[
-          isWalletConnected
-            ? { label: 'Create', handleClick: () => router.push('/create-nft') }
-            : {
-                label: 'Connect Wallet',
-                handleClick: () => console.log('connecting a wallet...'),
-              },
-        ]}
+            <MenuItems
+              isMob={false}
+              links={menuTabs}
+              active={activeTab}
+              setActiveTab={setActiveTab}
+            />
+          </div>
+        }
       />
     </nav>
   );
