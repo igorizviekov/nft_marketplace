@@ -1,6 +1,6 @@
 import styles from './header.module.scss';
 import { useState, useEffect, useContext } from 'react';
-import { useRouter } from 'next/router';
+import { Router, useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -8,11 +8,16 @@ import LightLogo from '../../assets/img/logo.svg';
 import DarkLogo from '../../assets/img/logo2.svg';
 import { FiMoon, FiSun } from 'react-icons/fi';
 import { MenuItems } from './MenuItems';
+import { ButtonGroup } from '../ui/ButtonGroup';
 
 export const Header = () => {
-  const menuTabs = ['Explore NFTs', 'Listed NFTs', 'My NFTs'];
   const { theme, setTheme } = useTheme();
+  const router = useRouter();
+
+  const [isWalletConnected, setIsWalletConnected] = useState(false);
+  const menuTabs = ['Explore NFTs', 'Listed NFTs', 'My NFTs'];
   const [activeTab, setActiveTab] = useState(menuTabs[0]);
+
   const classNames = [
     'flexBetween',
     'dark:bg-nft-dark',
@@ -20,7 +25,15 @@ export const Header = () => {
     styles['header'],
   ].join(' ');
 
-  const logo = theme === 'light' ? LightLogo : DarkLogo;
+  const [logo, setLogo] = useState(DarkLogo);
+
+  useEffect(() => {
+    if (theme === 'light') {
+      setLogo(LightLogo);
+    } else {
+      setLogo(DarkLogo);
+    }
+  }, [theme]);
 
   return (
     <nav className={classNames}>
@@ -31,20 +44,7 @@ export const Header = () => {
           </div>
         </Link>
       </div>
-      <div className={styles['header__menu-items']}>
-        <ul
-          className={['flexCenter', styles['header__menu-items__list']].join(
-            ' '
-          )}
-        >
-          <MenuItems
-            isMob={false}
-            links={menuTabs}
-            active={activeTab}
-            setActiveTab={setActiveTab}
-          />
-        </ul>
-      </div>
+
       <div className={styles['header__theme']}>
         <div className={styles['header__theme__toggle']}>
           <input
@@ -62,7 +62,7 @@ export const Header = () => {
             ].join(' ')}
           >
             <FiSun color="yellow" size={13} />
-            <FiMoon color="cornflowerblue" size={13} />
+            <FiMoon color="white" size={12} />
             <div
               className={[
                 'ball',
@@ -72,6 +72,24 @@ export const Header = () => {
           </label>
         </div>
       </div>
+      <div className={styles['header__menu-items']}>
+        <MenuItems
+          isMob={false}
+          links={menuTabs}
+          active={activeTab}
+          setActiveTab={setActiveTab}
+        />
+      </div>
+      <ButtonGroup
+        options={[
+          isWalletConnected
+            ? { label: 'Create', handleClick: () => router.push('/create-nft') }
+            : {
+                label: 'Connect Wallet',
+                handleClick: () => console.log('connecting a wallet...'),
+              },
+        ]}
+      />
     </nav>
   );
 };

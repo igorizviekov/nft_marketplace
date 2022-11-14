@@ -14,7 +14,6 @@ export const MenuItems = ({
   setActiveTab,
 }: IMenuItemsProps) => {
   const generateLink = (index: number) => {
-    console.log(index);
     switch (index) {
       case 1:
         return '/feed';
