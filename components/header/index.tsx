@@ -7,10 +7,12 @@ import Link from 'next/link';
 import LightLogo from '../../assets/img/logo.svg';
 import DarkLogo from '../../assets/img/logo2.svg';
 import { FiMoon, FiSun } from 'react-icons/fi';
+import { MenuItems } from './MenuItems';
 
 export const Header = () => {
+  const menuTabs = ['Explore NFTs', 'Listed NFTs', 'My NFTs'];
   const { theme, setTheme } = useTheme();
-
+  const [activeTab, setActiveTab] = useState(menuTabs[0]);
   const classNames = [
     'flexBetween',
     'dark:bg-nft-dark',
@@ -28,6 +30,20 @@ export const Header = () => {
             <Image src={logo} alt="logo" width={26} />
           </div>
         </Link>
+      </div>
+      <div className={styles['header__menu-items']}>
+        <ul
+          className={['flexCenter', styles['header__menu-items__list']].join(
+            ' '
+          )}
+        >
+          <MenuItems
+            isMob={false}
+            links={menuTabs}
+            active={activeTab}
+            setActiveTab={setActiveTab}
+          />
+        </ul>
       </div>
       <div className={styles['header__theme']}>
         <div className={styles['header__theme__toggle']}>
