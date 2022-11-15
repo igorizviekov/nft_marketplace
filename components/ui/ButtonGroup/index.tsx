@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '../Button';
 
-type BtnOption = {
+export type BtnOption = {
   label: string;
   handleClick: () => void;
 };

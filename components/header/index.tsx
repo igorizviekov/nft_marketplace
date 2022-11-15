@@ -67,15 +67,19 @@ export const Header = () => {
     </div>
   );
 
+  const menuItems = (
+    <MenuItems
+      isMob={false}
+      links={menuTabs}
+      active={activeTab}
+      setActiveTab={setActiveTab}
+    />
+  );
+
   const headerContent = (
     <div className={styles['header__menu-items']}>
       {themeToggle}
-      <MenuItems
-        isMob={false}
-        links={menuTabs}
-        active={activeTab}
-        setActiveTab={setActiveTab}
-      />
+      {menuItems}
       <ButtonGroup
         options={[
           isWalletConnected
@@ -105,29 +109,18 @@ export const Header = () => {
       <BurgerMenu
         isOpen={isSideMenuOpen}
         onToggle={() => setSideMenuOpen(!isSideMenuOpen)}
-        content={
-          <div className="flex gap-5 flex-col p-5 dark:bg-nft-black-1 dark:px-5 dark:py-10 dark:gap-10">
-            <ButtonGroup
-              options={[
-                isWalletConnected
-                  ? {
-                      label: 'Create',
-                      handleClick: () => router.push('/create-nft'),
-                    }
-                  : {
-                      label: 'Connect Wallet',
-                      handleClick: () => console.log('connecting a wallet...'),
-                    },
-              ]}
-            />
-            <MenuItems
-              isMob={false}
-              links={menuTabs}
-              active={activeTab}
-              setActiveTab={setActiveTab}
-            />
-          </div>
-        }
+        actions={[
+          isWalletConnected
+            ? {
+                label: 'Create',
+                handleClick: () => router.push('/create-nft'),
+              }
+            : {
+                label: 'Connect Wallet',
+                handleClick: () => console.log('connecting a wallet...'),
+              },
+        ]}
+        menuItems={menuItems}
       />
     </nav>
   );
