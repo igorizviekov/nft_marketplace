@@ -22,7 +22,7 @@ export const Header = () => {
 
   const classNames = [
     'flexBetween',
-    'dark:bg-nft-dark',
+    'dark:bg-nft-black-1',
     'dark:border-nft-black-1',
     styles['header'],
   ].join(' ');
@@ -106,7 +106,7 @@ export const Header = () => {
         isOpen={isSideMenuOpen}
         onToggle={() => setSideMenuOpen(!isSideMenuOpen)}
         content={
-          <div className="flex gap-5 flex-col p-5 dark:bg-nft-black-1 dark:p-4 dark:gap-10">
+          <div className="flex gap-5 flex-col p-5 dark:bg-nft-black-1 dark:px-5 dark:py-10 dark:gap-10">
             <ButtonGroup
               options={[
                 isWalletConnected

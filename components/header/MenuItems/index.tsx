@@ -25,7 +25,11 @@ export const MenuItems = ({
   };
 
   return (
-    <ul className={`list-none flex flex-row ${isMob && 'flex-col h-full'}`}>
+    <ul
+      className={`list-none flex flex-row sm:flex-col sm:gap-6 ${
+        isMob && 'flex-col h-full'
+      }`}
+    >
       {links.map((link, i) => (
         <li
           key={link + i}
