@@ -1,6 +1,6 @@
 import styles from './header.module.scss';
-import { useState, useEffect, useContext } from 'react';
-import { Router, useRouter } from 'next/router';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import Link from 'next/link';

@@ -1,0 +1,51 @@
+.container {
+  border-radius: 20px;
+  overflow: hidden;
+  height: 350px;
+  position: relative;
+  background-color: #da18a3;
+  padding: 15px;
+  &.container-bottom {
+    svg {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+  }
+}
+
+.parallax {
+  > use {
+    animation: move-forever 1s linear infinite;
+    //back
+    &:nth-child(1) {
+      animation-delay: -8s;
+      animation-duration: 8s;
+    }
+    &:nth-child(2) {
+      animation-delay: -3s;
+      animation-duration: 8s;
+    }
+    &:nth-child(3) {
+      animation-delay: -4s;
+      animation-duration: 8s;
+    }
+    &:nth-child(4) {
+      animation-delay: 1s;
+      animation-duration: 8s;
+    }
+  }
+  @keyframes move-forever {
+    0% {
+      transform: translate(0);
+    }
+    100% {
+      transform: translateY(5px);
+    }
+  }
+}
+
+#layer {
+  filter: drop-shadow(0 0 0.2mm #2d2e36);
+}

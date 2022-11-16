@@ -1,3 +1,5 @@
+import { Banner } from '../components/ui/banner/banner';
+
 export default function Home() {
   const block = (
     <div
@@ -5,7 +7,8 @@ export default function Home() {
     />
   );
   return (
-    <div style={{ paddingTop: 90 }}>
+    <div className="pt-32 sm:pt-26 sm:px-5 w-6/12 sm:w-full m-auto">
+      <Banner />
       {block}
       {block}
       {block}
