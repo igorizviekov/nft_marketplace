@@ -1,5 +1,5 @@
 import { BtnOption, ButtonGroup } from '../../ui/ButtonGroup';
-import { MenuItems } from '../MenuItems';
+import { IoMdClose } from 'react-icons/io';
 import styles from './burger.module.scss';
 
 interface IBurgerMenuProps {
@@ -38,6 +38,12 @@ export const BurgerMenu = ({
           <ButtonGroup options={actions} />
           {menuItems}
         </div>
+        <IoMdClose
+          onClick={onToggle}
+          size={35}
+          color="lightgrey"
+          className="absolute right-2 bottom-2 cursor-pointer"
+        />
       </div>
     )}
   </div>
