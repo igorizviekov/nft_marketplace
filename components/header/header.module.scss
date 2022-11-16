@@ -1,5 +1,5 @@
 .header {
-  @apply w-full fixed z-10 p-4 flex-row border-b bg-white border-nft-gray-1;
+  @apply w-full fixed z-10 p-4 flex-row shadow-toBottom bg-white;
   &__link {
     @apply flex flex-1 flex-row justify-start;
     &__logo {

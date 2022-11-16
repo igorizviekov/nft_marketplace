@@ -1,7 +1,21 @@
 export default function Home() {
+  const block = (
+    <div
+      style={{ width: 20, height: 150, background: 'lightgrey', margin: 15 }}
+    />
+  );
   return (
-    <h1 className="text-3xl font-bold underline bg-red-400 text-red-200">
-      Hello world!
-    </h1>
+    <div style={{ paddingTop: 90 }}>
+      {block}
+      {block}
+      {block}
+      {block}
+      {block}
+      {block}
+      {block}
+      {block}
+      {block}
+      {block}
+    </div>
   );
 }
