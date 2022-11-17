@@ -37,7 +37,7 @@ export const Banner = () => {
         </svg>
       </div>
       <RiCopperCoinLine
-        size={100}
+        size={150}
         className="absolute z-20 right-10 sm:right-2  top-1/2 -translate-y-1/2 fill-nft-black-1"
       />
     </div>

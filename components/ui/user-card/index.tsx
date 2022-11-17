@@ -1,6 +1,6 @@
 import { IUser } from '../../top-sellers/top-sellers-types';
 import Image, { StaticImageData } from 'next/image';
-import { TiTick } from 'react-icons/ti';
+import { ImRadioChecked2 } from 'react-icons/im';
 
 export const UserCard = ({ name, img, rank, balance }: IUser) => {
   return (
@@ -21,10 +21,7 @@ export const UserCard = ({ name, img, rank, balance }: IUser) => {
             className="rounded-full"
           />
           <div className="absolute w-4 h-4 minlg:w-7 minlg:h-7 bottom-2 -right-0">
-            <TiTick
-              color="white"
-              className="flexCenter w-7 h-7 bg-green-600 rounded-full absolute right-1"
-            />
+            <ImRadioChecked2 className="fill-green-600 absolute left-n-1" />
           </div>
         </div>
       </div>
