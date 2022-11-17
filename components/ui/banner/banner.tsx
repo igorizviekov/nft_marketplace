@@ -7,10 +7,10 @@ export const Banner = () => {
       <div
         className={[styles['container'], styles['container-bottom']].join(' ')}
       >
-        <h1 className="font-poppins text-8xl  md:text-7xl  text-nft-red-violet text-semibold">
+        <h1 className="font-poppins text-8xl  md:text-7xl sm:text-8xl text-nft-red-violet text-semibold">
           Create
         </h1>
-        <h1 className="absolute z-20 top-1/2 -translate-y-1/2 font-poppins text-8xl sm:text-7xl text-nft-red-violet text-semibold">
+        <h1 className="absolute z-20 top-1/2 -translate-y-1/2 font-poppins text-8xl sm:text-8xl text-nft-red-violet text-semibold">
           Buy
         </h1>
         <h1 className="absolute z-20 bottom-0 font-poppins text-8xl md:text-7xl text-nft-red-violet text-semibold ">
