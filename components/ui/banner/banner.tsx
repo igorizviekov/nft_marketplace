@@ -7,13 +7,13 @@ export const Banner = () => {
       <div
         className={[styles['container'], styles['container-bottom']].join(' ')}
       >
-        <h1 className="font-poppins text-8xl  md:text-7xl  text-white text-semibold">
+        <h1 className="font-poppins text-8xl  md:text-7xl  text-nft-red-violet text-semibold">
           Create
         </h1>
-        <h1 className="absolute z-20 top-1/2 -translate-y-1/2 font-poppins text-8xl sm:text-7xl text-white text-semibold">
+        <h1 className="absolute z-20 top-1/2 -translate-y-1/2 font-poppins text-8xl sm:text-7xl text-nft-red-violet text-semibold">
           Buy
         </h1>
-        <h1 className="absolute z-20 bottom-0 font-poppins text-8xl md:text-7xl text-white text-semibold ">
+        <h1 className="absolute z-20 bottom-0 font-poppins text-8xl md:text-7xl text-nft-red-violet text-semibold ">
           Sell NFTs
         </h1>
 
@@ -29,10 +29,10 @@ export const Banner = () => {
             />
           </defs>
           <g className={styles['parallax']}>
-            <use xlinkHref="#layer" x="-40" y="-20" fill="#b92990" />
-            <use xlinkHref="#layer" x="0" y="-10" fill="#fc02b5" />
-            <use xlinkHref="#layer" x="-70" y="-4" fill="#db49b1" />
-            <use xlinkHref="#layer" x="-50" y="7" fill="#da18a3" />
+            <use xlinkHref="#layer" x="-40" y="-20" fill="#a1a1a1" />
+            <use xlinkHref="#layer" x="0" y="-10" fill="#7a7a7a" />
+            <use xlinkHref="#layer" x="-70" y="-4" fill="#525050" />
+            <use xlinkHref="#layer" x="-50" y="7" fill="#222222" />
           </g>
         </svg>
       </div>
