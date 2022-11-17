@@ -38,8 +38,7 @@ export const Banner = () => {
       </div>
       <RiCopperCoinLine
         size={100}
-        color="white"
-        className="absolute z-20 right-10 sm:right-2  top-1/2 -translate-y-1/2"
+        className="absolute z-20 right-10 sm:right-2  top-1/2 -translate-y-1/2 fill-nft-black-1"
       />
     </div>
   );

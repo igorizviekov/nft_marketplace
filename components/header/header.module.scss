@@ -1,7 +1,7 @@
 .header {
   @apply w-full fixed z-10 p-4 flex-row shadow-toBottom bg-white z-50;
   &__link {
-    @apply flex flex-1 flex-row justify-start;
+    @apply flex flex-1 flex-row justify-start relative;
     &__logo {
       @apply cursor-pointer;
     }

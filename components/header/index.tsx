@@ -103,6 +103,9 @@ export const Header = () => {
           <div className={styles['header__link__logo']} onClick={() => null}>
             <Image src={logo} alt="logo" width={26} />
           </div>
+          <p className="font-poppins rotate-90 font-semibold text-sm absolute top-1/2 left-2 ">
+            _basset
+          </p>
         </Link>
       </div>
       {headerContent}
