@@ -100,7 +100,7 @@ export const TopSellers = () => {
 
   return (
     <div className="relative">
-      <h1 className="font-poppins dark:text-white text-nft-black-1 text-2xl minlg:text-4xl font-semibold my-8 sm:px-5">
+      <h1 className="font-poppins dark:text-white text-nft-black-1 text-2xl minlg:text-4xl font-semibold my-8 px-5 sm:text-center sm:w-full">
         Best Creators
       </h1>
       <div
@@ -112,7 +112,7 @@ export const TopSellers = () => {
           ref={scrollRef}
         >
           {topSellers.map((user, i) => (
-            <UserCard key={`user-${randomId(4)}`} {...user} />
+            <UserCard key={`user-${i}`} {...user} />
           ))}
         </div>
       </div>
