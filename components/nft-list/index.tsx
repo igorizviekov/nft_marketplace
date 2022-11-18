@@ -1,6 +1,7 @@
 import { randomId } from '../../utils';
 import { INftCardProps, NftCard } from '../ui/nft-card';
 import { useEffect, useState } from 'react';
+import { Search } from '../search';
 import nftIng_1 from '../../assets/img/nft/nft1.png';
 import nftIng_2 from '../../assets/img/nft/nft2.png';
 import nftIng_3 from '../../assets/img/nft/nft3.png';
@@ -101,10 +102,13 @@ export const NftList = () => {
 
   return (
     <div className="mb-12">
-      <h1 className="font-poppins dark:text-white text-nft-black-1 text-2xl minlg:text-4xl font-semibold my-5 px-5 sm:text-center sm:w-full">
-        Trending NFTs
-      </h1>
-      <div className="w-full flex flex-wrap justify-start md:justify-center">
+      <div className="flex justify-between flex-center">
+        <h1 className="font-poppins dark:text-white text-nft-black-1 text-2xl minlg:text-4xl font-semibold my-5 px-5 ">
+          Trending NFTs
+        </h1>
+        <Search />
+      </div>
+      <div className="w-full flex flex-wrap justify-start sm:justify-center ">
         {nftList.map((nft, i) => (
           <NftCard key={nft.owner + i} {...nft} />
         ))}

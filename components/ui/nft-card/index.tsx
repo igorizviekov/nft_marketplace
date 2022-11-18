@@ -14,9 +14,10 @@ export const NftCard = ({ name, owner, img, price, seller }: INftCardProps) => (
   <Link
     href={{
       pathname: '/nft-details',
+      query: { name, owner, price, seller },
     }}
   >
-    <div className="flex-1 min-w-215 max-w-max xs:max-w-none sm:w-2/3sm:min-w-155 minmd:min-w-256 minlg:min-w-327 dark:bg-nft-black-3 bg-white rounded-2xl p-4 mx-8 my-4 sm:mb-4  sm:mt-0 sm:mx-2  cursor-pointer shadow-md hover:shadow-lg">
+    <div className="flex-1 min-w-215 max-w-max xs:max-w-none sm:w-2/3sm:min-w-155 minmd:min-w-256 minlg:min-w-327 dark:bg-nft-black-3 bg-white rounded-2xl p-4 mx-5  my-4 sm:mb-4  sm:mt-0 sm:mx-2  cursor-pointer shadow-md hover:shadow-lg">
       <div className="relative w-full h-52 sm:h-36 minmd:h-60 minlg:h-300 rounded-2xl overflow-hidden">
         <Image
           src={img}
@@ -25,6 +26,9 @@ export const NftCard = ({ name, owner, img, price, seller }: INftCardProps) => (
           sizes="(max-width: 768px) 100vw,
               (max-width: 1200px) 50vw,
               33vw"
+          style={{
+            objectFit: 'cover',
+          }}
         />
       </div>
       <div className="mt-3 flex flex-col">

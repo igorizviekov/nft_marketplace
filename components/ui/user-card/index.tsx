@@ -21,6 +21,9 @@ export const UserCard = ({ name, img, rank, balance }: IUser) => {
             sizes="(max-width: 768px) 100vw,
               (max-width: 1200px) 50vw,
               33vw"
+            style={{
+              objectFit: 'cover',
+            }}
           />
           <div className="absolute w-4 h-4 minlg:w-7 minlg:h-7 bottom-2 -right-0">
             <ImRadioChecked2 className="fill-green-600 absolute left-2 -bottom-1" />
