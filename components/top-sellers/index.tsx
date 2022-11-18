@@ -100,7 +100,7 @@ export const TopSellers = () => {
 
   return (
     <div className="relative">
-      <h1 className="font-poppins dark:text-white text-nft-black-1 text-2xl minlg:text-4xl font-semibold my-8">
+      <h1 className="font-poppins dark:text-white text-nft-black-1 text-2xl minlg:text-4xl font-semibold my-8 sm:px-5">
         Best Creators
       </h1>
       <div
@@ -108,7 +108,7 @@ export const TopSellers = () => {
         ref={parentRef}
       >
         <div
-          className="flex flex-row w-full overflow-x-auto no-scrollbar select-none py-5"
+          className="flex flex-row w-full overflow-x-auto no-scrollbar select-none pb-5 "
           ref={scrollRef}
         >
           {topSellers.map((user, i) => (
@@ -118,15 +118,21 @@ export const TopSellers = () => {
       </div>
       <div
         onClick={() => handleScroll('left')}
-        className="absolute w-8 h-8 minlg:w-12 minlg:h-12 top-1/2 cursor-pointer -left-8 active:scale-125 transition-all"
+        className="absolute top-1/2 cursor-pointer -left-8 sm:hidden"
       >
-        <BsChevronCompactLeft size={40} />
+        <BsChevronCompactLeft
+          size={40}
+          className="active:scale-125 transition-scale"
+        />
       </div>
       <div
         onClick={() => handleScroll('right')}
-        className="absolute w-8 h-8 minlg:w-12 minlg:h-12 top-1/2 cursor-pointer -right-8 active:scale-125 transition-all"
+        className="absolute top-1/2 cursor-pointer -right-8 sm:hidden"
       >
-        <BsChevronCompactRight size={40} />
+        <BsChevronCompactRight
+          size={40}
+          className="active:scale-125 transition-scale"
+        />
       </div>
     </div>
   );

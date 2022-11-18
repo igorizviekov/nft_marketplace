@@ -21,7 +21,7 @@ export const UserCard = ({ name, img, rank, balance }: IUser) => {
             className="rounded-full"
           />
           <div className="absolute w-4 h-4 minlg:w-7 minlg:h-7 bottom-2 -right-0">
-            <ImRadioChecked2 className="fill-green-600 absolute left-n-1" />
+            <ImRadioChecked2 className="fill-green-600 absolute left-2 -bottom-1" />
           </div>
         </div>
       </div>

@@ -34,7 +34,7 @@ export const BurgerMenu = ({
     </div>
     {isOpen && (
       <div className={styles['burger-menu__items']}>
-        <div className="flex gap-5 flex-col p-5 dark:bg-nft-black-1 dark:px-5 dark:py-10 dark:gap-10">
+        <div className="flex gap-5 flex-col p-5 bg-white overflow-hidden dark:bg-nft-black-1 dark:px-5 dark:py-10 dark:gap-10">
           <ButtonGroup options={actions} />
           {menuItems}
         </div>

@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export const Banner = () => {
   return (
-    <div className="relative">
+    <div className="relative sm:px-2">
       <div
         className={[styles['container'], styles['container-bottom']].join(' ')}
       >
