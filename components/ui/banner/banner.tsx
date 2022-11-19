@@ -18,7 +18,6 @@ export const Banner = () => {
       setWaves([-14, 7, 8]);
     }
     if (deviceWidth > 1536) {
-      console.log('x');
       setWaves([-10, 7, 8]);
     }
   }, [deviceWidth]);
@@ -50,16 +49,16 @@ export const Banner = () => {
             />
           </defs>
           <g className={styles['parallax']}>
-            <use xlinkHref="#layer" x="0" y={waves[0]} fill="#7a7a7a" />
-            <use xlinkHref="#layer" x="-70" y={waves[1]} fill="#525050" />
-            <use xlinkHref="#layer" x="-50" y={waves[2]} fill="#222222" />
+            <use xlinkHref="#layer" x="0" y={waves[0]} fill="#3390c9" />
+            <use xlinkHref="#layer" x="-70" y={waves[1]} fill="#c1b042" />
+            <use xlinkHref="#layer" x="-50" y={waves[2]} fill="#b8cd21" />
           </g>
         </svg>
       </div>
       <Link href="https://ethereum.org/en/nft/" target="_blank">
         <RiCopperCoinLine
           size={150}
-          className="absolute  right-10 sm:right-2  top-1/2 -translate-y-1/2 fill-white md:top-1/3 "
+          className="absolute  right-10 sm:right-2  top-1/2 -translate-y-1/2 fill-white dark:fill-nft-black-4 md:top-1/3 "
         />
       </Link>
     </div>
