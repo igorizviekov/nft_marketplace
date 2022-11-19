@@ -27,13 +27,13 @@ export const Banner = () => {
       <div
         className={[styles['container'], styles['container-bottom']].join(' ')}
       >
-        <h1 className="  font-poppins text-5xl sm:text-6xl text-nft-red-violet text-semibold">
+        <h1 className="  font-poppins text-5xl sm:text-6xl text-white dark:text-nft-black-4 text-semibold">
           Buy
         </h1>
-        <h1 className="absolute font-poppins z-20 top-1/2 -translate-y-1/2 text-6xl  md:text-6xl sm:ml:1 sm:text-5xl text-nft-red-violet text-semibold">
+        <h1 className="absolute font-poppins z-20 top-1/2 -translate-y-1/2 text-6xl  md:text-6xl sm:ml:1 sm:text-5xl text-white dark:text-nft-black-4 text-semibold">
           Create
         </h1>
-        <h1 className="absolute z-20 bottom-0 font-poppins text-6xl md:text-5xl sm:text-4xl  text-nft-red-violet text-semibold ">
+        <h1 className="absolute z-20 bottom-0 font-poppins text-6xl md:text-5xl sm:text-4xl  text-white dark:text-nft-black-4 text-semibold ">
           or sell your NFTs easily
         </h1>
 
