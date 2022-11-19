@@ -1,8 +1,28 @@
 import styles from './banner.styles.module.scss';
 import { RiCopperCoinLine } from 'react-icons/ri';
 import Link from 'next/link';
-
+import { useDeviceWidth } from '../../hooks/useDeviceDimensions';
+import { useEffect, useState } from 'react';
 export const Banner = () => {
+  const deviceWidth = useDeviceWidth();
+  const [waves, setWaves] = useState([-30, -10, 0]);
+
+  useEffect(() => {
+    if (deviceWidth > 768 && deviceWidth < 1024) {
+      setWaves([-25, 0, 8]);
+    }
+    if (deviceWidth > 1024 && deviceWidth < 1280) {
+      setWaves([-18, 0, 8]);
+    }
+    if (deviceWidth > 1280 && deviceWidth < 1536) {
+      setWaves([-14, 7, 8]);
+    }
+    if (deviceWidth > 1536) {
+      console.log('x');
+      setWaves([-10, 7, 8]);
+    }
+  }, [deviceWidth]);
+
   return (
     <div className="relative sm:px-2">
       <div
@@ -30,9 +50,9 @@ export const Banner = () => {
             />
           </defs>
           <g className={styles['parallax']}>
-            <use xlinkHref="#layer" x="0" y="-13" fill="#7a7a7a" />
-            <use xlinkHref="#layer" x="-70" y="7" fill="#525050" />
-            <use xlinkHref="#layer" x="-50" y="8" fill="#222222" />
+            <use xlinkHref="#layer" x="0" y={waves[0]} fill="#7a7a7a" />
+            <use xlinkHref="#layer" x="-70" y={waves[1]} fill="#525050" />
+            <use xlinkHref="#layer" x="-50" y={waves[2]} fill="#222222" />
           </g>
         </svg>
       </div>
