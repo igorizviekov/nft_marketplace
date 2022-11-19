@@ -30,17 +30,16 @@ export const Banner = () => {
             />
           </defs>
           <g className={styles['parallax']}>
-            {/* <use xlinkHref="#layer" x="-40" y="-20" fill="#a1a1a1" /> */}
-            <use xlinkHref="#layer" x="0" y="-10" fill="#7a7a7a" />
-            <use xlinkHref="#layer" x="-70" y="-4" fill="#525050" />
-            <use xlinkHref="#layer" x="-50" y="7" fill="#222222" />
+            <use xlinkHref="#layer" x="0" y="-13" fill="#7a7a7a" />
+            <use xlinkHref="#layer" x="-70" y="7" fill="#525050" />
+            <use xlinkHref="#layer" x="-50" y="8" fill="#222222" />
           </g>
         </svg>
       </div>
       <Link href="https://ethereum.org/en/nft/" target="_blank">
         <RiCopperCoinLine
           size={150}
-          className="absolute z-20 right-10 sm:right-2  top-1/2 -translate-y-1/2 fill-nft-red-violet md:top-1/3 "
+          className="absolute  right-10 sm:right-2  top-1/2 -translate-y-1/2 fill-white md:top-1/3 "
         />
       </Link>
     </div>
