@@ -5,6 +5,8 @@ import { useDropzone } from 'react-dropzone';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
 import { Button } from '../../components/ui/Button';
+import { FileUpload } from '../../components/file-upload';
+import { FaFileImage } from 'react-icons/fa';
 
 // import { Button, Input, Loader } from '../components';
 // import images from '../assets';
@@ -20,7 +22,8 @@ const CreateNFT: NextPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   // const { uploadToIPFS, createNFT, isLoadingNFT } = useCurrentNFTContext();
   const { theme } = useTheme();
-  const [fileUrl, setFileUrl] = useState<string>('');
+  const [file, setFile] = useState<File | null>(null);
+
   const [formInput, setFormInput] = useState<IFormInput>({
     price: '',
     name: '',
@@ -33,27 +36,29 @@ const CreateNFT: NextPage = () => {
     //setFileUrl(url as string);
   }, []);
 
-  const {
-    getRootProps,
-    getInputProps,
-    isDragActive,
-    isDragAccept,
-    isDragReject,
-  } = useDropzone({
-    onDrop,
-    accept: 'image/*',
-    maxSize: 5000000,
-  });
+  // const {
+  //   getRootProps,
+  //   getInputProps,
+  //   isDragActive,
+  //   isDragAccept,
+  //   isDragReject,
+  // } = useDropzone({
+  //   onDrop,
+  //   accept: {
+  //     'image/*': ['.png', '.jpeg', '.jpg', '.webp'],
+  //   },
+  //   maxSize: 5000000,
+  // });
 
-  const fileStyle = useMemo(
-    () =>
-      `dark:bg-nft-black-1 bg-white border dark:border-white border-nft-gray-2 flex flex-col items-center p-5 rounded-sm border-dashed
-    ${isDragActive && 'border-file-active'}
-    ${isDragAccept && 'border-file-accept'}
-    ${isDragReject && 'border-file-reject'}
-    `,
-    [isDragActive, isDragAccept, isDragReject]
-  );
+  // const fileStyle = useMemo(
+  //   () =>
+  //     `dark:bg-nft-black-1 bg-white border dark:border-white border-nft-gray-2 flex flex-col items-center p-5 rounded-sm border-dashed
+  //   ${isDragActive && 'border-file-active'}
+  //   ${isDragAccept && 'border-file-accept'}
+  //   ${isDragReject && 'border-file-reject'}
+  //   `,
+  //   [isDragActive, isDragAccept, isDragReject]
+  // );
 
   if (isLoading) {
     return <div className="flex-start min-h-screen">Loading..</div>;
@@ -66,25 +71,35 @@ const CreateNFT: NextPage = () => {
           Create new NFT
         </h1>
         <div className="mt-16">
-          <p className="flex-1 font-poppins dark:text-white text-nft-black-1 font-semibold text-xl">
+          {/* <p className="flex-1 font-poppins dark:text-white text-nft-black-1 font-semibold text-xl">
             Upload file
-          </p>
+          </p> */}
           <div className="mt-4">
-            <div {...getRootProps()} className={fileStyle}>
+            <FileUpload
+              heading="Upload file"
+              subTitle="Please"
+              title="Add nft"
+              onDropAccepted={(arr) => {
+                setFile(arr?.[0]);
+              }}
+              onUploadAbort={() => setFile(null)}
+              file={file}
+            />
+            {/* <div {...getRootProps()} className={fileStyle}>
               <input {...getInputProps()} />
               <div className="flexCenter flex-col text-center">
                 <p className="flex-1 font-poppins dark:text-white text-nft-black-1 font-semibold text-xl">
                   JPG, PNG, GIF, SVG, WEBM, Max 100mb.
                 </p>
                 <div className="my-12 w-full flex justify-center">
-                  {/* <Image
+                   <Image
                     src={images.upload}
                     width={100}
                     height={100}
                     objectFit="contain"
                     alt="file upload"
                     className={theme === 'light' ? 'filter invert' : ''}
-                  /> */}
+                  /> 
                   Icon
                 </div>
 
@@ -95,19 +110,19 @@ const CreateNFT: NextPage = () => {
                   or browse media on your device.
                 </p>
               </div>
-            </div>
-            {fileUrl && (
+            </div> */}
+            {/* {fileUrl && (
               <aside className="">
                 <div className="">
                   <img src={fileUrl} alt="asset_file" className="" />
                 </div>
               </aside>
-            )}
+            )} */}
           </div>
         </div>
+        {/* <input type="text" />
         <input type="text" />
-        <input type="text" />
-        <input type="text" />
+        <input type="text" /> */}
 
         {/* <Input
           inputType="input"
