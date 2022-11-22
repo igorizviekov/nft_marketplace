@@ -5,22 +5,26 @@
 @tailwind utilities;
 
 .nft-gradient {
-  background: rgb(2, 0, 36);
-  background: linear-gradient(
+  $gradiet-primary: linear-gradient(
     10deg,
-    #9771dd 27.35%,
-    #d670d2 99.99%,
-    #6441a5 100%
+    #f6e58d 20%,
+    #c7ecee 50%,
+    #7ed6df 100%
   );
+
+  $gradiet-primary-hover: linear-gradient(
+    20deg,
+    #f0932b 10%,
+    #ff7979 15%,
+    #22a6b3 100%
+  );
+
+  background: rgb(2, 0, 36);
+  background: $gradiet-primary;
 
   &:hover {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 2px 5px;
-    background: linear-gradient(
-      10deg,
-      #723ed3 27.35%,
-      #c91cc3 99.99%,
-      #d82085 100%
-    );
+    background: $gradiet-primary-hover;
   }
 }
 
