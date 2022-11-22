@@ -36,30 +36,6 @@ const CreateNFT: NextPage = () => {
     //setFileUrl(url as string);
   }, []);
 
-  // const {
-  //   getRootProps,
-  //   getInputProps,
-  //   isDragActive,
-  //   isDragAccept,
-  //   isDragReject,
-  // } = useDropzone({
-  //   onDrop,
-  //   accept: {
-  //     'image/*': ['.png', '.jpeg', '.jpg', '.webp'],
-  //   },
-  //   maxSize: 5000000,
-  // });
-
-  // const fileStyle = useMemo(
-  //   () =>
-  //     `dark:bg-nft-black-1 bg-white border dark:border-white border-nft-gray-2 flex flex-col items-center p-5 rounded-sm border-dashed
-  //   ${isDragActive && 'border-file-active'}
-  //   ${isDragAccept && 'border-file-accept'}
-  //   ${isDragReject && 'border-file-reject'}
-  //   `,
-  //   [isDragActive, isDragAccept, isDragReject]
-  // );
-
   if (isLoading) {
     return <div className="flex-start min-h-screen">Loading..</div>;
   }
@@ -71,53 +47,17 @@ const CreateNFT: NextPage = () => {
           Create new NFT
         </h1>
         <div className="mt-16">
-          {/* <p className="flex-1 font-poppins dark:text-white text-nft-black-1 font-semibold text-xl">
-            Upload file
-          </p> */}
           <div className="mt-4">
             <FileUpload
-              heading="Upload file"
-              subTitle="Please"
-              title="Add nft"
+              heading="Create new NFT"
+              subTitle="JPG, PNG, GIF, SVG, WEBM, Max 100mb."
+              title="Upload new file"
               onDropAccepted={(arr) => {
                 setFile(arr?.[0]);
               }}
               onUploadAbort={() => setFile(null)}
               file={file}
             />
-            {/* <div {...getRootProps()} className={fileStyle}>
-              <input {...getInputProps()} />
-              <div className="flexCenter flex-col text-center">
-                <p className="flex-1 font-poppins dark:text-white text-nft-black-1 font-semibold text-xl">
-                  JPG, PNG, GIF, SVG, WEBM, Max 100mb.
-                </p>
-                <div className="my-12 w-full flex justify-center">
-                   <Image
-                    src={images.upload}
-                    width={100}
-                    height={100}
-                    objectFit="contain"
-                    alt="file upload"
-                    className={theme === 'light' ? 'filter invert' : ''}
-                  /> 
-                  Icon
-                </div>
-
-                <p className="flex-1 font-poppins dark:text-white text-nft-black-1 font-semibold text-sm">
-                  Drag and drop file.
-                </p>
-                <p className="flex-1 font-poppins dark:text-white text-nft-black-1 font-semibold text-sm mt-2">
-                  or browse media on your device.
-                </p>
-              </div>
-            </div> */}
-            {/* {fileUrl && (
-              <aside className="">
-                <div className="">
-                  <img src={fileUrl} alt="asset_file" className="" />
-                </div>
-              </aside>
-            )} */}
           </div>
         </div>
         {/* <input type="text" />

@@ -2,7 +2,7 @@ import styles from './file-upload.module.scss';
 import { useState, createRef } from 'react';
 import Dropzone from 'react-dropzone';
 import { FilePreview } from './file-preview';
-import { CgImage } from 'react-icons/cg';
+import { BsFillCloudUploadFill } from 'react-icons/bs';
 import { IFileUploadProps } from './file-upload.types';
 
 export const FileUpload = ({
@@ -25,17 +25,15 @@ export const FileUpload = ({
     description && styles['file-upload__with-description'],
     disabled && styles['file-upload--disabled'],
     fileOver && styles['file-upload--file-over'],
+    'dark:bg-nft-black-1',
   ]
     .filter(Boolean)
     .join(' ');
 
   const headingElement = heading && !file && (
-    <h1 className={styles['file-upload__heading']}>{heading}</h1>
-    // <HeaderFive
-    //   label={heading}
-    //   color={error ? redText : blueText}
-    //   className={styles['file-upload__heading']}
-    // />
+    <p className="flex-1 font-poppins dark:text-nft-red-violet text-nft-black-1 font-semibold text-3xl mb-1">
+      {heading}
+    </p>
   );
 
   const dropzone = (
@@ -61,21 +59,19 @@ export const FileUpload = ({
         <div className={file ? 'hidden' : ''}>
           {headingElement}
           <div
-            // style={{
-            //   display: file?.name ? 'none' : '',
-            //   border: error ? `1px solid red` : '',
-            // }}
             data-description={description}
             {...getRootProps({ className: classNames })}
           >
             <input {...getInputProps()} />
-            <CgImage color="red" size="45px" />
+            <BsFillCloudUploadFill color="#eb4d4b" size={150} />
             <div className={styles['file-upload__info']}>
-              <h1>{title}</h1>
-              <h1>{subTitle}</h1>
+              <p className="font-poppins  text-nft-black-1 dark:text-white font-semibold text-xl mb-1">
+                {title}
+              </p>
 
-              {/* <BodyTwo label={title} color={grey} />
-              <BodyOne label={subTitle} color={cadetGrey} /> */}
+              <p className="font-poppins  text-nft-black-1 dark:text-white">
+                {subTitle}
+              </p>
             </div>
           </div>
           {errorMessage}

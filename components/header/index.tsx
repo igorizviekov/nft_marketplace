@@ -15,7 +15,7 @@ export const Header = () => {
   const { theme, setTheme } = useTheme();
   const router = useRouter();
 
-  const [isWalletConnected, setIsWalletConnected] = useState(false);
+  const [isWalletConnected, setIsWalletConnected] = useState(true);
   const menuTabs = ['Explore', 'Feed', 'Account'];
   const [activeTab, setActiveTab] = useState(menuTabs[0]);
   const [isSideMenuOpen, setSideMenuOpen] = useState(false);
