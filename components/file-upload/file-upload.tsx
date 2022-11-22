@@ -18,10 +18,14 @@ export const FileUpload = ({
 }: IFileUploadProps) => {
   let dropzoneRef: any = createRef();
   const [error, setError] = useState('');
-  const errorMessage = error && 'error';
+  const errorMessage = error && (
+    <p className="font-poppins  text-nft-red-violet">Upload failed</p>
+  );
+
   const [fileOver, setFileOver] = useState(false);
   const classNames = [
     styles['file-upload'],
+    error && 'border-solid border-2 border-nft-red-violet',
     description && styles['file-upload__with-description'],
     disabled && styles['file-upload--disabled'],
     fileOver && styles['file-upload--file-over'],
@@ -43,7 +47,7 @@ export const FileUpload = ({
         'image/*': ['.png', '.jpeg', '.jpg', '.webp'],
       }}
       onDropRejected={(res) => {
-        setError(res?.[0]?.errors?.[0]?.message || 'Upload failed');
+        setError('Upload failed');
       }}
       onDropAccepted={(file, e) => {
         setError('');

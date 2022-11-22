@@ -32,11 +32,6 @@ const CreateNFT: NextPage = () => {
   });
   const router = useRouter();
 
-  const onDrop = useCallback(async (acceptedFiles: File[]) => {
-    // const url = await uploadToIPFS(acceptedFiles[0]);
-    //setFileUrl(url as string);
-  }, []);
-
   if (isLoading) {
     return <div className="flex-start min-h-screen">Loading..</div>;
   }
