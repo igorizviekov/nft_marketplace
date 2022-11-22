@@ -16,7 +16,7 @@ export const Header = () => {
   const router = useRouter();
 
   const [isWalletConnected, setIsWalletConnected] = useState(false);
-  const menuTabs = ['Explore NFTs', 'Listed NFTs', 'My NFTs'];
+  const menuTabs = ['Explore', 'Feed', 'Account'];
   const [activeTab, setActiveTab] = useState(menuTabs[0]);
   const [isSideMenuOpen, setSideMenuOpen] = useState(false);
 
