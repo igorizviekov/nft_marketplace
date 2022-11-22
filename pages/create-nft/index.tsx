@@ -7,6 +7,7 @@ import { useTheme } from 'next-themes';
 import { Button } from '../../components/ui/Button';
 import { FileUpload } from '../../components/file-upload';
 import { FaFileImage } from 'react-icons/fa';
+import Input from '../../components/ui/Input';
 
 // import { Button, Input, Loader } from '../components';
 // import images from '../assets';
@@ -60,11 +61,7 @@ const CreateNFT: NextPage = () => {
             />
           </div>
         </div>
-        {/* <input type="text" />
-        <input type="text" />
-        <input type="text" /> */}
-
-        {/* <Input
+        <Input
           inputType="input"
           title="Name"
           placeholder="NFT Name"
@@ -96,7 +93,7 @@ const CreateNFT: NextPage = () => {
               price: (e.target as HTMLInputElement).value,
             })
           }
-        /> */}
+        />
 
         <div className="mt-7 w-full flex justify-end">
           <Button

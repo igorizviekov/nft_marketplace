@@ -85,7 +85,10 @@ export const Header = () => {
           isWalletConnected
             ? {
                 label: 'Create',
-                handleClick: () => router.push('/create-nft'),
+                handleClick: () => {
+                  setSideMenuOpen(false);
+                  router.push('/create-nft');
+                },
               }
             : {
                 label: 'Connect Wallet',
@@ -113,7 +116,10 @@ export const Header = () => {
           isWalletConnected
             ? {
                 label: 'Create',
-                handleClick: () => router.push('/create-nft'),
+                handleClick: () => {
+                  setSideMenuOpen(false);
+                  router.push('/create-nft');
+                },
               }
             : {
                 label: 'Connect Wallet',
