@@ -5,7 +5,7 @@ import { ImRadioChecked2 } from 'react-icons/im';
 export const UserCard = ({ name, img, rank, balance }: IUser) => {
   return (
     <div className="min-w-190 minlg:min-w-240 dark:bg-nft-black-3 bg-whit rounded-3xl flex flex-col px-5 py-2 mx-5 shadow-md">
-      <div className="w-8 h-8 minlg:w-10 minlg:h-10  dark:bg-nft-black-2 nft-gradient flexCenter rounded-full">
+      <div className="w-8 h-8 minlg:w-10 minlg:h-10  dark:bg-nft-black-2 nft-gradient-2 flexCenter rounded-full">
         <p className="font-poppins text-white font-semibold text-base minlg:text-lg ">
           {rank}
         </p>
@@ -26,7 +26,7 @@ export const UserCard = ({ name, img, rank, balance }: IUser) => {
             }}
           />
           <div className="absolute w-4 h-4 minlg:w-7 minlg:h-7 bottom-2 -right-0">
-            <ImRadioChecked2 className="fill-green-600 absolute left-2 -bottom-1" />
+            <ImRadioChecked2 className="fill-[#6ab04c] absolute left-2 -bottom-1" />
           </div>
         </div>
       </div>

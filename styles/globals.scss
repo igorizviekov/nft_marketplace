@@ -4,28 +4,28 @@
 @tailwind components;
 @tailwind utilities;
 
+$gradient-primary: linear-gradient(
+  20deg,
+  #22a6b3 36%,
+  #eb4d4b 85%,
+  #f0932b 40%,
+  #f9ca24 100%
+);
+
+$gradient-primary-hover: linear-gradient(20deg, #22a6b3 0%, #7ed6df 100%);
+
 .nft-gradient {
-  $gradiet-primary: linear-gradient(
-    10deg,
-    #f6e58d 20%,
-    #c7ecee 50%,
-    #7ed6df 100%
-  );
-
-  $gradiet-primary-hover: linear-gradient(
-    20deg,
-    #f0932b 10%,
-    #ff7979 15%,
-    #22a6b3 100%
-  );
-
   background: rgb(2, 0, 36);
-  background: $gradiet-primary;
-
+  background: $gradient-primary;
   &:hover {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 2px 5px;
-    background: $gradiet-primary-hover;
+    background: $gradient-primary-hover;
   }
+}
+
+.nft-gradient-2 {
+  background: rgb(2, 0, 36);
+  background: $gradient-primary-hover;
 }
 
 .white-bg {
