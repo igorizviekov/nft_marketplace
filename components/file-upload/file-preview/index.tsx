@@ -12,6 +12,7 @@ export const FilePreview = ({
   onReplace,
 }: IFilePreviewProps) => {
   const thumb = URL.createObjectURL(file);
+
   // useEffect(() => {
   //   // Make sure to revoke the data uris to avoid memory leaks
   //   return () => URL.revokeObjectURL(thumb);

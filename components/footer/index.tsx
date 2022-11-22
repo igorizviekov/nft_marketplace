@@ -5,14 +5,22 @@ import Link from 'next/link';
 
 export const Footer = () => {
   const socialIconClasses =
-    'fill-nft-dark-1 dark:fill-white my-1 sm:my-5 cursor-pointer mx-5 hover:fill-nft-red-violet  hover:dark:fill-nft-red-violet';
+    'hover:text-nft-red-violet fill-nft-dark-1 dark:fill-white my-1 sm:my-5 cursor-pointer mx-5 hover:fill-nft-red-violet  hover:dark:fill-nft-red-violet';
 
   return (
     <footer className="flexCenter flex-col sm:py-8 py-10 px-5 bg-white dark:bg-nft-black-1 shadow-toTop">
       <div className="flexCenter w-full mt-5 sm:px-5 px=16">
         <div className="flexBetween flex-row w-full minmd:w-4/5 sm:flex-col mt-7">
           <p className="font-poppins dark:text-white text-nft-black-1 text-bold text-base sm:mb-10">
-            <strong>crypto_basset</strong>
+            <strong>
+              <Link
+                href="https://igorizviekov.com/"
+                target="_blank"
+                className={socialIconClasses}
+              >
+                igor_izviekov
+              </Link>
+            </strong>
           </p>
           <Link href="https://www.instagram.com/igorizviekov/" target="_blank">
             <ImInstagram className={socialIconClasses} size={30} />
