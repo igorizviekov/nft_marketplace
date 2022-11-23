@@ -39,15 +39,12 @@ const CreateNFT: NextPage = () => {
   return (
     <div className="flex justify-center sm:px-4 p-12">
       <div className="w-3/5 md:w-full">
-        <h1 className="flex-1 font-poppins dark:text-white text-nft-black-1 text-2xl minlg:text-4xl font-semibold sm:mb-4">
-          Create new NFT
-        </h1>
-        <div className="mt-16">
+        <div className="mt-24">
           <div className="mt-4">
             <FileUpload
               heading="Create new NFT"
               subTitle="JPG, PNG, GIF, SVG, WEBM, Max 100mb."
-              title="Upload new file"
+              title="Drag or click to upload a file"
               onDropAccepted={(arr) => {
                 setFile(arr?.[0]);
               }}

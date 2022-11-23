@@ -69,7 +69,7 @@ export const FileUpload = ({
             <input {...getInputProps()} />
             <BsFillCloudUploadFill color="#eb4d4b" size={150} />
             <div className={styles['file-upload__info']}>
-              <p className="font-poppins  text-nft-black-1 dark:text-white font-semibold text-xl mb-1">
+              <p className="font-poppins  text-nft-black-1 dark:text-white font-semibold text-xl mb-1 max-w-sm overflow-hidden">
                 {title}
               </p>
 
