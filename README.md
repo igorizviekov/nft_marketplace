@@ -1,36 +1,13 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Sample Hardhat Project
 
-## Getting Started
+This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
 
-Run the development server:
+Try running some of the following tasks:
 
-```bash
-npm run dev
-# or
-yarn dev
+```shell
+npx hardhat help
+npx hardhat test
+REPORT_GAS=true npx hardhat test
+npx hardhat node
+npx hardhat run scripts/deploy.ts
 ```
-
-Install the dependencies:
-
-`npm install`
-
-Set the environment variables:
-
-`open .env and modify the environment variables`
-
-Set up .secret:
-
-` open .secret and add your private keys`
-
-Change hardhat network configuration:
-
-`Open hardhat.config.js`
-`Change networks.polygon_mumbai.url to your Alchemy API URL`
-
-Deploy the smart contract:
-
-`npm run deploy:polygon`
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`
