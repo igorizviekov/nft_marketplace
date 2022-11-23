@@ -1,10 +1,11 @@
 import Link from 'next/link';
+import { MenuTab } from '../../../store/model/ui/ui.types';
 
 interface IMenuItemsProps {
   isMob: boolean;
   links: string[];
   active: string;
-  setActiveTab: (_: string) => void;
+  setActiveTab: (_: MenuTab) => void;
 }
 
 export const MenuItems = ({
@@ -33,7 +34,7 @@ export const MenuItems = ({
       {links.map((link, i) => (
         <li
           key={link + i}
-          onClick={() => setActiveTab(link)}
+          onClick={() => setActiveTab(link as MenuTab)}
           className={`
         flex flex-row items-center font-poppins font-semibold text-base dark:hover:text-white hover:text-nft-dark mx-3
         ${

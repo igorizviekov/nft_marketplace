@@ -10,6 +10,8 @@ import { FiMoon, FiSun } from 'react-icons/fi';
 import { MenuItems } from './MenuItems';
 import { ButtonGroup } from '../ui/ButtonGroup';
 import { BurgerMenu } from './BurgerMenu';
+import { Actions, useStoreActions, useStoreState } from 'easy-peasy';
+import { IStoreModel } from '../../store/model/model.types';
 
 export const Header = () => {
   const { theme, setTheme } = useTheme();
@@ -17,7 +19,6 @@ export const Header = () => {
 
   const [isWalletConnected, setIsWalletConnected] = useState(true);
   const menuTabs = ['Explore', 'Feed', 'Account'];
-  const [activeTab, setActiveTab] = useState(menuTabs[0]);
   const [isSideMenuOpen, setSideMenuOpen] = useState(false);
 
   const classNames = [
@@ -29,6 +30,10 @@ export const Header = () => {
 
   const [logo, setLogo] = useState(DarkLogo);
 
+  const state = useStoreState((state: IStoreModel) => state.ui);
+  const actions = useStoreActions(
+    (actions: Actions<IStoreModel>) => actions.ui
+  );
   useEffect(() => {
     if (theme === 'light') {
       setLogo(LightLogo);
@@ -71,8 +76,8 @@ export const Header = () => {
     <MenuItems
       isMob={false}
       links={menuTabs}
-      active={activeTab}
-      setActiveTab={setActiveTab}
+      active={state.tab}
+      setActiveTab={actions.toggleTab}
     />
   );
 
