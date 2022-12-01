@@ -56,6 +56,9 @@ contract NFTMarketplace is ERC721URIStorage {
         return listingPrice;
     }
 
+    /**
+        Convert image to an NFT 
+    */
     function createToken(uint256 price, string memory tokenURI)
         public
         payable
@@ -76,6 +79,9 @@ contract NFTMarketplace is ERC721URIStorage {
         return newTokenId;
     }
 
+    /**
+       List NFT in a marketplace
+    */
     function createMarketItem(uint256 tokenId, uint256 price) private {
         require(price > 0, 'Price must be greater than 0');
 
@@ -85,7 +91,7 @@ contract NFTMarketplace is ERC721URIStorage {
             'Price must be euqal to Listing`s price'
         );
 
-        // update mapping for market items
+        // add new market item to the mapping
         idToMarketItem[tokenId] = MarketItem(
             tokenId,
             payable(msg.sender), // address of the seller
@@ -112,5 +118,32 @@ contract NFTMarketplace is ERC721URIStorage {
             price,
             false
         );
+    }
+
+    function resellToken(uint256 tokenId, uint256 price) public payable {
+        /**
+            Person who aiming to re-sell a token must be a token owner        
+         */
+        require(
+            idToMarketItem[tokenId].owner == msg.sender,
+            'Only item owner can perform this operation'
+        );
+
+        // amount of eth must be equal to the transaction value
+        require(
+            msg.value == listingPrice,
+            'Price must be euqal to Listing`s price'
+        );
+        idToMarketItem[tokenId].sold = false;
+        idToMarketItem[tokenId].price = price;
+        idToMarketItem[tokenId].seller = payable(msg.sender);
+        idToMarketItem[tokenId].owner = payable(address(this)); // this nft marketplace
+
+        _itemsSold.decrement();
+
+        /**
+            From sender to our marketplace
+         */
+        _transfer(msg.sender, address(this), tokenId);
     }
 }
