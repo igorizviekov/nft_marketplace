@@ -120,6 +120,9 @@ contract NFTMarketplace is ERC721URIStorage {
         );
     }
 
+    /**
+        Put item on a marketplace
+    */
     function resellToken(uint256 tokenId, uint256 price) public payable {
         /**
             Person who aiming to re-sell a token must be a token owner        
@@ -145,5 +148,32 @@ contract NFTMarketplace is ERC721URIStorage {
             From sender to our marketplace
          */
         _transfer(msg.sender, address(this), tokenId);
+    }
+
+    /**
+        Send item on from marketplace to a buyer
+    */
+    function createMarketSale(uint256 tokenId) public payable {
+        uint256 price = idToMarketItem[tokenId].price;
+
+        // amount of eth must be equal to the transaction value
+        require(
+            msg.value == price,
+            'Please submit the asking price to complete the purchase'
+        );
+
+        idToMarketItem[tokenId].sold = true;
+        idToMarketItem[tokenId].seller = payable(address(0)); // it does not belong to any specific wallet
+        idToMarketItem[tokenId].owner = payable(msg.sender); // buyer becomes an owner
+
+        _itemsSold.increment();
+
+        /**
+            Transfer the ownership from the marketplace to the buyer
+         */
+        _transfer(address(this), msg.sender, tokenId);
+
+        payable(owner).transfer(listingPrice); // fee of the marketplace
+        payable(idToMarketItem[tokenId].seller).transfer(msg.value); // transfer price of the NFT
     }
 }
