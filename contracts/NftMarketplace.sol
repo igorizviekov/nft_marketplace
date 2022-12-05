@@ -40,7 +40,7 @@ contract NFTMarketplace is ERC721URIStorage {
         bool sold
     );
 
-    constructor() {
+    constructor() ERC721('Stirred Tokens', 'STR') {
         owner = payable(msg.sender);
     }
 
