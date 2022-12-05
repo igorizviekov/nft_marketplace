@@ -163,7 +163,7 @@ contract NFTMarketplace is ERC721URIStorage {
         );
 
         idToMarketItem[tokenId].sold = true;
-        idToMarketItem[tokenId].seller = payable(address(0)); // it does not belong to any specific wallet
+        idToMarketItem[tokenId].seller = payable(address(0)); // empty address == unsold == does not belong to any specific wallet
         idToMarketItem[tokenId].owner = payable(msg.sender); // buyer becomes an owner
 
         _itemsSold.increment();
@@ -175,5 +175,123 @@ contract NFTMarketplace is ERC721URIStorage {
 
         payable(owner).transfer(listingPrice); // fee of the marketplace
         payable(idToMarketItem[tokenId].seller).transfer(msg.value); // transfer price of the NFT
+    }
+
+    /**
+        Get unsold items, which are listed on the markewtplace and do not belong to any specific wallets
+        ps. It is not just cocktails. Snacks included as well =)
+    */
+    function getActiveCocktails() public view returns (MarketItem[] memory) {
+        uint256 totalCount = _tokenIds.current();
+        uint256 unsoldCount = _tokenIds.current() - _itemsSold.current();
+        uint256 currIndex = 0;
+
+        /**
+            Loop over all NFTs and check if the address is empty. Empty address is an address of a marketplace, which holds an unsold NFT
+        */
+
+        // array "cocktails", which consists data of MarketItem obj`s with the length of unsold items count
+        MarketItem[] memory cocktails = new MarketItem[](unsoldCount);
+
+        for (uint256 i = 0; i < totalCount; i++) {
+            // check if NFT owner has emty address
+            if (idToMarketItem[i + 1].owner == address(this)) {
+                // id of a contract
+                uint256 currentId = i + 1;
+
+                // Gets the reference to the market item by mapping ID to market item obj
+                MarketItem storage currentItem = idToMarketItem[currentId];
+
+                // update array
+                cocktails[currIndex] = currentItem;
+
+                currIndex = currIndex + 1;
+            }
+        }
+
+        return cocktails;
+    }
+
+    /**
+        Get my items, which was bought by your wallet. 
+    */
+    function getMyCocktails() public view returns (MarketItem[] memory) {
+        uint256 totalCount = _tokenIds.current();
+        uint256 cocktailCount = 0;
+        uint256 currIndex = 0;
+
+        for (uint256 i = 0; i < totalCount; i++) {
+            if (idToMarketItem[i + 1].owner == msg.sender) {
+                cocktailCount = cocktailCount + 1;
+            }
+        }
+
+        /**
+            Loop over all NFTs and build an array of NFT, which are bought by your wallet
+        */
+
+        // array "cocktails", which consists data of MarketItem obj`s with the length of number of NFTs, which were bought by your wallet
+        MarketItem[] memory cocktails = new MarketItem[](cocktailCount);
+
+        for (uint256 i = 0; i < totalCount; i++) {
+            // check if NFT owner is the same with your wallet address
+            if (idToMarketItem[i + 1].owner == msg.sender) {
+                // id of a contract
+                uint256 currentId = i + 1;
+
+                // Gets the reference to the market item by mapping ID to market item obj
+                MarketItem storage currentItem = idToMarketItem[currentId];
+
+                // update array
+                cocktails[currIndex] = currentItem;
+
+                currIndex = currIndex + 1;
+            }
+        }
+
+        return cocktails;
+    }
+
+    /**
+        Get NFTs, which was listed by your wallet on a marketplace 
+    */
+    function getMyCocktailsListed() public view returns (MarketItem[] memory) {
+        uint256 totalCount = _tokenIds.current();
+        uint256 cocktailListedCount = 0;
+        uint256 currIndex = 0;
+
+        // get the count of items which were listed by your wallet
+        for (uint256 i = 0; i < totalCount; i++) {
+            if (idToMarketItem[i + 1].seller == msg.sender) {
+                cocktailListedCount = cocktailListedCount + 1;
+            }
+        }
+
+        /**
+            Loop over all NFTs and build an array of NFT, which are listed on a marketplace by your wallet
+        */
+
+        // array "cocktails", which consists data of MarketItem obj`s with the length of number of NFTs, which were listed by your wallet
+        MarketItem[] memory listedCocktails = new MarketItem[](
+            cocktailListedCount
+        );
+
+        for (uint256 i = 0; i < totalCount; i++) {
+            // check if NFT seller is the same with your wallet address
+            if (idToMarketItem[i + 1].seller == msg.sender) {
+                // id of a contract
+                uint256 currentId = i + 1;
+
+                // Gets the reference to the market item by mapping ID to market item obj
+                MarketItem storage currentItem = idToMarketItem[currentId];
+
+                // update array
+                listedCocktails[currIndex] = currentItem;
+
+                currIndex = currIndex + 1;
+            }
+        }
+
+        return listedCocktails;
     }
 }
