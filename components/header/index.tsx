@@ -12,12 +12,11 @@ import { ButtonGroup } from '../ui/ButtonGroup';
 import { BurgerMenu } from './BurgerMenu';
 import { Actions, useStoreActions, useStoreState } from 'easy-peasy';
 import { IStoreModel } from '../../store/model/model.types';
+import { connectWallet } from '../../utils';
 
 export const Header = () => {
   const { theme, setTheme } = useTheme();
   const router = useRouter();
-
-  const [isWalletConnected, setIsWalletConnected] = useState(true);
   const menuTabs = ['Explore', 'Feed', 'Account'];
   const [isSideMenuOpen, setSideMenuOpen] = useState(false);
 
@@ -34,6 +33,26 @@ export const Header = () => {
   const actions = useStoreActions(
     (actions: Actions<IStoreModel>) => actions.ui
   );
+
+  const walletState = useStoreState((state: IStoreModel) => state.wallet);
+  const walletActions = useStoreActions(
+    (actions: Actions<IStoreModel>) => actions.wallet
+  );
+
+  const connectCryptoWallet = async () => {
+    if (!window.ethereum) {
+      return alert('wallet is not connected');
+    }
+    const wallet = await connectWallet('active');
+    const { isConnected } = wallet;
+    walletActions.setIsWalletConnected(isConnected);
+    if (isConnected) {
+      walletActions.setActiveWallet(wallet.account);
+    } else {
+      alert('No accounts found.');
+    }
+  };
+
   useEffect(() => {
     if (theme === 'light') {
       setLogo(LightLogo);
@@ -87,7 +106,7 @@ export const Header = () => {
       {menuItems}
       <ButtonGroup
         options={[
-          isWalletConnected
+          walletState.isWalletConnected
             ? {
                 label: 'Create',
                 handleClick: () => {
@@ -97,7 +116,7 @@ export const Header = () => {
               }
             : {
                 label: 'Connect Wallet',
-                handleClick: () => console.log('connecting a wallet...'),
+                handleClick: connectCryptoWallet,
               },
         ]}
       />
@@ -118,7 +137,7 @@ export const Header = () => {
         isOpen={isSideMenuOpen}
         onToggle={() => setSideMenuOpen(!isSideMenuOpen)}
         actions={[
-          isWalletConnected
+          walletState.isWalletConnected
             ? {
                 label: 'Create',
                 handleClick: () => {

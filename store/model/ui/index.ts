@@ -10,5 +10,4 @@ export const UIModel: IUiModel = {
     state.tab = payload;
   }),
   tab: 'Explore',
-  currency: 'ETH',
 };

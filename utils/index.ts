@@ -6,3 +6,30 @@ export const randomId = (length: number): string => {
   }
   return res;
 };
+
+interface IConnectWallet {
+  isConnected: boolean;
+  account: any;
+}
+export const connectWallet = async (
+  mode: 'silent' | 'active'
+): Promise<IConnectWallet> => {
+  /**
+   * is mode is active will display a popup to connect a wallet
+   */
+  const accounts = await window.ethereum.request({
+    method: mode === 'silent' ? 'eth_accounts' : 'eth_requestAccounts',
+  });
+  if (accounts.length) {
+    console.log('active accounts', accounts);
+    return {
+      isConnected: true,
+      account: accounts[0],
+    };
+  } else {
+    return {
+      isConnected: false,
+      account: null,
+    };
+  }
+};
