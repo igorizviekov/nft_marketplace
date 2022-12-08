@@ -1,3 +1,4 @@
+import { useStoreState } from 'easy-peasy';
 import { NftList } from '../components/nft-list';
 import { TopSellers } from '../components/top-sellers';
 import { Banner } from '../components/ui/banner/banner';

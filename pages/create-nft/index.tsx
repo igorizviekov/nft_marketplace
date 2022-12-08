@@ -1,17 +1,10 @@
 import { NextPage } from 'next';
 import React, { useState, useMemo, useCallback } from 'react';
 import { useRouter } from 'next/router';
-import { useDropzone } from 'react-dropzone';
-import Image from 'next/image';
 import { useTheme } from 'next-themes';
 import { Button } from '../../components/ui/Button';
 import { FileUpload } from '../../components/file-upload';
-import { FaFileImage } from 'react-icons/fa';
 import Input from '../../components/ui/Input';
-
-// import { Button, Input, Loader } from '../components';
-// import images from '../assets';
-// import { useCurrentNFTContext } from '../context/NFTContext';
 
 export interface IFormInput {
   price: string;

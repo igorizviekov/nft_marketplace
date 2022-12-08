@@ -1,5 +1,8 @@
 // import { useCurrentNFTContext } from '../context/NFTContext';
 
+import { useStoreState } from 'easy-peasy';
+import { IStoreModel } from '../../../store/model/model.types';
+
 type InputProps = {
   inputType: 'input' | 'textarea' | 'number';
   title: string;
@@ -8,8 +11,8 @@ type InputProps = {
 };
 
 const Input = ({ inputType, title, placeholder, handleClick }: InputProps) => {
-  // const { nftCurrency } = useCurrentNFTContext();
-  const nftCurrency = 'ETH';
+  const walletState = useStoreState((state: IStoreModel) => state.wallet);
+  const { currency } = walletState;
 
   return (
     <div className="mt-10 w-full">
@@ -26,7 +29,7 @@ const Input = ({ inputType, title, placeholder, handleClick }: InputProps) => {
             onChange={handleClick}
           />
           <p className="flex-1 font-poppins dark:text-white text-nft-black-1 font-semibold text-xl">
-            {nftCurrency}
+            {currency}
           </p>
         </div>
       ) : inputType === 'textarea' ? (
