@@ -9,6 +9,10 @@ import { Actions, useStoreActions } from 'easy-peasy';
 import { IStoreModel } from '../../store/model/model.types';
 import { create as ipfsClient } from 'ipfs-http-client';
 import { toast } from 'react-toastify';
+import Web3Modal from 'web3modal';
+import { ethers } from 'ethers';
+import { JsonRpcProvider, JsonRpcSigner } from '@ethersproject/providers';
+import { MarketAddress, MarketAddressABI } from '../../context/constants';
 
 export interface IFormInput {
   price: string;
@@ -30,10 +34,6 @@ const CreateNFT: NextPage = () => {
   });
   const router = useRouter();
 
-  // const uploadFileToIPFS = useStoreActions(
-  //   (actions: Actions<IStoreModel>) => actions.wallet.uploadFileToIPFS
-  // );
-
   const isFormValid = (name: string, price: number, description: string) => {
     if (!file) return false;
     if (!name.length) return false;
@@ -43,7 +43,48 @@ const CreateNFT: NextPage = () => {
     return true;
   };
 
-  const uploadNFTToIPFS = async (
+  /**
+   * Connect to the smart contract
+   */
+  const fetchContract = (signer: JsonRpcSigner | JsonRpcProvider) =>
+    new ethers.Contract(MarketAddress, MarketAddressABI, signer);
+
+  /**
+   *
+   * Write NFT data to blockchain
+   *
+   * @param uploadedFileUrl
+   * @param nftPrice
+   */
+  const createSale = async (uploadedFileUrl: string, nftPrice: number) => {
+    // https://www.npmjs.com/package/web3modal
+    const we3Modal = new Web3Modal();
+    const connection = await we3Modal.connect();
+    const provider = new ethers.providers.Web3Provider(connection);
+
+    /**
+     * Person who is creating an NFT
+     */
+    const signer = provider.getSigner();
+    /**
+     * Get access to the Solidity Smart Contract api
+     */
+    const contract = fetchContract(signer);
+    /**
+     * Convert price value from the form input to the blockchain readable format
+     */
+    const price = ethers.utils.parseUnits(nftPrice.toString(), 'ether');
+    const listingPrice = await contract.getListingPrice();
+
+    const transaction = await contract.createToken(price, uploadedFileUrl, {
+      value: listingPrice,
+    });
+
+    // should trigger metamask popup
+    await transaction.wait();
+  };
+
+  const covertImageToNFT = async (
     file: File,
     name: string,
     price: number,
@@ -88,16 +129,19 @@ const CreateNFT: NextPage = () => {
         price,
         description,
         // url of Infura project plus id of uploaded image
-        image: process.env.NEXT_PUBLIC_INFURA_GATEWAY + addedImage.path,
+        image: `${process.env.NEXT_PUBLIC_INFURA_GATEWAY}/${addedImage.path}`,
       });
-      console.log('uploading an nft...', data);
-      const addedNFT = await client.add(data);
-
       /**
-       * Save NFT on Polygon
+       * Upload file to Infura
        */
-      // todo
-      //  await createSale(process.env.NEXT_PUBLIC_INFURA_GATEWAY + addedNFT.path);
+      const addedNFT = await client.add(data);
+      /**
+       * Save NFT data on Polygon with Smart Contract
+       */
+      await createSale(
+        `${process.env.NEXT_PUBLIC_INFURA_GATEWAY}/${addedNFT.path}`,
+        price
+      );
     } catch (err) {
       console.log('Failed to upload NFT to ipfs', err);
       throw new Error('Failed to upload NFT to ipfs');
@@ -111,16 +155,11 @@ const CreateNFT: NextPage = () => {
     }
     try {
       setIsLoading(true);
-      const fileUrl = await uploadNFTToIPFS(
-        file as File,
-        name,
-        Number(price),
-        description
-      );
-
+      await covertImageToNFT(file as File, name, Number(price), description);
       setIsError(false);
       setIsLoading(false);
-      console.log('upload success', fileUrl);
+      toast.success('New NFT has been created!');
+      //   setTimeout(() => router.push('/'), 2000);
     } catch {
       setIsError(true);
       setIsLoading(false);

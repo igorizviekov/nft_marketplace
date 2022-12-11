@@ -62,7 +62,6 @@ export const Header = () => {
   useEffect(() => {
     if (theme === 'light') {
       setLogo(LightLogo);
-      toast.error('SS');
     } else {
       setLogo(DarkLogo);
     }
