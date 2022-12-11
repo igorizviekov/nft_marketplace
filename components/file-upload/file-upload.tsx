@@ -19,7 +19,9 @@ export const FileUpload = ({
   let dropzoneRef: any = createRef();
   const [error, setError] = useState('');
   const errorMessage = error && (
-    <p className="font-poppins  text-nft-red-violet">Upload failed</p>
+    <p className="font-poppins  text-nft-red-violet mt-3">
+      Please ensure the file type is correct and it is not larger than 600KB.
+    </p>
   );
 
   const [fileOver, setFileOver] = useState(false);
@@ -56,7 +58,7 @@ export const FileUpload = ({
       onDragOver={() => setFileOver(true)}
       onDragLeave={() => setFileOver(false)}
       disabled={disabled}
-      maxSize={10000000}
+      maxSize={600000}
       {...props}
     >
       {({ getRootProps, getInputProps }) => (
