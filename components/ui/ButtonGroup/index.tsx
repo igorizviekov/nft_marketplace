@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '../Button';
-
+import styles from './button.styles.module.scss';
 export type BtnOption = {
   label: string | JSX.Element | JSX.Element[];
   handleClick: () => void;
@@ -11,7 +11,7 @@ interface IButtonGroupProps {
 }
 export const ButtonGroup = ({ options }: IButtonGroupProps) => {
   return (
-    <div className="mx-2 flex gap-5">
+    <div className={`${styles.button}`}>
       {options.map((option, i) => (
         <Button
           key={`${i}_${option.label}`}

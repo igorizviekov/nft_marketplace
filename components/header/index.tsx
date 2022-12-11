@@ -13,7 +13,9 @@ import { BurgerMenu } from './BurgerMenu';
 import { Actions, useStoreActions, useStoreState } from 'easy-peasy';
 import { IStoreModel } from '../../store/model/model.types';
 import { connectWallet } from '../../utils';
-
+import Lottie from 'lottie-react';
+import metaMaskIcon from '../../assets/icons/metamask-icon.json';
+import createNFtIcon from '../../assets/icons/create-nft-icon.json';
 export const Header = () => {
   const { theme, setTheme } = useTheme();
   const router = useRouter();
@@ -41,7 +43,7 @@ export const Header = () => {
 
   const connectCryptoWallet = async () => {
     if (!window.ethereum) {
-      return alert('wallet is not connected');
+      return alert('Please add Metamask extension in your browser to continue');
     }
     const wallet = await connectWallet('active');
     const { isConnected } = wallet;
@@ -101,7 +103,16 @@ export const Header = () => {
   );
 
   const createNFTBtn = {
-    label: <span>Create</span>,
+    label: (
+      <span className="flexCenter gap-5">
+        Create
+        <Lottie
+          animationData={createNFtIcon}
+          loop={true}
+          style={{ height: 30 }}
+        />
+      </span>
+    ),
     handleClick: () => {
       setSideMenuOpen(false);
       router.push('/create-nft');
@@ -109,19 +120,28 @@ export const Header = () => {
   };
 
   const connectWalletBtn = {
-    label: 'Connect Wallet',
+    label: (
+      <span className="flexCenter gap-5">
+        Connect
+        <Lottie
+          animationData={metaMaskIcon}
+          loop={false}
+          style={{ height: 30 }}
+        />
+      </span>
+    ),
     handleClick: connectCryptoWallet,
   };
+
+  const btnOptions = [
+    walletState.isWalletConnected ? createNFTBtn : connectWalletBtn,
+  ];
 
   const headerContent = (
     <div className={styles['header__menu-items']}>
       {themeToggle}
       {menuItems}
-      <ButtonGroup
-        options={[
-          walletState.isWalletConnected ? createNFTBtn : connectWalletBtn,
-        ]}
-      />
+      <ButtonGroup options={btnOptions} />
     </div>
   );
 
@@ -138,20 +158,7 @@ export const Header = () => {
       <BurgerMenu
         isOpen={isSideMenuOpen}
         onToggle={() => setSideMenuOpen(!isSideMenuOpen)}
-        actions={[
-          walletState.isWalletConnected
-            ? {
-                label: 'Create',
-                handleClick: () => {
-                  setSideMenuOpen(false);
-                  router.push('/create-nft');
-                },
-              }
-            : {
-                label: 'Connect Wallet',
-                handleClick: () => console.log('connecting a wallet...'),
-              },
-        ]}
+        actions={btnOptions}
         menuItems={menuItems}
       />
     </nav>
