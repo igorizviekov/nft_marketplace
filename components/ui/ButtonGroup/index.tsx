@@ -2,9 +2,10 @@ import React from 'react';
 import { Button } from '../Button';
 
 export type BtnOption = {
-  label: string;
+  label: string | JSX.Element | JSX.Element[];
   handleClick: () => void;
 };
+
 interface IButtonGroupProps {
   options: BtnOption[];
 }

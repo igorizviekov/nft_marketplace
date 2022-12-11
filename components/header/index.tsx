@@ -100,24 +100,26 @@ export const Header = () => {
     />
   );
 
+  const createNFTBtn = {
+    label: <span>Create</span>,
+    handleClick: () => {
+      setSideMenuOpen(false);
+      router.push('/create-nft');
+    },
+  };
+
+  const connectWalletBtn = {
+    label: 'Connect Wallet',
+    handleClick: connectCryptoWallet,
+  };
+  console.log(walletState);
   const headerContent = (
     <div className={styles['header__menu-items']}>
       {themeToggle}
       {menuItems}
       <ButtonGroup
         options={[
-          walletState.isWalletConnected
-            ? {
-                label: 'Create',
-                handleClick: () => {
-                  setSideMenuOpen(false);
-                  router.push('/create-nft');
-                },
-              }
-            : {
-                label: 'Connect Wallet',
-                handleClick: connectCryptoWallet,
-              },
+          walletState.isWalletConnected ? createNFTBtn : connectWalletBtn,
         ]}
       />
     </div>

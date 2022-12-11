@@ -1,6 +1,6 @@
 interface IButtonProps {
   isPrimary: boolean;
-  label: string;
+  label: string | JSX.Element | JSX.Element[];
   classStyles?: string;
   onClick: () => void;
 }

@@ -7,19 +7,22 @@ export const randomId = (length: number): string => {
   return res;
 };
 
+/**
+ * If mode is active will display a popup to connect a wallet
+ */
+type ConnectWallet = 'silent' | 'active';
 interface IConnectWallet {
   isConnected: boolean;
-  account: any;
+  account: any | null;
 }
+
 export const connectWallet = async (
-  mode: 'silent' | 'active'
+  mode: ConnectWallet
 ): Promise<IConnectWallet> => {
-  /**
-   * is mode is active will display a popup to connect a wallet
-   */
   const accounts = await window.ethereum.request({
     method: mode === 'silent' ? 'eth_accounts' : 'eth_requestAccounts',
   });
+
   if (accounts.length) {
     console.log('active accounts', accounts);
     return {
