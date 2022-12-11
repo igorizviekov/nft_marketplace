@@ -16,6 +16,8 @@ import { connectWallet } from '../../utils';
 import Lottie from 'lottie-react';
 import metaMaskIcon from '../../assets/icons/metamask-icon.json';
 import createNFtIcon from '../../assets/icons/create-nft-icon.json';
+import { toast } from 'react-toastify';
+
 export const Header = () => {
   const { theme, setTheme } = useTheme();
   const router = useRouter();
@@ -43,7 +45,9 @@ export const Header = () => {
 
   const connectCryptoWallet = async () => {
     if (!window.ethereum) {
-      return alert('Please add Metamask extension in your browser to continue');
+      return toast.error(
+        'Please add Metamask extension in your browser to continue'
+      );
     }
     const wallet = await connectWallet('active');
     const { isConnected } = wallet;
@@ -51,13 +55,14 @@ export const Header = () => {
     if (isConnected) {
       walletActions.setActiveWallet(wallet.account);
     } else {
-      alert('No accounts found.');
+      toast.error('No accounts found.');
     }
   };
 
   useEffect(() => {
     if (theme === 'light') {
       setLogo(LightLogo);
+      toast.error('SS');
     } else {
       setLogo(DarkLogo);
     }

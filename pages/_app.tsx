@@ -4,6 +4,8 @@ import { ThemeProvider } from 'next-themes';
 import { Header, Footer } from '../components';
 import { StoreProvider } from 'easy-peasy';
 import { store } from '../store';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function App({ Component, pageProps }: AppProps) {
   type Props = StoreProvider['props'] & { children: React.ReactNode };
@@ -14,6 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <ThemeProvider attribute="class">
       <StoreProviderCasted store={store}>
         <Header />
+        <ToastContainer position="top-left" />
         <Component {...pageProps} />
         <Footer />
       </StoreProviderCasted>

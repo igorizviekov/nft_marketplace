@@ -8,6 +8,7 @@ import Input from '../../components/ui/Input';
 import { Actions, useStoreActions } from 'easy-peasy';
 import { IStoreModel } from '../../store/model/model.types';
 import { create as ipfsClient } from 'ipfs-http-client';
+import { toast } from 'react-toastify';
 
 export interface IFormInput {
   price: string;
@@ -33,16 +34,28 @@ const CreateNFT: NextPage = () => {
   //   (actions: Actions<IStoreModel>) => actions.wallet.uploadFileToIPFS
   // );
 
-  const isFormValid = () => {
+  const isFormValid = (name: string, price: number, description: string) => {
     if (!file) return false;
-    if (!formInput.name.length) return false;
-    if (!formInput.price.length) return false;
-    if (!formInput.description.length) return false;
+    if (!name.length) return false;
+    if (Number.isNaN(price)) return false;
+    if (price <= 0) return false;
+    if (!description.length) return false;
     return true;
   };
 
-  const uploadFileToIPFS = async (file: File) => {
+  const uploadNFTToIPFS = async (
+    file: File,
+    name: string,
+    price: number,
+    description: string
+  ) => {
     try {
+      /**
+       * Authenticate to Infura
+       *
+       * https://app.infura.io/
+       * https://ipfs.tech/
+       */
       const auth =
         'Basic ' +
         Buffer.from(
@@ -61,30 +74,57 @@ const CreateNFT: NextPage = () => {
       };
 
       const client = ipfsClient(options);
-      const added = await client.add({ content: file });
 
-      const fileUrl = `https://crypto-basset.infura-ipfs.io/ipfs/${added.path}`;
-      return fileUrl;
+      /**
+       * Upload file to Infura
+       */
+      const addedImage = await client.add({ content: file });
+
+      /**
+       * Upload NFT data to Infura
+       */
+      const data = JSON.stringify({
+        name,
+        price,
+        description,
+        // url of Infura project plus id of uploaded image
+        image: process.env.NEXT_PUBLIC_INFURA_GATEWAY + addedImage.path,
+      });
+      console.log('uploading an nft...', data);
+      const addedNFT = await client.add(data);
+
+      /**
+       * Save NFT on Polygon
+       */
+      // todo
+      //  await createSale(process.env.NEXT_PUBLIC_INFURA_GATEWAY + addedNFT.path);
     } catch (err) {
-      console.log('Failed to upload image to ipfs', err);
-      throw new Error('Failed to upload image to ipfs');
+      console.log('Failed to upload NFT to ipfs', err);
+      throw new Error('Failed to upload NFT to ipfs');
     }
   };
 
   const submitNewNFT = async () => {
-    if (!isFormValid() || !file) {
-      return alert('Please provide all nessesery data to continue');
+    const { name, price, description } = formInput;
+    if (!isFormValid(name, Number(price), description)) {
+      return toast.error('Please provide all necessary data to continue');
     }
     try {
       setIsLoading(true);
-      const fileUrl = await uploadFileToIPFS(file as File);
+      const fileUrl = await uploadNFTToIPFS(
+        file as File,
+        name,
+        Number(price),
+        description
+      );
+
       setIsError(false);
       setIsLoading(false);
       console.log('upload success', fileUrl);
     } catch {
       setIsError(true);
       setIsLoading(false);
-      alert('Error occurred when submitting a new NFT. Please try again');
+      toast.error('Error occurred when submitting a new NFT. Please try again');
     }
   };
 
@@ -147,7 +187,13 @@ const CreateNFT: NextPage = () => {
             isPrimary
             label="Create NFT"
             classStyles="rounded-xl"
-            disabled={!isFormValid()}
+            disabled={
+              !isFormValid(
+                formInput.name,
+                Number(formInput.price),
+                formInput.description
+              )
+            }
             onClick={submitNewNFT}
           />
         </div>
