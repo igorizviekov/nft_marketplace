@@ -112,7 +112,7 @@ export const Header = () => {
     label: 'Connect Wallet',
     handleClick: connectCryptoWallet,
   };
-  console.log(walletState);
+
   const headerContent = (
     <div className={styles['header__menu-items']}>
       {themeToggle}
