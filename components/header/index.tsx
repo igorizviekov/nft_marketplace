@@ -12,7 +12,7 @@ import { ButtonGroup } from '../ui/ButtonGroup';
 import { BurgerMenu } from './BurgerMenu';
 import { Actions, useStoreActions, useStoreState } from 'easy-peasy';
 import { IStoreModel } from '../../store/model/model.types';
-import { connectWallet } from '../../utils';
+import { ConnectWallet, connectWallet } from '../../utils';
 import Lottie from 'lottie-react';
 import metaMaskIcon from '../../assets/icons/metamask-icon.json';
 import createNFtIcon from '../../assets/icons/create-nft-icon.json';
@@ -43,13 +43,14 @@ export const Header = () => {
     (actions: Actions<IStoreModel>) => actions.wallet
   );
 
-  const connectCryptoWallet = async () => {
+  const connectCryptoWallet = async (mode: ConnectWallet) => {
     if (!window.ethereum) {
       return toast.error(
         'Please add Metamask extension in your browser to continue'
       );
     }
-    const wallet = await connectWallet('active');
+    const wallet = await connectWallet(mode);
+    console.log(wallet);
     const { isConnected } = wallet;
     walletActions.setIsWalletConnected(isConnected);
     if (isConnected) {
@@ -58,6 +59,10 @@ export const Header = () => {
       toast.error('No accounts found.');
     }
   };
+
+  useEffect(() => {
+    connectCryptoWallet('silent');
+  }, []);
 
   useEffect(() => {
     if (theme === 'light') {
@@ -134,7 +139,7 @@ export const Header = () => {
         />
       </span>
     ),
-    handleClick: connectCryptoWallet,
+    handleClick: () => connectCryptoWallet('active'),
   };
 
   const btnOptions = [

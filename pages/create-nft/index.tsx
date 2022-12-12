@@ -20,6 +20,7 @@ export interface IFormInput {
   description: string;
 }
 
+// TODO: cleanup hardhat dependencies
 const CreateNFT: NextPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);

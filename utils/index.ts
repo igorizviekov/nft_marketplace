@@ -10,7 +10,7 @@ export const randomId = (length: number): string => {
 /**
  * If mode is active will display a popup to connect a wallet
  */
-type ConnectWallet = 'silent' | 'active';
+export type ConnectWallet = 'silent' | 'active';
 interface IConnectWallet {
   isConnected: boolean;
   account: any | null;
