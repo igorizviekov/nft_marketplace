@@ -1,12 +1,9 @@
 import { NextPage } from 'next';
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { useTheme } from 'next-themes';
 import { Button } from '../../components/ui/Button';
 import { FileUpload } from '../../components/file-upload';
 import Input from '../../components/ui/Input';
-import { Actions, useStoreActions } from 'easy-peasy';
-import { IStoreModel } from '../../store/model/model.types';
 import { create as ipfsClient } from 'ipfs-http-client';
 import { toast } from 'react-toastify';
 import Web3Modal from 'web3modal';
@@ -23,9 +20,7 @@ export interface IFormInput {
 // TODO: cleanup hardhat dependencies
 const CreateNFT: NextPage = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-
-  const { theme } = useTheme();
+  const [isError, setIsError] = useState<boolean | string>(false);
   const [file, setFile] = useState<File | null>(null);
 
   const [formInput, setFormInput] = useState<IFormInput>({
@@ -33,6 +28,7 @@ const CreateNFT: NextPage = () => {
     name: '',
     description: '',
   });
+
   const router = useRouter();
 
   const isFormValid = (name: string, price: number, description: string) => {
@@ -152,7 +148,7 @@ const CreateNFT: NextPage = () => {
   const submitNewNFT = async () => {
     const { name, price, description } = formInput;
     if (!isFormValid(name, Number(price), description)) {
-      return toast.error('Please provide all necessary data to continue');
+      setIsError('Please provide all necessary data to continue');
     }
     try {
       setIsLoading(true);
@@ -162,15 +158,20 @@ const CreateNFT: NextPage = () => {
       toast.success('New NFT has been created!');
       //   setTimeout(() => router.push('/'), 2000);
     } catch {
-      setIsError(true);
+      setIsError('Error occurred when submitting a new NFT. Please try again');
       setIsLoading(false);
-      toast.error('Error occurred when submitting a new NFT. Please try again');
     }
   };
 
   if (isLoading) {
     return <div className="flex-start min-h-screen">Loading..</div>;
   }
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(isError);
+    }
+  }, [isError]);
 
   return (
     <div className="flex justify-center sm:px-4 p-12">
@@ -189,6 +190,7 @@ const CreateNFT: NextPage = () => {
             />
           </div>
         </div>
+
         <Input
           inputType="input"
           title="Name"
@@ -200,6 +202,7 @@ const CreateNFT: NextPage = () => {
             })
           }
         />
+
         <Input
           inputType="textarea"
           title="Description"
@@ -211,6 +214,7 @@ const CreateNFT: NextPage = () => {
             })
           }
         />
+
         <Input
           inputType="number"
           title="Price"
@@ -222,6 +226,7 @@ const CreateNFT: NextPage = () => {
             })
           }
         />
+
         <div className="mt-7 w-full flex justify-end">
           <Button
             isPrimary

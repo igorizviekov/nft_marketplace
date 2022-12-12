@@ -50,13 +50,14 @@ export const Header = () => {
       );
     }
     const wallet = await connectWallet(mode);
-    console.log(wallet);
     const { isConnected } = wallet;
     walletActions.setIsWalletConnected(isConnected);
     if (isConnected) {
       walletActions.setActiveWallet(wallet.account);
     } else {
-      toast.error('No accounts found.');
+      mode === 'active'
+        ? toast.error('No accounts found.')
+        : console.log('Wallet is not connected');
     }
   };
 
