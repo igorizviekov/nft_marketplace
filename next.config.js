@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: [],
+    domains: ['ipfs.infura.io', 'crypto-basset.infura-ipfs.io'],
   },
 };
 

@@ -1,4 +1,4 @@
-import { randomId } from '../../utils';
+import { fetchContract, randomId } from '../../utils';
 import { INftCardProps, NftCard } from '../ui/nft-card';
 import { useEffect, useState } from 'react';
 import { Search } from '../search';
@@ -12,6 +12,8 @@ import nftIng_7 from '../../assets/img/nft/nft7.png';
 import nftIng_8 from '../../assets/img/nft/nft8.png';
 import nftIng_9 from '../../assets/img/nft/nft9.png';
 import nftIng_10 from '../../assets/img/nft/nft10.jpg';
+import { ethers } from 'ethers';
+import axios from 'axios';
 
 export const NftList = () => {
   const mockedNFTs: INftCardProps[] = [
@@ -98,7 +100,45 @@ export const NftList = () => {
   ];
 
   const [nftList, setNftList] = useState<INftCardProps[]>([]);
-  useEffect(() => setNftList(mockedNFTs), []);
+
+  const fetchNFTs = async () => {
+    const provider = new ethers.providers.JsonRpcProvider();
+    const contract = fetchContract(provider);
+    const data = await contract.getActiveCocktails();
+    const items = await Promise.all(
+      data.map(async ({ tokenId, seller, owner, price }: INftCardProps) => {
+        const formattedPrice = ethers.utils.formatUnits(
+          price.toString(),
+          'ether'
+        );
+        const tokenURI = await contract.tokenURI(tokenId);
+        console.log({ tokenURI });
+        const {
+          data: { image, name, description },
+        } = await axios.get(tokenURI);
+        console.log({ image });
+
+        return {
+          formattedPrice,
+          tokenId: tokenId.toNumber(),
+          seller,
+          owner,
+          img: image,
+          name,
+          description,
+          tokenURI,
+        };
+      })
+    );
+    return items;
+  };
+
+  useEffect(() => {
+    fetchNFTs().then((items) => {
+      console.log({ items });
+      setNftList(items);
+    });
+  }, []);
 
   return (
     <div className="mb-12">

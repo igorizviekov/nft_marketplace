@@ -1,3 +1,7 @@
+import { ethers } from 'ethers';
+import { JsonRpcProvider, JsonRpcSigner } from '@ethersproject/providers';
+import { MarketAddress, MarketAddressABI } from '../context/constants';
+
 export const randomId = (length: number): string => {
   let res = '';
   const chars = 'abcdefghijklmnopqrstuvwxyz123456789';
@@ -36,3 +40,9 @@ export const connectWallet = async (
     };
   }
 };
+
+/**
+ * Connect to the smart contract
+ */
+export const fetchContract = (signer: JsonRpcSigner | JsonRpcProvider) =>
+  new ethers.Contract(MarketAddress, MarketAddressABI, signer);

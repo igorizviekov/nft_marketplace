@@ -8,9 +8,8 @@ import { create as ipfsClient } from 'ipfs-http-client';
 import { toast } from 'react-toastify';
 import Web3Modal from 'web3modal';
 import { ethers } from 'ethers';
-import { JsonRpcProvider, JsonRpcSigner } from '@ethersproject/providers';
-import { MarketAddress, MarketAddressABI } from '../../context/constants';
 import { Spinner } from '../../components/spinner';
+import { fetchContract } from '../../utils';
 
 export interface IFormInput {
   price: string;
@@ -40,12 +39,6 @@ const CreateNFT: NextPage = () => {
     if (!description.length) return false;
     return true;
   };
-
-  /**
-   * Connect to the smart contract
-   */
-  const fetchContract = (signer: JsonRpcSigner | JsonRpcProvider) =>
-    new ethers.Contract(MarketAddress, MarketAddressABI, signer);
 
   /**
    *
