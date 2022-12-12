@@ -37,7 +37,7 @@ export const FileUpload = ({
     .join(' ');
 
   const headingElement = heading && !file && (
-    <p className="flex-1 font-poppins dark:text-nft-red-violet text-nft-black-1 font-semibold text-3xl mb-1">
+    <p className="flex-1 font-poppins dark:text-white text-nft-black-1 font-semibold text-3xl mb-1">
       {heading}
     </p>
   );

@@ -6,6 +6,19 @@ module.exports = {
   darkMode: 'class',
   theme: {
     extend: {
+      keyframes: {
+        fadeIn: {
+          '0%': {
+            opacity: 0,
+          },
+          '100%': {
+            opacity: 1,
+          },
+        },
+      },
+      animation: {
+        fadeIn: 'fadeIn ease 1000ms',
+      },
       boxShadow: {
         toTop: '0 5px 25px -15px #111',
         toBottom: '0px 5px 10px -10px #111',

@@ -10,6 +10,7 @@ import Web3Modal from 'web3modal';
 import { ethers } from 'ethers';
 import { JsonRpcProvider, JsonRpcSigner } from '@ethersproject/providers';
 import { MarketAddress, MarketAddressABI } from '../../context/constants';
+import { Spinner } from '../../components/spinner';
 
 export interface IFormInput {
   price: string;
@@ -141,7 +142,7 @@ const CreateNFT: NextPage = () => {
       );
     } catch (err) {
       console.log('Failed to upload NFT to ipfs', err);
-      throw new Error('Failed to upload NFT to ipfs');
+      setIsError('Failed to upload NFT to IPFS.');
     }
   };
 
@@ -156,16 +157,12 @@ const CreateNFT: NextPage = () => {
       setIsError(false);
       setIsLoading(false);
       toast.success('New NFT has been created!');
-      //   setTimeout(() => router.push('/'), 2000);
+      setTimeout(() => router.push('/'), 4000);
     } catch {
       setIsError('Error occurred when submitting a new NFT. Please try again');
       setIsLoading(false);
     }
   };
-
-  if (isLoading) {
-    return <div className="flex-start min-h-screen">Loading..</div>;
-  }
 
   useEffect(() => {
     if (isError) {
@@ -173,7 +170,9 @@ const CreateNFT: NextPage = () => {
     }
   }, [isError]);
 
-  return (
+  return isLoading ? (
+    <Spinner />
+  ) : (
     <div className="flex justify-center sm:px-4 p-12">
       <div className="w-3/5 md:w-full">
         <div className="mt-24">
