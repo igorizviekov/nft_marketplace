@@ -5,6 +5,7 @@ import { Search } from '../search';
 import { ethers } from 'ethers';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { Spinner } from '../spinner';
 
 export const NftList = () => {
   const [nftList, setNftList] = useState<INftCardProps[]>([]);
@@ -52,16 +53,18 @@ export const NftList = () => {
   };
 
   useEffect(() => {
+    setIsLoading(true);
     fetchNFTs()
       .then((items) => {
-        console.log({ items });
         if (items?.length) {
           setNftList(items);
+          setIsLoading(false);
         }
       })
       .catch((e) => {
         console.log('failed to fetch NFT', e);
         setIsError('failed to fetch NFT');
+        setIsLoading(false);
       });
   }, []);
 
@@ -71,6 +74,11 @@ export const NftList = () => {
     }
   }, [isError]);
 
+  const content = isLoading ? (
+    <Spinner styles="pl-8" />
+  ) : (
+    nftList.map((nft, i) => <NftCard key={nft.owner + i} {...nft} />)
+  );
   return (
     <div className="mb-12">
       <div className="flex justify-between flex-center">
@@ -80,9 +88,7 @@ export const NftList = () => {
         <Search />
       </div>
       <div className="w-full flex flex-wrap justify-start sm:justify-center ">
-        {nftList.map((nft, i) => (
-          <NftCard key={nft.owner + i} {...nft} />
-        ))}
+        {content}
       </div>
     </div>
   );

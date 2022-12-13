@@ -164,7 +164,7 @@ const CreateNFT: NextPage = () => {
   }, [isError]);
 
   return isLoading ? (
-    <Spinner />
+    <Spinner styles="min-h-screen flexCenter animate-fadeIn" />
   ) : (
     <div className="flex justify-center sm:px-4 p-12">
       <div className="w-3/5 md:w-full">
