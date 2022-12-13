@@ -38,7 +38,7 @@ export const NftList = () => {
         } = await axios.get(tokenURI);
 
         return {
-          formattedPrice,
+          price: formattedPrice,
           tokenId: Number(tokenId),
           seller,
           owner,
