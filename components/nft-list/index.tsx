@@ -2,125 +2,43 @@ import { fetchContract, randomId } from '../../utils';
 import { INftCardProps, NftCard } from '../ui/nft-card';
 import { useEffect, useState } from 'react';
 import { Search } from '../search';
-import nftIng_1 from '../../assets/img/nft/nft1.png';
-import nftIng_2 from '../../assets/img/nft/nft2.png';
-import nftIng_3 from '../../assets/img/nft/nft3.png';
-import nftIng_4 from '../../assets/img/nft/nft4.png';
-import nftIng_5 from '../../assets/img/nft/nft5.png';
-import nftIng_6 from '../../assets/img/nft/nft6.jpeg';
-import nftIng_7 from '../../assets/img/nft/nft7.png';
-import nftIng_8 from '../../assets/img/nft/nft8.png';
-import nftIng_9 from '../../assets/img/nft/nft9.png';
-import nftIng_10 from '../../assets/img/nft/nft10.jpg';
 import { ethers } from 'ethers';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 export const NftList = () => {
-  const mockedNFTs: INftCardProps[] = [
-    {
-      name: 'buzzing NFT',
-      seller: `x0${randomId(3)}...${randomId(4)}`,
-      owner: `x0${randomId(3)}...${randomId(4)}`,
-      description: 'Cool NFT on sale',
-      price: 0.2,
-      img: nftIng_1,
-    },
-    {
-      name: 'buzzing NFT',
-      seller: `x0${randomId(3)}...${randomId(4)}`,
-      owner: `x0${randomId(3)}...${randomId(4)}`,
-      description: 'Cool NFT on sale',
-      price: 0.2,
-      img: nftIng_2,
-    },
-    {
-      name: 'buzzing NFT',
-      seller: `x0${randomId(3)}...${randomId(4)}`,
-      owner: `x0${randomId(3)}...${randomId(4)}`,
-      description: 'Cool NFT on sale',
-      price: 0.2,
-      img: nftIng_3,
-    },
-    {
-      name: 'buzzing NFT',
-      seller: `x0${randomId(3)}...${randomId(4)}`,
-      owner: `x0${randomId(3)}...${randomId(4)}`,
-      description: 'Cool NFT on sale',
-      price: 0.2,
-      img: nftIng_4,
-    },
-    {
-      name: 'buzzing NFT',
-      seller: `x0${randomId(3)}...${randomId(4)}`,
-      owner: `x0${randomId(3)}...${randomId(4)}`,
-      description: 'Cool NFT on sale',
-      price: 0.2,
-      img: nftIng_5,
-    },
-    {
-      name: 'buzzing NFT',
-      seller: `x0${randomId(3)}...${randomId(4)}`,
-      owner: `x0${randomId(3)}...${randomId(4)}`,
-      description: 'Cool NFT on sale',
-      price: 0.2,
-      img: nftIng_6,
-    },
-    {
-      name: 'buzzing NFT',
-      seller: `x0${randomId(3)}...${randomId(4)}`,
-      owner: `x0${randomId(3)}...${randomId(4)}`,
-      description: 'Cool NFT on sale',
-      price: 0.2,
-      img: nftIng_7,
-    },
-    {
-      name: 'buzzing NFT',
-      seller: `x0${randomId(3)}...${randomId(4)}`,
-      owner: `x0${randomId(3)}...${randomId(4)}`,
-      description: 'Cool NFT on sale',
-      price: 0.2,
-      img: nftIng_8,
-    },
-    {
-      name: 'buzzing NFT',
-      seller: `x0${randomId(3)}...${randomId(4)}`,
-      owner: `x0${randomId(3)}...${randomId(4)}`,
-      description: 'Cool NFT on sale',
-      price: 0.2,
-      img: nftIng_9,
-    },
-    {
-      name: 'buzzing NFT',
-      seller: `x0${randomId(3)}...${randomId(4)}`,
-      owner: `x0${randomId(3)}...${randomId(4)}`,
-      description: 'Cool NFT on sale',
-      price: 0.4,
-      img: nftIng_10,
-    },
-  ];
-
   const [nftList, setNftList] = useState<INftCardProps[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState<boolean | string>(false);
 
   const fetchNFTs = async () => {
     const provider = new ethers.providers.JsonRpcProvider();
     const contract = fetchContract(provider);
+    /**
+     * List of all available NFTs on marketplace.
+     * Filtered by "not sold"
+     */
     const data = await contract.getActiveCocktails();
+
+    /**
+     * Map data to the format, which will used on frontend
+     */
     const items = await Promise.all(
       data.map(async ({ tokenId, seller, owner, price }: INftCardProps) => {
         const formattedPrice = ethers.utils.formatUnits(
           price.toString(),
           'ether'
         );
-        const tokenURI = await contract.tokenURI(tokenId);
-        console.log({ tokenURI });
+        const tokenURI: string = await contract.tokenURI(tokenId);
+
+        //get NFT metadata and image
         const {
           data: { image, name, description },
         } = await axios.get(tokenURI);
-        console.log({ image });
 
         return {
           formattedPrice,
-          tokenId: tokenId.toNumber(),
+          tokenId: Number(tokenId),
           seller,
           owner,
           img: image,
@@ -134,11 +52,24 @@ export const NftList = () => {
   };
 
   useEffect(() => {
-    fetchNFTs().then((items) => {
-      console.log({ items });
-      setNftList(items);
-    });
+    fetchNFTs()
+      .then((items) => {
+        console.log({ items });
+        if (items?.length) {
+          setNftList(items);
+        }
+      })
+      .catch((e) => {
+        console.log('failed to fetch NFT', e);
+        setIsError('failed to fetch NFT');
+      });
   }, []);
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(isError);
+    }
+  }, [isError]);
 
   return (
     <div className="mb-12">

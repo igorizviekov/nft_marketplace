@@ -120,7 +120,7 @@ const CreateNFT: NextPage = () => {
         price,
         description,
         // url of Infura project plus id of uploaded image
-        image: `${process.env.NEXT_PUBLIC_INFURA_GATEWAY}/${addedImage.path}`,
+        image: `https://${process.env.NEXT_PUBLIC_INFURA_PROJECT_NAME}.infura-ipfs.io/ipfs/${addedImage.path}`,
       });
       /**
        * Upload file to Infura
@@ -130,7 +130,7 @@ const CreateNFT: NextPage = () => {
        * Save NFT data on Polygon with Smart Contract
        */
       await createSale(
-        `${process.env.NEXT_PUBLIC_INFURA_GATEWAY}/${addedNFT.path}`,
+        `https://${process.env.NEXT_PUBLIC_INFURA_PROJECT_NAME}.infura-ipfs.io/ipfs/${addedNFT.path}`,
         price
       );
     } catch (err) {

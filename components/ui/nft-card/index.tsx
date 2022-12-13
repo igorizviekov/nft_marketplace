@@ -10,6 +10,7 @@ export interface INftCardProps {
   description: string;
   img: StaticImageData;
   price: number;
+  tokenId: number;
 }
 
 export const NftCard = ({ name, owner, img, price, seller }: INftCardProps) => {
@@ -46,7 +47,9 @@ export const NftCard = ({ name, owner, img, price, seller }: INftCardProps) => {
               {price} <span className="normal">{currency}</span>
             </p>
             <p className="font-poppins dark:text-white text-nft-black-1 font-semibold text-xs minlg:text-lg">
-              {owner}
+              {owner.length > 10
+                ? `${owner.slice(0, 3)}...${owner.slice(owner.length - 5)}`
+                : owner}
             </p>
           </div>
         </div>
