@@ -90,7 +90,7 @@ const MyNFTs: NextPage = () => {
         <h2 className="font-poppins dark:text-white text-nft-black-1 text-xl mt-5 font-semibold">
           You do not own and NFTs
         </h2>
-        <div className="w-1/2">
+        <div className="m-auto">
           <Button
             label="Buy"
             isPrimary
@@ -131,12 +131,11 @@ const MyNFTs: NextPage = () => {
             style={{ width: 180 }}
           />
           <p className="font-poppins dark:text-white text-nft-black-1 font-semibold text-xl mt-6">
-            {activeWallet.slice(0, 3)}...$
-            {activeWallet.slice(activeWallet.length - 5)}
+            {activeWallet?.slice(0, 3)}...$
+            {activeWallet?.slice(activeWallet?.length - 5)}
           </p>
         </div>
       </div>
-
       {content}
     </div>
   );

@@ -16,12 +16,14 @@ import { ConnectWallet, connectWallet } from '../../utils';
 import Lottie from 'lottie-react';
 import metaMaskIcon from '../../assets/icons/metamask-icon.json';
 import { toast } from 'react-toastify';
+import { MenuTab } from '../../store/model/ui/ui.types';
 
 export const Header = () => {
   const { theme, setTheme } = useTheme();
   const router = useRouter();
-  const menuTabs = ['Explore', 'Listed', 'My NFTs'];
+
   const [isSideMenuOpen, setSideMenuOpen] = useState(false);
+  const [menuTabs, setMenuTabs] = useState<MenuTab[]>(['Explore', 'Listed']);
 
   const classNames = [
     'flexBetween',
@@ -53,6 +55,7 @@ export const Header = () => {
     walletActions.setIsWalletConnected(isConnected);
     if (isConnected) {
       walletActions.setActiveWallet(wallet.account);
+      setMenuTabs(['Explore', 'Listed', 'My NFTs']);
     } else {
       mode === 'active'
         ? toast.error('No accounts found.')
