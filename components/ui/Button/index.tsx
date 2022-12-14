@@ -1,9 +1,9 @@
 interface IButtonProps {
   isPrimary: boolean;
-  label: string | JSX.Element | JSX.Element;
+  label: string | JSX.Element | JSX.Element[];
   classStyles?: string;
   onClick: () => void;
-  disabled: boolean;
+  disabled?: boolean;
 }
 
 export const Button = ({

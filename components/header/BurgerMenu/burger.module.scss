@@ -15,19 +15,7 @@
     }
   }
   &__items {
-    position: absolute;
-    animation: slide 300ms forwards;
     box-shadow: rgba(0, 0, 0, 0.1) 0px -5px 10px;
-    @keyframes slide {
-      0% {
-        opacity: 0;
-        bottom: -100vw;
-      }
-      100% {
-        opacity: 1;
-        bottom: 0;
-      }
-    }
-    @apply fixed right-0 bottom-0  sm:w-56;
+    @apply fixed right-0 top-0  sm:w-56 backdrop-blur-md h-screen;
   }
 }

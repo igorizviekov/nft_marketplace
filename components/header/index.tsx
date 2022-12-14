@@ -15,13 +15,12 @@ import { IStoreModel } from '../../store/model/model.types';
 import { ConnectWallet, connectWallet } from '../../utils';
 import Lottie from 'lottie-react';
 import metaMaskIcon from '../../assets/icons/metamask-icon.json';
-import createNFtIcon from '../../assets/icons/create-nft-icon.json';
 import { toast } from 'react-toastify';
 
 export const Header = () => {
   const { theme, setTheme } = useTheme();
   const router = useRouter();
-  const menuTabs = ['Explore', 'Listed NFTs', 'Account'];
+  const menuTabs = ['Explore', 'Listed', 'Account'];
   const [isSideMenuOpen, setSideMenuOpen] = useState(false);
 
   const classNames = [
@@ -113,16 +112,7 @@ export const Header = () => {
   );
 
   const createNFTBtn = {
-    label: (
-      <span className="flexCenter gap-5">
-        Create
-        <Lottie
-          animationData={createNFtIcon}
-          loop={true}
-          style={{ height: 30 }}
-        />
-      </span>
-    ),
+    label: <div>Create</div>,
     handleClick: () => {
       setSideMenuOpen(false);
       router.push('/create-nft');

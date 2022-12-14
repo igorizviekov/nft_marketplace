@@ -1,5 +1,5 @@
 import { BtnOption, ButtonGroup } from '../../ui/ButtonGroup';
-import { IoMdClose } from 'react-icons/io';
+import { AiOutlinePause } from 'react-icons/ai';
 import styles from './burger.module.scss';
 
 interface IBurgerMenuProps {
@@ -18,7 +18,7 @@ export const BurgerMenu = ({
   <div className="hidden md:flex ml-2">
     <div
       className={`${styles['burger-menu']} ${
-        isOpen ? styles['burger-menu__open'] : ''
+        isOpen ? `text-nft-red-violet ${styles['burger-menu__open']}` : ''
       }`}
       onClick={onToggle}
     >
@@ -34,14 +34,14 @@ export const BurgerMenu = ({
     </div>
     {isOpen && (
       <div className={styles['burger-menu__items']}>
-        <div className="flex gap-5 flex-col p-5 bg-white overflow-hidden dark:bg-nft-black-1 dark:px-5 dark:py-10 dark:gap-10">
+        <div className="flex flex-col p-5  overflow-hidden px-5 py-10 gap-10">
           <ButtonGroup options={actions} />
           {menuItems}
         </div>
-        <IoMdClose
+        <AiOutlinePause
           onClick={onToggle}
-          size={35}
-          color="lightgrey"
+          size={55}
+          color="#eb4d4b"
           className="absolute right-2 bottom-2 cursor-pointer"
         />
       </div>

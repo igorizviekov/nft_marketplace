@@ -17,7 +17,7 @@ module.exports = {
         },
       },
       animation: {
-        fadeIn: 'fadeIn ease 1000ms',
+        fadeIn: 'fadeIn ease 2500ms',
       },
       boxShadow: {
         toTop: '0 5px 25px -15px #111',
