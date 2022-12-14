@@ -17,7 +17,7 @@ export const MenuItems = ({
   const generateLink = (index: number) => {
     switch (index) {
       case 1:
-        return '/feed';
+        return '/listed';
       case 2:
         return '/my-nft';
       default:

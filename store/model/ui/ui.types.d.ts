@@ -1,7 +1,7 @@
 import { Action } from 'easy-peasy';
 export type ThemeMode = 'dark' | 'light';
 
-export type MenuTab = 'Explore' | 'Feed' | 'Account';
+export type MenuTab = 'Explore' | 'Listed NFTs' | 'Account';
 
 export interface IUiModel {
   menuBarOpen: boolean;

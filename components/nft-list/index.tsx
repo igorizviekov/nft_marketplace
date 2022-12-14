@@ -57,12 +57,12 @@ export const NftList = () => {
       .then((items) => {
         if (items?.length) {
           setNftList(items);
-          setIsLoading(false);
         }
+        setIsLoading(false);
       })
       .catch((e) => {
         console.log('failed to fetch NFT', e);
-        setIsError('failed to fetch NFT');
+        setIsError('Failed to fetch NFT');
         setIsLoading(false);
       });
   }, []);
@@ -75,9 +75,14 @@ export const NftList = () => {
 
   const content = isLoading ? (
     <Spinner styles="pl-8" />
+  ) : !nftList.length ? (
+    <h2 className="font-poppins dark:text-white text-nft-black-1 text-l ml-5 font-semibold">
+      No NFTs Listed for Sale
+    </h2>
   ) : (
     nftList.map((nft, i) => <NftCard key={nft.owner + i} {...nft} />)
   );
+
   return (
     <div className="mb-12">
       <div className="flex justify-between flex-center">

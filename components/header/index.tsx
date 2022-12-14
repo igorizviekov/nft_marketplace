@@ -21,7 +21,7 @@ import { toast } from 'react-toastify';
 export const Header = () => {
   const { theme, setTheme } = useTheme();
   const router = useRouter();
-  const menuTabs = ['Explore', 'Feed', 'Account'];
+  const menuTabs = ['Explore', 'Listed NFTs', 'Account'];
   const [isSideMenuOpen, setSideMenuOpen] = useState(false);
 
   const classNames = [
