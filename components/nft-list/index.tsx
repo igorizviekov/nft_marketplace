@@ -32,7 +32,7 @@ export const NftList = () => {
         );
         const tokenURI: string = await contract.tokenURI(tokenId);
 
-        //get NFT metadata and image
+        // get NFT metadata and image
         const {
           data: { image, name, description },
         } = await axios.get(tokenURI);
@@ -40,12 +40,11 @@ export const NftList = () => {
         return {
           price: formattedPrice,
           tokenId: Number(tokenId),
+          img: image,
           seller,
           owner,
-          img: image,
           name,
           description,
-          tokenURI,
         };
       })
     );
