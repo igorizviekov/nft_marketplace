@@ -20,7 +20,7 @@ import { toast } from 'react-toastify';
 export const Header = () => {
   const { theme, setTheme } = useTheme();
   const router = useRouter();
-  const menuTabs = ['Explore', 'Listed', 'Account'];
+  const menuTabs = ['Explore', 'Listed', 'My NFTs'];
   const [isSideMenuOpen, setSideMenuOpen] = useState(false);
 
   const classNames = [
@@ -149,7 +149,10 @@ export const Header = () => {
     <nav className={classNames}>
       <div className={styles['header__link']}>
         <Link href="/">
-          <div className={styles['header__link__logo']} onClick={() => null}>
+          <div
+            className={styles['header__link__logo']}
+            onClick={() => actions.toggleTab('Explore')}
+          >
             <Image src={logo} alt="logo" width={26} />
           </div>
         </Link>

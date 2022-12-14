@@ -1,4 +1,4 @@
-import { fetchContract, randomId } from '../../utils';
+import { fetchContract } from '../../utils';
 import { INftCardProps, NftCard } from '../ui/nft-card';
 import { useEffect, useState } from 'react';
 import { Search } from '../search';
