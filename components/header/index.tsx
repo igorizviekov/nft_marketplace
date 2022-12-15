@@ -23,7 +23,7 @@ export const Header = () => {
   const router = useRouter();
 
   const [isSideMenuOpen, setSideMenuOpen] = useState(false);
-  const [menuTabs, setMenuTabs] = useState<MenuTab[]>(['Explore', 'Listed']);
+  const [menuTabs, setMenuTabs] = useState<MenuTab[]>(['Explore']);
 
   const classNames = [
     'flexBetween',

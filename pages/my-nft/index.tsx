@@ -90,7 +90,7 @@ const MyNFTs: NextPage = () => {
         <h2 className="font-poppins dark:text-white text-nft-black-1 text-xl mt-5 font-semibold">
           You do not own and NFTs
         </h2>
-        <div className="m-auto">
+        <div className="m-20">
           <Button
             label="Buy"
             isPrimary

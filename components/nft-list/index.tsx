@@ -10,7 +10,7 @@ import { Spinner } from '../spinner';
 export const NftList = () => {
   const [nftList, setNftList] = useState<INftCardProps[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState<boolean | string>(false);
+  const [isError, setIsError] = useState<boolean | string>(true);
 
   const fetchNFTs = async () => {
     const provider = new ethers.providers.JsonRpcProvider();
@@ -75,9 +75,9 @@ export const NftList = () => {
   const content = isLoading ? (
     <Spinner styles="min-h-screen w-full mt-20 animate-fadeIn" />
   ) : !isLoading && !nftList.length ? (
-    <h2 className="font-poppins dark:text-white text-nft-black-1 text-l ml-5 font-semibold">
+    <h1 className="font-poppins dark:text-white text-nft-black-1 text-2xl minlg:text-4xl font-semibold my-5 px-5 sm:text-center">
       No NFTs Listed for Sale
-    </h2>
+    </h1>
   ) : (
     <>
       <div className="w-full flex justify-between flex-center  animate-fadeIn sm:flex-col">

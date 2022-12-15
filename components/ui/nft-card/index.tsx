@@ -8,12 +8,20 @@ export interface INftCardProps {
   seller: string;
   owner: string;
   description: string;
-  img: StaticImageData;
+  img: StaticImageData | string;
   price: number;
   tokenId: number;
 }
 
-export const NftCard = ({ name, owner, img, price, seller }: INftCardProps) => {
+export const NftCard = ({
+  name,
+  owner,
+  img,
+  price,
+  seller,
+  tokenId,
+  description,
+}: INftCardProps) => {
   const walletState = useStoreState((state: IStoreModel) => state.wallet);
   const { currency } = walletState;
 
@@ -21,7 +29,15 @@ export const NftCard = ({ name, owner, img, price, seller }: INftCardProps) => {
     <Link
       href={{
         pathname: '/nft-details',
-        query: { name, owner, price, seller },
+        query: {
+          img: img.toString(),
+          name,
+          owner,
+          price,
+          seller,
+          tokenId,
+          description,
+        },
       }}
     >
       <div className="flex-1 min-w-215 max-w-max xs:max-w-none sm:w-2/3sm:min-w-155 minmd:min-w-256 minlg:min-w-327 dark:bg-nft-black-3 bg-white rounded-2xl p-4 mx-3  my-4 sm:mb-4  sm:mt-0 sm:mx-2  cursor-pointer shadow-md hover:shadow-lg">
