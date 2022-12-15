@@ -7,6 +7,7 @@ import { IStoreModel } from '../../store/model/model.types';
 import Image from 'next/image';
 import { Button } from '../../components/ui/Button';
 import Modal from '../../components/modal';
+import PaymentBody from '../../components/payment-body';
 
 const NFTDetails = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -121,11 +122,11 @@ const NFTDetails = () => {
       <div>Error</div>
     );
 
-  const modal = isModalVisible && (
+  const modal = isModalVisible && nft && (
     <Modal
       header="Check Out"
       footer={<div>Footer</div>}
-      body={<div>Body</div>}
+      body={<PaymentBody nft={nft as INftCardProps} currency={currency} />}
       onClose={() => setIsModalVisible(false)}
     />
   );
