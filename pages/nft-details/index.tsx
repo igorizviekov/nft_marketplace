@@ -9,9 +9,14 @@ import { Button } from '../../components/ui/Button';
 import Modal from '../../components/modal';
 import PaymentBody from '../../components/payment-body';
 import { ButtonGroup } from '../../components/ui/ButtonGroup';
+import Web3Modal from 'web3modal';
+import { ethers } from 'ethers';
+import { fetchContract } from '../../utils';
+import { toast } from 'react-toastify';
 
 const NFTDetails = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState<boolean | string>(false);
   const [isModalVisible, setIsModalVisible] = useState<boolean | string>(false);
   const [nft, setNft] = useState<INftCardProps | null>(null);
 
@@ -20,6 +25,38 @@ const NFTDetails = () => {
   const { activeWallet, currency } = useStoreState(
     (state: IStoreModel) => state.wallet
   );
+
+  const buyNFT = async () => {
+    if (!nft) return;
+
+    const web3Modal = new Web3Modal();
+    const connection = await web3Modal.connect();
+    const provider = new ethers.providers.Web3Provider(connection);
+    const signer = provider.getSigner();
+    const contract = fetchContract(signer);
+
+    const price = ethers.utils.parseUnits(nft.price.toString(), 'ether');
+
+    const transaction = await contract.createMarketSale(nft.tokenId, {
+      value: price,
+    });
+    await transaction.wait();
+  };
+
+  const handleCheckout = async () => {
+    try {
+      setIsLoading(true);
+      setIsModalVisible(false);
+      await buyNFT();
+      setIsLoading(false);
+      toast.success(`You successfully purchased ${nft?.name} NFT`);
+      setTimeout(() => router.push('/my-nft'), 2000);
+    } catch (e) {
+      console.log('Error purchasing the NFT', e);
+      setIsError('Error purchasing the NFT');
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
     if (router.isReady) {
@@ -39,6 +76,12 @@ const NFTDetails = () => {
       setIsLoading(false);
     }
   }, [router.isReady]);
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(isError);
+    }
+  }, [isError]);
 
   const content =
     isLoading && nft ? (
@@ -120,7 +163,7 @@ const NFTDetails = () => {
         </div>
       </div>
     ) : (
-      <div>Error</div>
+      <div>Oops... </div>
     );
 
   const modal = isModalVisible && nft && (
@@ -129,7 +172,7 @@ const NFTDetails = () => {
       footer={
         <ButtonGroup
           options={[
-            { label: 'Checkout', handleClick: () => null },
+            { label: 'Checkout', handleClick: handleCheckout },
             {
               label: 'Cancel',
               handleClick: () => setIsModalVisible(false),

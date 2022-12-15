@@ -151,7 +151,7 @@ contract NFTMarketplace is ERC721URIStorage {
     }
 
     /**
-        Send item on from marketplace to a buyer
+        Transiton the ownership of the NFT from marketplace to a buyer
     */
     function createMarketSale(uint256 tokenId) public payable {
         uint256 price = idToMarketItem[tokenId].price;
@@ -163,7 +163,7 @@ contract NFTMarketplace is ERC721URIStorage {
         );
 
         idToMarketItem[tokenId].sold = true;
-        idToMarketItem[tokenId].seller = payable(address(0)); // empty address == unsold == does not belong to any specific wallet
+        idToMarketItem[tokenId].seller = payable(address(0)); // empty address == does not have a seller
         idToMarketItem[tokenId].owner = payable(msg.sender); // buyer becomes an owner
 
         _itemsSold.increment();

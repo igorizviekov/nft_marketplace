@@ -12,6 +12,7 @@ import { Actions, useStoreActions, useStoreState } from 'easy-peasy';
 import { IStoreModel } from '../../store/model/model.types';
 import { Button } from '../../components/ui/Button';
 import { useRouter } from 'next/router';
+import Web3Modal from 'web3modal';
 
 const MyNFTs: NextPage = () => {
   const [nfts, setNfts] = useState<INftCardProps[]>([]);
@@ -25,8 +26,11 @@ const MyNFTs: NextPage = () => {
   const router = useRouter();
 
   const fetchMyNFTs = async () => {
-    const provider = new ethers.providers.JsonRpcProvider();
-    const contract = fetchContract(provider);
+    const web3Modal = new Web3Modal();
+    const connection = await web3Modal.connect();
+    const provider = new ethers.providers.Web3Provider(connection);
+    const signer = provider.getSigner();
+    const contract = fetchContract(signer);
     /**
      * List of NFT that you own
      */
@@ -65,7 +69,6 @@ const MyNFTs: NextPage = () => {
   useEffect(() => {
     fetchMyNFTs()
       .then((items) => {
-        console.log(items);
         if (items?.length) {
           setNfts(items);
         }
