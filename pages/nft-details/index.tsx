@@ -6,10 +6,11 @@ import { INftCardProps } from '../../components/ui/nft-card';
 import { IStoreModel } from '../../store/model/model.types';
 import Image from 'next/image';
 import { Button } from '../../components/ui/Button';
+import Modal from '../../components/modal';
 
 const NFTDetails = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState<boolean | string>(true);
+  const [isModalVisible, setIsModalVisible] = useState<boolean | string>(false);
   const [nft, setNft] = useState<INftCardProps | null>(null);
 
   const router = useRouter();
@@ -110,7 +111,7 @@ const NFTDetails = () => {
                 isPrimary
                 label={`Buy for ${nft.price} ${currency}`}
                 classStyles="mr-5 sm:mr-0 sm:mb-5 rounded-xl"
-                onClick={() => null}
+                onClick={() => setIsModalVisible(true)}
               />
             )}
           </div>
@@ -119,6 +120,21 @@ const NFTDetails = () => {
     ) : (
       <div>Error</div>
     );
-  return <div>{content}</div>;
+
+  const modal = isModalVisible && (
+    <Modal
+      header="Check Out"
+      footer={<div>Footer</div>}
+      body={<div>Body</div>}
+      onClose={() => setIsModalVisible(false)}
+    />
+  );
+
+  return (
+    <div>
+      {content}
+      {modal}
+    </div>
+  );
 };
 export default NFTDetails;
