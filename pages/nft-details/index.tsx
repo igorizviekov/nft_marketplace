@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { Button } from '../../components/ui/Button';
 import Modal from '../../components/modal';
 import PaymentBody from '../../components/payment-body';
+import { ButtonGroup } from '../../components/ui/ButtonGroup';
 
 const NFTDetails = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -125,7 +126,17 @@ const NFTDetails = () => {
   const modal = isModalVisible && nft && (
     <Modal
       header="Check Out"
-      footer={<div>Footer</div>}
+      footer={
+        <ButtonGroup
+          options={[
+            { label: 'Checkout', handleClick: () => null },
+            {
+              label: 'Cancel',
+              handleClick: () => setIsModalVisible(false),
+            },
+          ]}
+        />
+      }
       body={<PaymentBody nft={nft as INftCardProps} currency={currency} />}
       onClose={() => setIsModalVisible(false)}
     />
