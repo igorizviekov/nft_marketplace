@@ -1,4 +1,4 @@
-import { useStoreState } from 'easy-peasy';
+import { Actions, useStoreActions, useStoreState } from 'easy-peasy';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { Spinner } from '../../components/spinner';
@@ -26,6 +26,10 @@ const NFTDetails = () => {
     (state: IStoreModel) => state.wallet
   );
 
+  const { toggleTab } = useStoreActions(
+    (actions: Actions<IStoreModel>) => actions.ui
+  );
+
   const buyNFT = async () => {
     if (!nft) return;
 
@@ -48,8 +52,8 @@ const NFTDetails = () => {
       setIsLoading(true);
       setIsModalVisible(false);
       await buyNFT();
-      setIsLoading(false);
       toast.success(`You successfully purchased ${nft?.name} NFT`);
+      toggleTab('My NFTs');
       setTimeout(() => router.push('/my-nft'), 2000);
     } catch (e) {
       console.log('Error purchasing the NFT', e);
@@ -147,7 +151,7 @@ const NFTDetails = () => {
                 classStyles="mr-5 sm:mr-0 sm:mb-5 rounded-xl"
                 onClick={() =>
                   router.push(
-                    `/resell-nft?tokenId=${nft.tokenId}&tokenURI=${nft.img}`
+                    `/resell-nft?tokenId=${nft.tokenId}&image=${nft.img}&price=${nft.price}`
                   )
                 }
               />

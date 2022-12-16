@@ -8,9 +8,16 @@ type InputProps = {
   title: string;
   placeholder: string;
   handleClick?: React.ChangeEventHandler;
+  value?: string | number;
 };
 
-const Input = ({ inputType, title, placeholder, handleClick }: InputProps) => {
+const Input = ({
+  inputType,
+  title,
+  placeholder,
+  handleClick,
+  value,
+}: InputProps) => {
   const walletState = useStoreState((state: IStoreModel) => state.wallet);
   const { currency } = walletState;
 
@@ -28,6 +35,7 @@ const Input = ({ inputType, title, placeholder, handleClick }: InputProps) => {
             className="flex w-full dark:bg-nft-black-1 bg-white outline-none"
             placeholder={placeholder}
             onChange={handleClick}
+            value={value}
           />
           <p className="flex-1 font-poppins dark:text-white text-nft-black-1 font-semibold text-xl">
             {currency}
