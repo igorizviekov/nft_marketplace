@@ -7,7 +7,7 @@ import { Search } from '../components/search';
 import { ethers } from 'ethers';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { fetchContract } from '../utils';
+import { fetchContract, getTopCreators } from '../utils';
 
 export default function Home() {
   const [nftList, setNftList] = useState<INftCardProps[]>([]);
@@ -77,7 +77,7 @@ export default function Home() {
   return (
     <div className="pt-32 sm:pt-26  w-9/12  sm:w-full m-auto">
       <Banner />
-      <TopSellers />
+      <TopSellers creators={getTopCreators(nftList)} />
       <NftList nfts={nftList} isLoading={isLoading} />
     </div>
   );

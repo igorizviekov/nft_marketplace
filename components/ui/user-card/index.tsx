@@ -1,13 +1,18 @@
-import { IUser } from '../../top-sellers/top-sellers-types';
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import { ImRadioChecked2 } from 'react-icons/im';
 import { useStoreState } from 'easy-peasy';
 import { IStoreModel } from '../../../store/model/model.types';
 
-export const UserCard = ({ name, img, rank, balance }: IUser) => {
+interface IUserCardProps {
+  name: string;
+  img: string | StaticImageData;
+  rank: number;
+  balance: number;
+}
+
+export const UserCard = ({ name, img, rank, balance }: IUserCardProps) => {
   const walletState = useStoreState((state: IStoreModel) => state.wallet);
   const { currency } = walletState;
-
   return (
     <div className="min-w-190 minlg:min-w-240 dark:bg-nft-black-3 bg-whit rounded-3xl flex flex-col px-5 py-2 mx-5 shadow-md">
       <div className="w-8 h-8 minlg:w-10 minlg:h-10  dark:bg-nft-black-2 nft-gradient-2 flexCenter rounded-full">
@@ -38,10 +43,11 @@ export const UserCard = ({ name, img, rank, balance }: IUser) => {
 
       <div className="mt-3 minlg:mt-7 text-center flexCenter flex-col">
         <p className="font-poppins dark:text-white text-nft-black-1 font-semibold text-base">
-          {name}
+          {name?.slice(0, 3)}...$
+          {name?.slice(name?.length - 5)}
         </p>
         <p className="mt-1 font-poppins dark:text-white text-nft-black-1 font-semibold text-base">
-          {balance.toFixed(4)}
+          {balance.toFixed(2)}
           <span className="font-normal ml-1">{currency}</span>
         </p>
       </div>

@@ -1,90 +1,37 @@
 import { useEffect, useRef, useState } from 'react';
 import { randomId } from '../../utils';
 import { UserCard } from '../ui/user-card';
-import { IUser } from './top-sellers-types';
-import userLogo_1 from '../../assets/img/users/user_1.avif';
-import userLogo_2 from '../../assets/img/users/user_2.jpeg';
-import userLogo_3 from '../../assets/img/users/user_3.avif';
-import userLogo_4 from '../../assets/img/users/user_4.jpg';
-import userLogo_5 from '../../assets/img/users/user_5.jpg';
-import userLogo_6 from '../../assets/img/users/user_6.jpg';
-import userLogo_7 from '../../assets/img/users/user_7.jpg';
-import userLogo_8 from '../../assets/img/users/user_8.jpg';
-import userLogo_9 from '../../assets/img/users/user_9.jpg';
-import userLogo_10 from '../../assets/img/users/user_10.jpg';
+import userLogo_1 from '../../assets/img/users/creator1.png';
+import userLogo_2 from '../../assets/img/users/creator2.png';
+import userLogo_3 from '../../assets/img/users/creator3.png';
+import userLogo_4 from '../../assets/img/users/creator4.png';
+import userLogo_5 from '../../assets/img/users/creator5.png';
+import userLogo_6 from '../../assets/img/users/creator6.png';
+import userLogo_7 from '../../assets/img/users/creator7.png';
+import userLogo_8 from '../../assets/img/users/creator8.png';
+import userLogo_9 from '../../assets/img/users/creator9.png';
+import userLogo_10 from '../../assets/img/users/creator10.png';
 import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
+import { ITopCreator } from './top-sellers.types';
 
-export const TopSellers = () => {
+interface ITopSellersProps {
+  creators: ITopCreator[];
+}
+export const TopSellers = ({ creators }: ITopSellersProps) => {
   const parentRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [topSellers, setTopSellers] = useState<IUser[]>([]);
-
-  const creatorMock: IUser[] = [
-    {
-      img: userLogo_1,
-      name: `x0${randomId(3)}...${randomId(4)}`,
-      balance: 5.2,
-      rank: 1,
-    },
-    {
-      img: userLogo_2,
-      name: `x0${randomId(3)}...${randomId(4)}`,
-      balance: 3.2,
-      rank: 2,
-    },
-    {
-      img: userLogo_9,
-      name: `x0${randomId(3)}...${randomId(4)}`,
-      balance: 0.8,
-      rank: 3,
-    },
-
-    {
-      img: userLogo_4,
-      name: `x0${randomId(3)}...${randomId(4)}`,
-      balance: 0.8,
-      rank: 4,
-    },
-    {
-      img: userLogo_5,
-      name: `x0${randomId(3)}...${randomId(4)}`,
-      balance: 0.8,
-      rank: 5,
-    },
-    {
-      img: userLogo_6,
-      name: `x0${randomId(3)}...${randomId(4)}`,
-      balance: 0.8,
-      rank: 6,
-    },
-    {
-      img: userLogo_7,
-      name: `x0${randomId(3)}...${randomId(4)}`,
-      balance: 0.8,
-      rank: 7,
-    },
-    {
-      img: userLogo_8,
-      name: `x0${randomId(3)}...${randomId(4)}`,
-      balance: 0.8,
-      rank: 8,
-    },
-    {
-      img: userLogo_10,
-      name: `x0${randomId(3)}...${randomId(4)}`,
-      balance: 0.8,
-      rank: 9,
-    },
-    {
-      img: userLogo_3,
-      name: `x0${randomId(3)}...${randomId(4)}`,
-      balance: 1.1,
-      rank: 10,
-    },
+  const userLogos = [
+    userLogo_1,
+    userLogo_2,
+    userLogo_3,
+    userLogo_4,
+    userLogo_5,
+    userLogo_6,
+    userLogo_7,
+    userLogo_8,
+    userLogo_9,
+    userLogo_10,
   ];
-
-  useEffect(() => setTopSellers(creatorMock), []);
-
   const handleScroll = (direction: 'left' | 'right') => {
     const { current } = scrollRef;
     const scrollAmount = window.innerWidth > 1800 ? 270 : 210;
@@ -98,24 +45,8 @@ export const TopSellers = () => {
     }
   };
 
-  return (
-    <div className="relative">
-      <h1 className="font-poppins dark:text-white text-nft-black-1 text-2xl minlg:text-4xl font-semibold my-8 px-5 sm:text-center sm:w-full">
-        Best Creators
-      </h1>
-      <div
-        className="relative flex-1 max-w-full flex overflow-x-auto no-scrollbar "
-        ref={parentRef}
-      >
-        <div
-          className="flex flex-row w-full overflow-x-auto no-scrollbar select-none pb-5 "
-          ref={scrollRef}
-        >
-          {topSellers.map((user, i) => (
-            <UserCard key={`user-${i}`} {...user} />
-          ))}
-        </div>
-      </div>
+  const arrows = creators.length > 3 && (
+    <>
       <div
         onClick={() => handleScroll('left')}
         className="absolute top-1/2 cursor-pointer -left-8 sm:hidden"
@@ -134,6 +65,34 @@ export const TopSellers = () => {
           className="active:scale-125 transition-scale"
         />
       </div>
+    </>
+  );
+
+  return (
+    <div className="relative">
+      <h1 className="font-poppins dark:text-white text-nft-black-1 text-2xl minlg:text-4xl font-semibold my-8 px-5 sm:text-center sm:w-full">
+        Best Creators
+      </h1>
+      <div
+        className="relative flex-1 max-w-full flex overflow-x-auto no-scrollbar "
+        ref={parentRef}
+      >
+        <div
+          className="flex flex-row w-full overflow-x-auto no-scrollbar select-none pb-5 "
+          ref={scrollRef}
+        >
+          {creators.map((user, i) => (
+            <UserCard
+              key={`user-${i}`}
+              name={user.seller}
+              rank={i + 1}
+              balance={user.sum}
+              img={userLogos[i]}
+            />
+          ))}
+        </div>
+      </div>
+      {arrows}
     </div>
   );
 };
