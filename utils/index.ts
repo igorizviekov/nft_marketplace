@@ -3,6 +3,7 @@ import { JsonRpcProvider, JsonRpcSigner } from '@ethersproject/providers';
 import { MarketAddress, MarketAddressABI } from '../context/constants';
 import { INftCardProps } from '../components/ui/nft-card';
 import { ITopCreator } from '../components/top-sellers/top-sellers.types';
+import { ActiveSelectOption } from '../components/search-filter/search-filter.types';
 
 export const randomId = (length: number): string => {
   let res = '';
@@ -67,3 +68,20 @@ export const getTopCreators = (nfts: INftCardProps[]) =>
     }, [])
     .sort((a, b) => (b as ITopCreator).sum - (a as ITopCreator).sum)
     .slice(0, 10);
+
+export const sortNfts = (type: ActiveSelectOption, nfts: INftCardProps[]) => {
+  switch (type) {
+    case 'Price (low to high)':
+      return nfts.sort((a, b) => Number(a.price) - Number(b.price));
+      break;
+    case 'Price (high to low)':
+      return nfts.sort((a, b) => Number(b.price) - Number(a.price));
+      break;
+    case 'Recently added':
+      return nfts.sort((a, b) => b.tokenId - a.tokenId);
+      break;
+    default:
+      return nfts;
+      break;
+  }
+};

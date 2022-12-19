@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { fetchContract, getTopCreators } from '../utils';
+import { fetchContract, getTopCreators, sortNfts } from '../utils';
 import { ActiveSelectOption } from '../components/search-filter/search-filter.types';
 
 export default function Home() {
@@ -78,28 +78,9 @@ export default function Home() {
     }
   }, [isError]);
 
-  // search filter
+  // dropdown filter
   useEffect(() => {
-    const sortedNfts = [...nftList];
-
-    switch (activeSelect) {
-      case 'Price (low to high)':
-        setNftList(
-          sortedNfts.sort((a, b) => Number(a.price) - Number(b.price))
-        );
-        break;
-      case 'Price (high to low)':
-        setNftList(
-          sortedNfts.sort((a, b) => Number(b.price) - Number(a.price))
-        );
-        break;
-      case 'Recently added':
-        setNftList(sortedNfts.sort((a, b) => b.tokenId - a.tokenId));
-        break;
-      default:
-        setNftList(nftList);
-        break;
-    }
+    setNftList(sortNfts(activeSelect, [...nftList]));
   }, [activeSelect]);
 
   // search

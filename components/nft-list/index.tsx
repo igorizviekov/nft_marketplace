@@ -1,10 +1,5 @@
-import { fetchContract } from '../../utils';
 import { INftCardProps, NftCard } from '../ui/nft-card';
-import { useEffect, useState } from 'react';
 import { SearchFilter } from '../search-filter';
-import { ethers } from 'ethers';
-import axios from 'axios';
-import { toast } from 'react-toastify';
 import { Spinner } from '../spinner';
 import { ISearchFilterProps } from '../search-filter/search-filter.types';
 
