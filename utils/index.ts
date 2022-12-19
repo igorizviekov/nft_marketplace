@@ -56,7 +56,6 @@ export const getTopCreators = (nfts: INftCardProps[]) =>
         (creator) => creator.seller === currentNFT.seller
       );
       if (index > -1) {
-        // eslint-disable-next-line no-param-reassign
         (creators as ITopCreator[])[index].sum += Number(currentNFT.price);
       } else {
         (creators as ITopCreator[]).push({
@@ -66,4 +65,5 @@ export const getTopCreators = (nfts: INftCardProps[]) =>
       }
       return creators;
     }, [])
-    .sort((a, b) => (b as ITopCreator).sum - (a as ITopCreator).sum);
+    .sort((a, b) => (b as ITopCreator).sum - (a as ITopCreator).sum)
+    .slice(0, 10);
