@@ -23,7 +23,7 @@ export const Header = () => {
   const router = useRouter();
 
   const [isSideMenuOpen, setSideMenuOpen] = useState(false);
-  const [menuTabs, setMenuTabs] = useState<MenuTab[]>(['Explore']);
+  const [menuTabs, setMenuTabs] = useState<MenuTab[]>(['Explore', 'About']);
 
   const classNames = [
     'flexBetween',
@@ -55,7 +55,7 @@ export const Header = () => {
     walletActions.setIsWalletConnected(isConnected);
     if (isConnected) {
       walletActions.setActiveWallet(wallet.account);
-      setMenuTabs(['Explore', 'Listed', 'My NFTs']);
+      setMenuTabs(['Explore', 'Listed', 'My NFTs', 'About']);
     } else {
       mode === 'active'
         ? toast.error('No accounts found.')
@@ -73,6 +73,9 @@ export const Header = () => {
         break;
       case '/my-nft':
         if (active !== 'My NFTs') actions.toggleTab('My NFTs');
+        break;
+      case '/about':
+        if (active !== 'About') actions.toggleTab('About');
         break;
       default:
         actions.toggleTab('');

@@ -20,6 +20,8 @@ export const MenuItems = ({
         return '/listed';
       case 2:
         return '/my-nft';
+      case 3:
+        return '/about';
       default:
         return '/';
     }
