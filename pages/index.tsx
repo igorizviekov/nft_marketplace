@@ -60,8 +60,9 @@ export default function Home() {
     fetchNFTs()
       .then((items) => {
         if (items?.length) {
-          setNftList(items);
-          setNftsCopy(items);
+          const sortedNfts = sortNfts('Recently added', items);
+          setNftList(sortedNfts);
+          setNftsCopy(sortedNfts);
         }
         setIsLoading(false);
       })
@@ -80,6 +81,7 @@ export default function Home() {
 
   // dropdown filter
   useEffect(() => {
+    console.log(sortNfts(activeSelect, [...nftList]));
     setNftList(sortNfts(activeSelect, [...nftList]));
   }, [activeSelect]);
 

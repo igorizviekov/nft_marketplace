@@ -1,6 +1,6 @@
 import styles from './header.module.scss';
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { useState, useEffect, Dispatch } from 'react';
+import { NextRouter, useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -62,6 +62,28 @@ export const Header = () => {
         : console.log('Wallet is not connected');
     }
   };
+
+  const checkActive = (active: MenuTab, router: NextRouter) => {
+    switch (router.pathname) {
+      case '/':
+        if (active !== 'Explore') actions.toggleTab('Explore');
+        break;
+      case '/listed':
+        if (active !== 'Listed') actions.toggleTab('Listed');
+        break;
+      case '/my-nft':
+        if (active !== 'My NFTs') actions.toggleTab('My NFTs');
+        break;
+      default:
+        actions.toggleTab('');
+        break;
+    }
+  };
+
+  // update active tab state depending from the route
+  useEffect(() => {
+    checkActive(state.tab, router);
+  }, [router.pathname]);
 
   useEffect(() => {
     connectCryptoWallet('silent');

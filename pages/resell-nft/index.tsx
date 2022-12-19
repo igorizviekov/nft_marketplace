@@ -1,7 +1,6 @@
 import { NextPage } from 'next';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import axios from 'axios';
 import { Spinner } from '../../components/spinner';
 import Input from '../../components/ui/Input';
 import { Button } from '../../components/ui/Button';
@@ -9,8 +8,6 @@ import { toast } from 'react-toastify';
 import Web3Modal from 'web3modal';
 import { ethers } from 'ethers';
 import { fetchContract } from '../../utils';
-import { Actions, useStoreActions } from 'easy-peasy';
-import { IStoreModel } from '../../store/model/model.types';
 
 const ReSellNFT = () => {
   const router = useRouter();
@@ -18,10 +15,6 @@ const ReSellNFT = () => {
   const { image, tokenId } = router.query;
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState<boolean | string>(false);
-
-  const { toggleTab } = useStoreActions(
-    (actions: Actions<IStoreModel>) => actions.ui
-  );
 
   const listOnMarketPlace = async () => {
     // https://www.npmjs.com/package/web3modal
@@ -59,7 +52,6 @@ const ReSellNFT = () => {
     try {
       await listOnMarketPlace();
       toast.success('You successfully listed your NFT on a Marketplace');
-      toggleTab('Explore');
       setTimeout(() => router.push('/'), 2000);
     } catch (e) {
       console.log('Failed to list NFT on a Marketplace', e);

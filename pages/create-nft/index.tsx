@@ -10,9 +10,6 @@ import Web3Modal from 'web3modal';
 import { ethers } from 'ethers';
 import { Spinner } from '../../components/spinner';
 import { fetchContract } from '../../utils';
-import { Actions, useStoreActions } from 'easy-peasy';
-import { IStoreModel } from '../../store/model/model.types';
-
 export interface IFormInput {
   price: string;
   name: string;
@@ -32,10 +29,6 @@ const CreateNFT: NextPage = () => {
   });
 
   const router = useRouter();
-
-  const { toggleTab } = useStoreActions(
-    (actions: Actions<IStoreModel>) => actions.ui
-  );
 
   const isFormValid = (name: string, price: number, description: string) => {
     if (!file) return false;
@@ -154,7 +147,6 @@ const CreateNFT: NextPage = () => {
       setIsLoading(true);
       await covertImageToNFT(file as File, name, Number(price), description);
       toast.success('New NFT has been created!');
-      toggleTab('Explore');
       setTimeout(() => router.push('/'), 2000);
     } catch {
       setIsError('Error occurred when submitting a new NFT. Please try again');

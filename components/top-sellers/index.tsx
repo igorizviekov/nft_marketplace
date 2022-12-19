@@ -70,8 +70,8 @@ export const TopSellers = ({ creators }: ITopSellersProps) => {
 
   return (
     <div className="relative">
-      <h1 className="font-poppins dark:text-white text-nft-black-1 text-2xl minlg:text-4xl font-semibold my-8 px-5 sm:text-center sm:w-full">
-        Best Creators
+      <h1 className="font-poppins dark:text-white text-nft-black-1 text-2xl minlg:text-4xl font-semibold my-8 px-5 sm:text-center sm:w-full animate-fadeIn">
+        {creators.length ? 'Top Creators' : ''}
       </h1>
       <div
         className="relative flex-1 max-w-full flex overflow-x-auto no-scrollbar "

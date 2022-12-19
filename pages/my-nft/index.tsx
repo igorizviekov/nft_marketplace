@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import { Spinner } from '../../components/spinner';
 import metaMaskIcon from '../../assets/icons/metamask-icon.json';
 import Lottie from 'lottie-react';
-import { Actions, useStoreActions, useStoreState } from 'easy-peasy';
+import { useStoreState } from 'easy-peasy';
 import { IStoreModel } from '../../store/model/model.types';
 import { Button } from '../../components/ui/Button';
 import { useRouter } from 'next/router';
@@ -20,9 +20,7 @@ const MyNFTs: NextPage = () => {
   const [isError, setIsError] = useState<boolean | string>(false);
 
   const { activeWallet } = useStoreState((state: IStoreModel) => state.wallet);
-  const { toggleTab } = useStoreActions(
-    (actions: Actions<IStoreModel>) => actions.ui
-  );
+
   const router = useRouter();
 
   const fetchMyNFTs = async () => {
@@ -98,7 +96,6 @@ const MyNFTs: NextPage = () => {
             label="Buy"
             isPrimary
             onClick={() => {
-              toggleTab('Explore');
               router.push('/');
             }}
             classStyles="w-100"
@@ -107,14 +104,6 @@ const MyNFTs: NextPage = () => {
       </>
     ) : (
       <div className="sm:px-4 p-12 w-full minmd:w-4/5 flexCenter flex-col">
-        <div className="flex-1 w-full flex flex-row sm:flex-col px-4 xs:px-0 minlg:px-8">
-          {/* <SearchBar
-        activeSelect={activeSelect}
-        setActiveSelect={setActiveSelect}
-        handleSearch={onHandleSearch}
-        clearSearch={onClearSearch}
-      /> */}
-        </div>
         <div className="mt-3 w-full flex flex-wrap">
           {nfts.map((nft) => (
             <NftCard key={nft.tokenId} {...nft} />
