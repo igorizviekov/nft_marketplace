@@ -81,7 +81,6 @@ export default function Home() {
 
   // dropdown filter
   useEffect(() => {
-    console.log(sortNfts(activeSelect, [...nftList]));
     setNftList(sortNfts(activeSelect, [...nftList]));
   }, [activeSelect]);
 

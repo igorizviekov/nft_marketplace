@@ -31,10 +31,10 @@ export const Banner = () => {
           Buy
         </h1>
         <h1 className="absolute font-poppins z-20 top-1/2 -translate-y-1/2 text-6xl  md:text-6xl sm:ml:1 sm:text-5xl text-white dark:text-nft-black-4 text-semibold">
-          Create
+          Trade
         </h1>
-        <h1 className="absolute z-20 bottom-0 font-poppins text-6xl md:text-5xl sm:text-4xl  text-white dark:text-nft-black-4 text-semibold ">
-          or sell your NFTs easily
+        <h1 className="absolute z-20 bottom-0 font-poppins text-6xl md:text-5xl sm:text-5xl  text-white dark:text-nft-black-4 text-semibold ">
+          or sell Art as NFT
         </h1>
 
         <svg

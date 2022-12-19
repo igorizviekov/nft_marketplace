@@ -31,7 +31,6 @@ export const connectWallet = async (
   });
 
   if (accounts.length) {
-    console.log('active accounts', accounts);
     return {
       isConnected: true,
       account: accounts[0],

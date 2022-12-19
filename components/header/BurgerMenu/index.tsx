@@ -41,7 +41,7 @@ export const BurgerMenu = ({
         <AiOutlinePause
           onClick={onToggle}
           size={55}
-          color="#eb4d4b"
+          color="#FFDD00"
           className="absolute right-2 bottom-2 cursor-pointer"
         />
       </div>

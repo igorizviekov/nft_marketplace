@@ -185,7 +185,7 @@ export const Header = () => {
       {headerContent}
       <BurgerMenu
         isOpen={isSideMenuOpen}
-        onToggle={() => setSideMenuOpen(!isSideMenuOpen)}
+        onToggle={() => setSideMenuOpen((prev) => !prev)}
         actions={btnOptions}
         menuItems={menuItems}
       />

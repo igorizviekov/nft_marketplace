@@ -2,7 +2,7 @@
   @apply transition-all flex justify-between flex-col w-10
     h-6 cursor-pointer;
   &__line {
-    @apply transition-all h-1 w-full bg-nft-red-violet;
+    @apply transition-all h-1 w-full bg-nft-yellow;
   }
   &__open {
     transform: rotate(-90deg);

@@ -4,14 +4,9 @@
 @tailwind components;
 @tailwind utilities;
 
-$gradient-primary: linear-gradient(
-  20deg,
-  #dab616 36%,
-  #edea34 85%,
-  #f9ca24 100%
-);
+$gradient-primary: linear-gradient(20deg, #0057b7 0%, #7ed6df 100%);
 
-$gradient-primary-hover: linear-gradient(20deg, #22a6b3 0%, #7ed6df 100%);
+$gradient-primary-hover: linear-gradient(20deg, #014895 0%, #7ed6df 100%);
 
 .nft-gradient {
   background: rgb(2, 0, 36);
