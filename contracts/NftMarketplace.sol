@@ -13,7 +13,7 @@ contract NFTMarketplace is ERC721URIStorage {
     Counters.Counter private _tokenIds;
     Counters.Counter private _itemsSold;
 
-    uint256 listingPrice = 0.000001 ether;
+    uint256 listingPrice = 0.000 ether;
     address payable owner;
 
     mapping(uint256 => MarketItem) private idToMarketItem;
@@ -114,7 +114,7 @@ contract NFTMarketplace is ERC721URIStorage {
         emit MerketItemCreated(
             tokenId,
             msg.sender,
-            address(this),
+            address(this), // owner is a marketplace
             price,
             false
         );
@@ -155,6 +155,9 @@ contract NFTMarketplace is ERC721URIStorage {
     */
     function createMarketSale(uint256 tokenId) public payable {
         uint256 price = idToMarketItem[tokenId].price;
+        uint256 creatorCut = (msg.value * 85) / 100;
+        uint256 charityCut = (msg.value * 5) / 100;
+        address seller = idToMarketItem[tokenId].seller;
 
         // amount of eth must be equal to the transaction value
         require(
@@ -163,7 +166,7 @@ contract NFTMarketplace is ERC721URIStorage {
         );
 
         idToMarketItem[tokenId].sold = true;
-        idToMarketItem[tokenId].seller = payable(address(0)); // empty address == does not have a seller
+        idToMarketItem[tokenId].seller = payable(address(0)); // empty address == does not have a seller after purchase
         idToMarketItem[tokenId].owner = payable(msg.sender); // buyer becomes an owner
 
         _itemsSold.increment();
@@ -174,7 +177,17 @@ contract NFTMarketplace is ERC721URIStorage {
         _transfer(address(this), msg.sender, tokenId);
 
         payable(owner).transfer(listingPrice); // fee of the marketplace
-        payable(idToMarketItem[tokenId].seller).transfer(msg.value); // transfer price of the NFT
+        payable(seller).transfer(creatorCut); // transfer price of the NFT
+
+        payable(0xfc0b52E020223c98a546F814cdA6d7872D74b386).transfer(
+            charityCut
+        ); // donate to https://helpingtoleave.org/
+        payable(0xa1b1bbB8070Df2450810b8eB2425D543cfCeF79b).transfer(
+            charityCut
+        ); // donate to https://savelife.in.ua/
+        payable(0xfc0b52E020223c98a546F814cdA6d7872D74b386).transfer(
+            charityCut
+        ); // donate to https://prytulafoundation.org/
     }
 
     /**
