@@ -13,7 +13,7 @@ const modal = ({ header, footer, body, onClose }: IModalProps) => {
 
   return (
     <div
-      className="flexCenter fixed inset-0 z-10 backdrop-blur-sm animated fadeIn"
+      className="flexCenter fixed inset-0 z-50 backdrop-blur-sm animated fadeIn"
       onClick={handleClickOutside}
     >
       <div

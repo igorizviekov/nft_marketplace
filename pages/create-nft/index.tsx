@@ -10,6 +10,7 @@ import Web3Modal from 'web3modal';
 import { ethers } from 'ethers';
 import { Spinner } from '../../components/spinner';
 import { fetchContract } from '../../utils';
+import Link from 'next/link';
 export interface IFormInput {
   price: string;
   name: string;
@@ -215,6 +216,28 @@ const CreateNFT: NextPage = () => {
             })
           }
         />
+        <p className="font-poppins dark:text-white text-nft-black-1 mt-4 ml-4 sm:ml-2 text-base ">
+          When selling your NFT, 15% of it's price will be donated to the
+          following charity funds to support Ukraine:
+        </p>
+        <p className="font-poppins dark:text-white text-nft-black-1 mt-2 ml-10 font-semibold ">
+          <Link href="https://helpingtoleave.org/" target="_blank">
+            - Helping to leave
+          </Link>
+        </p>
+        <p className="font-poppins dark:text-white text-nft-black-1 mt-2 ml-10 font-semibold ">
+          <Link
+            href="https://savelife.in.ua/en/about-foundation-en/"
+            target="_blank"
+          >
+            - Come Back Alive
+          </Link>
+        </p>
+        <p className="font-poppins dark:text-white text-nft-black-1 mt-2 ml-10 font-semibold ">
+          <Link href="https://prytulafoundation.org/en" target="_blank">
+            - Charity foundation of Serhiy Prytula
+          </Link>
+        </p>
 
         <div className="mt-7 w-full flex justify-end">
           <Button
