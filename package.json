@@ -13,6 +13,7 @@
     "@metamask/providers": "^9.1.0",
     "@openzeppelin/contracts": "4.5.0",
     "axios": "0.26.0",
+    "dotenv": "^16.0.3",
     "easy-peasy": "^5.2.0",
     "ethers": "^5.6.9",
     "install-peerdeps": "^3.0.3",

@@ -18,7 +18,9 @@ export default function Home() {
     useState<ActiveSelectOption>('Recently added');
 
   const fetchNFTs = async () => {
-    const provider = new ethers.providers.JsonRpcProvider();
+    const provider = new ethers.providers.JsonRpcProvider(
+      process.env.NEXT_PUBLIC_ALCHEMY_API_URL
+    );
     const contract = fetchContract(provider);
     /**
      * List of all available NFTs on marketplace.
