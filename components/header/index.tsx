@@ -46,9 +46,7 @@ export const Header = () => {
 
   const connectCryptoWallet = async (mode: ConnectWallet) => {
     if (!window.ethereum) {
-      return toast.error(
-        'Please add Metamask extension in your browser to continue'
-      );
+      return toast.info('Please add Metamask extension in your browser');
     }
     const wallet = await connectWallet(mode);
     const { isConnected } = wallet;
