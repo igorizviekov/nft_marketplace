@@ -105,6 +105,7 @@ export const Header = () => {
           type="checkbox"
           className="checkbox"
           id="checkbox"
+          checked={theme === 'dark'}
           onChange={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
         />
         <label
