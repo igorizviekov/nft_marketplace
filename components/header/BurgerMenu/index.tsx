@@ -1,6 +1,7 @@
 import { BtnOption, ButtonGroup } from '../../ui/ButtonGroup';
 import { AiOutlinePause } from 'react-icons/ai';
 import styles from './burger.module.scss';
+import { BackgroundBlur } from '../../ui/background';
 
 interface IBurgerMenuProps {
   isOpen: boolean;
@@ -16,12 +17,7 @@ export const BurgerMenu = ({
   menuItems,
 }: IBurgerMenuProps) => (
   <>
-    {isOpen && (
-      <div
-        className="w-screen h-screen  backdrop-blur-lg absolute left-0 top-0"
-        onClick={onToggle}
-      />
-    )}
+    <BackgroundBlur isVisible={isOpen} onClick={onToggle} />
     <div className="hidden md:flex ml-2">
       <div
         className={`${styles['burger-menu']} ${
