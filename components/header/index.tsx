@@ -148,12 +148,12 @@ export const Header = () => {
 
   const connectWalletBtn = {
     label: (
-      <span className="flexCenter gap-5 max-w-xs">
+      <span className="flexCenter gap-5">
         Connect
         <Lottie
           animationData={metaMaskIcon}
           loop={false}
-          style={{ height: 30 }}
+          style={{ height: 30, maxWidth: 50 }}
         />
       </span>
     ),
