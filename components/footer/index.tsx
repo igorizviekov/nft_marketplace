@@ -18,7 +18,7 @@ export const Footer = () => {
                 target="_blank"
                 className={socialIconClasses}
               >
-                igor_izviekov
+                crypto_basset
               </Link>
             </strong>
           </p>
