@@ -30,13 +30,13 @@ export const BurgerMenu = ({
         onClick={onToggle}
       >
         <span
-          className={`${styles['burger-menu__line']} ${styles['burger-menu__line1']}`}
+          className={`${styles['burger-menu__line']} ${styles['burger-menu__line1']} dark:bg-nft-yellow`}
         />
         <span
-          className={`${styles['burger-menu__line']} ${styles['burger-menu__line2']}`}
+          className={`${styles['burger-menu__line']} ${styles['burger-menu__line2']} dark:bg-nft-yellow`}
         />
         <span
-          className={`${styles['burger-menu__line']} ${styles['burger-menu__line3']}`}
+          className={`${styles['burger-menu__line']} ${styles['burger-menu__line3']} dark:bg-nft-yellow`}
         />
       </div>
       {isOpen && (
