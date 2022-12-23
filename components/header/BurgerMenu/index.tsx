@@ -42,7 +42,7 @@ export const BurgerMenu = ({
           onClick={onToggle}
           size={55}
           color="#FFDD00"
-          className="absolute right-2 bottom-2 cursor-pointer"
+          className="absolute right-2 bottom-20 cursor-pointer"
         />
       </div>
     )}
