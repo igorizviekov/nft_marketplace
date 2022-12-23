@@ -134,7 +134,7 @@ const NFTDetails = () => {
           <div className="flex flex-row md:flex-col mt-10">
             {!activeWallet ? (
               <Button
-                label="Please add Metamsk wallet"
+                label="Add Metamask wallet to checkout"
                 disabled
                 isPrimary={false}
                 onClick={() => null}
