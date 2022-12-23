@@ -43,7 +43,7 @@ export const SearchFilter = ({
           onClick={() => setToggle((t) => !t)}
         />
       </div>
-      <div className="flex-1 flexCenter dark:bg-nft-black-2 bg-white focus-within:border-2 border-nft-gray-1 px-4 sm:mx-5 sm:py-5 overflow-hidden transition-all dark:focus-within:border-none">
+      <div className="flex-1 flexCenter dark:bg-nft-black-2 bg-white focus-within:border-2 border-nft-gray-1 px-4 sm:mx-5 sm:py-5 overflow-hidden dark:focus-within:border-none">
         <FcSearch size={35} />
         <input
           type="text"
