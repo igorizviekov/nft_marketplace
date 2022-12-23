@@ -17,7 +17,7 @@ export const Button = ({
     type="button"
     onClick={onClick}
     disabled={disabled}
-    className={`font-poppins font-semibold text-sm minLag:text-lg py-2 px-5  rounded-full  transition-all sm:w-full sm:my-4  ${
+    className={`font-poppins font-semibold text-sm minLag:text-lg py-2 px-5  rounded-full  transition-all sm:w-full sm:my-4 max-w-xs ${
       classStyles?.length ? classStyles : ''
     }
      ${
