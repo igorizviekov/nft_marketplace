@@ -132,7 +132,14 @@ const NFTDetails = () => {
           </div>
 
           <div className="flex flex-row md:flex-col mt-10">
-            {activeWallet === nft.seller.toLowerCase() ? (
+            {!activeWallet ? (
+              <Button
+                label="Please add Metamsk wallet"
+                disabled
+                isPrimary={false}
+                onClick={() => null}
+              />
+            ) : activeWallet === nft.seller.toLowerCase() ? (
               <Button
                 label="You cannot buy your own NFT"
                 disabled
