@@ -7,7 +7,7 @@
     }
   }
   &__theme {
-    @apply flex flex-initial flex-row justify-end;
+    @apply flex flex-initial flex-row justify-end sm:mr-4;
     &__toggle {
       @apply flex items-center mr-2;
       &__label {
