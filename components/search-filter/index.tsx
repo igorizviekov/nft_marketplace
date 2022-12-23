@@ -54,7 +54,7 @@ export const SearchFilter = ({
         />
       </div>
       <div
-        className="relative flexBetween ml-4 sm:ml-0 sm:mt-2 min-w-190 cursor-pointer   dark:bg-nft-black-2  px-4 rounded-md py-3  sm:py-2"
+        className="relative flexBetween ml-4 sm:m-4 min-w-190 cursor-pointer dark:bg-nft-black-2 px-4 rounded-md py-3  sm:py-2"
         onClick={() => setToggle((prev) => !prev)}
       >
         <p className="font-poppins dark:text-white text-nft-black-1 font-normal text-base">
