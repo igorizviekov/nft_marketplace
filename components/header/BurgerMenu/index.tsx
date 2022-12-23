@@ -54,9 +54,7 @@ export const BurgerMenu = ({
                       id="checkbox"
                       checked={theme === 'dark'}
                       onChange={() =>
-                        setTheme((p: string) =>
-                          p === 'dark' ? 'light' : 'dark'
-                        )
+                        setTheme(theme === 'dark' ? 'light' : 'dark')
                       }
                     />
                     <label
