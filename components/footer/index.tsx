@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export const Footer = () => {
   const socialIconClasses =
-    'hover:text-nft-red-violet fill-nft-dark-1 dark:fill-white my-1 sm:my-5 cursor-pointer mx-5 hover:fill-nft-red-violet  hover:dark:fill-nft-red-violet';
+    'hover:text-nft-red-violet fill-nft-dark-1 dark:fill-white my-1 sm:my-5 cursor-pointer mx-5   hover:dark:fill-nft-yellow';
 
   return (
     <footer className="flexCenter flex-col sm:py-8 py-10 px-5 bg-white dark:bg-nft-black-1 shadow-toTop">
