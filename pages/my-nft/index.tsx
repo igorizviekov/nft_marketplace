@@ -114,13 +114,9 @@ const MyNFTs: NextPage = () => {
   return (
     <div className="w-full flex justify-start items-center flex-col min-h-screen">
       <div className="w-full flexCenter flex-col">
-        <div className="flexCenter flex-col -mt-20 z-0">
-          <Lottie
-            animationData={nftGuy}
-            loop={false}
-            style={{ width: 450, marginTop: 100 }}
-          />
-          <p className="font-poppins dark:text-white text-nft-black-1 font-semibold text-xl mt-6">
+        <div className="flexCenter mt-24 sm:flex-col">
+          <Lottie animationData={nftGuy} loop={true} style={{ width: 250 }} />
+          <p className="font-poppins dark:text-white text-nft-black-1 font-semibold text-xl">
             {activeWallet?.slice(0, 3)}...$
             {activeWallet?.slice(activeWallet?.length - 5)}
           </p>
