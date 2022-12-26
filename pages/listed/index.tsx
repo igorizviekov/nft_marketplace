@@ -7,8 +7,6 @@ import { INftCardProps, NftCard } from '../../components/ui/nft-card';
 import { fetchContract } from '../../utils';
 import Web3Modal from 'web3modal';
 import { toast } from 'react-toastify';
-import listedAnimation from '../../assets/icons/listed.json';
-import Lottie from 'lottie-react';
 
 const ListedNFTs: NextPage = () => {
   const [nfts, setNfts] = useState<INftCardProps[]>([]);
@@ -109,13 +107,6 @@ const ListedNFTs: NextPage = () => {
               {nfts.map((nft) => (
                 <NftCard key={nft.tokenId} {...nft} />
               ))}
-            </div>
-            <div className="w-full flexCenter mt-20">
-              <Lottie
-                animationData={listedAnimation}
-                loop={true}
-                style={{ width: 250 }}
-              />
             </div>
           </div>
         </div>
