@@ -5,8 +5,7 @@ import { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { Spinner } from '../../components/spinner';
-import metaMaskIcon from '../../assets/icons/metamask-icon.json';
+import nftGuy from '../../assets/icons/my-nfts.json';
 import Lottie from 'lottie-react';
 import { useStoreState } from 'easy-peasy';
 import { IStoreModel } from '../../store/model/model.types';
@@ -115,12 +114,11 @@ const MyNFTs: NextPage = () => {
   return (
     <div className="w-full flex justify-start items-center flex-col min-h-screen">
       <div className="w-full flexCenter flex-col">
-        <Spinner styles="mt-26 " />
         <div className="flexCenter flex-col -mt-20 z-0">
           <Lottie
-            animationData={metaMaskIcon}
+            animationData={nftGuy}
             loop={false}
-            style={{ width: 180 }}
+            style={{ width: 450, marginTop: 100 }}
           />
           <p className="font-poppins dark:text-white text-nft-black-1 font-semibold text-xl mt-6">
             {activeWallet?.slice(0, 3)}...$

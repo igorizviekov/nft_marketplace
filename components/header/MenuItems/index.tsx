@@ -40,7 +40,7 @@ export const MenuItems = ({
         flex flex-row items-center font-poppins font-semibold text-base mx-3 hover:text-nft-red-violet dark:hover:text-nft-red-violet transition-colors
   ${
     active === link
-      ? ' dark:text-nft-yellow text-nft-black-2'
+      ? 'dark:text-nft-yellow text-nft-red-violet'
       : 'text-nft-black-1 dark:text-white dark:hover:text-nft-gray-1 hover:text-nft-dark-1'
   }
         `}
