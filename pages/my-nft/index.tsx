@@ -88,7 +88,7 @@ const MyNFTs: NextPage = () => {
     !isLoading && !nfts.length ? (
       <>
         <h2 className="font-poppins dark:text-white text-nft-black-1 text-xl mt-5 font-semibold">
-          You do not own and NFTs
+          You do not own any NFTs
         </h2>
         <div className="m-20">
           <Button
