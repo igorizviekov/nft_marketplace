@@ -6,6 +6,7 @@ import { StoreProvider } from 'easy-peasy';
 import { store } from '../store';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Analytics } from '@vercel/analytics/react';
 
 export default function App({ Component, pageProps }: AppProps) {
   type Props = StoreProvider['props'] & { children: React.ReactNode };
@@ -18,6 +19,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <Header />
         <ToastContainer position="top-left" />
         <Component {...pageProps} />
+        <Analytics />
         <Footer />
       </StoreProviderCasted>
     </ThemeProvider>
