@@ -91,9 +91,16 @@ export const Header = () => {
   }, []);
 
   useEffect(() => {
-    if (theme === 'light') {
+    if (theme == 'light') {
+      setTheme('dark');
+    }
+  }, []);
+
+  useEffect(() => {
+    if (logo && theme === 'light') {
       setLogo(LightLogo);
-    } else {
+    }
+    if (logo && theme === 'dark') {
       setLogo(DarkLogo);
     }
   }, [theme]);
@@ -106,9 +113,7 @@ export const Header = () => {
           className="checkbox"
           id="checkbox"
           checked={theme === 'dark'}
-          onChange={() =>
-            theme && setTheme(theme === 'dark' ? 'light' : 'dark')
-          }
+          onChange={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
         />
         <label
           htmlFor="checkbox"

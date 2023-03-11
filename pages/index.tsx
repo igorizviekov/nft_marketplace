@@ -106,7 +106,7 @@ export default function Home() {
   };
 
   return (
-    <div className="pt-32 sm:pt-26  w-9/12  sm:w-full m-auto">
+    <div className="pt-32 sm:pt-26  w-9/12  sm:w-full m-auto animate-fadeIn">
       <Banner />
       <TopSellers creators={getTopCreators(nftList)} />
       <NftList

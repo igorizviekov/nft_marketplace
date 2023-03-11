@@ -112,7 +112,7 @@ const MyNFTs: NextPage = () => {
     );
 
   return (
-    <div className="w-full flex justify-start items-center flex-col min-h-screen">
+    <div className="w-full flex justify-start items-center flex-col min-h-screen animate-fadeIn">
       <div className="w-full flexCenter flex-col">
         <div className="flexCenter mt-24 sm:flex-col">
           <Lottie animationData={nftGuy} loop={true} style={{ width: 250 }} />

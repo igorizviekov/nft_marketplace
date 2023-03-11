@@ -3,11 +3,11 @@
   &__link {
     @apply flex flex-1 flex-row justify-start relative;
     &__logo {
-      @apply cursor-pointer;
+      @apply cursor-pointer animate-fadeIn;
     }
   }
   &__theme {
-    @apply flex flex-initial flex-row justify-end sm:mr-4;
+    @apply flex flex-initial flex-row justify-end sm:mr-4 animate-fadeIn;
     &__toggle {
       @apply flex items-center mr-2;
       &__label {

@@ -14,7 +14,7 @@ export default function App({ Component, pageProps }: AppProps) {
     StoreProvider as unknown as React.ComponentType<Props>;
 
   return (
-    <ThemeProvider attribute="class">
+    <ThemeProvider attribute="class" defaultTheme="system">
       <StoreProviderCasted store={store}>
         <Header />
         <ToastContainer position="top-left" />
