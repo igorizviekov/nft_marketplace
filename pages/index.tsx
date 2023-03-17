@@ -1,7 +1,7 @@
 import { NftList } from '../components/nft-list';
 import { TopSellers } from '../components/top-sellers';
 import { Banner } from '../components/ui/banner/banner';
-import { INftCardProps, NftCard } from '../components/ui/nft-card';
+import { INftCardProps } from '../components/ui/nft-card';
 import { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 import axios from 'axios';

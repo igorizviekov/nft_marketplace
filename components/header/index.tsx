@@ -1,5 +1,5 @@
 import styles from './header.module.scss';
-import { useState, useEffect, Dispatch } from 'react';
+import { useState, useEffect } from 'react';
 import { NextRouter, useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
@@ -8,7 +8,6 @@ import LightLogo from '../../assets/img/logo.svg';
 import DarkLogo from '../../assets/img/logo2.svg';
 import { FiMoon, FiSun } from 'react-icons/fi';
 import { MenuItems } from './MenuItems';
-import { ButtonGroup } from '../ui/ButtonGroup';
 import { BurgerMenu } from './BurgerMenu';
 import { Actions, useStoreActions, useStoreState } from 'easy-peasy';
 import { IStoreModel } from '../../store/model/model.types';
@@ -17,6 +16,8 @@ import Lottie from 'lottie-react';
 import metaMaskIcon from '../../assets/icons/metamask-icon.json';
 import { toast } from 'react-toastify';
 import { MenuTab } from '../../store/model/ui/ui.types';
+import { UserLogin } from '../user-login';
+import { Button } from '../ui/Button';
 
 export const Header = () => {
   const { theme, setTheme } = useTheme();
@@ -43,6 +44,8 @@ export const Header = () => {
   const walletActions = useStoreActions(
     (actions: Actions<IStoreModel>) => actions.wallet
   );
+
+  const userState = useStoreState((state: IStoreModel) => state.user);
 
   const connectCryptoWallet = async (mode: ConnectWallet) => {
     if (!window.ethereum) {
@@ -138,44 +141,48 @@ export const Header = () => {
 
   const menuItems = (
     <MenuItems
-      isMob={false}
       links={menuTabs}
       active={state.tab}
       setActiveTab={actions.toggleTab}
     />
   );
 
-  const createNFTBtn = {
-    label: <div>Create</div>,
-    handleClick: () => {
-      setSideMenuOpen(false);
-      router.push('/create-nft');
-    },
-  };
+  const NftBtnLabel = walletState.isWalletConnected ? (
+    'Create'
+  ) : (
+    <span className="flexCenter gap-5">
+      Connect
+      <Lottie
+        animationData={metaMaskIcon}
+        loop={false}
+        style={{ height: 30, maxWidth: 50 }}
+      />
+    </span>
+  );
 
-  const connectWalletBtn = {
-    label: (
-      <span className="flexCenter gap-5">
-        Connect
-        <Lottie
-          animationData={metaMaskIcon}
-          loop={false}
-          style={{ height: 30, maxWidth: 50 }}
-        />
-      </span>
-    ),
-    handleClick: () => connectCryptoWallet('active'),
-  };
+  const NftBtnHandler = walletState.isWalletConnected
+    ? () => {
+        setSideMenuOpen(false);
+        router.push('/create-nft');
+      }
+    : () => connectCryptoWallet('active');
 
-  const btnOptions = [
-    walletState.isWalletConnected ? createNFTBtn : connectWalletBtn,
-  ];
+  const actionBtn = (
+    <div className="animate-fadeIn flex gap-6 md:flex-col">
+      <Button label={NftBtnLabel} onClick={NftBtnHandler} isPrimary />
+      <UserLogin />
+    </div>
+  );
 
   const headerContent = (
     <div className={styles['header__menu-items']}>
       {themeToggle}
-      {menuItems}
-      <ButtonGroup options={btnOptions} />
+      <MenuItems
+        links={menuTabs}
+        active={state.tab}
+        setActiveTab={actions.toggleTab}
+      />
+      {actionBtn}
     </div>
   );
 
@@ -195,8 +202,8 @@ export const Header = () => {
       <BurgerMenu
         isOpen={isSideMenuOpen}
         onToggle={() => setSideMenuOpen((prev) => !prev)}
-        actions={btnOptions}
-        menuItems={menuItems}
+        controls={actionBtn}
+        links={menuTabs}
       />
     </nav>
   );

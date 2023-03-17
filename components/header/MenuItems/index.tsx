@@ -2,18 +2,12 @@ import Link from 'next/link';
 import { MenuTab } from '../../../store/model/ui/ui.types';
 
 interface IMenuItemsProps {
-  isMob: boolean;
   links: string[];
   active: string;
   setActiveTab: (_: MenuTab) => void;
 }
 
-export const MenuItems = ({
-  isMob,
-  links,
-  active,
-  setActiveTab,
-}: IMenuItemsProps) => {
+export const MenuItems = ({ links, active, setActiveTab }: IMenuItemsProps) => {
   const generateLink = (index: number) => {
     switch (index) {
       case 1:
@@ -27,11 +21,7 @@ export const MenuItems = ({
     }
   };
   return (
-    <ul
-      className={`list-none flex flex-row sm:flex-col sm:gap-6 ${
-        isMob && 'flex-col h-full'
-      }`}
-    >
+    <ul className="list-none flex flex-row sm:flex-col sm:gap-6">
       {links.map((link, i) => (
         <li
           key={link + i}

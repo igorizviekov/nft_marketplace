@@ -1,26 +1,31 @@
-import { BtnOption, ButtonGroup } from '../../ui/ButtonGroup';
 import { AiOutlinePause } from 'react-icons/ai';
 import styles from './burger.module.scss';
 import { BackgroundBlur } from '../../ui/background';
 import { useTheme } from 'next-themes';
 import { FiMoon, FiSun } from 'react-icons/fi';
 import stylesHeader from '../header.module.scss';
+import { Actions, useStoreActions, useStoreState } from 'easy-peasy';
+import { IStoreModel } from '../../../store/model/model.types';
+import { MenuItems } from '../MenuItems';
 
 interface IBurgerMenuProps {
   isOpen: boolean;
   onToggle: () => void;
-  actions: BtnOption[];
-  menuItems: any;
+  controls: JSX.Element;
+  links: string[];
 }
 
 export const BurgerMenu = ({
   isOpen,
   onToggle,
-  actions,
-  menuItems,
+  controls,
+  links,
 }: IBurgerMenuProps) => {
   const { theme, setTheme } = useTheme();
-
+  const state = useStoreState((state: IStoreModel) => state.ui);
+  const actions = useStoreActions(
+    (actions: Actions<IStoreModel>) => actions.ui
+  );
   return (
     <>
       <BackgroundBlur isVisible={isOpen} onClick={onToggle} />
@@ -45,7 +50,7 @@ export const BurgerMenu = ({
           <>
             <div className={styles['burger-menu__items']}>
               <div className="flex flex-col p-5  overflow-hidden px-5 py-10 gap-10">
-                <ButtonGroup options={actions} />
+                {controls}
                 <div className={stylesHeader['header__theme']}>
                   <div className={stylesHeader['header__theme__toggle']}>
                     <input
@@ -76,7 +81,11 @@ export const BurgerMenu = ({
                     </label>
                   </div>
                 </div>
-                {menuItems}
+                <MenuItems
+                  links={links}
+                  active={state.tab}
+                  setActiveTab={actions.toggleTab}
+                />
               </div>
 
               <AiOutlinePause
