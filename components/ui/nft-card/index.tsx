@@ -23,6 +23,7 @@ export const NftCard = ({
   seller,
   tokenId,
   description,
+  nickname,
 }: INftCardProps) => {
   const walletState = useStoreState((state: IStoreModel) => state.wallet);
   const { currency } = walletState;
@@ -39,6 +40,7 @@ export const NftCard = ({
           seller,
           tokenId,
           description,
+          nickname,
         },
       }}
     >
@@ -66,9 +68,9 @@ export const NftCard = ({
               <span className="normal"> {currency}</span>
             </p>
             <p className="font-poppins dark:text-white text-nft-black-1 font-semibold text-xs minlg:text-lg">
-              {owner.length > 10
+              {owner.length > 10 && !nickname
                 ? `${owner.slice(0, 3)}...${owner.slice(owner.length - 5)}`
-                : owner}
+                : nickname}
             </p>
           </div>
         </div>

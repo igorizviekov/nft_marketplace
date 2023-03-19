@@ -59,8 +59,16 @@ const NFTDetails = () => {
 
   useEffect(() => {
     if (router.isReady) {
-      const { img, name, owner, price, seller, tokenId, description } =
-        router.query;
+      const {
+        img,
+        name,
+        owner,
+        price,
+        seller,
+        tokenId,
+        description,
+        nickname,
+      } = router.query;
       if (img && name && owner && price && seller && tokenId && description) {
         setNft({
           img: img as string,
@@ -70,6 +78,7 @@ const NFTDetails = () => {
           description: description as string,
           tokenId: Number(tokenId),
           price: Number(price),
+          nickname: nickname as string,
         });
       }
       setIsLoading(false);
@@ -110,9 +119,10 @@ const NFTDetails = () => {
             <p className="font-poppins dark:text-white text-nft-black-1 text-lg minlg:text-base font-normal">
               Creator:{' '}
               <span className="font-poppins dark:text-white text-nft-black-1 text-md minlg:text-base font-semibold">
-                {` ${nft.seller?.slice(0, 3)}...${nft.seller?.slice(
-                  nft.seller?.length - 5
-                )}`}
+                {nft.nickname ||
+                  ` ${nft.seller?.slice(0, 3)}...${nft.seller?.slice(
+                    nft.seller?.length - 5
+                  )}`}
               </span>
             </p>
           </div>
