@@ -61,6 +61,8 @@ export const getTopCreators = (nfts: INftCardProps[]) =>
         (creators as ITopCreator[]).push({
           seller: currentNFT.seller,
           sum: Number(currentNFT.price),
+          avatar: currentNFT?.avatar,
+          nickname: currentNFT?.nickname,
         });
       }
       return creators;

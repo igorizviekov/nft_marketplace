@@ -11,6 +11,9 @@ import { ethers } from 'ethers';
 import { Spinner } from '../../components/spinner';
 import { fetchContract } from '../../utils';
 import Link from 'next/link';
+import { useStoreState } from 'easy-peasy';
+import { IStoreModel } from '../../store/model/model.types';
+import { UserLogin } from '../../components/user-login';
 export interface IFormInput {
   price: string;
   name: string;
@@ -29,6 +32,8 @@ const CreateNFT: NextPage = () => {
   });
 
   const router = useRouter();
+
+  const userState = useStoreState((state: IStoreModel) => state.user);
 
   const isFormValid = (name: string, price: number, description: string) => {
     if (!file) return false;
@@ -78,7 +83,9 @@ const CreateNFT: NextPage = () => {
     file: File,
     name: string,
     price: number,
-    description: string
+    description: string,
+    userName?: string,
+    userAvatar?: string
   ) => {
     try {
       /**
@@ -120,6 +127,8 @@ const CreateNFT: NextPage = () => {
         description,
         // url of Infura project plus id of uploaded image
         image: `https://${process.env.NEXT_PUBLIC_INFURA_PROJECT_NAME}.infura-ipfs.io/ipfs/${addedImage.path}`,
+        nickname: userName,
+        avatar: userAvatar,
       });
       /**
        * Upload file to Infura
@@ -145,7 +154,14 @@ const CreateNFT: NextPage = () => {
     }
     try {
       setIsLoading(true);
-      await covertImageToNFT(file as File, name, Number(price), description);
+      await covertImageToNFT(
+        file as File,
+        name,
+        Number(price),
+        description,
+        userState.name,
+        userState.avatar
+      );
       toast.success('New NFT has been created!');
       setTimeout(() => router.push('/'), 2000);
     } catch {
@@ -238,6 +254,14 @@ const CreateNFT: NextPage = () => {
           </Link>
         </p>
 
+        {!userState.avatar?.length && (
+          <div className="flex sm:flex-col items-center mt-8">
+            <UserLogin />
+            <p className="font-poppins dark:text-white text-nft-black-1 ml-2 text-base sm:text-center">
+              * if you want to be featured on our "Best creators" list.
+            </p>
+          </div>
+        )}
         <div className="mt-7 w-full flex justify-end">
           <Button
             isPrimary

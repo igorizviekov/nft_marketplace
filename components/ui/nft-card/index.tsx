@@ -11,6 +11,8 @@ export interface INftCardProps {
   img: StaticImageData | string;
   price: number;
   tokenId: number;
+  nickname?: string;
+  avatar?: string;
 }
 
 export const NftCard = ({
@@ -54,7 +56,7 @@ export const NftCard = ({
             }}
           />
         </div>
-        <div className="mt-3 flex flex-col">
+        <div className="mt-3 flex flex-col sm:items-center">
           <p className="font-poppins dark:text-white text-nft-black-1 font-semibold text-sm minlg:text-xl">
             {name}
           </p>

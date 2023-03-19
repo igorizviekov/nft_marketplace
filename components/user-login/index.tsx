@@ -30,8 +30,8 @@ export const UserLogin = () => {
           data: { names, photos },
         } = res;
         userActions.setUser({
-          name: names[0].unstructuredName.replace(/ /g, '_').toLowerCase(),
-          avatar: photos[0].url,
+          name: names?.[0]?.unstructuredName?.replace(/ /g, '_')?.toLowerCase(),
+          avatar: photos?.[0]?.url,
         });
         setLoggedIn(true);
       } catch {

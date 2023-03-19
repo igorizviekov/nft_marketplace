@@ -32,6 +32,7 @@ export const TopSellers = ({ creators }: ITopSellersProps) => {
     userLogo_9,
     userLogo_10,
   ];
+
   const handleScroll = (direction: 'left' | 'right') => {
     const { current } = scrollRef;
     const scrollAmount = window.innerWidth > 1800 ? 270 : 210;
@@ -84,10 +85,10 @@ export const TopSellers = ({ creators }: ITopSellersProps) => {
           {creators.map((user, i) => (
             <UserCard
               key={`user-${i}`}
-              name={user.seller}
+              name={user.nickname || user.seller}
               rank={i + 1}
               balance={user.sum}
-              img={userLogos[i]}
+              img={user.avatar || userLogos[i]}
             />
           ))}
         </div>

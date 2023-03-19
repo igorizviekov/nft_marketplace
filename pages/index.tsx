@@ -41,7 +41,7 @@ export default function Home() {
 
         // get NFT metadata and image
         const {
-          data: { image, name, description },
+          data: { image, name, description, nickname, avatar },
         } = await axios.get(tokenURI);
 
         return {
@@ -52,6 +52,8 @@ export default function Home() {
           owner,
           name,
           description,
+          nickname,
+          avatar,
         };
       })
     );

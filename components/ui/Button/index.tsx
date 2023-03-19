@@ -25,7 +25,7 @@ export const Button = ({
          ? 'nft-gradient text-white dark:text-nft-black-1'
          : disabled
          ? 'bg-red-50 dark:text-nft-black-4'
-         : ' dark:hover:border-white  border-solid  border-2 border-nft-black-4 hover:bg-nft-black-4  hover:text-white '
+         : ' dark:hover:border-white  border-solid  border-2 border-nft-black-4 hover:bg-nft-black-4  hover:text-white'
      }`}
   >
     {label}

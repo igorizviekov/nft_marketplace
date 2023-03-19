@@ -21,13 +21,13 @@ export const MenuItems = ({ links, active, setActiveTab }: IMenuItemsProps) => {
     }
   };
   return (
-    <ul className="list-none flex flex-row sm:flex-col sm:gap-6">
+    <ul className="list-none flex flex-row md:flex-col md:gap-6 md:items-center">
       {links.map((link, i) => (
         <li
           key={link + i}
           onClick={() => setActiveTab(link as MenuTab)}
           className={`
-        flex flex-row items-center font-poppins font-semibold text-base mx-3 hover:text-nft-red-violet dark:hover:text-nft-red-violet transition-colors
+        flex flex-row items-center font-poppins font-semibold text-base mx-3 hover:text-nft-red-violet transition-colors
   ${
     active === link
       ? 'dark:text-nft-yellow text-nft-red-violet'

@@ -13,6 +13,12 @@ interface IUserCardProps {
 export const UserCard = ({ name, img, rank, balance }: IUserCardProps) => {
   const walletState = useStoreState((state: IStoreModel) => state.wallet);
   const { currency } = walletState;
+
+  const userName =
+    name.length < 15
+      ? name
+      : `${name?.slice(0, 3)}...${name?.slice(name?.length - 5)}}`;
+
   return (
     <div className="min-w-190 minlg:min-w-240 dark:bg-nft-black-3 bg-whit rounded-3xl flex flex-col px-5 py-2 mx-5 shadow-md">
       <div className="w-8 h-8 minlg:w-10 minlg:h-10  dark:bg-nft-black-2 nft-gradient-2 flexCenter rounded-full">
@@ -43,8 +49,7 @@ export const UserCard = ({ name, img, rank, balance }: IUserCardProps) => {
 
       <div className="mt-3 minlg:mt-7 text-center flexCenter flex-col">
         <p className="font-poppins dark:text-white text-nft-black-1 font-semibold text-base">
-          {name?.slice(0, 3)}...$
-          {name?.slice(name?.length - 5)}
+          {userName}
         </p>
         <p className="mt-1 font-poppins dark:text-white text-nft-black-1 font-semibold text-base">
           {balance.toFixed(2)}
