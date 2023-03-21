@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 import { IModalProps } from './modal.types';
 
-const modal = ({ header, footer, body, onClose }: IModalProps) => {
+export const Modal = ({ header, footer, body, onClose }: IModalProps) => {
   const modalRef = useRef<any>(null);
 
   const handleClickOutside = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -42,5 +42,3 @@ const modal = ({ header, footer, body, onClose }: IModalProps) => {
     </div>
   );
 };
-
-export default modal;

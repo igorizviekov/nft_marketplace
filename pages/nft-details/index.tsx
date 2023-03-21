@@ -6,7 +6,7 @@ import { INftCardProps } from '../../components/ui/nft-card';
 import { IStoreModel } from '../../store/model/model.types';
 import Image from 'next/image';
 import { Button } from '../../components/ui/Button';
-import Modal from '../../components/modal';
+import { Modal } from '../../components/modal';
 import PaymentBody from '../../components/payment-body';
 import { ButtonGroup } from '../../components/ui/ButtonGroup';
 import Web3Modal from 'web3modal';

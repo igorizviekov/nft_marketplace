@@ -14,7 +14,7 @@ import Link from 'next/link';
 import { useStoreRehydrated, useStoreState } from 'easy-peasy';
 import { IStoreModel } from '../../store/model/model.types';
 import { UserLogin } from '../../components/user-login';
-import Modal from '../../components/modal';
+import { Modal } from '../../components/modal';
 import { CreateError } from './create-error';
 
 export interface IFormInput {
