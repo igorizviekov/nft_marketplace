@@ -17,6 +17,18 @@ export default function Home() {
   const [activeSelect, setActiveSelect] =
     useState<ActiveSelectOption>('Recently added');
 
+  const populateOwnerNickname = (nfts: INftCardProps[]) =>
+    nfts.reduce((nfts: INftCardProps[], currentNFT) => {
+      const ownerNickname = nfts.find(
+        (a) => a.owner === currentNFT.owner && a.nickname
+      )?.nickname;
+      if (ownerNickname) {
+        currentNFT.nickname = ownerNickname;
+      }
+      nfts.push(currentNFT);
+      return nfts;
+    }, []);
+
   const fetchNFTs = async () => {
     const provider = new ethers.providers.JsonRpcProvider(
       process.env.NEXT_PUBLIC_ALCHEMY_API_URL
@@ -72,7 +84,9 @@ export default function Home() {
       })
       .catch((e) => {
         console.log('failed to fetch NFT', e);
-        setIsError('Failed to fetch NFT');
+        setIsError(
+          'Failed to fetch. Please ensure your wallet is connected to the Polygon network.'
+        );
         setIsLoading(false);
       });
   }, []);

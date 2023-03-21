@@ -11,9 +11,12 @@ import { ethers } from 'ethers';
 import { Spinner } from '../../components/spinner';
 import { fetchContract } from '../../utils';
 import Link from 'next/link';
-import { useStoreState } from 'easy-peasy';
+import { useStoreRehydrated, useStoreState } from 'easy-peasy';
 import { IStoreModel } from '../../store/model/model.types';
 import { UserLogin } from '../../components/user-login';
+import Modal from '../../components/modal';
+import { CreateError } from './create-error';
+
 export interface IFormInput {
   price: string;
   name: string;
@@ -24,6 +27,8 @@ const CreateNFT: NextPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState<boolean | string>(false);
   const [file, setFile] = useState<File | null>(null);
+  const [isModalVisible, setIsModalVisible] = useState<boolean | string>(false);
+  const isRehydrated = useStoreRehydrated();
 
   const [formInput, setFormInput] = useState<IFormInput>({
     price: '',
@@ -141,9 +146,11 @@ const CreateNFT: NextPage = () => {
         `https://${process.env.NEXT_PUBLIC_INFURA_PROJECT_NAME}.infura-ipfs.io/ipfs/${addedNFT.path}`,
         price
       );
+      setTimeout(() => router.push('/'), 2000);
     } catch (err) {
       console.log('Failed to upload NFT to ipfs', err);
-      setIsError('Failed to upload NFT to IPFS.');
+      setIsLoading(false);
+      setIsModalVisible(true);
     }
   };
 
@@ -162,8 +169,6 @@ const CreateNFT: NextPage = () => {
         userState.name,
         userState.avatar
       );
-      toast.success('New NFT has been created!');
-      setTimeout(() => router.push('/'), 2000);
     } catch {
       setIsError('Error occurred when submitting a new NFT. Please try again');
       setIsLoading(false);
@@ -176,10 +181,26 @@ const CreateNFT: NextPage = () => {
     }
   }, [isError]);
 
-  return isLoading ? (
+  const modal = isModalVisible && (
+    <Modal
+      header="Failed to create NFT"
+      footer={
+        <Button
+          isPrimary={false}
+          label="Dismiss"
+          onClick={() => setIsModalVisible(false)}
+        />
+      }
+      body={<CreateError />}
+      onClose={() => setIsModalVisible(false)}
+    />
+  );
+
+  return isLoading || !isRehydrated ? (
     <Spinner styles="min-h-screen flexCenter animate-fadeIn" />
   ) : (
     <div className="flex justify-center sm:px-4 p-12">
+      {modal}
       <div className="w-3/5 md:w-full animate-fadeIn">
         <div className="mt-24">
           <div className="mt-4">
@@ -253,12 +274,19 @@ const CreateNFT: NextPage = () => {
             - Charity foundation of Serhiy Prytula
           </Link>
         </p>
-
+        <p className="font-poppins dark:text-white text-nft-black-1 mt-6 ml-4 font-semibold sm:ml-2">
+          Also a fee of 0.001 Eth will be charged for listing your NFT on our
+          platform.
+        </p>
+        <p className="font-poppins dark:text-white text-nft-black-1 mt-2 ml-4 font-semib old sm:ml-2">
+          We appreciate your understanding and look forward to seeing your NFT
+          on our marketplace.
+        </p>
         {!userState.avatar?.length && (
           <div className="flex sm:flex-col items-center mt-8">
             <UserLogin />
-            <p className="font-poppins dark:text-white text-nft-black-1 ml-2 text-base sm:text-center">
-              * if you want to be featured on our "Best creators" list.
+            <p className="font-poppins dark:text-white text-nft-black-1 ml-4 text-base sm:text-center">
+              * if you want to be featured on our "Top creators" list.
             </p>
           </div>
         )}

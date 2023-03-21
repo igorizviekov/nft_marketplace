@@ -45,11 +45,12 @@ export const Header = () => {
     (actions: Actions<IStoreModel>) => actions.wallet
   );
 
-  const userState = useStoreState((state: IStoreModel) => state.user);
-
   const connectCryptoWallet = async (mode: ConnectWallet) => {
     if (!window.ethereum) {
-      return toast.info('Please add Metamask extension in your browser');
+      if (mode === 'active') {
+        toast.info('Please add Metamask extension in your browser');
+      }
+      return;
     }
     const wallet = await connectWallet(mode);
     const { isConnected } = wallet;
@@ -94,7 +95,7 @@ export const Header = () => {
   }, []);
 
   useEffect(() => {
-    if (theme == 'light') {
+    if (theme !== 'dark') {
       setTheme('dark');
     }
   }, []);
@@ -139,14 +140,6 @@ export const Header = () => {
     </div>
   );
 
-  const menuItems = (
-    <MenuItems
-      links={menuTabs}
-      active={state.tab}
-      setActiveTab={actions.toggleTab}
-    />
-  );
-
   const NftBtnLabel = walletState.isWalletConnected ? (
     'Create'
   ) : (
@@ -155,7 +148,7 @@ export const Header = () => {
       <Lottie
         animationData={metaMaskIcon}
         loop={false}
-        style={{ height: 30, maxWidth: 50 }}
+        style={{ height: 20 }}
       />
     </span>
   );
@@ -168,7 +161,7 @@ export const Header = () => {
     : () => connectCryptoWallet('active');
 
   const actionBtn = (
-    <div className="animate-fadeIn flex gap-6 md:flex-col">
+    <div className="animate-fadeIn flex gap-6 sm:flex-col">
       <Button label={NftBtnLabel} onClick={NftBtnHandler} isPrimary />
       <UserLogin />
     </div>

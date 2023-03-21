@@ -13,18 +13,6 @@ export const NftList = ({ isLoading, nfts, searchProps }: INFTListProps) => {
   const { onClearSearch, onHandleSearch, setActiveSelect, activeSelect } =
     searchProps;
 
-  const populateOwnerNickname = (nfts: INftCardProps[]) =>
-    nfts.reduce((nfts: INftCardProps[], currentNFT) => {
-      const ownerNickname = nfts.find(
-        (a) => a.owner === currentNFT.owner && a.nickname
-      )?.nickname;
-      if (ownerNickname) {
-        currentNFT.nickname = ownerNickname;
-      }
-      nfts.push(currentNFT);
-      return nfts;
-    }, []);
-
   return (
     <div className="mb-12">
       <div className="w-full flex flex-wrap justify-start md:justify-center ">
@@ -47,7 +35,7 @@ export const NftList = ({ isLoading, nfts, searchProps }: INFTListProps) => {
                 onHandleSearch={onHandleSearch}
               />
             </div>
-            {populateOwnerNickname(nfts).map((nft, i) => (
+            {nfts.map((nft, i) => (
               <NftCard key={nft.owner + i} {...nft} />
             ))}
           </>

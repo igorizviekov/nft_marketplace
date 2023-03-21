@@ -29,7 +29,7 @@ export const BurgerMenu = ({
   return (
     <>
       <BackgroundBlur isVisible={isOpen} onClick={onToggle} />
-      <div className="hidden md:flex ml-2">
+      <div className="hidden sm:flex ml-2">
         <div
           className={`${styles['burger-menu']} ${
             isOpen ? `text-nft-red-violet ${styles['burger-menu__open']}` : ''

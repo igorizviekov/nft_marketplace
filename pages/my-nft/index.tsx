@@ -2,6 +2,7 @@ import { NextPage } from 'next';
 import { fetchContract } from '../../utils';
 import { INftCardProps, NftCard } from '../../components/ui/nft-card';
 import { useEffect, useState } from 'react';
+import { useStoreRehydrated } from 'easy-peasy';
 import { ethers } from 'ethers';
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -19,7 +20,8 @@ const MyNFTs: NextPage = () => {
   const [isError, setIsError] = useState<boolean | string>(false);
 
   const { activeWallet } = useStoreState((state: IStoreModel) => state.wallet);
-
+  const userState = useStoreState((state: IStoreModel) => state.user);
+  const isRehydrated = useStoreRehydrated();
   const router = useRouter();
 
   const fetchMyNFTs = async () => {
@@ -73,7 +75,9 @@ const MyNFTs: NextPage = () => {
       })
       .catch((e) => {
         console.log('failed to fetch NFT', e);
-        setIsError('Failed to fetch NFT');
+        setIsError(
+          'Failed to fetch. Please ensure your wallet is connected to the Polygon network.'
+        );
         setIsLoading(false);
       });
   }, []);
@@ -111,14 +115,19 @@ const MyNFTs: NextPage = () => {
       </div>
     );
 
+  const nickname =
+    (isRehydrated && userState?.name) ||
+    `${activeWallet?.slice(0, 3)}...${activeWallet?.slice(
+      activeWallet?.length - 5
+    )}`;
+
   return (
     <div className="w-full flex justify-start items-center flex-col min-h-screen animate-fadeIn">
       <div className="w-full flexCenter flex-col">
         <div className="flexCenter mt-24 sm:flex-col">
           <Lottie animationData={nftGuy} loop={true} style={{ width: 250 }} />
           <p className="font-poppins dark:text-white text-nft-black-1 font-semibold text-xl">
-            {activeWallet?.slice(0, 3)}...$
-            {activeWallet?.slice(activeWallet?.length - 5)}
+            {nickname}
           </p>
         </div>
       </div>

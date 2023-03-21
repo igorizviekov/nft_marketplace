@@ -125,3 +125,8 @@ $gradient-primary-hover: linear-gradient(20deg, #014895 0%, #7ed6df 100%);
 body {
   @apply dark:bg-nft-dark bg-white min-h-screen;
 }
+
+.info-alert {
+  @apply dark:bg-nft-gray-3 bg-white min-h-screen dark:text-white;
+  opacity: 0.8;
+}

@@ -21,7 +21,7 @@ export const MenuItems = ({ links, active, setActiveTab }: IMenuItemsProps) => {
     }
   };
   return (
-    <ul className="list-none flex flex-row md:flex-col md:gap-6 md:items-center">
+    <ul className="list-none flex flex-row sm:flex-col sm:gap-6 sm:items-center">
       {links.map((link, i) => (
         <li
           key={link + i}

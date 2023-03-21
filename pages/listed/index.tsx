@@ -72,7 +72,9 @@ const ListedNFTs: NextPage = () => {
       })
       .catch((e) => {
         console.log('failed to fetch NFT', e);
-        setIsError('Failed to fetch NFT');
+        setIsError(
+          'Failed to fetch. Please ensure your wallet is connected to the Polygon network.'
+        );
         setIsLoading(false);
       });
   }, []);

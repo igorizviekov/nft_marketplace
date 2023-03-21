@@ -54,7 +54,7 @@ export const UserLogin = () => {
   }, []);
 
   return (
-    <div className="flex gap-5 md:flex-col items-center">
+    <div className="flex gap-5 sm:flex-col items-center">
       <Button
         isPrimary
         label={isLoggedIn ? 'Log Out' : 'Sign In with Google'}
@@ -62,7 +62,7 @@ export const UserLogin = () => {
       />
       {isLoggedIn && userState.avatar && (
         <div
-          className="flex h-[32px] w-[32px] md:h-[50px] md:w-[50px]"
+          className="flex h-[32px] w-[32px] sm:h-[50px] sm:w-[50px]"
           style={{
             position: 'relative',
           }}

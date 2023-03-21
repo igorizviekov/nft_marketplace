@@ -21,7 +21,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <ThemeProvider attribute="class" defaultTheme="system">
         <StoreProviderCasted store={store}>
           <Header />
-          <ToastContainer position="top-left" />
+          <ToastContainer position="top-left" toastClassName="info-alert" />
           <Component {...pageProps} />
           <Analytics />
           <Footer />

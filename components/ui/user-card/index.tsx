@@ -17,7 +17,7 @@ export const UserCard = ({ name, img, rank, balance }: IUserCardProps) => {
   const userName =
     name.length < 15
       ? name
-      : `${name?.slice(0, 3)}...${name?.slice(name?.length - 5)}}`;
+      : `${name?.slice(0, 3)}...${name?.slice(name?.length - 5)}`;
 
   return (
     <div className="min-w-190 minlg:min-w-240 dark:bg-nft-black-3 bg-whit rounded-3xl flex flex-col px-5 py-2 mx-5 shadow-md">
