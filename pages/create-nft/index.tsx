@@ -15,7 +15,7 @@ import { useStoreRehydrated, useStoreState } from 'easy-peasy';
 import { IStoreModel } from '../../store/model/model.types';
 import { UserLogin } from '../../components/user-login';
 import { Modal } from '../../components/modal';
-import { CreateError } from './create-error';
+import { CreateError } from '../../components/modal/create-error';
 
 export interface IFormInput {
   price: string;
