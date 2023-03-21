@@ -36,7 +36,7 @@ export const NftList = ({ isLoading, nfts, searchProps }: INFTListProps) => {
               />
             </div>
             {nfts.map((nft, i) => (
-              <NftCard key={nft.owner + i} {...nft} />
+              <NftCard key={`${nft.owner}-${i}`} {...nft} />
             ))}
           </>
         )}

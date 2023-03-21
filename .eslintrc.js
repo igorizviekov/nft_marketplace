@@ -11,12 +11,10 @@ module.exports = {
   ],
   overrides: [],
   parserOptions: {
-    project: './tsconfig.json',
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
   plugins: ['react'],
-  rules: {
     'no-console': 0,
     'comma-dangle': 'off',
     '@typescript-eslint/comma-dangle': 'off',
