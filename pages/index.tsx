@@ -17,17 +17,17 @@ export default function Home() {
   const [activeSelect, setActiveSelect] =
     useState<ActiveSelectOption>('Recently added');
 
-  // const populateOwnerNickname = (nfts: INftCardProps[]) =>
-  //   nfts.reduce((nfts: INftCardProps[], currentNFT) => {
-  //     const ownerNickname = nfts.find(
-  //       (a) => a.owner === currentNFT.owner && a.nickname
-  //     )?.nickname;
-  //     if (ownerNickname) {
-  //       currentNFT.nickname = ownerNickname;
-  //     }
-  //     nfts.push(currentNFT);
-  //     return nfts;
-  //   }, []);
+  const populateOwnerNickname = (nfts: INftCardProps[]) =>
+    nfts.reduce((nfts: INftCardProps[], currentNFT) => {
+      const ownerNickname = nfts.find(
+        (a) => a.owner === currentNFT.owner && a.nickname
+      )?.nickname;
+      if (ownerNickname) {
+        currentNFT.nickname = ownerNickname;
+      }
+      nfts.push(currentNFT);
+      return nfts;
+    }, []);
 
   const fetchNFTs = async () => {
     const provider = new ethers.providers.JsonRpcProvider(
@@ -76,7 +76,9 @@ export default function Home() {
     fetchNFTs()
       .then((items) => {
         if (items?.length) {
-          const sortedNfts = sortNfts('Recently added', items);
+          const sortedNfts = populateOwnerNickname(
+            sortNfts('Recently added', items)
+          );
           setNftList(sortedNfts);
           setNftsCopy(sortedNfts);
         }

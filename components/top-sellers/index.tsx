@@ -1,7 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
-import { randomId } from '../../utils';
+import { memo, useRef } from 'react';
 import { UserCard } from '../ui/user-card';
-import userLogo_1 from '../../assets/img/users/creator1.png';
 import userLogo_2 from '../../assets/img/users/creator2.png';
 import userLogo_3 from '../../assets/img/users/creator3.png';
 import userLogo_4 from '../../assets/img/users/creator4.png';
@@ -17,11 +15,10 @@ import { ITopCreator } from './top-sellers.types';
 interface ITopSellersProps {
   creators: ITopCreator[];
 }
-export const TopSellers = ({ creators }: ITopSellersProps) => {
+export const TopSellers = memo(({ creators }: ITopSellersProps) => {
   const parentRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const userLogos = [
-    userLogo_1,
     userLogo_2,
     userLogo_3,
     userLogo_4,
@@ -96,4 +93,4 @@ export const TopSellers = ({ creators }: ITopSellersProps) => {
       {arrows}
     </div>
   );
-};
+});

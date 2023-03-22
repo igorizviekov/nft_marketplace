@@ -57,6 +57,9 @@ export const getTopCreators = (nfts: INftCardProps[]) =>
       );
       if (index > -1) {
         (creators as ITopCreator[])[index].sum += Number(currentNFT.price);
+        if (currentNFT.avatar) {
+          (creators as ITopCreator[])[index].avatar = currentNFT?.avatar;
+        }
       } else {
         (creators as ITopCreator[]).push({
           seller: currentNFT.seller,
