@@ -104,6 +104,7 @@ const NFTDetails = () => {
               alt="NFT"
               fill
               sizes="100%"
+              style={{ objectFit: 'cover' }}
               priority
             />
           </div>
