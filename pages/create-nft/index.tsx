@@ -73,6 +73,7 @@ const CreateNFT: NextPage = () => {
     /**
      * Convert price value from the form input to the blockchain readable format
      */
+    console.log({ contract });
     const price = ethers.utils.parseUnits(nftPrice.toString(), 'ether');
     const listingPrice = await contract.getListingPrice();
 

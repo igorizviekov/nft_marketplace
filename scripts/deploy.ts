@@ -1,3 +1,4 @@
+// npx hardhat node
 // npx hardhat run scripts/deploy.ts --network localhost
 
 import { ethers } from 'hardhat';
