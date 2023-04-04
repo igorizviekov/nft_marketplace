@@ -1,0 +1,69 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass variables.
+// -----------------------------------------------------------------------------
+
+$z-indexes: ('base') !default;
+
+:root {
+  // Colours
+  --primary: #ffffff;
+  --secondary: #fff7ea;
+  --error: #2b2927;
+  --accent: #211f1f;
+
+  // spacing
+  --spacing-xs: 6px;
+  --spacing-sm: 12px;
+  --spacing-sm-md: 16px;
+  --spacing-md: 20px;
+  --spacing-md-lg: 32px;
+  --spacing-lg: 40px;
+  --spacing-xl: 60px;
+  --spacing-xxl: 150px;
+
+  // section
+  --section-padding: 40px;
+
+  @include respond-to(sm) {
+    --section-padding: calc(2 * 40px);
+  }
+
+  @include respond-to(xxl) {
+    --section-padding: calc(3 * 40px);
+  }
+
+  // radius
+  --border-radius-sm: 10px;
+  --border-radius-md: 20px;
+  --border-radius-lg: 30px;
+  --border-radius-xl: 40px;
+
+  // background
+  --bg-gradient: linear-gradient(
+    150deg,
+    rgba(217, 217, 217, 0.5) -7.53%,
+    rgba(217, 217, 217, 0) 97.04%
+  );
+  --backdrop-blur: blur(30.7292px);
+
+  // transition
+  --ease-reveal: cubic-bezier(0.405, 0.005, 0, 1);
+  --ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1);
+  --ease-in-out-back: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --color-change-transition: color 0.3s ease-in-out,
+    background-color 0.3s ease-in-out;
+  --reveal-slide-transition: opacity 0.6s var(--ease-in-out-cubic),
+    transform 0.6s var(--ease-in-out-cubic);
+  --reveal-fade-transition: opacity 0.6s var(--ease-in-out-cubic);
+
+  // box-shadow
+  --box-shadow: 0px 40px 30px rgba(25, 29, 22, 0.01),
+    0px 32px 25px rgba(25, 29, 22, 0.1), 0px 15px 19px rgba(25, 29, 22, 0.1),
+    0px 5px 10px rgba(25, 29, 22, 0.2), 0px 0px 0px rgba(25, 29, 22, 0.2);
+
+  @include respond-to(sm) {
+    --box-shadow: 0px 60px 30px rgba(25, 29, 22, 0.01),
+      0px 42px 25px rgba(25, 29, 22, 0.1), 0px 19px 19px rgba(25, 29, 22, 0.1),
+      0px 5px 10px rgba(25, 29, 22, 0.2), 0px 0px 0px rgba(25, 29, 22, 0.2);
+  }
+}

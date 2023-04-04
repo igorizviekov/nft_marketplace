@@ -1,0 +1,173 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass mixins.
+// -----------------------------------------------------------------------------
+/// Make a context based selector a little more friendly
+/// @author Hugo Giraudel
+/// @param {String} $context
+@mixin when-inside($classes...) {
+  @each $class in $classes {
+    #{$class} & {
+      @content;
+    }
+  }
+}
+
+/// Breakpoints map
+/// @prop {String} keys - Keys are identifiers mapped to a given length
+/// @prop {Map} values - Values are actual breakpoints expressed in pixels
+$breakpoints: (
+  'mob-landscape': (min-width: 768px,
+  ),
+  'tablet': (min-width: 1024px,
+  ),
+  'desktop': (min-width: 1280px,
+  ),
+  'desktop-xl': (min-width: 1440px,
+  ),
+  'desktop-xxl': (min-width: 1920px,
+  ),
+  ) !default;
+
+/// Mixin to manage responsive breakpoints
+/// @author Hugo Giraudel
+/// @param {String} $breakpoint - Breakpoint name
+/// @require $breakpoints
+@mixin respond-to($breakpoint) {
+
+  // If the key exists in the map
+  @if map-has-key($breakpoints, $breakpoint) {
+
+    // Prints a media query based on the value
+    @media only screen and #{inspect(map-get($breakpoints, $breakpoint))} {
+      @content;
+    }
+  }
+
+  // If the key doesn't exist in the map
+  @else {
+    @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
+    + "Available breakpoints are: #{map-keys($breakpoints)}.";
+  }
+}
+
+@mixin transition($prop: all) {
+  transition: $prop 0.3s ease-in-out;
+}
+
+@mixin transition-reveal($prop: all) {
+  transition: $prop 1s cubic-bezier(0.405, 0.005, 0, 1
+  );
+}
+
+@mixin objectFit {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@mixin hover {
+  @media (hover: hover) {
+
+    &:hover,
+    &:focus {
+      @content;
+    }
+  }
+}
+
+@mixin underline {
+  position: relative;
+  line-height: 1.3;
+
+  &::after {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease-in-out;
+    content: '';
+  }
+
+  @include hover {
+    &::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+  }
+}
+
+@mixin underline-visible {
+  position: relative;
+  line-height: 1.3;
+
+  &::after {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: currentColor;
+    @include transition;
+    content: '';
+  }
+
+  @include hover {
+    &::after {
+      left: auto;
+      width: 0;
+    }
+  }
+}
+
+@mixin transition-sequence($start, $interval, $length: 10, $children: '') {
+  @for $i from 1 through $length {
+    @if $children !='' {
+      &:nth-child(#{$i}) #{$children} {
+        transition-delay: calc(#{$start} + #{$i} * #{$interval});
+      }
+    }
+
+    @else {
+      &:nth-child(#{$i}) {
+        transition-delay: calc(#{$start} + #{$i} * #{$interval});
+      }
+    }
+  }
+}
+
+@mixin visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+@mixin grid {
+  display: grid;
+  grid-template-columns: repeat(var(--column-count), 1fr);
+  column-gap: var(--column-gap);
+}
+
+@function z($name, $z-indexes-list: $z-indexes) {
+  @if index($z-indexes-list, $name) {
+    @return (length($z-indexes-list) - index($z-indexes-list, $name)) + 1;
+  }
+
+  @else {
+    @warn 'There is no item "#{$name}" in this list; Choose one of: #{$z-indexes}';
+
+    @return null;
+  }
+}

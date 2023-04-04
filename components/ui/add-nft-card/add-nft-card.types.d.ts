@@ -1,0 +1,3 @@
+interface IAddNftCardProps {
+  onClick: () => void;
+}
