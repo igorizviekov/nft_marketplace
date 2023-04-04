@@ -1,0 +1,21 @@
+.container {
+  padding-left: var(--container-offset);
+  padding-right: var(--container-offset);
+  max-width: 100%;
+}
+
+.section {
+  padding-top: var(--section-padding);
+  padding-bottom: var(--section-padding);
+  width: 100%;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  column-gap: var(--grid-gap);
+
+  @include respond-to(sm) {
+    grid-template-columns: repeat(12, 1fr);
+  }
+}
