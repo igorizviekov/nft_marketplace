@@ -1,31 +1,3 @@
-h1 {
-  font-size: 20px;
-  font-weight: 700;
-}
-
-h2 {
-  font-size: 18px;
-  font-weight: 600;
-}
-
-h3 {
-  font-size: 16px;
-  font-weight: 600;
-}
-
-h4 {
-  font-size: 16px;
-  font-size: 400;
-}
-
-p {
-  font-size: 14px;
-}
-
-small {
-  font-size: 12px;
-}
-
 h1,
 h2,
 h3,
@@ -45,80 +17,108 @@ h5,
 
 }
 
-.heading-xxl {
-  font-size: 4.6rem;
-
-  @include respond-to(md) {
-    font-size: 6rem;
-  }
-
-  @include respond-to(lg) {
-    font-size: 7.6rem;
-  }
+h1 {
+  font-size: 20px;
+  font-weight: 700;
 }
 
-.heading-xl {
-  font-size: 4.2rem;
-
-  @include respond-to(md) {
-    font-size: 5.6rem;
-  }
-
-  @include respond-to(lg) {
-    font-size: 7.1rem;
-  }
+h2 {
+  font-size: 18px;
+  font-weight: 600;
 }
 
-.heading-lg {
-  font-size: 3.6rem;
-
-  @include respond-to(md) {
-    font-size: 3.2rem;
-  }
+h3 {
+  font-size: 16px;
+  font-weight: 600;
 }
 
-.heading-md {
-  font-size: 2.8rem;
+h4 {
+  font-size: 16px;
+  font-weight: 400;
 }
 
-.heading-sm {
-  font-size: 2.4rem;
+p {
+  font-size: 14px;
 }
 
-.heading-xs {
-  font-size: 1.5rem;
+small {
+  font-size: 12px;
 }
 
-.subtitle {
-  font-size: 2.1rem;
-}
+// .heading-xxl {
+//   font-size: 4.6rem;
 
-.tag {
-  font-size: 1.7rem;
-}
+//   @include respond-to(md) {
+//     font-size: 6rem;
+//   }
 
-.body-lg,
-.body-sm,
-.body-md {
-  line-height: 1.76;
-}
+//   @include respond-to(lg) {
+//     font-size: 7.6rem;
+//   }
+// }
 
-.body-sm {
-  font-size: 1.2rem;
-}
+// .heading-xl {
+//   font-size: 4.2rem;
 
-.body-md {
-  font-size: 1.5rem;
-}
+//   @include respond-to(md) {
+//     font-size: 5.6rem;
+//   }
 
-.body-lg {
-  font-size: 1.7rem;
-}
+//   @include respond-to(lg) {
+//     font-size: 7.1rem;
+//   }
+// }
 
-.body-xl {
-  font-size: 2.4rem;
+// .heading-lg {
+//   font-size: 3.6rem;
 
-  @include respond-to(md) {
-    font-size: 2.6rem;
-  }
-}
+//   @include respond-to(md) {
+//     font-size: 3.2rem;
+//   }
+// }
+
+// .heading-md {
+//   font-size: 2.8rem;
+// }
+
+// .heading-sm {
+//   font-size: 2.4rem;
+// }
+
+// .heading-xs {
+//   font-size: 1.5rem;
+// }
+
+// .subtitle {
+//   font-size: 2.1rem;
+// }
+
+// .tag {
+//   font-size: 1.7rem;
+// }
+
+// .body-lg,
+// .body-sm,
+// .body-md {
+//   line-height: 1.76;
+// }
+
+// .body-sm {
+//   font-size: 1.2rem;
+// }
+
+// .body-md {
+//   font-size: 1.5rem;
+// }
+
+// .body-lg {
+//   font-size: 1.7rem;
+// }
+
+// .body-xl {
+//   font-size: 2.4rem;
+
+//   @include respond-to(md) {
+//     font-size: 2.6rem;
+//   }
+// }
