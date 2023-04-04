@@ -1,0 +1,43 @@
+.container {
+  padding-left: var(--container-offset);
+  padding-right: var(--container-offset);
+  max-width: 100%;
+}
+
+.section {
+  padding: var(--section-padding);
+  width: 100%;
+  min-height: 50vh;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  column-gap: var(--grid-gap);
+
+  @include respond-to(sm) {
+    grid-template-columns: repeat(12, 1fr);
+  }
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+
+  flex-wrap: wrap;
+
+  gap: var(--spacing-md);
+}
+
+
+
+.flex-col {
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  gap: var(--spacing-lg);
+}

@@ -1,5 +1,5 @@
 .header {
-  @apply w-full fixed  p-4 flex-row shadow-toBottom bg-white z-50;
+  @apply w-full p-4 flex-row shadow-toBottom bg-white z-50;
   &__link {
     @apply flex flex-1 flex-row justify-start relative;
     &__logo {
