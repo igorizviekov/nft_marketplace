@@ -13,14 +13,15 @@ import { fetchContract } from '../../utils';
 import Link from 'next/link';
 import { useStoreRehydrated, useStoreState } from 'easy-peasy';
 import { IStoreModel } from '../../store/model/model.types';
-import { UserLogin } from '../../components/user-login';
 import { Modal } from '../../components/modal';
 import { CreateError } from '../../components/modal/create-error';
+import axios from 'axios';
 
 export interface IFormInput {
   price: string;
   name: string;
   description: string;
+  [key: string]: any;
 }
 
 const CreateNFT: NextPage = () => {
@@ -73,7 +74,6 @@ const CreateNFT: NextPage = () => {
     /**
      * Convert price value from the form input to the blockchain readable format
      */
-    console.log({ contract });
     const price = ethers.utils.parseUnits(nftPrice.toString(), 'ether');
     const listingPrice = await contract.getListingPrice();
 
@@ -89,9 +89,7 @@ const CreateNFT: NextPage = () => {
     file: File,
     name: string,
     price: number,
-    description: string,
-    userName?: string,
-    userAvatar?: string
+    description: string
   ) => {
     try {
       /**
@@ -133,8 +131,6 @@ const CreateNFT: NextPage = () => {
         description,
         // url of Infura project plus id of uploaded image
         image: `https://${process.env.NEXT_PUBLIC_INFURA_PROJECT_NAME}.infura-ipfs.io/ipfs/${addedImage.path}`,
-        nickname: userName,
-        avatar: userAvatar,
       });
       /**
        * Upload file to Infura
@@ -157,19 +153,40 @@ const CreateNFT: NextPage = () => {
 
   const submitNewNFT = async () => {
     const { name, price, description } = formInput;
+
+    try {
+      setIsLoading(true);
+      const formData = new FormData();
+      formData.append('file', file as File);
+      Object.keys(formInput).forEach((key) => {
+        formData.append(key, formInput[key]);
+      });
+
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_BACK_API}/nft/mint`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${userState.token}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+      // TODO: transfer logic to API
+      console.log(res);
+    } catch (e) {
+      console.log('Failed to upload NFT to ipfs', e);
+      setIsLoading(false);
+      setIsModalVisible(true);
+    }
+
+    return;
     if (!isFormValid(name, Number(price), description)) {
       setIsError('Please provide all necessary data to continue');
     }
     try {
       setIsLoading(true);
-      await covertImageToNFT(
-        file as File,
-        name,
-        Number(price),
-        description,
-        userState.name,
-        userState.avatar
-      );
+      await covertImageToNFT(file as File, name, Number(price), description);
     } catch {
       setIsError('Error occurred when submitting a new NFT. Please try again');
       setIsLoading(false);
@@ -283,25 +300,18 @@ const CreateNFT: NextPage = () => {
           We appreciate your understanding and look forward to seeing your NFT
           on our marketplace.
         </p>
-        {!userState.avatar?.length && (
-          <div className="flex sm:flex-col items-center mt-8">
-            <UserLogin />
-            <p className="font-poppins dark:text-white text-nft-black-1 ml-4 text-base sm:text-center">
-              * if you want to be featured on our "Top creators" list.
-            </p>
-          </div>
-        )}
+
         <div className="mt-7 w-full flex justify-end">
           <Button
             isPrimary
-            label="Create NFT"
+            label={userState.token ? 'Create NFT' : 'Sign In to create NFT'}
             classStyles="rounded-xl"
             disabled={
               !isFormValid(
                 formInput.name,
                 Number(formInput.price),
                 formInput.description
-              )
+              ) || !userState.token.length
             }
             onClick={submitNewNFT}
           />

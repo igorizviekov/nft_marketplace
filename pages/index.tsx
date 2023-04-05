@@ -17,29 +17,16 @@ export default function Home() {
   const [activeSelect, setActiveSelect] =
     useState<ActiveSelectOption>('Recently added');
 
-  const populateOwnerNickname = (nfts: INftCardProps[]) =>
-    nfts.reduce((nfts: INftCardProps[], currentNFT) => {
-      const ownerNickname = nfts.find(
-        (a) => a.owner === currentNFT.owner && a.nickname
-      )?.nickname;
-      if (ownerNickname) {
-        currentNFT.nickname = ownerNickname;
-      }
-      nfts.push(currentNFT);
-      return nfts;
-    }, []);
-
   const fetchNFTs = async () => {
     const provider = new ethers.providers.JsonRpcProvider();
     // process.env.NEXT_PUBLIC_ALCHEMY_API_URL
     const contract = fetchContract(provider);
-    console.log({ deployed: contract });
+    // console.log({ deployed: contract });
     /**
      * List of all available NFTs on marketplace.
      * Filtered by "not sold"
      */
     const data = await contract.getActiveCocktails();
-
     /**
      * Map data to the format, which will used on frontend
      */
@@ -52,20 +39,14 @@ export default function Home() {
         const tokenURI: string = await contract.tokenURI(tokenId);
 
         // get NFT metadata and image
-        const {
-          data: { image, name, description, nickname, avatar },
-        } = await axios.get(tokenURI);
+        const { data } = await axios.get(tokenURI);
 
         return {
           price: formattedPrice,
           tokenId: Number(tokenId),
-          img: image,
           seller,
           owner,
-          name,
-          description,
-          nickname,
-          avatar,
+          ...data,
         };
       })
     );
@@ -76,9 +57,7 @@ export default function Home() {
     fetchNFTs()
       .then((items) => {
         if (items?.length) {
-          const sortedNfts = populateOwnerNickname(
-            sortNfts('Recently added', items)
-          );
+          const sortedNfts = sortNfts('Recently added', items);
           setNftList(sortedNfts);
           setNftsCopy(sortedNfts);
         }
@@ -106,8 +85,8 @@ export default function Home() {
 
   // search
   const onHandleSearch = (value: string) => {
-    const filteredNfts = nftList.filter(({ name }) =>
-      name.toLowerCase().includes(value.toLowerCase())
+    const filteredNfts = nftList.filter(
+      (nft) => nft.name && nft.name.toLowerCase().includes(value.toLowerCase())
     );
 
     if (filteredNfts.length) {

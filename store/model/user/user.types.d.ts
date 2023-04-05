@@ -6,8 +6,10 @@ export interface IUser {
 }
 
 export interface IUserModel {
+  token: string;
   name: string;
   avatar: string;
   setUser: Action<IUserModel, IUser>;
   clearUser: Action<IUserModel>;
+  setToken: Action<IUserModel, string>;
 }
