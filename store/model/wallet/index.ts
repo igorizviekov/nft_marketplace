@@ -3,7 +3,7 @@ import { IWalletModel } from './wallet.types';
 import { create as ipfsClient } from 'ipfs-http-client';
 
 export const WalletModel: IWalletModel = {
-  currency: 'MATIC',
+  currency: 'ETH',
   activeWallet: null,
   isWalletConnected: false,
   setIsWalletConnected: action((state, payload: boolean) => {

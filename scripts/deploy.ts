@@ -1,5 +1,7 @@
-// npx hardhat node
-// npx hardhat run scripts/deploy.ts --network localhost
+// 1. start hardhat - npx hardhat node
+// 2. deploy smart contract - npx hardhat run scripts/deploy.ts --network localhost
+// 3. import 2 accounts from hardhat into your wallet
+// 4. create NFT :)
 
 import { ethers } from 'hardhat';
 

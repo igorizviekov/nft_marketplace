@@ -53,6 +53,7 @@ export const Header = () => {
       return;
     }
     const wallet = await connectWallet(mode);
+    console.log({ activeWallet: wallet });
     const { isConnected } = wallet;
     walletActions.setIsWalletConnected(isConnected);
     if (isConnected) {

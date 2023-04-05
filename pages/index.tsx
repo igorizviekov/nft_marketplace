@@ -33,6 +33,7 @@ export default function Home() {
     const provider = new ethers.providers.JsonRpcProvider();
     // process.env.NEXT_PUBLIC_ALCHEMY_API_URL
     const contract = fetchContract(provider);
+    console.log({ deployed: contract });
     /**
      * List of all available NFTs on marketplace.
      * Filtered by "not sold"
