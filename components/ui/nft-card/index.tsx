@@ -13,7 +13,9 @@ export interface INftCardProps {
   tokenId: number;
   nickname?: string;
   avatar?: string;
+  status?: NFTStatus;
 }
+type NFTStatus = 'On Sale' | 'Created' | 'Owned' | 'Liked' | 'Activity';
 
 export const NftCard = ({
   name,

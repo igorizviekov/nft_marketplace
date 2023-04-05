@@ -1,82 +1,96 @@
-export const MockNFTS: INFTObject[] = [
+import { TEST_IMAGE_URL } from '../components/ui/BaseImage/BaseImage';
+import { INftCardProps } from '../components/ui/nft-card';
+
+export const MockNFTS: INftCardProps[] = [
   {
-    status: 'On Sale',
-    imageUrl: '',
-    name: 'Alien Worlds Biannce Mission #423',
-    price: 1278,
-    buttonLabel: 'Place Bid',
-  },
-  {
-    status: 'On Sale',
-    imageUrl: '',
-    name: 'Alien Worlds Biannce Mission #423',
-    price: 1278,
-    buttonLabel: 'Place Bid',
-  },
-  {
-    status: 'Created',
-    imageUrl: '',
-    name: 'Alien Worlds Biannce Mission #423',
-    price: 1278,
-    buttonLabel: 'Place Bid',
-  },
-  {
-    status: 'Created',
-    imageUrl: '',
-    name: 'Alien Worlds Biannce Mission #423',
-    price: 1278,
-    buttonLabel: 'Place Bid',
-  },
-  {
+    name: 'Mock NFT',
+    seller: 'Johanna',
+    owner: 'Johanna',
+    description: 'Description of the NFT',
+    img: TEST_IMAGE_URL,
+    price: 8,
+    tokenId: 12093012,
     status: 'Owned',
-    imageUrl: '',
-    name: 'Alien Worlds Biannce Mission #423',
-    price: 1278,
-    buttonLabel: 'Place Bid',
   },
   {
+    name: 'Mock eNeFTee',
+    seller: '',
+    owner: 'Johanna',
+    description: 'Description of the NFT',
+    img: TEST_IMAGE_URL,
+    price: 11,
+    tokenId: 12093012,
     status: 'Owned',
-    imageUrl: '',
-    name: 'Alien Worlds Biannce Mission #423',
-    price: 1278,
-    buttonLabel: 'Place Bid',
   },
   {
+    name: 'Mock NFT',
+    seller: '',
+    owner: 'Johanna',
+    description: 'Description of the NFT',
+    img: TEST_IMAGE_URL,
+    price: 7,
+    tokenId: 12093012,
+    status: 'Created',
+  },
+  {
+    name: 'Mock NFT',
+    seller: '',
+    owner: 'Johanna',
+    description: 'Description of the NFT',
+    img: TEST_IMAGE_URL,
+    price: 6,
+    tokenId: 12093012,
+    status: 'Created',
+  },
+
+  {
+    name: 'Mock NFT',
+    seller: '',
+    owner: 'Johanna',
+    description: 'Description of the NFT',
+    img: TEST_IMAGE_URL,
+    price: 5,
+    tokenId: 12093012,
+    status: 'On Sale',
+  },
+  {
+    name: 'Mock NFT',
+    seller: '',
+    owner: 'Johanna',
+    description: 'Description of the NFT',
+    img: TEST_IMAGE_URL,
+    price: 65,
+    tokenId: 12093012,
+    status: 'On Sale',
+  },
+  {
+    name: 'Mock NFT',
+    seller: '',
+    owner: 'Johanna',
+    description: 'Description of the NFT',
+    img: TEST_IMAGE_URL,
+    price: 32,
+    tokenId: 12093012,
     status: 'Liked',
-    imageUrl: '',
-    name: 'Alien Worlds Biannce Mission #423',
-    price: 1278,
-    buttonLabel: 'Place Bid',
   },
   {
+    name: 'Mock NFT',
+    seller: '',
+    owner: 'Johanna',
+    description: 'Description of the NFT',
+    img: TEST_IMAGE_URL,
+    price: 12,
+    tokenId: 12093012,
     status: 'Liked',
-    imageUrl: '',
-    name: 'Alien Worlds Biannce Mission #423',
-    price: 1278,
-    buttonLabel: 'Place Bid',
   },
   {
+    name: 'Mock NFT',
+    seller: '',
+    owner: 'Johanna',
+    description: 'Description of the NFT',
+    img: TEST_IMAGE_URL,
+    price: 33,
+    tokenId: 12093012,
     status: 'Activity',
-    imageUrl: '',
-    name: 'Alien Worlds Biannce Mission #423',
-    price: 1278,
-    buttonLabel: 'Place Bid',
-  },
-  {
-    status: 'Activity',
-    imageUrl: '',
-    name: 'Alien Worlds Biannce Mission #423',
-    price: 1278,
-    buttonLabel: 'Place Bid',
   },
 ];
-
-interface INFTObject {
-  status: NFTStatus;
-  imageUrl: string;
-  name: string;
-  price: number;
-  buttonLabel: string;
-}
-
-type NFTStatus = 'On Sale' | 'Created' | 'Owned' | 'Liked' | 'Activity';
