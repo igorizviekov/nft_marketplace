@@ -16,6 +16,8 @@ import { IStoreModel } from '../../store/model/model.types';
 import { Modal } from '../../components/modal';
 import { CreateError } from '../../components/modal/create-error';
 import axios from 'axios';
+import detectEthereumProvider from '@metamask/detect-provider';
+import Web3 from 'web3';
 
 export interface IFormInput {
   price: string;
@@ -153,16 +155,18 @@ const CreateNFT: NextPage = () => {
 
   const submitNewNFT = async () => {
     const { name, price, description } = formInput;
+    if (!isFormValid(name, Number(price), description)) {
+      setIsError('Please provide all necessary data to continue');
+    }
 
     try {
       setIsLoading(true);
       const formData = new FormData();
       formData.append('file', file as File);
-      Object.keys(formInput).forEach((key) => {
-        formData.append(key, formInput[key]);
-      });
+      formData.append('price', formInput.price as string);
+      formData.append('metadata', JSON.stringify(formInput) as string);
 
-      const res = await axios.post(
+      await axios.post(
         `${process.env.NEXT_PUBLIC_BACK_API}/nft/mint`,
         formData,
         {
@@ -172,25 +176,20 @@ const CreateNFT: NextPage = () => {
           },
         }
       );
-      // TODO: transfer logic to API
-      console.log(res);
-    } catch (e) {
-      console.log('Failed to upload NFT to ipfs', e);
-      setIsLoading(false);
-      setIsModalVisible(true);
-    }
 
-    return;
-    if (!isFormValid(name, Number(price), description)) {
-      setIsError('Please provide all necessary data to continue');
-    }
-    try {
-      setIsLoading(true);
-      await covertImageToNFT(file as File, name, Number(price), description);
+      toast.success('NFT successfully created');
+      setTimeout(() => router.push('/'), 2000);
     } catch {
       setIsError('Error occurred when submitting a new NFT. Please try again');
       setIsLoading(false);
     }
+    // try {
+    //   setIsLoading(true);
+    //   await covertImageToNFT(file as File, name, Number(price), description);
+    // } catch {
+    //   setIsError('Error occurred when submitting a new NFT. Please try again');
+    //   setIsLoading(false);
+    // }
   };
 
   useEffect(() => {

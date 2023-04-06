@@ -86,7 +86,9 @@ export default function Home() {
   // search
   const onHandleSearch = (value: string) => {
     const filteredNfts = nftList.filter(
-      (nft) => nft.name && nft.name.toLowerCase().includes(value.toLowerCase())
+      (nft) =>
+        nft.metadata?.name &&
+        nft.metadata?.name.toLowerCase().includes(value.toLowerCase())
     );
 
     if (filteredNfts.length) {

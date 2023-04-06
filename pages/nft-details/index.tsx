@@ -19,7 +19,6 @@ const NFTDetails = () => {
   const [isError, setIsError] = useState<boolean | string>(false);
   const [isModalVisible, setIsModalVisible] = useState<boolean | string>(false);
   const [nft, setNft] = useState<INftCardProps | null>(null);
-  console.log(nft);
   const router = useRouter();
 
   const { activeWallet, currency } = useStoreState(
@@ -48,7 +47,7 @@ const NFTDetails = () => {
       setIsLoading(true);
       setIsModalVisible(false);
       await buyNFT();
-      toast.success(`You successfully purchased ${nft?.name} NFT`);
+      toast.success(`You successfully purchased ${nft?.metadata?.name} NFT`);
       setTimeout(() => router.push('/my-nft'), 2000);
     } catch (e) {
       console.log('Error purchasing the NFT', e);
@@ -59,15 +58,16 @@ const NFTDetails = () => {
 
   useEffect(() => {
     if (router.isReady) {
-      const { owner, price, seller, tokenId, ...metadata } = router.query;
-
+      const { owner, price, seller, tokenId, image, ...rest } = router.query;
+      console.log({ image });
       if (owner && price && seller && tokenId) {
         setNft({
+          image: image as string,
           owner: owner as string,
           seller: seller as string,
-          tokenId: Number(tokenId).toString(),
-          price: price as string,
-          ...metadata,
+          tokenId: Number(tokenId),
+          price: Number(price),
+          metadata: rest,
         });
       }
       setIsLoading(false);
@@ -102,7 +102,7 @@ const NFTDetails = () => {
         <div className="flex-1 flex justify-center flex-col sm:px-4 p-12 sm:pb-4 md:justify-start md:text-center">
           <div className="flex flex-row md:flex-col">
             <h2 className="font-poppins text-nft-red-violet  dark:text-nft-yellow font-semibold text-3xl">
-              {nft.name || nft.tokenId}
+              {nft.metadata.name || nft.tokenId}
             </h2>
           </div>
           <div className="mt-10">
@@ -125,7 +125,7 @@ const NFTDetails = () => {
 
             <div className="mt-3">
               <p className="font-poppins dark:text-white text-nft-black-1 text-base font-normal">
-                {nft.description}
+                {nft.metadata.description}
               </p>
             </div>
           </div>

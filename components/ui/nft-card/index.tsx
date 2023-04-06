@@ -4,29 +4,32 @@ import Link from 'next/link';
 import { IStoreModel } from '../../../store/model/model.types';
 
 export interface INftCardProps {
+  image: string;
+  price: number;
+  tokenId: number;
   seller: string;
   owner: string;
-  [key: string]: string;
+  metadata: any;
 }
 
 export const NftCard = ({
   owner,
-  price,
+  image,
   seller,
   tokenId,
-  ...metadata
+  price,
+  metadata,
 }: INftCardProps) => {
-  const { image, name } = metadata;
   const walletState = useStoreState((state: IStoreModel) => state.wallet);
   const { currency } = walletState;
-
+  const { name } = metadata;
   return (
     <Link
       href={{
         pathname: '/nft-details',
         query: {
+          image,
           owner,
-          price,
           seller,
           tokenId,
           ...metadata,

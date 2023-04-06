@@ -12,7 +12,7 @@ interface INFTListProps {
 export const NftList = ({ isLoading, nfts, searchProps }: INFTListProps) => {
   const { onClearSearch, onHandleSearch, setActiveSelect, activeSelect } =
     searchProps;
-
+  console.log(nfts);
   return (
     <div className="mb-12">
       <div className="w-full flex flex-wrap justify-start md:justify-center ">

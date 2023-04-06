@@ -10,6 +10,7 @@
     "pretty": "prettier --write 'contracts/**/*.sol'"
   },
   "dependencies": {
+    "@metamask/detect-provider": "^2.0.0",
     "@metamask/providers": "^9.1.0",
     "@nomicfoundation/hardhat-chai-matchers": "^1.0.6",
     "@nomiclabs/hardhat-ethers": "^2.2.1",
@@ -36,6 +37,7 @@
     "react-toastify": "^9.1.1",
     "solidity-coverage": "^0.8.2",
     "typechain": "^8.1.1",
+    "web3": "^1.9.0",
     "web3modal": "1.9.5"
   },
   "devDependencies": {
