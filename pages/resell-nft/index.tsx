@@ -1,4 +1,3 @@
-import { NextPage } from 'next';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Spinner } from '../../components/spinner';
