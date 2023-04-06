@@ -1,0 +1,19 @@
+.primary {
+  width: 200px;
+  background-color: rgba(255, 255, 255, 0.527);
+  border-radius: var(--border-radius-md);
+
+  padding: var(--spacing-md);
+}
+
+.secondary {
+  width: 300px;
+  background-color: black;
+  border-radius: var(--border-radius-md);
+
+  padding: var(--spacing-md);
+
+  h1 {
+    color: var(--accent);
+  }
+}

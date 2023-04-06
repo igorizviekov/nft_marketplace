@@ -7,7 +7,7 @@ import { FaDiscord, FaInstagram, FaTwitter } from 'react-icons/fa';
 import { Tabs } from '../../components/ui/Tabs/Tabs';
 import { MockNFTS } from '../../mocks/ProfilePage.mock';
 import { NftCard } from '../../components/ui/nft-card';
-const ProfilePage = () => {
+const CreatorsPage = () => {
   const [selectedTab, setSelectedTab] = useState<number>(0);
 
   const options = ['On Sale', 'Created', 'Owned', 'Liked', 'Activity'];
@@ -64,4 +64,4 @@ const ProfilePage = () => {
   );
 };
 
-export default ProfilePage;
+export default CreatorsPage;

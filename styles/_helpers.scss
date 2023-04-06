@@ -12,15 +12,18 @@
 
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  column-gap: var(--grid-gap);
+  margin-top: var(--spacing-md);
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: var(--spacing-md);
+  row-gap: var(--spacing-md);
+
 
   @include respond-to(sm) {
     grid-template-columns: repeat(12, 1fr);
   }
 }
 
-.flex-row {
+.flex-row-center {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -44,11 +47,12 @@
 
 
 
-.flex-col {
+.flex-col-center {
   width: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 
-  gap: var(--spacing-lg);
+  gap: var(--spacing-md);
 }
