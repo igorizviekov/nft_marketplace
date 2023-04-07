@@ -46,8 +46,12 @@ export const connectWallet = async (
 /**
  * Connect to the smart contract
  */
-export const fetchContract = (signer: JsonRpcSigner | JsonRpcProvider) =>
-  new ethers.Contract(MarketAddress, MarketAddressABI, signer);
+export const fetchContract = (
+  signer: JsonRpcSigner | JsonRpcProvider,
+  address,
+  abi
+) => new ethers.Contract(address, abi, signer);
+
 export const getTopCreators = (nfts: INftCardProps[]) =>
   nfts
     .reduce((creators, currentNFT) => {

@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import { Button } from '../../components/ui/Button';
 import { FileUpload } from '../../components/file-upload';
 import Input from '../../components/ui/Input';
-import { create as ipfsClient } from 'ipfs-http-client';
 import { toast } from 'react-toastify';
 import Web3Modal from 'web3modal';
 import { ethers } from 'ethers';
@@ -16,8 +15,6 @@ import { IStoreModel } from '../../store/model/model.types';
 import { Modal } from '../../components/modal';
 import { CreateError } from '../../components/modal/create-error';
 import axios from 'axios';
-import detectEthereumProvider from '@metamask/detect-provider';
-import Web3 from 'web3';
 
 export interface IFormInput {
   price: string;
@@ -52,107 +49,6 @@ const CreateNFT: NextPage = () => {
     return true;
   };
 
-  /**
-   *
-   * Write NFT data to blockchain
-   *
-   * @param uploadedFileUrl
-   * @param nftPrice
-   */
-  const createSale = async (uploadedFileUrl: string, nftPrice: number) => {
-    // https://www.npmjs.com/package/web3modal
-    const we3Modal = new Web3Modal();
-    const connection = await we3Modal.connect();
-    const provider = new ethers.providers.Web3Provider(connection);
-
-    /**
-     * Person who is creating an NFT
-     */
-    const signer = provider.getSigner();
-    /**
-     * Get access to the Solidity Smart Contract api
-     */
-    const contract = fetchContract(signer);
-    /**
-     * Convert price value from the form input to the blockchain readable format
-     */
-    const price = ethers.utils.parseUnits(nftPrice.toString(), 'ether');
-    const listingPrice = await contract.getListingPrice();
-
-    const transaction = await contract.createToken(price, uploadedFileUrl, {
-      value: listingPrice,
-    });
-
-    // should trigger metamask popup
-    await transaction.wait();
-  };
-
-  const covertImageToNFT = async (
-    file: File,
-    name: string,
-    price: number,
-    description: string
-  ) => {
-    try {
-      /**
-       * Authenticate to Infura
-       *
-       * https://app.infura.io/
-       * https://ipfs.tech/
-       */
-      const auth =
-        'Basic ' +
-        Buffer.from(
-          `${process.env.NEXT_PUBLIC_INFURA_PROJECT_ID}:${process.env.NEXT_PUBLIC_INFURA_SECRET}`
-        ).toString('base64');
-
-      const options = {
-        url: 'https://ipfs.infura.io:5001/api/v0',
-        host: 'ipfs.infura.io',
-        port: 5001,
-        protocol: 'https',
-        apiPath: '/api/v0',
-        headers: {
-          authorization: auth,
-        },
-      };
-
-      const client = ipfsClient(options);
-
-      /**
-       * Upload file to Infura
-       */
-      const addedImage = await client.add({ content: file });
-
-      /**
-       * Upload NFT data to Infura
-       */
-      const data = JSON.stringify({
-        name,
-        price,
-        description,
-        // url of Infura project plus id of uploaded image
-        image: `https://${process.env.NEXT_PUBLIC_INFURA_PROJECT_NAME}.infura-ipfs.io/ipfs/${addedImage.path}`,
-      });
-      /**
-       * Upload file to Infura
-       */
-      const addedNFT = await client.add(data);
-      /**
-       * Save NFT data on Polygon with Smart Contract
-       */
-      await createSale(
-        `https://${process.env.NEXT_PUBLIC_INFURA_PROJECT_NAME}.infura-ipfs.io/ipfs/${addedNFT.path}`,
-        price
-      );
-      setTimeout(() => router.push('/'), 2000);
-    } catch (err) {
-      console.log('Failed to upload NFT to ipfs', err);
-      setIsLoading(false);
-      setIsModalVisible(true);
-    }
-  };
-
   const submitNewNFT = async () => {
     const { name, price, description } = formInput;
     if (!isFormValid(name, Number(price), description)) {
@@ -166,7 +62,7 @@ const CreateNFT: NextPage = () => {
       formData.append('price', formInput.price as string);
       formData.append('metadata', JSON.stringify(formInput) as string);
 
-      await axios.post(
+      const res = await axios.post(
         `${process.env.NEXT_PUBLIC_BACK_API}/nft/mint`,
         formData,
         {
@@ -176,20 +72,38 @@ const CreateNFT: NextPage = () => {
           },
         }
       );
+      const { data } = res.data;
+      const { MarketAddress, MarketAddressABI, nftURL } = data;
+      const we3Modal = new Web3Modal();
+      const connection = await we3Modal.connect();
+      const provider = new ethers.providers.Web3Provider(connection);
+      /**
+       * Person who is creating an NFT
+       */
+      const signer = provider.getSigner();
+      /**
+       * Get access to the Solidity Smart Contract api
+       */
+      const contract = fetchContract(signer, MarketAddress, MarketAddressABI);
+      /**
+       * Convert price value from the form input to the blockchain readable format
+       */
+      const bPrice = ethers.utils.parseUnits(price.toString(), 'ether');
+      const listingPrice = await contract.getListingPrice();
 
+      const transaction = await contract.createToken(bPrice, nftURL, {
+        value: listingPrice,
+      });
+
+      // should trigger metamask popup
+      await transaction.wait();
       toast.success('NFT successfully created');
       setTimeout(() => router.push('/'), 2000);
-    } catch {
+    } catch (e) {
+      console.log(e);
       setIsError('Error occurred when submitting a new NFT. Please try again');
       setIsLoading(false);
     }
-    // try {
-    //   setIsLoading(true);
-    //   await covertImageToNFT(file as File, name, Number(price), description);
-    // } catch {
-    //   setIsError('Error occurred when submitting a new NFT. Please try again');
-    //   setIsLoading(false);
-    // }
   };
 
   useEffect(() => {
