@@ -104,6 +104,13 @@
   align-items: center;
 
   gap: var(--spacing-md);
+
+  padding: var(--spacing-sm);
+
+  @include respond-to(mob-landscape){
+    padding: 0;
+  }
+
 }
 
 .flex-col-start {
