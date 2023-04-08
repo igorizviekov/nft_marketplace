@@ -7,7 +7,7 @@ type InputProps = {
   inputType: 'text' | 'textarea' | 'number';
   title: string;
   placeholder: string;
-  handleClick?: React.ChangeEventHandler;
+  handleChange?: React.ChangeEventHandler;
   value?: string | number;
 };
 
@@ -15,7 +15,7 @@ const Input = ({
   inputType,
   title,
   placeholder,
-  handleClick,
+  handleChange,
   value,
 }: InputProps) => {
   const walletState = useStoreState((state: IStoreModel) => state.wallet);
@@ -32,7 +32,7 @@ const Input = ({
             min="0"
             className={styles.text}
             placeholder={placeholder}
-            onChange={handleClick}
+            onChange={handleChange}
             value={value}
           />
           <p className="flex-1 font-poppins dark:text-white text-nft-black-1 font-semibold text-xl">
@@ -46,14 +46,14 @@ const Input = ({
           rows={10}
           className={styles.text}
           placeholder={placeholder}
-          onChange={handleClick}
+          onChange={handleChange}
         />
       ) : (
         <input
           type="text"
           className={styles.text}
           placeholder={placeholder}
-          onChange={handleClick}
+          onChange={handleChange}
         />
       )}
     </div>
@@ -61,7 +61,7 @@ const Input = ({
 };
 
 Input.defaultProps = {
-  handleClick: () => {},
+  handleChange: () => {},
 };
 
 export default Input;
