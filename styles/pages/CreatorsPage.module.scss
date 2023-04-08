@@ -6,8 +6,8 @@
   height: 100vw;
 
   @include respond-to(mob-landscape) {
-    width: 500px;
-    height: 500px;
+    width: 495px;
+    height: 495px;
   }
 
 
@@ -39,7 +39,7 @@
 
   @include respond-to(tablet) {
     align-items: flex-start;
-    justify-content: flex-start;
+    justify-content: space-between;
   }
 }
 
