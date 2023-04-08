@@ -1,10 +1,16 @@
+@use '../../styles/mixins' as *;
+
 .primary {
-  width: 210px;
+  width: 100%;
   background-color: rgba(255, 255, 255, 0.527);
   border-radius: var(--border-radius-md);
 
   margin: auto;
   padding: var(--spacing-md);
+
+  @include respond-to(tablet) {
+    width: 100%;
+  }
 }
 
 .secondary {
@@ -23,3 +29,4 @@
     color: var(--accent);
   }
 }
+

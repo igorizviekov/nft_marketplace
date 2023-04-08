@@ -88,9 +88,10 @@
 
   flex-wrap: wrap;
 
-  padding-bottom: var(--spacing-md);
-  padding-bottom: var(--spacing-md);
+  padding: var(--spacing-md) 0;
   gap: var(--spacing-md);
+
+
 }
 
 
@@ -101,6 +102,16 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  gap: var(--spacing-md);
+}
+
+.flex-col-start {
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
 
   gap: var(--spacing-md);
 }
