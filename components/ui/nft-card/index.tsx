@@ -22,7 +22,7 @@ type NFTStatus =
   | 'Liked'
   | 'Activity'
   | 'Outgoing Offers'
-  | 'Incoming Offers`';
+  | 'Incoming Offers';
 
 export const NftCard = ({
   name,

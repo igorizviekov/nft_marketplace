@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import DescriptionSticker from '../../components/DescriptionSticker/DescriptionSticker';
 import classNames from 'classnames';
 import { Tabs } from '../../components/ui/Tabs/Tabs';
 import BasePage from '../../components/ui/Base/BasePage/BasePage';
 import ProfileImage from '../../components/ui/ProfileImage/ProfileImage';
 import { TEST_IMAGE_URL } from '../../components/ui/Base/BaseImage/BaseImage';
+import { ProfileMockNFTS } from '../../mocks/ProfileNFTS.mock';
+import { NftCard } from '../../components/ui/nft-card';
 
 const ProfilePage = () => {
+  const [selected, setSelected] = useState<number>(0);
+
+  const options = ['Outgoing Offers', 'Incoming Offers'];
   return (
     <BasePage>
       <div className={'section'}>
@@ -119,12 +124,28 @@ const ProfilePage = () => {
           />
         </div>
         <Tabs
-          options={['Outfoing Offers', 'Incoming Offers']}
-          selected={0}
-          handleChange={function (index: number): void {
-            throw new Error('Function not implemented.');
-          }}
+          options={options}
+          selected={selected}
+          handleChange={setSelected}
         />
+        <div className="flex-row-start">
+          {ProfileMockNFTS.map((nft, index) => {
+            if (nft.status === options[selected]) {
+              return (
+                <NftCard
+                  key={index + nft.tokenId}
+                  name={nft.name}
+                  seller={nft.seller}
+                  owner={nft.owner}
+                  description={nft.description}
+                  img={nft.img}
+                  price={nft.price}
+                  tokenId={nft.tokenId}
+                />
+              );
+            }
+          })}
+        </div>
       </div>
     </BasePage>
   );
