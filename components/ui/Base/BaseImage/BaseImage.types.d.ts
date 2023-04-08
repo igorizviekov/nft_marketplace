@@ -1,3 +1,4 @@
-export interface IProfileImageProps {
-  imageUrl: string;
+export interface IBaseImageProps {
+  imageUrl?: string;
+  description?: string;
 }

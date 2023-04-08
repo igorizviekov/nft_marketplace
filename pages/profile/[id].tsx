@@ -3,6 +3,8 @@ import DescriptionSticker from '../../components/DescriptionSticker/DescriptionS
 import classNames from 'classnames';
 import { Tabs } from '../../components/ui/Tabs/Tabs';
 import BasePage from '../../components/ui/Base/BasePage/BasePage';
+import ProfileImage from '../../components/ui/ProfileImage/ProfileImage';
+import { TEST_IMAGE_URL } from '../../components/ui/Base/BaseImage/BaseImage';
 
 const ProfilePage = () => {
   return (
@@ -21,9 +23,13 @@ const ProfilePage = () => {
               type={'PRIMARY'}
             />
           </div>
-          <div>
-            <p>Image</p>
-          </div>
+          <ProfileImage
+            profileName={'Petter Doe'}
+            profileImageUrl={TEST_IMAGE_URL}
+            profileDescription={
+              'M.F is a project that is activated, throughout the collection, around the magic number 108, which suggests that we face human karma. M.F is a project that is activated, throughout the collection, around the magic number 108, which suggests that we face human karma. '
+            }
+          />
           <div className="flex-col-center">
             <DescriptionSticker
               title={'For Sale'}

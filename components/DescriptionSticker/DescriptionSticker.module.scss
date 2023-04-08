@@ -1,5 +1,5 @@
 .primary {
-  width: 100%;
+  width: 200px;
   background-color: rgba(255, 255, 255, 0.527);
   border-radius: var(--border-radius-md);
 
@@ -14,6 +14,10 @@
   margin: auto;
 
   padding: var(--spacing-md);
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 
   h1 {
     color: var(--accent);
