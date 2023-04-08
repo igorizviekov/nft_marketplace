@@ -15,7 +15,7 @@ const WalletAddress = ({ setSteps }: IStepsProps) => {
       </p>
       <Input
         title={'Wallet address'}
-        inputType={'input'}
+        inputType={'text'}
         placeholder={'Enter the wallet address you wish to swap with'}
         value={swapAddress}
         handleClick={(e) =>

@@ -218,7 +218,7 @@ const CreateNFT: NextPage = () => {
         </div>
 
         <Input
-          inputType="input"
+          inputType="text"
           title="Name"
           placeholder="NFT Name"
           handleClick={(e) =>

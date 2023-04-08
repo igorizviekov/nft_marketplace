@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import DescriptionSticker from '../../components/DescriptionSticker/DescriptionSticker';
+import DescriptionSticker from '../../../components/DescriptionSticker/DescriptionSticker';
 import classNames from 'classnames';
-import { Tabs } from '../../components/ui/Tabs/Tabs';
-import BasePage from '../../components/ui/Base/BasePage/BasePage';
-import ProfileImage from '../../components/ui/ProfileImage/ProfileImage';
-import { TEST_IMAGE_URL } from '../../components/ui/Base/BaseImage/BaseImage';
-import { ProfileMockNFTS } from '../../mocks/ProfileNFTS.mock';
-import { NftCard } from '../../components/ui/nft-card';
-import styles from '../../styles/pages/ProfilePage.module.scss';
+import { Tabs } from '../../../components/ui/Tabs/Tabs';
+import BasePage from '../../../components/ui/Base/BasePage/BasePage';
+import ProfileImage from '../../../components/ui/ProfileImage/ProfileImage';
+import { TEST_IMAGE_URL } from '../../../components/ui/Base/BaseImage/BaseImage';
+import { ProfileMockNFTS } from '../../../mocks/ProfileNFTS.mock';
+import { NftCard } from '../../../components/ui/nft-card';
+import styles from '../../../styles/pages/ProfilePage.module.scss';
 
 const ProfilePage = () => {
   const [selected, setSelected] = useState<number>(0);
