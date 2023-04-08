@@ -7,7 +7,6 @@ import ProfileImage from '../../components/ui/ProfileImage/ProfileImage';
 import { TEST_IMAGE_URL } from '../../components/ui/Base/BaseImage/BaseImage';
 import { ProfileMockNFTS } from '../../mocks/ProfileNFTS.mock';
 import { NftCard } from '../../components/ui/nft-card';
-
 const ProfilePage = () => {
   const [selected, setSelected] = useState<number>(0);
 
@@ -15,7 +14,7 @@ const ProfilePage = () => {
   return (
     <BasePage>
       <div className={'section'}>
-        <div className="flex-row-center">
+        <div className={'hero-section'}>
           <div className="flex-col-center">
             <DescriptionSticker
               title={'Followers'}
@@ -32,7 +31,7 @@ const ProfilePage = () => {
             profileName={'Petter Doe'}
             profileImageUrl={TEST_IMAGE_URL}
             profileDescription={
-              'M.F is a project that is activated, throughout the collection, around the magic number 108, which suggests that we face human karma. M.F is a project that is activated, throughout the collection, around the magic number 108, which suggests that we face human karma. '
+              'M.F is a project that is activated, throughout the collection, around the magic number 108, which suggests that we face human karma.'
             }
           />
           <div className="flex-col-center">

@@ -1,7 +1,10 @@
 .page {
-  max-width: 1680px;
   margin: auto;
-  padding: var(--spacing-lg) var(--spacing-md);
+
+  @include respond-to(mob-landscape) {
+    max-width: 1680px;
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
 }
 
 .container {
@@ -11,9 +14,14 @@
 }
 
 .section {
-  padding: var(--section-padding);
   width: 100%;
   min-height: 50vh;
+  padding: var(--spacing-sm);
+
+
+  @include respond-to(mob-landscape) {
+    padding: var(--section-padding);
+  }
 }
 
 .grid-container {
@@ -34,6 +42,29 @@
   @include respond-to(tablet) {
     grid-template-columns: repeat(3, 1fr);
   }
+}
+
+.hero-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  flex-wrap: wrap;
+
+  padding: var(--spacing-md);
+
+  gap: var(--spacing-md);
+
+  @include respond-to(tablet) {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    flex-wrap: wrap;
+  }
+
 }
 
 .flex-row-center {
