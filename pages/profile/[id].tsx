@@ -7,6 +7,8 @@ import ProfileImage from '../../components/ui/ProfileImage/ProfileImage';
 import { TEST_IMAGE_URL } from '../../components/ui/Base/BaseImage/BaseImage';
 import { ProfileMockNFTS } from '../../mocks/ProfileNFTS.mock';
 import { NftCard } from '../../components/ui/nft-card';
+import styles from '../../styles/pages/ProfilePage.module.scss';
+
 const ProfilePage = () => {
   const [selected, setSelected] = useState<number>(0);
 
@@ -15,7 +17,7 @@ const ProfilePage = () => {
     <BasePage>
       <div className={'section'}>
         <div className={'hero-section'}>
-          <div className="flex-col-center">
+          <div className={styles.stickersSide}>
             <DescriptionSticker
               title={'Followers'}
               data={'456 123'}
@@ -34,7 +36,25 @@ const ProfilePage = () => {
               'M.F is a project that is activated, throughout the collection, around the magic number 108, which suggests that we face human karma.'
             }
           />
-          <div className="flex-col-center">
+          <div className={styles.stickersSide}>
+            <DescriptionSticker
+              title={'For Sale'}
+              data={'123'}
+              type={'PRIMARY'}
+            />
+            <DescriptionSticker title={'Owned'} data={'64'} type={'PRIMARY'} />
+          </div>
+          <div className={styles.stickersBottom}>
+            <DescriptionSticker
+              title={'Followers'}
+              data={'456 123'}
+              type={'PRIMARY'}
+            />
+            <DescriptionSticker
+              title={'Following'}
+              data={'12 123'}
+              type={'PRIMARY'}
+            />
             <DescriptionSticker
               title={'For Sale'}
               data={'123'}
@@ -46,36 +66,6 @@ const ProfilePage = () => {
 
         <h1>Your statistics</h1>
         <div className={classNames('grid-container')}>
-          <DescriptionSticker
-            title={'Solana'}
-            data={'64 SOL'}
-            type={'SECONDARY'}
-          />
-          <DescriptionSticker
-            title={'Solana'}
-            data={'64 SOL'}
-            type={'SECONDARY'}
-          />
-          <DescriptionSticker
-            title={'Solana'}
-            data={'64 SOL'}
-            type={'SECONDARY'}
-          />
-          <DescriptionSticker
-            title={'Solana'}
-            data={'64 SOL'}
-            type={'SECONDARY'}
-          />
-          <DescriptionSticker
-            title={'Solana'}
-            data={'64 SOL'}
-            type={'SECONDARY'}
-          />
-          <DescriptionSticker
-            title={'Solana'}
-            data={'64 SOL'}
-            type={'SECONDARY'}
-          />
           <DescriptionSticker
             title={'Solana'}
             data={'64 SOL'}
