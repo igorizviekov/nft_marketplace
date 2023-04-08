@@ -1,3 +1,9 @@
+.page {
+  max-width: 1680px;
+  margin: auto;
+  padding: var(--spacing-lg) var(--spacing-md);
+}
+
 .container {
   padding-left: var(--container-offset);
   padding-right: var(--container-offset);
@@ -12,14 +18,21 @@
 
 .grid-container {
   display: grid;
-  margin-top: var(--spacing-md);
-  grid-template-columns: repeat(3, 1fr);
-  column-gap: var(--spacing-md);
-  row-gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+
+  grid-template-columns: repeat(1, 1fr);
+
+  column-gap: var(--spacing-lg);
+  row-gap: var(--spacing-lg);
 
 
-  @include respond-to(sm) {
-    grid-template-columns: repeat(12, 1fr);
+  @include respond-to(mob-landscape) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include respond-to(tablet) {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
@@ -30,6 +43,8 @@
   align-items: flex-start;
 
   flex-wrap: wrap;
+
+  padding: var(--spacing-md);
 
   gap: var(--spacing-md);
 }
@@ -42,6 +57,8 @@
 
   flex-wrap: wrap;
 
+  padding-bottom: var(--spacing-md);
+  padding-bottom: var(--spacing-md);
   gap: var(--spacing-md);
 }
 

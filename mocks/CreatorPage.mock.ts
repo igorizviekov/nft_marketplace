@@ -1,4 +1,4 @@
-import { TEST_IMAGE_URL } from '../components/ui/BaseImage/BaseImage';
+import { TEST_IMAGE_URL } from '../components/ui/Base/BaseImage/BaseImage';
 import { INftCardProps } from '../components/ui/nft-card';
 
 export const MockNFTS: INftCardProps[] = [

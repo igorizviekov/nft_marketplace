@@ -5,7 +5,7 @@ import EnterNFTS from './EnterNfts';
 import WalletAddress from './WalletAddress';
 import { Steps } from './types';
 import styles from './swap-page.module.scss';
-import classNames from 'classnames';
+import BasePage from '../../components/ui/Base/BasePage/BasePage';
 const SwapPage = () => {
   const [steps, setSteps] = useState<Steps>('WalletAddress');
 
@@ -37,7 +37,7 @@ const SwapPage = () => {
     );
   };
   return (
-    <div className="flex flex-col w-full justify-center items-center">
+    <BasePage>
       {steps === 'WalletAddress' ? (
         <WalletAddress setSteps={setSteps} />
       ) : steps === 'EnterNFTS' ? (
@@ -48,7 +48,7 @@ const SwapPage = () => {
         <ConfirmedSwap setSteps={setSteps} />
       )}
       <Progress />
-    </div>
+    </BasePage>
   );
 };
 
