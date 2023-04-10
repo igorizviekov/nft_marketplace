@@ -11,18 +11,22 @@ import DropdownMenuItem from './DropdownMenuItem/DropdownMenuItem';
 const DropdownMenu = ({}: IDropdownMenu) => {
   const walletState = useStoreState((state) => state.wallet);
 
-  const walletStart = walletState.activeWallet.slice(0, 5);
-  const walletEnds = walletState.activeWallet.slice(38, 42);
+  const walletStart =
+    walletState.activeWallet && walletState.activeWallet.slice(0, 5);
+  const walletEnds =
+    walletState.activeWallet && walletState.activeWallet.slice(38, 42);
 
   const [isMenuOpen, setMenuOpen] = useState<boolean>(false);
 
   return (
     <div className={styles.menu}>
-      <Button
-        isPrimary={false}
-        label={walletStart + '...' + walletEnds}
-        onClick={() => setMenuOpen(!isMenuOpen)}
-      />
+      {walletState.activeWallet && (
+        <Button
+          isPrimary={false}
+          label={walletStart + '...' + walletEnds}
+          onClick={() => setMenuOpen(!isMenuOpen)}
+        />
+      )}
       {isMenuOpen && (
         <div className={styles.container}>
           <DropdownMenuItem label={'My Items'} icon={<FaFolderOpen />} />

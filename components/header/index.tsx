@@ -45,6 +45,7 @@ export const Header = () => {
     }
     const wallet = await connectWallet(mode);
     const { isConnected } = wallet;
+    
     walletActions.setIsWalletConnected(isConnected);
     if (isConnected) {
       walletActions.setActiveWallet(wallet.account);
