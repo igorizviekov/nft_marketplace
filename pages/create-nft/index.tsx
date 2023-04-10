@@ -217,10 +217,10 @@ const CreateNFT: NextPage = () => {
         </div>
 
         <Input
-          inputType="input"
+          inputType="text"
           title="Name"
           placeholder="NFT Name"
-          handleClick={(e) =>
+          handleChange={(e) =>
             setFormInput({
               ...formInput,
               name: (e.target as HTMLInputElement).value,
@@ -232,7 +232,7 @@ const CreateNFT: NextPage = () => {
           inputType="textarea"
           title="Description"
           placeholder="NFT Description"
-          handleClick={(e) =>
+          handleChange={(e) =>
             setFormInput({
               ...formInput,
               description: (e.target as HTMLTextAreaElement).value,
@@ -244,7 +244,7 @@ const CreateNFT: NextPage = () => {
           inputType="number"
           title="Price"
           placeholder="NFT Price"
-          handleClick={(e) =>
+          handleChange={(e) =>
             setFormInput({
               ...formInput,
               price: (e.target as HTMLInputElement).value,

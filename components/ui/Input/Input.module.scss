@@ -1,0 +1,34 @@
+.container {
+  width: 100%;
+
+  margin-top: var(--spacing-sm);
+
+  position: relative;
+
+  .title {
+    position: absolute;
+    z-index: 1;
+
+    top: 4px;
+    left: 16px;
+
+    padding: var(--spacing-xs);
+
+    background-color: var(--background);
+  }
+}
+
+.text {
+  background-color: transparent;
+  border: 1px solid white;
+
+  border-radius: var(--spacing-sm);
+  padding: var(--spacing-md);
+
+  height: var(--spacing-xl);
+  width: 100%;
+
+  outline: none;
+
+  margin-top: var(--spacing-md);
+}

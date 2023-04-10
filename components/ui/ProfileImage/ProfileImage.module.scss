@@ -1,0 +1,9 @@
+.imageContainer {
+  width: 350px;
+  height: 350px;
+
+  @media (min-width:768px) {
+    width: 400px;
+    height: 400px;
+  }
+}
