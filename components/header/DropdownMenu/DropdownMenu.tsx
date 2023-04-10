@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { AiOutlinePoweroff } from 'react-icons/ai';
 import { FaEthereum, FaFolderOpen } from 'react-icons/fa';
 import { IoIosWallet, IoMdSettings } from 'react-icons/io';
 import { TbRefresh } from 'react-icons/tb';
+import { useOutsideAlerter } from '../../../hooks/useOutsideAlerter';
 import { useStoreState } from '../../../store';
 import { Button } from '../../ui/Button';
 import styles from './DropdownMenu.module.scss';
 import { IDropdownMenu } from './DropdownMenu.types';
 import DropdownMenuItem from './DropdownMenuItem/DropdownMenuItem';
 const DropdownMenu = ({}: IDropdownMenu) => {
+  const [isMenuOpen, setMenuOpen] = useState<boolean>(false);
+  const ref = useRef<HTMLDivElement>(null);
+
   const walletState = useStoreState((state) => state.wallet);
 
   const walletStart =
@@ -16,8 +20,11 @@ const DropdownMenu = ({}: IDropdownMenu) => {
   const walletEnds =
     walletState.activeWallet && walletState.activeWallet.slice(38, 42);
 
-  const [isMenuOpen, setMenuOpen] = useState<boolean>(false);
-
+  useOutsideAlerter(
+    ref,
+    () => setMenuOpen(false),
+    () => setMenuOpen(true)
+  );
   return (
     <div className={styles.menu}>
       {walletState.activeWallet && (
@@ -28,7 +35,7 @@ const DropdownMenu = ({}: IDropdownMenu) => {
         />
       )}
       {isMenuOpen && (
-        <div className={styles.container}>
+        <div className={styles.container} ref={ref}>
           <DropdownMenuItem
             label={'My Items'}
             icon={<FaFolderOpen />}
