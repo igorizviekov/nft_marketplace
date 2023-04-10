@@ -19,7 +19,7 @@
     }
   }
   &__menu-items {
-    @apply sm:hidden flex gap-12;
+    @apply sm:hidden flex gap-12 items-center;
     &__list {
       @apply list-none flex-row;
     }
