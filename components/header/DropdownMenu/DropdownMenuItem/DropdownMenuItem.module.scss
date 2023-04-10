@@ -1,0 +1,19 @@
+.dropdownItem {
+  width: 175px;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: var(--spacing-sm);
+
+  padding: var(--spacing-xs);
+  margin: 1px;
+  border-radius: var(--border-radius-sm);
+  transition: 0.2s ease-in-out;
+
+  &:hover {
+    color: black;
+    background-color: white;
+    padding-left: var(--spacing-sm);
+  }
+}

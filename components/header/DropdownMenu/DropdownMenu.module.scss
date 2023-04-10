@@ -1,0 +1,14 @@
+.menu {
+  position: relative;
+}
+
+.container {
+  position: absolute;
+  right: 0;
+  top: var(--spacing-lg);
+
+  background-color: var(--background);
+
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-sm);
+}
