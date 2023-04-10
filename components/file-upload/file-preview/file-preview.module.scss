@@ -1,5 +1,5 @@
 .file-preview {
-  @apply bg-white  shadow-md sm:flex-col sm:py-12 sm:px-2;
+  @apply shadow-md sm:flex-col sm:py-12 sm:px-2;
   width: 100%;
   min-height: 50vh;
   box-sizing: border-box;
@@ -8,6 +8,7 @@
   gap: 40px;
   align-items: center;
   border-radius: 4px;
+  background-color: var(--background);
   &__thumb {
     max-height: 100%;
     max-width: 300px;

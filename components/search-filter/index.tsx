@@ -43,12 +43,12 @@ export const SearchFilter = ({
           onClick={() => setToggle((t) => !t)}
         />
       </div>
-      <div className="flex-1 flexCenter dark:bg-nft-black-2 bg-white focus-within:border-2 border-nft-gray-1 px-4 sm:mx-5 sm:py-5 overflow-hidden dark:focus-within:border-none">
+      <div className="flex-1 flexCenter bg-nft-black-2  focus-within:border-2 border-nft-gray-1 px-4 sm:mx-5 sm:py-5 overflow-hidden dark:focus-within:border-none">
         <FcSearch size={35} />
         <input
           type="text"
           placeholder="Start typing to search NFT"
-          className="dark:bg-nft-black-2 bg-white mx-4 w-full dark:text-white text-nft-black-1 font-normal text-base outline-none"
+          className="bg-nft-black-2 mx-4 w-full dark:text-white text-nft-black-1 font-normal text-base outline-none"
           onChange={(e) => setDebouncedSearch(e.target.value)}
           value={debouncedSearch}
         />
@@ -62,7 +62,7 @@ export const SearchFilter = ({
         </p>
 
         {toggle && (
-          <div className="absolute top-full left-0 right-0 w-full z-10 dark:bg-nft-black-2 bg-white">
+          <div className="absolute top-full left-0 right-0 w-full z-10 bg-nft-black-2 ">
             {activeSelectList.map((item, i) => (
               <p
                 key={`${item}-${i}`}

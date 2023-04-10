@@ -17,7 +17,7 @@ export const Modal = ({ header, footer, body, onClose }: IModalProps) => {
       onClick={handleClickOutside}
     >
       <div
-        className="w-2/5 md:w-11/12 minlg:2/4 dark:bg-nft-dark bg-white flex flex-col rounded-lg"
+        className="w-2/5 md:w-11/12 minlg:2/4 bg-nft-dark flex flex-col rounded-lg"
         ref={modalRef}
       >
         <div className="flex justify-end mt-4 mr-4 minlg:mt-6 minlg:mr-6 sm:mt-0">

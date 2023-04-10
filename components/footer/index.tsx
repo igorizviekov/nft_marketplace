@@ -8,7 +8,7 @@ export const Footer = () => {
     'hover:text-nft-red-violet fill-nft-dark-1 dark:fill-white my-1 sm:my-5 cursor-pointer mx-5   hover:dark:fill-nft-yellow';
 
   return (
-    <footer className="flexCenter flex-col sm:py-8 py-10 px-5 bg-white dark:bg-nft-black-1 shadow-toTop">
+    <footer className="flexCenter flex-col sm:py-8 py-10 px-5bg-nft-black-1 shadow-toTop">
       <div className="flexCenter w-full mt-5 sm:px-5 px=16">
         <div className="flexBetween flex-row w-full minmd:w-4/5 sm:flex-col mt-7">
           <p className="font-poppins dark:text-white text-nft-black-1 text-bold text-base sm:mb-10">

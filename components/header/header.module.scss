@@ -1,25 +1,36 @@
 .header {
-  @apply w-full p-4 flex-row shadow-toBottom bg-white z-50;
+  background-color: var(--background);
+  width: 100%;
+  padding: var(--spacing-sm);
+
   &__link {
     @apply flex flex-1 flex-row justify-start relative;
+
     &__logo {
       @apply cursor-pointer animate-fadeIn;
     }
   }
+
   &__theme {
-    @apply flex flex-initial flex-row justify-center  animate-fadeIn;
+    @apply flex flex-initial flex-row justify-center animate-fadeIn;
+
     &__toggle {
       @apply flex items-center mr-2;
+
       &__label {
         @apply w-9 h-5 bg-black rounded-2xl p-1 relative cursor-pointer;
+
         &__ball {
-          @apply w-4 h-4 absolute bg-white rounded-full;
+          background-color: var(--background);
+          @apply w-4 h-4 absolute rounded-full;
         }
       }
     }
   }
+
   &__menu-items {
     @apply sm:hidden flex gap-12 items-center;
+
     &__list {
       @apply list-none flex-row;
     }
