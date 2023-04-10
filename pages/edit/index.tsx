@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import BaseImage from '../../../../components/ui/Base/BaseImage/BaseImage';
-import BasePage from '../../../../components/ui/Base/BasePage/BasePage';
-import { Button } from '../../../../components/ui/Button';
-import Input from '../../../../components/ui/Input';
-import { useStoreActions } from '../../../../store';
-import styles from '../../../../styles/pages/EditProfilePage.module.scss';
+import BaseImage from '../../components/ui/Base/BaseImage/BaseImage';
+import BasePage from '../../components/ui/Base/BasePage/BasePage';
+import { Button } from '../../components/ui/Button';
+import Input from '../../components/ui/Input';
+import { useStoreActions } from '../../store';
+import styles from '../../styles/pages/EditProfilePage.module.scss';
 const EditProfile = () => {
   const [avatar, setAvatar] = useState<string>();
   const [username, setUsername] = useState<string>();

@@ -47,9 +47,9 @@ const CreatorsPage = () => {
           <div className={classNames(styles.textContainer, 'flex-col-start')}>
             <h1>Johanna DOE</h1>
             <div className={styles.icons}>
-              <Icon icon={<FaDiscord />} />
-              <Icon icon={<FaTwitter />} />
-              <Icon icon={<FaInstagram />} />
+              <Icon icon={<FaDiscord />} className={styles.icon} />
+              <Icon icon={<FaTwitter />} className={styles.icon} />
+              <Icon icon={<FaInstagram />} className={styles.icon} />
             </div>
             <p>
               Nulla consequat massa quis enim. Donec pede justo, fringilla vel,
