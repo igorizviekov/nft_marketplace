@@ -29,20 +29,35 @@ const DropdownMenu = ({}: IDropdownMenu) => {
       )}
       {isMenuOpen && (
         <div className={styles.container}>
-          <DropdownMenuItem label={'My Items'} icon={<FaFolderOpen />} />
+          <DropdownMenuItem
+            label={'My Items'}
+            icon={<FaFolderOpen />}
+            href={'/profile'}
+          />
           <DropdownMenuItem
             label={'Profile Settings'}
             icon={<IoMdSettings />}
+            href={'/edit'}
           />
-          <DropdownMenuItem label={'Balance: 0.00'} icon={<FaEthereum />} />
-          <DropdownMenuItem label={'Manage Wallets'} icon={<IoIosWallet />} />
+          <DropdownMenuItem
+            label={'Balance: 0.00'}
+            icon={<FaEthereum />}
+            href={''}
+          />
+          <DropdownMenuItem
+            label={'Manage Wallets'}
+            icon={<IoIosWallet />}
+            href={'/wallets'}
+          />
           <DropdownMenuItem
             label={'Connect a different wallet'}
             icon={<TbRefresh />}
+            href={'/connect-wallet'}
           />
           <DropdownMenuItem
             label={'Disconnect wallet'}
             icon={<AiOutlinePoweroff />}
+            href={'/disconnect'}
           />
         </div>
       )}
