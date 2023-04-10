@@ -2,10 +2,12 @@ import React, { useRef, useState } from 'react';
 import { AiOutlinePoweroff } from 'react-icons/ai';
 import { FaEthereum, FaFolderOpen } from 'react-icons/fa';
 import { IoIosWallet, IoMdSettings } from 'react-icons/io';
+import { GiEgyptianProfile } from 'react-icons/gi';
 import { TbRefresh } from 'react-icons/tb';
 import { useOutsideAlerter } from '../../../hooks/useOutsideAlerter';
 import { useStoreState } from '../../../store';
 import { Button } from '../../ui/Button';
+import Icon from '../../ui/Icon/Icon';
 import styles from './DropdownMenu.module.scss';
 import { IDropdownMenu } from './DropdownMenu.types';
 import DropdownMenuItem from './DropdownMenuItem/DropdownMenuItem';
@@ -22,7 +24,7 @@ const DropdownMenu = ({}: IDropdownMenu) => {
 
   useOutsideAlerter(
     ref,
-    () => setMenuOpen(false),
+    () => setMenuOpen(!isMenuOpen),
     () => setMenuOpen(true)
   );
   return (
@@ -37,6 +39,11 @@ const DropdownMenu = ({}: IDropdownMenu) => {
       {isMenuOpen && (
         <div className={styles.container} ref={ref}>
           <DropdownMenuItem
+            label={walletStart + '...' + walletEnds}
+            icon={<GiEgyptianProfile />}
+            isNotLink
+          />
+          <DropdownMenuItem
             label={'My Items'}
             icon={<FaFolderOpen />}
             href={'/profile'}
@@ -49,7 +56,7 @@ const DropdownMenu = ({}: IDropdownMenu) => {
           <DropdownMenuItem
             label={'Balance: 0.00'}
             icon={<FaEthereum />}
-            href={''}
+            isNotLink
           />
           <DropdownMenuItem
             label={'Manage Wallets'}

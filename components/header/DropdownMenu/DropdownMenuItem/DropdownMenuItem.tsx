@@ -4,12 +4,26 @@ import { IDropdownMenuItem } from './DropdownMenuItem.types';
 import styles from './DropdownMenuItem.module.scss';
 import Link from 'next/link';
 
-const DropdownMenuItem = ({ icon, label, href }: IDropdownMenuItem) => {
+const DropdownMenuItem = ({
+  icon,
+  label,
+  href,
+  isNotLink,
+}: IDropdownMenuItem) => {
   return (
-    <Link href={href ? href : ''} className={styles.dropdownItem}>
-      <Icon icon={icon} />
-      <p>{label}</p>
-    </Link>
+    <>
+      {!isNotLink ? (
+        <Link href={href ? href : ''} className={styles.dropdownItem}>
+          <Icon icon={icon} />
+          <p>{label}</p>
+        </Link>
+      ) : (
+        <div className={styles.dropdownItem}>
+          <Icon icon={icon} />
+          <p>{label}</p>
+        </div>
+      )}
+    </>
   );
 };
 
