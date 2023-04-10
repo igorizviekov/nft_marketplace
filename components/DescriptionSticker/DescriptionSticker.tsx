@@ -13,7 +13,7 @@ const DescriptionSticker = ({
       ? styles.primary
       : type === 'SECONDARY' && styles.secondary;
   return (
-    <div className={classNames('flex-col-center', className)}>
+    <div className={classNames(className)}>
       <h3>{title}</h3>
       <h1>{data}</h1>
     </div>
