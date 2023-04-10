@@ -8,6 +8,9 @@ import { toast } from 'react-toastify';
 import Web3Modal from 'web3modal';
 import { ethers } from 'ethers';
 import { fetchContract } from '../../utils';
+import axios from 'axios';
+import { useStoreState } from 'easy-peasy';
+import { IStoreModel } from '../../store/model/model.types';
 
 const ReSellNFT = () => {
   const router = useRouter();
@@ -16,12 +19,23 @@ const ReSellNFT = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState<boolean | string>(false);
 
+  const userState = useStoreState((state: IStoreModel) => state.user);
+
   const listOnMarketPlace = async () => {
     // https://www.npmjs.com/package/web3modal
     const we3Modal = new Web3Modal();
     const connection = await we3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
-
+    const res = await axios.get(
+      `${process.env.NEXT_PUBLIC_BACK_API}/nft/contract?chain=MATIC`,
+      {
+        headers: {
+          Authorization: `Bearer ${userState.token}`,
+          'Content-Type': 'multipart/form-data',
+        },
+      }
+    );
+    const { MarketAddress, MarketAddressABI } = res.data.data;
     /**
      * Person who is re-selling an NFT
      */
@@ -29,7 +43,7 @@ const ReSellNFT = () => {
     /**
      * Get access to the Solidity Smart Contract api
      */
-    const contract = fetchContract(signer);
+    const contract = fetchContract(signer, MarketAddress, MarketAddressABI);
     /**
      * Convert price value from the form input to the blockchain readable format
      */

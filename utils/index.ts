@@ -1,6 +1,5 @@
-import { ethers } from 'ethers';
+import { ContractInterface, ethers } from 'ethers';
 import { JsonRpcProvider, JsonRpcSigner } from '@ethersproject/providers';
-import { MarketAddress, MarketAddressABI } from '../context/constants';
 import { INftCardProps } from '../components/ui/nft-card';
 import { ITopCreator } from '../components/top-sellers/top-sellers.types';
 import { ActiveSelectOption } from '../components/search-filter/search-filter.types';
@@ -48,8 +47,8 @@ export const connectWallet = async (
  */
 export const fetchContract = (
   signer: JsonRpcSigner | JsonRpcProvider,
-  address,
-  abi
+  address: string,
+  abi: ContractInterface
 ) => new ethers.Contract(address, abi, signer);
 
 export const getTopCreators = (nfts: INftCardProps[]) =>

@@ -7,16 +7,30 @@ import { INftCardProps, NftCard } from '../../components/ui/nft-card';
 import { fetchContract } from '../../utils';
 import Web3Modal from 'web3modal';
 import { toast } from 'react-toastify';
+import { useStoreState } from 'easy-peasy';
+import { IStoreModel } from '../../store/model/model.types';
 
 const ListedNFTs: NextPage = () => {
   const [nfts, setNfts] = useState<INftCardProps[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isError, setIsError] = useState<boolean | string>(false);
 
+  const userState = useStoreState((state: IStoreModel) => state.user);
+
   /**
    * Get NFTs which are listed by your wallet on a marketplace
    */
   const fetchListedNFTs = async () => {
+    const res = await axios.get(
+      `${process.env.NEXT_PUBLIC_BACK_API}/nft/contract?chain=MATIC`,
+      {
+        headers: {
+          Authorization: `Bearer ${userState.token}`,
+          'Content-Type': 'multipart/form-data',
+        },
+      }
+    );
+    const { MarketAddress, MarketAddressABI } = res.data.data;
     // https://www.npmjs.com/package/web3modal
     const we3Modal = new Web3Modal();
     const connection = await we3Modal.connect();
@@ -29,7 +43,7 @@ const ListedNFTs: NextPage = () => {
     /**
      * Get access to the Solidity Smart Contract api
      */
-    const contract = fetchContract(signer);
+    const contract = fetchContract(signer, MarketAddress, MarketAddressABI);
     const data = await contract.getMyCocktailsListed();
 
     /**
@@ -43,19 +57,15 @@ const ListedNFTs: NextPage = () => {
         );
         const tokenURI: string = await contract.tokenURI(tokenId);
 
-        // get NFT metadata and image
-        const {
-          data: { image, name, description },
-        } = await axios.get(tokenURI);
+        // get NFT me tadata and image
+        const res = await axios.get(tokenURI);
 
         return {
           price: formattedPrice,
           tokenId: Number(tokenId),
-          img: image,
           seller,
           owner,
-          name,
-          description,
+          ...res.data,
         };
       })
     );

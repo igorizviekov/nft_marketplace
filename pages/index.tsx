@@ -8,6 +8,8 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { fetchContract, getTopCreators, sortNfts } from '../utils';
 import { ActiveSelectOption } from '../components/search-filter/search-filter.types';
+import { useStoreState } from 'easy-peasy';
+import { IStoreModel } from '../store/model/model.types';
 
 export default function Home() {
   const [nftList, setNftList] = useState<INftCardProps[]>([]);
@@ -17,39 +19,22 @@ export default function Home() {
   const [activeSelect, setActiveSelect] =
     useState<ActiveSelectOption>('Recently added');
 
+  const userState = useStoreState((state: IStoreModel) => state.user);
+
   const fetchNFTs = async () => {
-    const provider = new ethers.providers.JsonRpcProvider();
-    // process.env.NEXT_PUBLIC_ALCHEMY_API_URL
-    const contract = fetchContract(provider);
-    // console.log({ deployed: contract });
-    /**
-     * List of all available NFTs on marketplace.
-     * Filtered by "not sold"
-     */
-    const data = await contract.getActiveCocktails();
-    /**
-     * Map data to the format, which will used on frontend
-     */
-    const items = await Promise.all(
-      data.map(async ({ tokenId, seller, owner, price }: INftCardProps) => {
-        const formattedPrice = ethers.utils.formatUnits(
-          price.toString(),
-          'ether'
-        );
-        const tokenURI: string = await contract.tokenURI(tokenId);
-
-        // get NFT metadata and image
-        const { data } = await axios.get(tokenURI);
-
-        return {
-          price: formattedPrice,
-          tokenId: Number(tokenId),
-          seller,
-          owner,
-          ...data,
-        };
-      })
+    const res = await axios.get(
+      `${process.env.NEXT_PUBLIC_BACK_API}/nft/all?chain=MATIC`,
+      {
+        headers: {
+          Authorization: `Bearer ${userState.token}`,
+          'Content-Type': 'multipart/form-data',
+        },
+      }
     );
+    const {
+      data: { items },
+    } = res.data;
+    console.log({ items });
     return items;
   };
 

@@ -13,6 +13,7 @@ import Web3Modal from 'web3modal';
 import { ethers } from 'ethers';
 import { fetchContract } from '../../utils';
 import { toast } from 'react-toastify';
+import axios from 'axios';
 
 const NFTDetails = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -25,14 +26,25 @@ const NFTDetails = () => {
     (state: IStoreModel) => state.wallet
   );
 
+  const userState = useStoreState((state: IStoreModel) => state.user);
+
   const buyNFT = async () => {
     if (!nft) return;
-
+    const res = await axios.get(
+      `${process.env.NEXT_PUBLIC_BACK_API}/nft/contract?chain=MATIC`,
+      {
+        headers: {
+          Authorization: `Bearer ${userState.token}`,
+          'Content-Type': 'multipart/form-data',
+        },
+      }
+    );
+    const { MarketAddress, MarketAddressABI } = res.data.data;
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = provider.getSigner();
-    const contract = fetchContract(signer);
+    const contract = fetchContract(signer, MarketAddress, MarketAddressABI);
 
     const price = ethers.utils.parseUnits(nft.price.toString(), 'ether');
 
@@ -59,7 +71,6 @@ const NFTDetails = () => {
   useEffect(() => {
     if (router.isReady) {
       const { owner, price, seller, tokenId, image, ...rest } = router.query;
-      console.log({ image });
       if (owner && price && seller && tokenId) {
         setNft({
           image: image as string,
@@ -70,6 +81,7 @@ const NFTDetails = () => {
           metadata: rest,
         });
       }
+
       setIsLoading(false);
     }
   }, [router.isReady]);

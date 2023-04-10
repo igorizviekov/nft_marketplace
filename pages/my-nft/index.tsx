@@ -25,11 +25,22 @@ const MyNFTs: NextPage = () => {
   const router = useRouter();
 
   const fetchMyNFTs = async () => {
+    const res = await axios.get(
+      `${process.env.NEXT_PUBLIC_BACK_API}/nft/contract?chain=MATIC`,
+      {
+        headers: {
+          Authorization: `Bearer ${userState.token}`,
+          'Content-Type': 'multipart/form-data',
+        },
+      }
+    );
+    const { MarketAddress, MarketAddressABI } = res.data.data;
+
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = provider.getSigner();
-    const contract = fetchContract(signer);
+    const contract = fetchContract(signer, MarketAddress, MarketAddressABI);
     /**
      * List of NFT that you own
      */
@@ -46,19 +57,15 @@ const MyNFTs: NextPage = () => {
         );
         const tokenURI: string = await contract.tokenURI(tokenId);
 
-        // get NFT metadata and image
-        const {
-          data: { image, name, description },
-        } = await axios.get(tokenURI);
+        // get NFT me tadata and image
+        const res = await axios.get(tokenURI);
 
         return {
           price: formattedPrice,
           tokenId: Number(tokenId),
-          img: image,
           seller,
           owner,
-          name,
-          description,
+          ...res.data,
         };
       })
     );

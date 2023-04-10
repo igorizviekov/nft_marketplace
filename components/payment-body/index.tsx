@@ -12,7 +12,7 @@ const PaymentBody = ({ nft, currency }: IPaymentBodyProps) => {
       <div className="flexBetweenStart my-5 sm:my-2">
         <div className="flex-1 flexStartCenter">
           <div className="relative w-28 h-28">
-            <Image alt="NFt" src={nft.img} height={100} width={100} />
+            <Image alt="NFt" src={nft.image} height={100} width={100} />
           </div>
           <div className="flexCenterStart flex-col ml-5">
             <p className="font-poppins dark:text-white text-nft-black-1 font-semibold text-sm minlg:text-xl">
@@ -21,7 +21,7 @@ const PaymentBody = ({ nft, currency }: IPaymentBodyProps) => {
               )}`}
             </p>
             <p className="font-poppins dark:text-white text-nft-black-1 text-sm minlg:text-xl font-normal">
-              {nft.name}
+              {nft.metadata.name || nft.tokenId}
             </p>
           </div>
         </div>
