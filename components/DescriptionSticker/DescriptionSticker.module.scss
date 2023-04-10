@@ -12,7 +12,7 @@
   flex-direction: column;
   gap: var(--spacing-sm);
   align-items: center;
-  
+
   border: 1px solid rgba(255, 255, 255, 0.05);
   transition: 0.4s ease-out;
 
@@ -36,13 +36,22 @@
   margin: auto;
 
   padding: var(--spacing-md);
+  border: 1px solid transparent;
+
 
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: var(--spacing-sm);
 
-  h1 {
-    color: var(--accent);
+  transition: 0.2s ease-in;
+
+  &:hover {
+    box-shadow: var(--box-shadow-green);
+    border: 1px solid var(--accent);
+
+    h1 {
+      color: var(--accent);
+    }
   }
 }
