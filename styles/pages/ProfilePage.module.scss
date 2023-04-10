@@ -1,9 +1,29 @@
-.imageContainer {
-  width: 400px;
-  height: 400px;
+@use '../mixins' as *;
+
+.stickersSide {
+  display: none;
+
+  @include respond-to(tablet) {
+    width: 200px;
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
 }
 
-.textContainer {
-  width: 50%;
-  padding: var(--spacing-md);
+.stickersBottom {
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+
+  row-gap: var(--spacing-md);
+  column-gap: var(--spacing-md);
+  width: 100%;
+
+
+  @include respond-to(tablet) {
+    display: none;
+  }
 }

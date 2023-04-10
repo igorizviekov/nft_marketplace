@@ -1,3 +1,12 @@
+.page {
+  margin: auto;
+
+  @include respond-to(mob-landscape) {
+    max-width: 1680px;
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+}
+
 .container {
   padding-left: var(--container-offset);
   padding-right: var(--container-offset);
@@ -5,28 +14,68 @@
 }
 
 .section {
-  padding: var(--section-padding);
   width: 100%;
   min-height: 50vh;
+  padding: var(--spacing-sm);
+
+
+  @include respond-to(mob-landscape) {
+    padding: var(--section-padding);
+  }
 }
 
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  column-gap: var(--grid-gap);
+  margin-top: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
 
-  @include respond-to(sm) {
-    grid-template-columns: repeat(12, 1fr);
+  grid-template-columns: repeat(1, 1fr);
+
+  column-gap: var(--spacing-lg);
+  row-gap: var(--spacing-lg);
+
+
+  @include respond-to(mob-landscape) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include respond-to(tablet) {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
-.flex-row {
+.hero-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  flex-wrap: wrap;
+
+  padding: var(--spacing-md) 0;
+
+  gap: var(--spacing-md);
+
+  @include respond-to(tablet) {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    flex-wrap: wrap;
+  }
+
+}
+
+.flex-row-center {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
 
   flex-wrap: wrap;
+
+  padding: var(--spacing-md);
 
   gap: var(--spacing-md);
 }
@@ -39,16 +88,37 @@
 
   flex-wrap: wrap;
 
+  padding: var(--spacing-md) 0;
   gap: var(--spacing-md);
+
+
 }
 
 
 
-.flex-col {
+.flex-col-center {
   width: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 
-  gap: var(--spacing-lg);
+  gap: var(--spacing-md);
+
+  padding: var(--spacing-sm);
+
+  @include respond-to(mob-landscape){
+    padding: 0;
+  }
+
+}
+
+.flex-col-start {
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+
+  gap: var(--spacing-md);
 }

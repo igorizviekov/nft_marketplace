@@ -1,0 +1,54 @@
+@use '../mixins' as *;
+
+.imageContainer {
+
+  width: 100vw;
+  height: 100vw;
+
+  @include respond-to(mob-landscape) {
+    width: 495px;
+    height: 495px;
+  }
+
+
+}
+
+.textContainer {
+  width: 100%;
+
+  @include respond-to(tablet) {
+    width: 45%;
+    padding: var(--spacing-md);
+
+  }
+
+}
+
+.icons {
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  margin-bottom: var(--spacing-lg);
+
+  @include respond-to(tablet) {
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+}
+
+.stickersContainer {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+
+  column-gap: var(--spacing-md);
+  row-gap: var(--spacing-md);
+}
