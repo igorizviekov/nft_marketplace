@@ -58,7 +58,9 @@ transform 0.6s var(--ease-in-out-cubic);
 --reveal-fade-transition: opacity 0.6s var(--ease-in-out-cubic);
 
 // box-shadow
---box-shadow: -1px -1px 16px -7px rgb(255, 255, 255);
+--box-shadow: -1px -1px 16px -7px rgba(97, 97, 97, 0.521);
+
+--box-shadow-white: -1px -1px 16px -7px rgb(255, 255, 255);
 
 @include respond-to(sm) {
   --box-shadow: 0px 60px 30px rgba(25, 29, 22, 0.01),

@@ -1,3 +1,5 @@
+@use '../../../../styles/mixins' as *;
+
 .dropdownItem {
   width: 175px;
 
@@ -8,12 +10,31 @@
 
   padding: var(--spacing-xs);
   margin: 1px;
+
+  border: 1px solid transparent;
   border-radius: var(--border-radius-sm);
   transition: 0.2s ease-in-out;
 
+  @include respond-to(tablet) {
+    width: 200px;
+    padding: var(--spacing-sm);
+
+  }
+
+  @include respond-to(desktop) {
+    width: 300px;
+    padding: var(--spacing-md);
+
+  }
+
+  @include respond-to(desktop-xl) {
+    width: 400px;
+
+  }
+
   &:hover {
-    color: black;
-    background-color: white;
-    padding-left: var(--spacing-sm);
+    border: 1px solid white;
+    box-shadow: var(--box-shadow-white);
+    padding-left: var(--spacing-sm-md);
   }
 }
