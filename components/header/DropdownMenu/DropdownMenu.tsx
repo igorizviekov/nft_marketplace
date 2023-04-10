@@ -11,6 +11,7 @@ import Icon from '../../ui/Icon/Icon';
 import styles from './DropdownMenu.module.scss';
 import { IDropdownMenu } from './DropdownMenu.types';
 import DropdownMenuItem from './DropdownMenuItem/DropdownMenuItem';
+import { toast } from 'react-toastify';
 const DropdownMenu = ({}: IDropdownMenu) => {
   const [isMenuOpen, setMenuOpen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -71,7 +72,8 @@ const DropdownMenu = ({}: IDropdownMenu) => {
           <DropdownMenuItem
             label={'Disconnect wallet'}
             icon={<AiOutlinePoweroff />}
-            href={'/disconnect'}
+            isNotLink
+            onClick={() => toast.warn('Wallet disconnected')}
           />
         </div>
       )}

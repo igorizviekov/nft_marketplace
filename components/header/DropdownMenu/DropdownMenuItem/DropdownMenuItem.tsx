@@ -9,6 +9,7 @@ const DropdownMenuItem = ({
   label,
   href,
   isNotLink,
+  onClick,
 }: IDropdownMenuItem) => {
   return (
     <>
@@ -18,7 +19,7 @@ const DropdownMenuItem = ({
           <p>{label}</p>
         </Link>
       ) : (
-        <div className={styles.dropdownItem}>
+        <div className={styles.dropdownItem} onClick={onClick}>
           <Icon icon={icon} />
           <p>{label}</p>
         </div>

@@ -44,7 +44,7 @@
   align-items: flex-start;
   gap: var(--spacing-sm);
 
-  transition: 0.2s ease-in;
+  transition: 0.2s ease-in-out;
 
   &:hover {
     box-shadow: var(--box-shadow-green);

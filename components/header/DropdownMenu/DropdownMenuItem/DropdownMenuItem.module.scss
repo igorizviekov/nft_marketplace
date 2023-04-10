@@ -14,6 +14,7 @@
   border: 1px solid transparent;
   border-radius: var(--border-radius-sm);
   transition: 0.2s ease-in-out;
+  cursor: pointer;
 
   @include respond-to(tablet) {
     width: 200px;

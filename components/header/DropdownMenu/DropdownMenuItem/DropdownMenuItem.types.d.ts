@@ -3,4 +3,5 @@ export interface IDropdownMenuItem {
   icon: JSX.Element;
   href?: string;
   isNotLink?: boolean;
+  onClick?: () => void;
 }
