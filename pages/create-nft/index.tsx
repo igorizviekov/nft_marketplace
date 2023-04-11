@@ -39,7 +39,7 @@ const CreateNFT: NextPage = () => {
   const router = useRouter();
 
   const userState = useStoreState((state: IStoreModel) => state.user);
-
+  const walletState = useStoreState((state: IStoreModel) => state.wallet);
   const isFormValid = (name: string, price: number, description: string) => {
     if (!file) return false;
     if (!name.length) return false;
@@ -63,7 +63,7 @@ const CreateNFT: NextPage = () => {
       formData.append('metadata', JSON.stringify(formInput) as string);
 
       const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_BACK_API}/nft/mint`,
+        `${process.env.NEXT_PUBLIC_BACK_API}/nft/mint?chain=${walletState.currency}`,
         formData,
         {
           headers: {
@@ -73,7 +73,7 @@ const CreateNFT: NextPage = () => {
         }
       );
       const { data } = res.data;
-      const { MarketAddress, MarketAddressABI, nftURL } = data;
+      const { contractAddress, MarketAddressABI, nftURL } = data;
       const we3Modal = new Web3Modal();
       const connection = await we3Modal.connect();
       const provider = new ethers.providers.Web3Provider(connection);
@@ -84,7 +84,8 @@ const CreateNFT: NextPage = () => {
       /**
        * Get access to the Solidity Smart Contract api
        */
-      const contract = fetchContract(signer, MarketAddress, MarketAddressABI);
+      const contract = fetchContract(signer, contractAddress, MarketAddressABI);
+      console.log({ contract });
       /**
        * Convert price value from the form input to the blockchain readable format
        */

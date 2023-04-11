@@ -46,7 +46,7 @@ export const Header = () => {
   const walletActions = useStoreActions(
     (actions: Actions<IStoreModel>) => actions.wallet
   );
-
+  const uiState = useStoreState((state: IStoreModel) => state.ui);
   const connectCryptoWallet = async (mode: ConnectWallet) => {
     if (!window.ethereum) {
       if (mode === 'active') {
@@ -151,8 +151,9 @@ export const Header = () => {
           id="chain"
           checked={walletState.currency === 'MATIC'}
           onChange={() =>
+            !uiState.isLoading &&
             walletActions.setCurrency(
-              walletState.currency === 'MATIC' ? 'SHMR' : 'MATIC'
+              walletState.currency === 'MATIC' ? 'SMR' : 'MATIC'
             )
           }
         />

@@ -2,6 +2,7 @@ import { action } from 'easy-peasy';
 import { IUiModel, MenuTab } from './ui.types';
 
 export const UIModel: IUiModel = {
+  isLoading: false,
   menuBarOpen: false,
   toggleMenu: action((state, payload: boolean) => {
     state.menuBarOpen = payload;
@@ -10,4 +11,7 @@ export const UIModel: IUiModel = {
     state.tab = payload;
   }),
   tab: 'Explore',
+  toggleLoading: action((state, payload: boolean) => {
+    state.isLoading = payload;
+  }),
 };

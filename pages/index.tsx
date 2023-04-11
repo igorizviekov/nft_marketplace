@@ -8,7 +8,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { fetchContract, getTopCreators, sortNfts } from '../utils';
 import { ActiveSelectOption } from '../components/search-filter/search-filter.types';
-import { useStoreState } from 'easy-peasy';
+import { Actions, useStoreActions, useStoreState } from 'easy-peasy';
 import { IStoreModel } from '../store/model/model.types';
 
 export default function Home() {
@@ -22,6 +22,9 @@ export default function Home() {
   const userState = useStoreState((state: IStoreModel) => state.user);
 
   const walletState = useStoreState((state: IStoreModel) => state.wallet);
+  const uiActions = useStoreActions(
+    (actions: Actions<IStoreModel>) => actions.ui
+  );
 
   const fetchNFTs = async (currency: string) => {
     try {
@@ -44,6 +47,7 @@ export default function Home() {
   };
 
   useEffect(() => {
+    uiActions.toggleLoading(true);
     setIsLoading(true);
     fetchNFTs(walletState.currency)
       .then((items) => {
@@ -56,11 +60,13 @@ export default function Home() {
           setNftsCopy([]);
         }
         setIsLoading(false);
+        uiActions.toggleLoading(false);
       })
       .catch((e) => {
         console.log('failed to fetch NFT', e);
         setIsError(e.message);
         setIsLoading(false);
+        uiActions.toggleLoading(false);
       });
   }, [walletState.currency]);
 

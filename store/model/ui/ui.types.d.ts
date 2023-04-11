@@ -8,4 +8,6 @@ export interface IUiModel {
   toggleMenu: Action<IUiModel, boolean>;
   tab: MenuTab;
   toggleTab: Action<IUiModel, MenuTab>;
+  isLoading: boolean;
+  toggleLoading: Action<IUiModel, boolean>;
 }
