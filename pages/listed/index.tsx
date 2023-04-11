@@ -16,67 +16,74 @@ const ListedNFTs: NextPage = () => {
   const [isError, setIsError] = useState<boolean | string>(false);
 
   const userState = useStoreState((state: IStoreModel) => state.user);
+  const walletState = useStoreState((state: IStoreModel) => state.wallet);
 
   /**
    * Get NFTs which are listed by your wallet on a marketplace
    */
-  const fetchListedNFTs = async () => {
-    const res = await axios.get(
-      `${process.env.NEXT_PUBLIC_BACK_API}/nft/contract?chain=MATIC`,
-      {
-        headers: {
-          Authorization: `Bearer ${userState.token}`,
-          'Content-Type': 'multipart/form-data',
-        },
-      }
-    );
-    const { MarketAddress, MarketAddressABI } = res.data.data;
-    // https://www.npmjs.com/package/web3modal
-    const we3Modal = new Web3Modal();
-    const connection = await we3Modal.connect();
-    const provider = new ethers.providers.Web3Provider(connection);
+  const fetchListedNFTs = async (currency: string) => {
+    try {
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_BACK_API}/nft/contract?chain=${currency}`,
+        {
+          headers: {
+            Authorization: `Bearer ${userState.token}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+      const { MarketAddress, MarketAddressABI } = res.data.data;
+      // https://www.npmjs.com/package/web3modal
+      const we3Modal = new Web3Modal();
+      const connection = await we3Modal.connect();
+      const provider = new ethers.providers.Web3Provider(connection);
 
-    /**
-     * Person who is creating an NFT
-     */
-    const signer = provider.getSigner();
-    /**
-     * Get access to the Solidity Smart Contract api
-     */
-    const contract = fetchContract(signer, MarketAddress, MarketAddressABI);
-    const data = await contract.getMyCocktailsListed();
+      /**
+       * Person who is creating an NFT
+       */
+      const signer = provider.getSigner();
+      /**
+       * Get access to the Solidity Smart Contract api
+       */
+      const contract = fetchContract(signer, MarketAddress, MarketAddressABI);
+      const data = await contract.getMyCocktailsListed();
 
-    /**
-     * Map data to the format, which will used on frontend
-     */
-    const items = await Promise.all(
-      data.map(async ({ tokenId, seller, owner, price }: INftCardProps) => {
-        const formattedPrice = ethers.utils.formatUnits(
-          price.toString(),
-          'ether'
-        );
-        const tokenURI: string = await contract.tokenURI(tokenId);
+      /**
+       * Map data to the format, which will used on frontend
+       */
+      const items = await Promise.all(
+        data.map(async ({ tokenId, seller, owner, price }: INftCardProps) => {
+          const formattedPrice = ethers.utils.formatUnits(
+            price.toString(),
+            'ether'
+          );
+          const tokenURI: string = await contract.tokenURI(tokenId);
 
-        // get NFT me tadata and image
-        const res = await axios.get(tokenURI);
+          // get NFT me tadata and image
+          const res = await axios.get(tokenURI);
 
-        return {
-          price: formattedPrice,
-          tokenId: Number(tokenId),
-          seller,
-          owner,
-          ...res.data,
-        };
-      })
-    );
-    return items;
+          return {
+            price: formattedPrice,
+            tokenId: Number(tokenId),
+            seller,
+            owner,
+            ...res.data,
+          };
+        })
+      );
+      return items;
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   useEffect(() => {
-    fetchListedNFTs()
+    fetchListedNFTs(walletState.currency)
       .then((items) => {
         if (items?.length) {
           setNfts(items);
+        } else {
+          setNfts([]);
         }
         setIsLoading(false);
       })
@@ -87,7 +94,7 @@ const ListedNFTs: NextPage = () => {
         );
         setIsLoading(false);
       });
-  }, []);
+  }, [walletState.currency]);
 
   useEffect(() => {
     if (isError) {

@@ -18,6 +18,8 @@ import { toast } from 'react-toastify';
 import { MenuTab } from '../../store/model/ui/ui.types';
 import { UserLogin } from '../user-login';
 import { Button } from '../ui/Button';
+import ShimmerLogo from '../../assets/icons/chains/shimmer.svg';
+import PolygonLogo from '../../assets/icons/chains/polygon.svg';
 
 export const Header = () => {
   const { theme, setTheme } = useTheme();
@@ -140,6 +142,42 @@ export const Header = () => {
     </div>
   );
 
+  const chainToggle = (
+    <div className={styles['header__theme']}>
+      <div className={styles['header__theme__toggle']}>
+        <input
+          type="checkbox"
+          className="checkbox"
+          id="chain"
+          checked={walletState.currency === 'MATIC'}
+          onChange={() =>
+            walletActions.setCurrency(
+              walletState.currency === 'MATIC' ? 'SHMR' : 'MATIC'
+            )
+          }
+        />
+        <label
+          htmlFor="chain"
+          className={[
+            'label',
+            'flexBetween',
+            styles['header__theme__toggle__label'],
+          ].join(' ')}
+        >
+          <Image priority src={PolygonLogo} alt="Polygon" width={12} />
+          <Image priority src={ShimmerLogo} alt="Polygon" width={16} />
+
+          <div
+            className={[
+              'ball',
+              styles['header__theme__toggle__label__ball'],
+            ].join(' ')}
+          />
+        </label>
+      </div>
+    </div>
+  );
+
   const NftBtnLabel = walletState.isWalletConnected ? (
     'Create'
   ) : (
@@ -175,6 +213,7 @@ export const Header = () => {
         active={state.tab}
         setActiveTab={actions.toggleTab}
       />
+      {chainToggle}
       {actionBtn}
     </div>
   );

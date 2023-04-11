@@ -18,49 +18,61 @@ const ReSellNFT = () => {
   const { image, tokenId } = router.query;
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState<boolean | string>(false);
+  const [nftCurr, setNftCurr] = useState('');
 
   const userState = useStoreState((state: IStoreModel) => state.user);
+  const walletState = useStoreState((state: IStoreModel) => state.wallet);
 
   const listOnMarketPlace = async () => {
-    // https://www.npmjs.com/package/web3modal
-    const we3Modal = new Web3Modal();
-    const connection = await we3Modal.connect();
-    const provider = new ethers.providers.Web3Provider(connection);
-    const res = await axios.get(
-      `${process.env.NEXT_PUBLIC_BACK_API}/nft/contract?chain=MATIC`,
-      {
-        headers: {
-          Authorization: `Bearer ${userState.token}`,
-          'Content-Type': 'multipart/form-data',
-        },
-      }
-    );
-    const { MarketAddress, MarketAddressABI } = res.data.data;
-    /**
-     * Person who is re-selling an NFT
-     */
-    const signer = provider.getSigner();
-    /**
-     * Get access to the Solidity Smart Contract api
-     */
-    const contract = fetchContract(signer, MarketAddress, MarketAddressABI);
-    /**
-     * Convert price value from the form input to the blockchain readable format
-     */
-    const formattedPrice = ethers.utils.parseUnits(price, 'ether');
-    const listingPrice = await contract.getListingPrice();
+    try {
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_BACK_API}/nft/contract?chain=${walletState.currency}`,
+        {
+          headers: {
+            Authorization: `Bearer ${userState.token}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+      // https://www.npmjs.com/package/web3modal
+      const we3Modal = new Web3Modal();
+      const connection = await we3Modal.connect();
+      const provider = new ethers.providers.Web3Provider(connection);
 
-    const transaction = await contract.resellToken(tokenId, formattedPrice, {
-      value: listingPrice,
-    });
+      const { MarketAddress, MarketAddressABI } = res.data.data;
+      /**
+       * Person who is re-selling an NFT
+       */
+      const signer = provider.getSigner();
+      /**
+       * Get access to the Solidity Smart Contract api
+       */
+      const contract = fetchContract(signer, MarketAddress, MarketAddressABI);
+      /**
+       * Convert price value from the form input to the blockchain readable format
+       */
+      const formattedPrice = ethers.utils.parseUnits(price, 'ether');
+      const listingPrice = await contract.getListingPrice();
 
-    // should trigger metamask popup
-    await transaction.wait();
+      const transaction = await contract.resellToken(tokenId, formattedPrice, {
+        value: listingPrice,
+      });
+
+      // should trigger metamask popup
+      await transaction.wait();
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const handleResell = async () => {
     if (!price.length || Number.isNaN(price) || !image?.length || !tokenId) {
       return setIsError('Please provide valid data');
+    }
+    if (nftCurr !== walletState.currency) {
+      return setIsError(
+        'Please switch to the original blockchain to list an NFT'
+      );
     }
     setIsLoading(true);
     try {
@@ -89,6 +101,10 @@ const ReSellNFT = () => {
       toast.error(isError);
     }
   }, [isError]);
+
+  useEffect(() => {
+    setNftCurr(walletState.currency);
+  }, []);
 
   const content = isLoading ? (
     <Spinner styles="min-h-screen flexCenter animate-fadeIn" />

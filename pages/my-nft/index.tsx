@@ -21,62 +21,69 @@ const MyNFTs: NextPage = () => {
 
   const { activeWallet } = useStoreState((state: IStoreModel) => state.wallet);
   const userState = useStoreState((state: IStoreModel) => state.user);
+  const walletState = useStoreState((state: IStoreModel) => state.wallet);
   const isRehydrated = useStoreRehydrated();
   const router = useRouter();
 
-  const fetchMyNFTs = async () => {
-    const res = await axios.get(
-      `${process.env.NEXT_PUBLIC_BACK_API}/nft/contract?chain=MATIC`,
-      {
-        headers: {
-          Authorization: `Bearer ${userState.token}`,
-          'Content-Type': 'multipart/form-data',
-        },
-      }
-    );
-    const { MarketAddress, MarketAddressABI } = res.data.data;
+  const fetchMyNFTs = async (currency: string) => {
+    try {
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_BACK_API}/nft/contract?chain=${currency}`,
+        {
+          headers: {
+            Authorization: `Bearer ${userState.token}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+      const { MarketAddress, MarketAddressABI } = res.data.data;
 
-    const web3Modal = new Web3Modal();
-    const connection = await web3Modal.connect();
-    const provider = new ethers.providers.Web3Provider(connection);
-    const signer = provider.getSigner();
-    const contract = fetchContract(signer, MarketAddress, MarketAddressABI);
-    /**
-     * List of NFT that you own
-     */
-    const data = await contract.getMyCocktails();
+      const web3Modal = new Web3Modal();
+      const connection = await web3Modal.connect();
+      const provider = new ethers.providers.Web3Provider(connection);
+      const signer = provider.getSigner();
+      const contract = fetchContract(signer, MarketAddress, MarketAddressABI);
+      /**
+       * List of NFT that you own
+       */
+      const data = await contract.getMyCocktails();
 
-    /**
-     * Map data to the format, which will used on frontend
-     */
-    const items = await Promise.all(
-      data.map(async ({ tokenId, seller, owner, price }: INftCardProps) => {
-        const formattedPrice = ethers.utils.formatUnits(
-          price.toString(),
-          'ether'
-        );
-        const tokenURI: string = await contract.tokenURI(tokenId);
+      /**
+       * Map data to the format, which will used on frontend
+       */
+      const items = await Promise.all(
+        data.map(async ({ tokenId, seller, owner, price }: INftCardProps) => {
+          const formattedPrice = ethers.utils.formatUnits(
+            price.toString(),
+            'ether'
+          );
+          const tokenURI: string = await contract.tokenURI(tokenId);
 
-        // get NFT me tadata and image
-        const res = await axios.get(tokenURI);
+          // get NFT me tadata and image
+          const res = await axios.get(tokenURI);
 
-        return {
-          price: formattedPrice,
-          tokenId: Number(tokenId),
-          seller,
-          owner,
-          ...res.data,
-        };
-      })
-    );
-    return items;
+          return {
+            price: formattedPrice,
+            tokenId: Number(tokenId),
+            seller,
+            owner,
+            ...res.data,
+          };
+        })
+      );
+      return items;
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   useEffect(() => {
-    fetchMyNFTs()
+    fetchMyNFTs(walletState.currency)
       .then((items) => {
         if (items?.length) {
           setNfts(items);
+        } else {
+          setNfts([]);
         }
         setIsLoading(false);
       })
@@ -87,7 +94,7 @@ const MyNFTs: NextPage = () => {
         );
         setIsLoading(false);
       });
-  }, []);
+  }, [walletState.currency]);
 
   useEffect(() => {
     if (isError) {

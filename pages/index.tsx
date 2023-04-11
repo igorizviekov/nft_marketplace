@@ -21,41 +21,48 @@ export default function Home() {
 
   const userState = useStoreState((state: IStoreModel) => state.user);
 
-  const fetchNFTs = async () => {
-    const res = await axios.get(
-      `${process.env.NEXT_PUBLIC_BACK_API}/nft/all?chain=MATIC`,
-      {
-        headers: {
-          Authorization: `Bearer ${userState.token}`,
-          'Content-Type': 'multipart/form-data',
-        },
-      }
-    );
-    const {
-      data: { items },
-    } = res.data;
-    console.log({ items });
-    return items;
+  const walletState = useStoreState((state: IStoreModel) => state.wallet);
+
+  const fetchNFTs = async (currency: string) => {
+    try {
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_BACK_API}/nft/all?chain=${currency}`,
+        {
+          headers: {
+            Authorization: `Bearer ${userState.token}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+      const {
+        data: { items },
+      } = res.data;
+      return items;
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   useEffect(() => {
-    fetchNFTs()
+    setIsLoading(true);
+    fetchNFTs(walletState.currency)
       .then((items) => {
         if (items?.length) {
           const sortedNfts = sortNfts('Recently added', items);
           setNftList(sortedNfts);
           setNftsCopy(sortedNfts);
+        } else {
+          setNftList([]);
+          setNftsCopy([]);
         }
         setIsLoading(false);
       })
       .catch((e) => {
         console.log('failed to fetch NFT', e);
-        setIsError(
-          'Failed to fetch. Please ensure your wallet is connected to the Polygon network.'
-        );
+        setIsError(e.message);
         setIsLoading(false);
       });
-  }, []);
+  }, [walletState.currency]);
 
   useEffect(() => {
     if (isError) {

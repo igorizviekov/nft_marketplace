@@ -6,4 +6,5 @@ export interface IWalletModel {
   isWalletConnected: boolean;
   setIsWalletConnected: Action<IWalletModel, boolean>;
   setActiveWallet: Action<IWalletModel, any>;
+  setCurrency: Action<IWalletModel, string>;
 }

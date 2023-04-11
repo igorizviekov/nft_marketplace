@@ -17,6 +17,8 @@ import axios from 'axios';
 
 const NFTDetails = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [nftCurr, setNftCurr] = useState('');
+
   const [isError, setIsError] = useState<boolean | string>(false);
   const [isModalVisible, setIsModalVisible] = useState<boolean | string>(false);
   const [nft, setNft] = useState<INftCardProps | null>(null);
@@ -30,28 +32,32 @@ const NFTDetails = () => {
 
   const buyNFT = async () => {
     if (!nft) return;
-    const res = await axios.get(
-      `${process.env.NEXT_PUBLIC_BACK_API}/nft/contract?chain=MATIC`,
-      {
-        headers: {
-          Authorization: `Bearer ${userState.token}`,
-          'Content-Type': 'multipart/form-data',
-        },
-      }
-    );
-    const { MarketAddress, MarketAddressABI } = res.data.data;
-    const web3Modal = new Web3Modal();
-    const connection = await web3Modal.connect();
-    const provider = new ethers.providers.Web3Provider(connection);
-    const signer = provider.getSigner();
-    const contract = fetchContract(signer, MarketAddress, MarketAddressABI);
+    try {
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_BACK_API}/nft/contract?chain=${currency}`,
+        {
+          headers: {
+            Authorization: `Bearer ${userState.token}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+      const { MarketAddress, MarketAddressABI } = res.data.data;
+      const web3Modal = new Web3Modal();
+      const connection = await web3Modal.connect();
+      const provider = new ethers.providers.Web3Provider(connection);
+      const signer = provider.getSigner();
+      const contract = fetchContract(signer, MarketAddress, MarketAddressABI);
 
-    const price = ethers.utils.parseUnits(nft.price.toString(), 'ether');
+      const price = ethers.utils.parseUnits(nft.price.toString(), 'ether');
 
-    const transaction = await contract.createMarketSale(nft.tokenId, {
-      value: price,
-    });
-    await transaction.wait();
+      const transaction = await contract.createMarketSale(nft.tokenId, {
+        value: price,
+      });
+      await transaction.wait();
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const handleCheckout = async () => {
@@ -85,6 +91,10 @@ const NFTDetails = () => {
       setIsLoading(false);
     }
   }, [router.isReady]);
+
+  useEffect(() => {
+    setNftCurr(currency);
+  }, []);
 
   useEffect(() => {
     if (isError) {
@@ -157,7 +167,17 @@ const NFTDetails = () => {
                 isPrimary={false}
                 onClick={() => null}
               />
-            ) : activeWallet === nft.owner.toLowerCase() ? (
+            ) : activeWallet === nft.owner.toLowerCase() &&
+              currency !== nftCurr ? (
+              <Button
+                isPrimary
+                label="Switch the chain to list an NFT"
+                classStyles="mr-5 sm:mr-0 sm:mb-5 rounded-xl"
+                disabled
+                onClick={() => null}
+              />
+            ) : activeWallet === nft.owner.toLowerCase() &&
+              currency === nftCurr ? (
               <Button
                 isPrimary
                 label="List on Marketplace"
@@ -167,6 +187,15 @@ const NFTDetails = () => {
                     `/resell-nft?tokenId=${nft.tokenId}&image=${nft.image}&price=${nft.price}`
                   )
                 }
+              />
+            ) : activeWallet !== nft.owner.toLowerCase() &&
+              currency !== nftCurr ? (
+              <Button
+                isPrimary
+                label="Switch the chain to Buy an NFT"
+                classStyles="mr-5 sm:mr-0 sm:mb-5 rounded-xl"
+                disabled
+                onClick={() => null}
               />
             ) : (
               <Button
