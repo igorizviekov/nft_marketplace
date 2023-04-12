@@ -150,12 +150,15 @@ export const Header = () => {
           className="checkbox"
           id="chain"
           checked={walletState.currency === 'MATIC'}
-          onChange={() =>
-            !uiState.isLoading &&
+          onChange={() => {
+            if (uiState.isLoading) return;
             walletActions.setCurrency(
               walletState.currency === 'MATIC' ? 'SMR' : 'MATIC'
-            )
-          }
+            );
+            toast.info(
+              'Blockchain was switched. Make sure your wallet is connected to the same network.'
+            );
+          }}
         />
         <label
           htmlFor="chain"

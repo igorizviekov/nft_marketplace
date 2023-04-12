@@ -85,7 +85,6 @@ const CreateNFT: NextPage = () => {
        * Get access to the Solidity Smart Contract api
        */
       const contract = fetchContract(signer, contractAddress, MarketAddressABI);
-      console.log({ contract });
       /**
        * Convert price value from the form input to the blockchain readable format
        */

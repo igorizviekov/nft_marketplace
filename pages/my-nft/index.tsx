@@ -36,18 +36,16 @@ const MyNFTs: NextPage = () => {
           },
         }
       );
-      const { MarketAddress, MarketAddressABI } = res.data.data;
-
+      const { contractAddress, MarketAddressABI } = res.data.data;
       const web3Modal = new Web3Modal();
       const connection = await web3Modal.connect();
       const provider = new ethers.providers.Web3Provider(connection);
       const signer = provider.getSigner();
-      const contract = fetchContract(signer, MarketAddress, MarketAddressABI);
+      const contract = fetchContract(signer, contractAddress, MarketAddressABI);
       /**
        * List of NFT that you own
        */
       const data = await contract.getMyCocktails();
-
       /**
        * Map data to the format, which will used on frontend
        */
@@ -63,11 +61,11 @@ const MyNFTs: NextPage = () => {
           const res = await axios.get(tokenURI);
 
           return {
+            ...res.data,
             price: formattedPrice,
             tokenId: Number(tokenId),
             seller,
             owner,
-            ...res.data,
           };
         })
       );

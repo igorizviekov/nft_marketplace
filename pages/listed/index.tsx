@@ -32,7 +32,8 @@ const ListedNFTs: NextPage = () => {
           },
         }
       );
-      const { MarketAddress, MarketAddressABI } = res.data.data;
+      const { contractAddress, MarketAddressABI } = res.data.data;
+
       // https://www.npmjs.com/package/web3modal
       const we3Modal = new Web3Modal();
       const connection = await we3Modal.connect();
@@ -45,7 +46,7 @@ const ListedNFTs: NextPage = () => {
       /**
        * Get access to the Solidity Smart Contract api
        */
-      const contract = fetchContract(signer, MarketAddress, MarketAddressABI);
+      const contract = fetchContract(signer, contractAddress, MarketAddressABI);
       const data = await contract.getMyCocktailsListed();
 
       /**
@@ -63,11 +64,11 @@ const ListedNFTs: NextPage = () => {
           const res = await axios.get(tokenURI);
 
           return {
+            ...res.data,
             price: formattedPrice,
             tokenId: Number(tokenId),
             seller,
             owner,
-            ...res.data,
           };
         })
       );

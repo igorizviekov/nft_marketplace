@@ -38,8 +38,7 @@ const ReSellNFT = () => {
       const we3Modal = new Web3Modal();
       const connection = await we3Modal.connect();
       const provider = new ethers.providers.Web3Provider(connection);
-
-      const { MarketAddress, MarketAddressABI } = res.data.data;
+      const { contractAddress, MarketAddressABI } = res.data.data;
       /**
        * Person who is re-selling an NFT
        */
@@ -47,7 +46,7 @@ const ReSellNFT = () => {
       /**
        * Get access to the Solidity Smart Contract api
        */
-      const contract = fetchContract(signer, MarketAddress, MarketAddressABI);
+      const contract = fetchContract(signer, contractAddress, MarketAddressABI);
       /**
        * Convert price value from the form input to the blockchain readable format
        */

@@ -42,12 +42,12 @@ const NFTDetails = () => {
           },
         }
       );
-      const { MarketAddress, MarketAddressABI } = res.data.data;
+      const { contractAddress, MarketAddressABI } = res.data.data;
       const web3Modal = new Web3Modal();
       const connection = await web3Modal.connect();
       const provider = new ethers.providers.Web3Provider(connection);
       const signer = provider.getSigner();
-      const contract = fetchContract(signer, MarketAddress, MarketAddressABI);
+      const contract = fetchContract(signer, contractAddress, MarketAddressABI);
 
       const price = ethers.utils.parseUnits(nft.price.toString(), 'ether');
 

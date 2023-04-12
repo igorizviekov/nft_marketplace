@@ -28,11 +28,12 @@ export const NftCard = ({
       href={{
         pathname: '/nft-details',
         query: {
+          ...metadata,
           image,
           owner,
           seller,
           tokenId,
-          ...metadata,
+          price,
         },
       }}
     >
