@@ -1,0 +1,78 @@
+.container {
+  width: 300px;
+  height: 400px;
+
+  border: 1px solid white;
+  border-radius: var(--border-radius-sm);
+
+  cursor: pointer;
+  .card {
+    height: 150px;
+    width: 100px;
+
+    border: 1px solid white;
+    border-radius: var(--border-radius-sm);
+
+    transition: 0.5s ease-in;
+  }
+
+  .cardsContainer {
+    position: relative;
+    height: 150px;
+    width: 100px;
+
+    .cards {
+      position: absolute;
+      left: 0;
+      top: 0;
+
+      height: 150px;
+      width: 100px;
+
+      background-color: var(--background);
+
+      border: 1px solid white;
+      border-radius: var(--border-radius-sm);
+
+      transition: 0.5s ease-in;
+    }
+  }
+
+  &:hover {
+
+    .card {
+      border: 2px solid white;
+      box-shadow: var(--box-shadow-white);
+
+      animation-name: spin;
+      animation-duration: 1s;
+      animation-timing-function: ease-in;
+    }
+
+    .cards {
+      box-shadow: var(--box-shadow-white);
+      border: 2px solid white;
+
+    }
+
+    .first {
+      transform: rotate(25deg) translateX(50px) translateY(-25px);
+    }
+
+    .second {
+      transform: rotate(-25deg) translateX(-50px) translateY(-25px);
+    }
+
+    box-shadow: var(--box-shadow-white);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotateY(0deg);
+  }
+
+  to {
+    transform: rotateY(360deg);
+  }
+}
