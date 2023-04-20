@@ -9,7 +9,7 @@ import { CreateError } from '../../components/modal/create-error';
 import { useStoreRehydrated } from 'easy-peasy';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
-import { isFormValid, submitNewNFT } from './utils';
+import { isFormValid, submitNewNFT } from '../../scripts/utils';
 import { useStoreState } from '../../store';
 
 export interface IFormInput {

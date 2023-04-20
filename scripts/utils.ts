@@ -1,10 +1,10 @@
 import Web3Modal from 'web3modal';
 import { ethers } from 'ethers';
-import { fetchContract } from '../../utils';
+import { fetchContract } from '../utils';
 import { useRouter } from 'next/router';
 import { create as ipfsClient } from 'ipfs-http-client';
-import { IFormInput } from '.';
-import { useStoreState } from '../../store';
+import { IFormInput } from '../pages/create-nft';
+import { useStoreState } from '../store';
 
 export const isFormValid = (
   name: string,
