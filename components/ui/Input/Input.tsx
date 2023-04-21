@@ -26,19 +26,14 @@ const Input = ({
       <p className={styles.title}>{title}</p>
 
       {inputType === 'number' ? (
-        <div className="bg-nft-black-1  border dark:border-nft-black-1 border-nft-gray-2 rounded-lg w-full outline-none font-poppins dark:text-white text-nft-gray-2 text-base mt-4 px-4 py-3 flexBetween flex-row">
-          <input
-            type="number"
-            min="0"
-            className={styles.text}
-            placeholder={placeholder}
-            onChange={handleChange}
-            value={value}
-          />
-          <p className="flex-1 font-poppins dark:text-white text-nft-black-1 font-semibold text-xl">
-            {currency}
-          </p>
-        </div>
+        <input
+          type="number"
+          min="0"
+          className={styles.text}
+          placeholder={placeholder}
+          onChange={handleChange}
+          value={value}
+        />
       ) : inputType === 'textarea' ? (
         <textarea
           name=""
