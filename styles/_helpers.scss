@@ -94,6 +94,21 @@
 
 }
 
+.flex-row-scroll {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  flex-wrap: nowrap;
+
+  padding: var(--spacing-md) 0;
+  gap: var(--spacing-md);
+
+  overflow-x: scroll;
+
+}
+
 
 
 .flex-col-center {

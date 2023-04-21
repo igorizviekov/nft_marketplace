@@ -12,8 +12,11 @@
   border: 1px solid rgba(255, 255, 255, 0.329);
   border-radius: var(--border-radius-sm);
 
+  transition: 0.2s ease-in-out;
+  cursor: pointer;
   &:hover {
     box-shadow: var(--box-shadow-white);
+    transform: scale(1.005);
   }
 
   .image {

@@ -11,6 +11,7 @@ const BaseImage = ({ imageUrl, description }: IBaseImageProps) => {
         src={imageUrl ? imageUrl : TEST_IMAGE_URL}
         alt={'test image'}
         fill
+        className={styles.image}
       />
       {description && (
         <small className={styles.description}>{description}</small>

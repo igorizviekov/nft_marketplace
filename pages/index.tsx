@@ -2,6 +2,8 @@ import BasePage from '../components/ui/Base/BasePage/BasePage';
 import PopularCollection from '../components/PopularCollection/PopularCollection';
 import { PopularCollectionsMock } from '../mocks/PopularCollections.mock';
 import styles from '../styles/pages/HomePage.module.scss';
+import { LaunchpadDropsMocks } from '../mocks/LaunchpadDrops.mock';
+import LaunchpadDrops from '../components/LaunchpadDrops/LaunchpadDrops';
 export default function Home() {
   return (
     <BasePage>
@@ -17,6 +19,20 @@ export default function Home() {
                 volume={collection.volume}
                 key={index}
                 index={index}
+              />
+            ))}
+        </div>
+
+        <h1>Launchpad drops</h1>
+        <div className="flex-row-scroll">
+          {LaunchpadDropsMocks &&
+            LaunchpadDropsMocks.map((drop, index) => (
+              <LaunchpadDrops
+                key={index}
+                image={drop.image}
+                network={drop.network}
+                name={drop.name}
+                launchDate={drop.launchDate}
               />
             ))}
         </div>
