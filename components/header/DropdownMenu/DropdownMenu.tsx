@@ -22,6 +22,16 @@ const DropdownMenu = ({}: IDropdownMenu) => {
     walletState.activeWallet && walletState.activeWallet.slice(0, 5);
   const walletEnds =
     walletState.activeWallet && walletState.activeWallet.slice(38, 42);
+//collection input is gonna be a modal with
+//image
+//name
+//symbol
+//category
+//chain
+//royalies % (optional)
+//website (optional)  
+//description (optional)
+//contract address (created by us)
 
   useOutsideAlerter(
     ref,
@@ -48,11 +58,13 @@ const DropdownMenu = ({}: IDropdownMenu) => {
             label={'My Items'}
             icon={<FaFolderOpen />}
             href={'/profile'}
+            onClick={() => setMenuOpen(false)}
           />
           <DropdownMenuItem
-            label={'Profile Settings'}
+            label={'Settings'}
             icon={<IoMdSettings />}
             href={'/edit'}
+            onClick={() => setMenuOpen(false)}
           />
           <DropdownMenuItem
             label={'Balance: 0.00'}

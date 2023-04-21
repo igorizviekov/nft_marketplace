@@ -1,6 +1,5 @@
 import { NftList } from '../components/nft-list';
 import { TopSellers } from '../components/top-sellers';
-import { Banner } from '../components/ui/banner/banner';
 import { INftCardProps } from '../components/ui/nft-card';
 import { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
@@ -9,6 +8,9 @@ import { toast } from 'react-toastify';
 import { fetchContract, getTopCreators, sortNfts } from '../utils';
 import { ActiveSelectOption } from '../components/search-filter/search-filter.types';
 
+//popular with timeline
+//upcoming collections
+//categories 
 export default function Home() {
   const [nftList, setNftList] = useState<INftCardProps[]>([]);
   const [nftsCopy, setNftsCopy] = useState<INftCardProps[]>([]);
