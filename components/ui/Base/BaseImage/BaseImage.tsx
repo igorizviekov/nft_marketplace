@@ -7,7 +7,11 @@ export const TEST_IMAGE_URL =
 const BaseImage = ({ imageUrl, description }: IBaseImageProps) => {
   return (
     <div className={styles.container}>
-      <Image src={TEST_IMAGE_URL} alt={'test image'} fill />
+      <Image
+        src={imageUrl ? imageUrl : TEST_IMAGE_URL}
+        alt={'test image'}
+        fill
+      />
       {description && (
         <small className={styles.description}>{description}</small>
       )}

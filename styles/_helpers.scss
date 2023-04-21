@@ -107,7 +107,7 @@
 
   padding: var(--spacing-sm);
 
-  @include respond-to(mob-landscape){
+  @include respond-to(mob-landscape) {
     padding: 0;
   }
 
