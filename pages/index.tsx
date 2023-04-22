@@ -9,7 +9,6 @@ import { useState } from 'react';
 import { INFTCategories } from '../components/Filter/Filter.types';
 export default function Home() {
   const [selected, setSelected] = useState<number>(0);
-  const [filter, setFilter] = useState<INFTCategories>();
   const filterOptions: INFTCategories[] = ['Cat 1', 'Cat 2', 'Cat 3'];
 
   return (
