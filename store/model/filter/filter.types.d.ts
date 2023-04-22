@@ -2,7 +2,8 @@ import { Action } from 'easy-peasy';
 import { INFTCategories } from '../../../components/Filter/Filter.types';
 
 export interface IFilterModel {
-  filter: INFTCategories[];
+  filters: string[];
 
-  addFilter: Action<IFilterModel , INFTCategories>;
+  addFilter: Action<IFilterModel, string>;
+  deleteFilter: Action<IFilterModel, string>;
 }

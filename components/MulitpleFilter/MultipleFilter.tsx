@@ -1,25 +1,20 @@
 import React from 'react';
 import { IMultipleFilterProps } from './MultipleFilter.types';
 import styles from './MultipleFilter.module.scss';
-import { Accordion, } from 'react-accordion-ts';
+import { Accordion } from 'react-accordion-ts';
 import 'react-accordion-ts/src/panel.css';
 import Icon from '../ui/Icon/Icon';
 import { BsChevronDown } from 'react-icons/bs';
+import { FilterMock } from '../../mocks/MultipleFilter.mock';
+import { useStoreActions, useStoreState } from '../../store';
+import { VscClose } from 'react-icons/vsc';
 export const MultipleFilter = ({}: IMultipleFilterProps) => {
-  const news = [
-    { title: 'Background', content: ['filter 1', 'filter 2'], open: true },
-    { title: 'Clothes', content: ['filter 1', 'filter 2'], open: false },
-    { title: 'Earrings', content: ['filter 1', 'filter 2', 'filter 3'] },
-    { title: 'Eyes', content: ['filter 1', 'filter 2', 'filter 3'] },
-    { title: 'Fur', content: ['filter 1', 'filter 2', 'filter 3', 'filter 4'] },
-    {
-      title: 'Hat',
-      content: ['filter 1', 'filter 2', 'filter 3', 'filter 4', 'filter 5'],
-    },
-    { title: 'Mouth', content: ['filter 1', 'filter 2'] },
-  ];
-
-  const items = news.map(({ content, title }) => ({
+  const addFilter = useStoreActions((actions) => actions.filter.addFilter);
+  const deleteFilter = useStoreActions(
+    (actions) => actions.filter.deleteFilter
+  );
+  const filters = useStoreState((state) => state.filter.filters);
+  const items = FilterMock.map(({ content, title }) => ({
     title: (
       <div className={styles.title}>
         <h3>{title}</h3>
@@ -29,14 +24,33 @@ export const MultipleFilter = ({}: IMultipleFilterProps) => {
     content: (
       <>
         {content.map((item, index) => (
-          <p key={index} className={styles.filter}>
-            {item}
-          </p>
+          <div
+            key={index}
+            className={styles.filter}
+            onClick={() => addFilter(item)}
+          >
+            <p>{item}</p>
+          </div>
         ))}
       </>
     ),
   }));
 
-  return <Accordion items={items} duration={200} multiple={false} />;
+  return (
+    <>
+      {filters.map((filter, index) => {
+        return (
+          <div
+            key={index}
+            className={styles.selectedFilter}
+            onClick={() => deleteFilter(filter)}
+          >
+            {filter}
+            <Icon icon={<VscClose />} />
+          </div>
+        );
+      })}
+      <Accordion items={items} duration={200} multiple={false} />
+    </>
+  );
 };
-
