@@ -12,6 +12,7 @@ const LaunchpadDrops = ({
   network,
   name,
   launchDate,
+  isCategory,
 }: ILaunchpadDropsProps) => {
   const [countdown, setCoundown] = useState<string>('');
 
@@ -26,7 +27,7 @@ const LaunchpadDrops = ({
 
   useEffect(() => {
     setCoundown(useDateCountdown(launchDate));
-    
+
     const interval = setInterval(() => {
       setCoundown(useDateCountdown(launchDate));
     }, 1000);
@@ -43,7 +44,8 @@ const LaunchpadDrops = ({
         <BaseImage imageUrl={image} />
       </div>
       <h2>{name}</h2>
-      <p>{countdown}</p>
+      {!isCategory && <p>{countdown}</p>}
+      {isCategory && <p>Category</p>}
     </div>
   );
 };

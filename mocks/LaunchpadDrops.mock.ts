@@ -7,6 +7,7 @@ export const LaunchpadDropsMocks: ILaunchpadDropsProps[] = [
     network: 'ETH',
     name: 'New launch 2020',
     launchDate: new Date('2024-01-01T12:00:00-04:00'),
+    isCategory: false,
   },
   {
     image:
@@ -14,6 +15,7 @@ export const LaunchpadDropsMocks: ILaunchpadDropsProps[] = [
     network: 'SMR',
     name: 'New launch 2020',
     launchDate: new Date('2024-11-01T12:00:00-04:00'),
+    isCategory: false,
   },
   {
     image:
@@ -21,6 +23,7 @@ export const LaunchpadDropsMocks: ILaunchpadDropsProps[] = [
     network: 'MATIC',
     name: 'New launch 2020',
     launchDate: new Date('2023-04-22T04:00:00-04:00'),
+    isCategory: false,
   },
   {
     image:
@@ -28,6 +31,7 @@ export const LaunchpadDropsMocks: ILaunchpadDropsProps[] = [
     network: 'MATIC',
     name: 'New launch 2020',
     launchDate: new Date('2023-04-22T04:00:00-04:00'),
+    isCategory: false,
   },
   {
     image:
@@ -35,6 +39,7 @@ export const LaunchpadDropsMocks: ILaunchpadDropsProps[] = [
     network: 'MATIC',
     name: 'New launch 2020',
     launchDate: new Date('2023-04-22T04:00:00-04:00'),
+    isCategory: false,
   },
   {
     image:
@@ -42,6 +47,7 @@ export const LaunchpadDropsMocks: ILaunchpadDropsProps[] = [
     network: 'MATIC',
     name: 'New launch 2020',
     launchDate: new Date('2023-04-22T04:00:00-04:00'),
+    isCategory: false,
   },
   {
     image:
@@ -49,5 +55,6 @@ export const LaunchpadDropsMocks: ILaunchpadDropsProps[] = [
     network: 'MATIC',
     name: 'New launch 2020',
     launchDate: new Date('2023-04-22T04:00:00-04:00'),
+    isCategory: false,
   },
 ];
