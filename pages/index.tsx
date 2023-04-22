@@ -7,6 +7,7 @@ import LaunchpadDrops from '../components/LaunchpadDrops/LaunchpadDrops';
 import Filter from '../components/Filter/Filter';
 import { useState } from 'react';
 import { INFTCategories } from '../components/Filter/Filter.types';
+import { MultipleFilter } from '../components/MulitpleFilter/MultipleFilter';
 export default function Home() {
   const [selected, setSelected] = useState<number>(0);
   const filterOptions: INFTCategories[] = ['Cat 1', 'Cat 2', 'Cat 3'];
@@ -84,6 +85,8 @@ export default function Home() {
             }
           })}
       </div>
+      <h1>MULTIPLE FILTER</h1>
+      <MultipleFilter />
     </BasePage>
   );
 }

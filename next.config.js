@@ -1,5 +1,5 @@
 const process = require('process');
-
+const withTm = require('next-transpile-modules')(['react-accordion-ts']);
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -16,4 +16,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+module.exports = withTm({ ...nextConfig });
