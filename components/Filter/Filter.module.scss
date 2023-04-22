@@ -1,0 +1,25 @@
+.filter {
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  border: 1px solid white;
+
+  &:hover {
+    box-shadow: var(--box-shadow-white);
+  }
+}
+
+.option {
+  padding: var(--spacing-xs);
+  border-radius: var(--border-radius-sm);
+  border: 1px solid white;
+
+  cursor: pointer;
+}
+
+.selected {
+  background-color: var(--secondary);
+  box-shadow: var(--box-shadow-white);
+  color: var(--background);
+
+  cursor: pointer;
+}

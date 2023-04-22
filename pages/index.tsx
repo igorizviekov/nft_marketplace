@@ -5,10 +5,9 @@ import styles from '../styles/pages/HomePage.module.scss';
 import { LaunchpadDropsMocks } from '../mocks/LaunchpadDrops.mock';
 import LaunchpadDrops from '../components/LaunchpadDrops/LaunchpadDrops';
 import Filter from '../components/Filter/Filter';
+import { useState } from 'react';
 export default function Home() {
-  //popular with timeline
-  //upcoming collections
-  //categories
+  const [selected, setSelected] = useState<number>(0);
   return (
     <BasePage>
       <h1>Popular Collections</h1>
@@ -42,7 +41,11 @@ export default function Home() {
       </div>
 
       <h1>Categories</h1>
-      <Filter />
+      <Filter
+        options={['Cat 1', 'Cat 2', 'Cat 3']}
+        selected={selected}
+        onSelect={setSelected}
+      />
       <div className="flex-row-scroll">
         {LaunchpadDropsMocks &&
           LaunchpadDropsMocks.map((drop, index) => (
