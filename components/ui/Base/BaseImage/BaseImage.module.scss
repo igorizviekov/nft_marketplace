@@ -6,7 +6,11 @@
 
   overflow: hidden;
 
-  border-radius: var(--border-radius-lg);
+  border-radius: var(--border-radius-sm);
+
+  .image {
+    object-fit: cover;
+  }
 
   .description {
     position: absolute;

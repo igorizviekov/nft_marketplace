@@ -1,142 +1,97 @@
-import { NftList } from '../components/nft-list';
-import { TopSellers } from '../components/top-sellers';
-import { Banner } from '../components/ui/banner/banner';
-import { INftCardProps } from '../components/ui/nft-card';
-import { useEffect, useState } from 'react';
-import { ethers } from 'ethers';
-import axios from 'axios';
-import { toast } from 'react-toastify';
-import { fetchContract, getTopCreators, sortNfts } from '../utils';
-import { ActiveSelectOption } from '../components/search-filter/search-filter.types';
-
+import BasePage from '../components/ui/Base/BasePage/BasePage';
+import PopularCollection from '../components/PopularCollection/PopularCollection';
+import { PopularCollectionsMock } from '../mocks/PopularCollections.mock';
+import styles from '../styles/pages/HomePage.module.scss';
+import { LaunchpadDropsMocks } from '../mocks/LaunchpadDrops.mock';
+import LaunchpadDrops from '../components/LaunchpadDrops/LaunchpadDrops';
+import Filter from '../components/Filter/Filter';
+import { useState } from 'react';
+import { INFTCategories } from '../components/Filter/Filter.types';
+import { MultipleFilter } from '../components/MulitpleFilter/MultipleFilter';
+import FiltersBar from '../components/FiltersBar/FiltersBar';
 export default function Home() {
-  const [nftList, setNftList] = useState<INftCardProps[]>([]);
-  const [nftsCopy, setNftsCopy] = useState<INftCardProps[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState<boolean | string>(true);
-  const [activeSelect, setActiveSelect] =
-    useState<ActiveSelectOption>('Recently added');
-
-  const populateOwnerNickname = (nfts: INftCardProps[]) =>
-    nfts.reduce((nfts: INftCardProps[], currentNFT) => {
-      const ownerNickname = nfts.find(
-        (a) => a.owner === currentNFT.owner && a.nickname
-      )?.nickname;
-      if (ownerNickname) {
-        currentNFT.nickname = ownerNickname;
-      }
-      nfts.push(currentNFT);
-      return nfts;
-    }, []);
-
-  const fetchNFTs = async () => {
-    const provider = new ethers.providers.JsonRpcProvider(
-      process.env.NEXT_PUBLIC_ALCHEMY_API_URL
-    );
-    const contract = fetchContract(provider);
-    /**
-     * List of all available NFTs on marketplace.
-     * Filtered by "not sold"
-     */
-    const data = await contract.getActiveCocktails();
-
-    /**
-     * Map data to the format, which will used on frontend
-     */
-    const items = await Promise.all(
-      data.map(async ({ tokenId, seller, owner, price }: INftCardProps) => {
-        const formattedPrice = ethers.utils.formatUnits(
-          price.toString(),
-          'ether'
-        );
-        const tokenURI: string = await contract.tokenURI(tokenId);
-
-        // get NFT metadata and image
-        const {
-          data: { image, name, description, nickname, avatar },
-        } = await axios.get(tokenURI);
-
-        return {
-          price: formattedPrice,
-          tokenId: Number(tokenId),
-          img: image,
-          seller,
-          owner,
-          name,
-          description,
-          nickname,
-          avatar,
-        };
-      })
-    );
-    return items;
-  };
-
-  useEffect(() => {
-    fetchNFTs()
-      .then((items) => {
-        if (items?.length) {
-          const sortedNfts = populateOwnerNickname(
-            sortNfts('Recently added', items)
-          );
-          setNftList(sortedNfts);
-          setNftsCopy(sortedNfts);
-        }
-        setIsLoading(false);
-      })
-      .catch((e) => {
-        console.log('failed to fetch NFT', e);
-        setIsError(
-          'Failed to fetch. Please ensure your wallet is connected to the Polygon network.'
-        );
-        setIsLoading(false);
-      });
-  }, []);
-
-  useEffect(() => {
-    if (isError) {
-      toast.error(isError);
-    }
-  }, [isError]);
-
-  // dropdown filter
-  useEffect(() => {
-    setNftList(sortNfts(activeSelect, [...nftList]));
-  }, [activeSelect]);
-
-  // search
-  const onHandleSearch = (value: string) => {
-    const filteredNfts = nftList.filter(({ name }) =>
-      name.toLowerCase().includes(value.toLowerCase())
-    );
-
-    if (filteredNfts.length) {
-      setNftList(filteredNfts);
-    } else {
-      setNftList(nftsCopy);
-    }
-  };
-
-  const onClearSearch = () => {
-    if (nftList.length && nftsCopy.length) {
-      setNftList(nftsCopy);
-    }
-  };
+  const [selected, setSelected] = useState<number>(0);
+  const filterOptions: INFTCategories[] = ['Cat 1', 'Cat 2', 'Cat 3'];
 
   return (
-    <div className="pt-32 sm:pt-26  w-9/12  sm:w-full m-auto animate-fadeIn">
-      {/* <Banner /> */}
-      <TopSellers creators={getTopCreators(nftsCopy)} />
-      <NftList
-        nfts={nftList}
-        isLoading={isLoading}
-        searchProps={{
-          onClearSearch,
-          onHandleSearch,
-          setActiveSelect,
-          activeSelect,
-        }}
+    <BasePage>
+      <h1>Popular Collections</h1>
+      <div className={'grid-container'}>
+        {PopularCollectionsMock &&
+          PopularCollectionsMock.map((collection, index) => (
+            <PopularCollection
+              image={collection.image}
+              name={collection.name}
+              floorPrice={collection.floorPrice}
+              volume={collection.volume}
+              key={index}
+              index={index}
+            />
+          ))}
+      </div>
+
+      <h1>Launchpad drops</h1>
+      <div className="flex-row-scroll">
+        {LaunchpadDropsMocks &&
+          LaunchpadDropsMocks.map((drop, index) => (
+            <LaunchpadDrops
+              key={index}
+              image={drop.image}
+              network={drop.network}
+              name={drop.name}
+              launchDate={drop.launchDate}
+              isCategory={false}
+              category={drop.category}
+            />
+          ))}
+      </div>
+
+      <h1>Categories</h1>
+      <Filter
+        options={filterOptions}
+        selected={selected}
+        onSelect={setSelected}
       />
-    </div>
+
+      <div className="flex-row-scroll">
+        {LaunchpadDropsMocks &&
+          LaunchpadDropsMocks.map((drop, index) => {
+            if (
+              drop.category &&
+              selected !== null &&
+              drop.category.includes(filterOptions[selected])
+            ) {
+              return (
+                <LaunchpadDrops
+                  key={index}
+                  image={drop.image}
+                  network={drop.network}
+                  name={drop.name}
+                  launchDate={drop.launchDate}
+                  isCategory={true}
+                  category={drop.category}
+                />
+              );
+            } else if (selected === null) {
+              return (
+                <LaunchpadDrops
+                  key={index}
+                  image={drop.image}
+                  network={drop.network}
+                  name={drop.name}
+                  launchDate={drop.launchDate}
+                  isCategory={true}
+                  category={drop.category}
+                />
+              );
+            }
+          })}
+      </div>
+      <h1>MULTIPLE FILTER</h1>
+      <div className={styles.filterContainer}>
+        <MultipleFilter />
+        <FiltersBar />
+      </div>
+    </BasePage>
   );
 }

@@ -1,0 +1,27 @@
+.container {
+  border: var(--border-color);
+
+  border-radius: var(--border-radius-sm);
+  padding-bottom: var(--spacing-md);
+
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: var(--box-shadow-white);
+  }
+}
+
+
+.image {
+  width: 300px;
+  height: 200px;
+
+  position: relative;
+
+  .network {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 1;
+  }
+}

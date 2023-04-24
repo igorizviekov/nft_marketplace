@@ -1,5 +1,8 @@
 .page {
   margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
 
   @include respond-to(mob-landscape) {
     max-width: 1680px;
@@ -84,13 +87,28 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
 
   flex-wrap: wrap;
 
   padding: var(--spacing-md) 0;
   gap: var(--spacing-md);
 
+
+}
+
+.flex-row-scroll {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  flex-wrap: nowrap;
+
+  padding: var(--spacing-md) 0;
+  gap: var(--spacing-md);
+
+  overflow-x: scroll;
 
 }
 
@@ -107,7 +125,7 @@
 
   padding: var(--spacing-sm);
 
-  @include respond-to(mob-landscape){
+  @include respond-to(mob-landscape) {
     padding: 0;
   }
 

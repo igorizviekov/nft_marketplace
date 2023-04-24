@@ -1,0 +1,32 @@
+.title {
+  width: 300px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: var(--spacing-sm);
+
+  background-color: var(--background-light);
+
+}
+
+.filter {
+  height: 40px;
+  width: 300px;
+
+  padding: var(--spacing-sm);
+  margin: var(--spacing-xs) 0;
+
+  border: var(--border-color);
+
+  display: flex;
+  align-items: center;
+
+}
+
+.selected {
+  border: 1px solid var(--accent);
+  color: var(--accent);
+}

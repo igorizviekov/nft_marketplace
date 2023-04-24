@@ -12,6 +12,8 @@ $z-indexes: (
   --error: #c24747;
   --accent: #3BC385;
   --background: #1D1D1D;
+  --background-light: #2c2c2c;
+
 
   // spacing
   --spacing-xs: 6px;
@@ -40,6 +42,10 @@ $z-indexes: (
 --border-radius-md: 20px;
 --border-radius-lg: 30px;
 --border-radius-xl: 40px;
+
+//border color
+--border-color: 1px solid white;
+--border-color--accent: 1px solid var(--accent);
 
 // background
 --bg-gradient: linear-gradient(150deg,
