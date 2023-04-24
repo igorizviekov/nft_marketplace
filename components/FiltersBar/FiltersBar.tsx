@@ -20,18 +20,16 @@ const FiltersBar = ({}: IFiltersBarProps) => {
           <Icon icon={<VscClose />} />
         </div>
       )}
-      {filters.map((filter, index) => {
-        return (
-          <div
-            key={index}
-            className={styles.selectedFilter}
-            onClick={() => deleteFilter(filter)}
-          >
-            {filter}
-            <Icon icon={<VscClose />} />
-          </div>
-        );
-      })}
+      {filters.map((filter, index) => (
+        <div
+          key={index}
+          className={styles.selectedFilter}
+          onClick={() => deleteFilter(filter)}
+        >
+          {filter}
+          <Icon icon={<VscClose />} />
+        </div>
+      ))}
     </>
   );
 };

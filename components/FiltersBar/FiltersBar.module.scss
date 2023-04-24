@@ -3,11 +3,14 @@
   width: auto;
 
   padding: var(--spacing-sm);
-  border: var(--border-color);
+
+  border: var(--border-color--accent);
+  color: var(--accent);
 
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--spacing-xs);
+
   cursor: pointer;
 }

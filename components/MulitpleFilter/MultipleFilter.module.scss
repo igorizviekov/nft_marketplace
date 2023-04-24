@@ -25,3 +25,8 @@
   align-items: center;
 
 }
+
+.selected {
+  border: 1px solid var(--accent);
+  color: var(--accent);
+}
