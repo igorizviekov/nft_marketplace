@@ -13,6 +13,7 @@ const LaunchpadDrops = ({
   name,
   launchDate,
   isCategory,
+  category,
 }: ILaunchpadDropsProps) => {
   const [countdown, setCoundown] = useState<string>('');
 
@@ -45,7 +46,7 @@ const LaunchpadDrops = ({
       </div>
       <h2>{name}</h2>
       {!isCategory && <p>{countdown}</p>}
-      {isCategory && <p>Category</p>}
+      {isCategory && <p>{category}</p>}
     </div>
   );
 };
