@@ -6,4 +6,5 @@ export interface IFilterModel {
 
   addFilter: Action<IFilterModel, string>;
   deleteFilter: Action<IFilterModel, string>;
+  clearFilters: Action<IFilterModel>;
 }

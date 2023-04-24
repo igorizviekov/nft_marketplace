@@ -8,6 +8,7 @@ import Filter from '../components/Filter/Filter';
 import { useState } from 'react';
 import { INFTCategories } from '../components/Filter/Filter.types';
 import { MultipleFilter } from '../components/MulitpleFilter/MultipleFilter';
+import FiltersBar from '../components/FiltersBar/FiltersBar';
 export default function Home() {
   const [selected, setSelected] = useState<number>(0);
   const filterOptions: INFTCategories[] = ['Cat 1', 'Cat 2', 'Cat 3'];
@@ -51,6 +52,7 @@ export default function Home() {
         selected={selected}
         onSelect={setSelected}
       />
+
       <div className="flex-row-scroll">
         {LaunchpadDropsMocks &&
           LaunchpadDropsMocks.map((drop, index) => {
@@ -86,7 +88,10 @@ export default function Home() {
           })}
       </div>
       <h1>MULTIPLE FILTER</h1>
-      <MultipleFilter />
+      <div className={styles.filterContainer}>
+        <MultipleFilter />
+        <FiltersBar />
+      </div>
     </BasePage>
   );
 }

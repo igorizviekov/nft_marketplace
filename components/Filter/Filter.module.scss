@@ -1,7 +1,7 @@
 .filter {
   padding: var(--spacing-sm);
   border-radius: var(--border-radius-sm);
-  border: 1px solid white;
+  border: var(--border-color);
 
   &:hover {
     box-shadow: var(--box-shadow-white);
@@ -11,7 +11,7 @@
 .option {
   padding: var(--spacing-xs);
   border-radius: var(--border-radius-sm);
-  border: 1px solid white;
+  border: var(--border-color);
 
   cursor: pointer;
 }

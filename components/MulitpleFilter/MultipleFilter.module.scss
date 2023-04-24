@@ -19,25 +19,9 @@
   padding: var(--spacing-sm);
   margin: var(--spacing-xs) 0;
 
-  border: 1px solid white;
+  border: var(--border-color);
 
   display: flex;
   align-items: center;
 
-}
-
-.selectedFilter {
-  height: 40px;
-  width: 100px;
-
-  padding: var(--spacing-sm);
-  margin: var(--spacing-xs) 0;
-
-  border: 1px solid white;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  cursor: pointer;
 }

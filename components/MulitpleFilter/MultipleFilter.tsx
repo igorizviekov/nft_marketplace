@@ -10,10 +10,7 @@ import { useStoreActions, useStoreState } from '../../store';
 import { VscClose } from 'react-icons/vsc';
 export const MultipleFilter = ({}: IMultipleFilterProps) => {
   const addFilter = useStoreActions((actions) => actions.filter.addFilter);
-  const deleteFilter = useStoreActions(
-    (actions) => actions.filter.deleteFilter
-  );
-  const filters = useStoreState((state) => state.filter.filters);
+
   const items = FilterMock.map(({ content, title }) => ({
     title: (
       <div className={styles.title}>
@@ -38,19 +35,7 @@ export const MultipleFilter = ({}: IMultipleFilterProps) => {
 
   return (
     <>
-      {filters.map((filter, index) => {
-        return (
-          <div
-            key={index}
-            className={styles.selectedFilter}
-            onClick={() => deleteFilter(filter)}
-          >
-            {filter}
-            <Icon icon={<VscClose />} />
-          </div>
-        );
-      })}
-      <Accordion items={items} duration={200} multiple={false} />
+      <Accordion  items={items} duration={200} multiple={false} />
     </>
   );
 };

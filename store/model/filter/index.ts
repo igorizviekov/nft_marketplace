@@ -20,4 +20,7 @@ export const FilterModel: IFilterModel = {
       }
     });
   }),
+  clearFilters: action((state) => {
+    state.filters = [];
+  }),
 };

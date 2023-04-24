@@ -1,0 +1,13 @@
+.selectedFilter {
+  height: 40px;
+  width: auto;
+
+  padding: var(--spacing-sm);
+  border: var(--border-color);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-xs);
+  cursor: pointer;
+}

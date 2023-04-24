@@ -34,7 +34,7 @@
   }
 
   &:hover {
-    border: 1px solid white;
+    border: var(--border-color);
     box-shadow: var(--box-shadow-white);
     padding-left: var(--spacing-sm-md);
   }

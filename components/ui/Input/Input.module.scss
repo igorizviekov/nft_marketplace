@@ -20,7 +20,7 @@
 
 .text {
   background-color: transparent;
-  border: 1px solid white;
+  border: var(--border-color);
 
   border-radius: var(--spacing-sm);
   padding: var(--spacing-md);

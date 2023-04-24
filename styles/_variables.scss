@@ -14,6 +14,7 @@ $z-indexes: (
   --background: #1D1D1D;
   --background-light: #2c2c2c;
 
+
   // spacing
   --spacing-xs: 6px;
   --spacing-sm: 12px;
@@ -41,6 +42,9 @@ $z-indexes: (
 --border-radius-md: 20px;
 --border-radius-lg: 30px;
 --border-radius-xl: 40px;
+
+//border color
+--border-color: 1px solid white;
 
 // background
 --bg-gradient: linear-gradient(150deg,
