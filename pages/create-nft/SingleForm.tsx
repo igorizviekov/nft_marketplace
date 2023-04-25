@@ -56,7 +56,6 @@ const SingleForm = () => {
           })
         }
       />
-
       <Dropdown
         options={['collection 1', 'collection 2', 'Add collection, opens a modal']}
         checked={0}
