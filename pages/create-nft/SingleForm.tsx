@@ -3,7 +3,8 @@ import Input from '../../components/ui/Input';
 import { FileUpload } from '../../components/file-upload';
 import { Button } from '../../components/ui/Button';
 import { isFormValid, submitNewNFT } from '../../scripts/utils';
-
+import { toast } from 'react-toastify';
+import { Dropdown } from '../../components/ui/dropdown';
 
 export interface IFormInput {
   price: string;
@@ -11,9 +12,7 @@ export interface IFormInput {
   description: string;
 }
 
-
 const SingleForm = () => {
-
   const [formInput, setFormInput] = useState<IFormInput>({
     price: '',
     name: '',
@@ -58,6 +57,12 @@ const SingleForm = () => {
         }
       />
 
+      <Dropdown
+        options={['collection 1', 'collection 2', 'Add collection, opens a modal']}
+        checked={0}
+        heading={'Type of mint'}
+        onChange={() => toast.warn('asdasi')}
+      />
       <Input
         inputType="number"
         title="Price"

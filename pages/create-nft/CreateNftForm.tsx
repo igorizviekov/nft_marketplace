@@ -11,10 +11,10 @@ import { Dropdown } from '../../components/ui/dropdown';
 import SingleForm from './SingleForm';
 import CollectionForm from './CollectionForm';
 
-export type TypeOfMint = 'Single' | 'Collection';
+export type TypeOfMint = 'Single' | 'Bulk Upload';
 
 const CreateSingleForm = () => {
-  const options: TypeOfMint[] = ['Single', 'Collection'];
+  const options: TypeOfMint[] = ['Single', 'Bulk Upload'];
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
   const [selected, setSelected] = useState<number>(0);

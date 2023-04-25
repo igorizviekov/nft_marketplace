@@ -109,11 +109,10 @@ const CollectionForm = () => {
           })
         }
       />
-
       <Input
         inputType="text"
-        title="Website"
-        placeholder="https://mywebsite.io"
+        title="Royalties Address"
+        placeholder="Royalties Address"
         handleChange={(e) =>
           setFormInput({
             ...formInput,
@@ -121,11 +120,10 @@ const CollectionForm = () => {
           })
         }
       />
-
       <Input
-        inputType="number"
-        title="Individual NFT Price"
-        placeholder="NFT Price"
+        inputType="text"
+        title="Website"
+        placeholder="https://mywebsite.io"
         handleChange={(e) =>
           setFormInput({
             ...formInput,
