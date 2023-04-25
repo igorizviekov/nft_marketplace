@@ -1,0 +1,30 @@
+.primary {
+
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: 100px;
+
+  color: var(--background);
+  background-color: var(--growth);
+
+  transition: 0.2s ease-in-out;
+
+  &:hover {
+    background-color: var(--yellow);
+  }
+}
+
+.secondary {
+
+  padding: var(--spacing-md) var(--spacing-lg);
+
+  border-radius: 100px;
+
+  background-color: var(--background-dark-green);
+  border: var(--border-color);
+
+  transition: 0.2s ease-in-out;
+
+  &:hover{
+    border: var(--border-color--accent);
+  }
+}

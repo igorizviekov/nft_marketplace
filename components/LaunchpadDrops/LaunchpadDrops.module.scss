@@ -1,13 +1,17 @@
 .container {
-  border: var(--border-color);
+  background-color: #182218;
 
   border-radius: var(--border-radius-sm);
   padding-bottom: var(--spacing-md);
 
+  border: 1px solid transparent;
+
   cursor: pointer;
+  transition: 0.2s ease-in-out;
 
   &:hover {
-    box-shadow: var(--box-shadow-white);
+    border: var(--border-color--accent);
+    box-shadow: var(--box-shadow-green);
   }
 }
 

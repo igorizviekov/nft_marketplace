@@ -6,6 +6,8 @@ interface IButtonProps {
   disabled?: boolean;
 }
 
+import styles from './Button.module.scss';
+
 export const Button = ({
   label,
   isPrimary,
@@ -17,17 +19,8 @@ export const Button = ({
     type="button"
     onClick={onClick}
     disabled={disabled}
-    className={`font-poppins font-semibold text-sm minLag:text-lg py-2 px-5  rounded-full  transition-all sm:w-full sm:my-4 disabled:bg-slate-200 dark:disabled:bg-slate-500 ${
-      classStyles?.length ? classStyles : ''
-    }
-     ${
-       isPrimary && !disabled
-         ? 'nft-gradient text-white dark:text-nft-black-1'
-         : disabled
-         ? 'bg-red-50 dark:text-nft-black-4'
-         : ' dark:hover:border-white  border-solid  border-2 border-nft-black-4 hover:bg-nft-black-4  hover:text-white'
-     }`}
+    className={isPrimary ? styles.primary : styles.secondary}
   >
-    {label}
+    <h3>{label}</h3>
   </button>
 );

@@ -34,12 +34,13 @@ const EditProfile = () => {
   };
   return (
     <BasePage>
-      <div className="flex-col-center">
+      <div className={styles.page}>
         <div className={styles.image}>
           <BaseImage />
         </div>
 
         <div className={styles.form}>
+          <h1>Profile Settings</h1>
           <Input
             title={'Display Name'}
             inputType={'text'}
@@ -50,7 +51,7 @@ const EditProfile = () => {
           />
           <Input
             title={'Description'}
-            inputType={'text'}
+            inputType={'textarea'}
             placeholder={'And now, your description...'}
             handleChange={(e) =>
               setDescription((e.target as HTMLInputElement).value)
@@ -78,6 +79,7 @@ const EditProfile = () => {
               setWebsite((e.target as HTMLInputElement).value)
             }
           />
+          <h1 className={styles.social}>Social Settings</h1>
           <Input
             title={'Discord'}
             inputType={'text'}
@@ -102,8 +104,31 @@ const EditProfile = () => {
               setInstagram((e.target as HTMLInputElement).value)
             }
           />
+
+          <h1 className={styles.social}>App Settings</h1>
+          <Input
+            inputType={'text'}
+            title={'Time and Date'}
+            placeholder={'Dropdowns'}
+          />
+          <Input
+            inputType={'text'}
+            title={'Time Zone'}
+            placeholder={'Dropdowns'}
+          />
+          <Input
+            inputType={'text'}
+            title={'Language'}
+            placeholder={'Dropdowns'}
+          />
+          <Button
+            isPrimary={false}
+            label={'Save Settings'}
+            onClick={function (): void {
+              throw new Error('Function not implemented.');
+            }}
+          />
         </div>
-        <Button isPrimary={true} label={'Submit'} onClick={handleSubmit} />
       </div>
     </BasePage>
   );

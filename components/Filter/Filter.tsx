@@ -1,8 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { IFilterProps } from './Filter.types';
 import styles from './Filter.module.scss';
-import Icon from '../ui/Icon/Icon';
-import { FaFilter } from 'react-icons/fa';
 import classNames from 'classnames';
 const Filter = ({ options, selected, onSelect }: IFilterProps) => {
   function handleSelect(index: number) {
@@ -14,7 +12,6 @@ const Filter = ({ options, selected, onSelect }: IFilterProps) => {
   }
   return (
     <div className="flex-row-start">
-      <Icon icon={<FaFilter />} className={styles.filter} />
       {options &&
         options.map((option, index) => (
           <div

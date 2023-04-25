@@ -31,24 +31,30 @@
   align-items: center;
   gap: var(--spacing-md);
 
+  .name {
+    margin-right: var(--spacing-sm);
+  }
+
   .icon {
-    background-color: var(--accent);
-    padding: var(--spacing-xs);
-    border-radius: var(--border-radius-lg);
-    color: black;
+    width: 22px;
+    height: 22px;
   }
 
   .profileIcon {
     position: relative;
     cursor: pointer;
+    margin-left: var(--spacing-sm);
 
-    
-    &::after{
+
+    &::after {
       content: "";
       opacity: 0;
       transition: 0.2s ease-in;
     }
+
     &:hover {
+      color: var(--yellow);
+
       &::after {
         content: "Edit Profile";
         position: absolute;
@@ -75,6 +81,8 @@
   justify-content: center;
   flex-wrap: wrap;
 
+  gap: var(--spacing-lg);
+
   margin-bottom: var(--spacing-lg);
 
   @include respond-to(tablet) {
@@ -91,4 +99,12 @@
 
   column-gap: var(--spacing-md);
   row-gap: var(--spacing-md);
+}
+
+.nftRow{
+  
+  display: flex;
+
+  margin-top: var(--spacing-md);
+  gap: var(--spacing-md);
 }

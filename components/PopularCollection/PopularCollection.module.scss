@@ -1,6 +1,6 @@
 .container {
   width: 100%;
-  height: 70px;
+  height: 90px;
 
   display: flex;
   align-items: center;
@@ -14,14 +14,20 @@
 
   transition: 0.2s ease-in-out;
   cursor: pointer;
+
   &:hover {
-    box-shadow: var(--box-shadow-white);
+    box-shadow: var(--box-shadow-green);
+    border: var(--border-color--accent);
+    background-color: var(--background-dark-green);
     transform: scale(1.005);
   }
 
+  .index{
+    width: 16px;
+  }
   .image {
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 70px;
   }
 
   .info {
@@ -30,11 +36,16 @@
     justify-content: space-between;
 
     height: 100%;
-    width: 100%;
+    width: 80%;
 
     .top {
       display: flex;
       justify-content: space-between;
+
+      .growth {
+        // color: #39EA22;
+        color: #EA2222;
+      }
     }
 
     .bottom {

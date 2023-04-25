@@ -87,7 +87,7 @@ export const Header = () => {
   }, []);
 
   const NftBtnLabel = walletState.isWalletConnected ? (
-    'Create'
+    'Connect Wallet'
   ) : (
     <span className="flexCenter gap-5">
       Connect

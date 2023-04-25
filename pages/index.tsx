@@ -15,82 +15,90 @@ export default function Home() {
 
   return (
     <BasePage>
-      <h1>Popular Collections</h1>
-      <div className={'grid-container'}>
-        {PopularCollectionsMock &&
-          PopularCollectionsMock.map((collection, index) => (
-            <PopularCollection
-              image={collection.image}
-              name={collection.name}
-              floorPrice={collection.floorPrice}
-              volume={collection.volume}
-              key={index}
-              index={index}
-            />
-          ))}
+      <div>
+        <h1>Popular Collections</h1>
+        <div className={'grid-container'}>
+          {PopularCollectionsMock &&
+            PopularCollectionsMock.map((collection, index) => (
+              <PopularCollection
+                image={collection.image}
+                name={collection.name}
+                floorPrice={collection.floorPrice}
+                volume={collection.volume}
+                key={index}
+                index={index}
+              />
+            ))}
+        </div>
       </div>
 
-      <h1>Launchpad drops</h1>
-      <div className="flex-row-scroll">
-        {LaunchpadDropsMocks &&
-          LaunchpadDropsMocks.map((drop, index) => (
-            <LaunchpadDrops
-              key={index}
-              image={drop.image}
-              network={drop.network}
-              name={drop.name}
-              launchDate={drop.launchDate}
-              isCategory={false}
-              category={drop.category}
-            />
-          ))}
+      <div>
+        <h1>New Launches</h1>
+        <div className="flex-row-scroll">
+          {LaunchpadDropsMocks &&
+            LaunchpadDropsMocks.map((drop, index) => (
+              <LaunchpadDrops
+                key={index}
+                image={drop.image}
+                network={drop.network}
+                name={drop.name}
+                launchDate={drop.launchDate}
+                isCategory={false}
+                category={drop.category}
+              />
+            ))}
+        </div>
       </div>
 
-      <h1>Categories</h1>
-      <Filter
-        options={filterOptions}
-        selected={selected}
-        onSelect={setSelected}
-      />
+      <div>
+        <h1>Trending by Category</h1>
+        <Filter
+          options={filterOptions}
+          selected={selected}
+          onSelect={setSelected}
+        />
 
-      <div className="flex-row-scroll">
-        {LaunchpadDropsMocks &&
-          LaunchpadDropsMocks.map((drop, index) => {
-            if (
-              drop.category &&
-              selected !== null &&
-              drop.category.includes(filterOptions[selected])
-            ) {
-              return (
-                <LaunchpadDrops
-                  key={index}
-                  image={drop.image}
-                  network={drop.network}
-                  name={drop.name}
-                  launchDate={drop.launchDate}
-                  isCategory={true}
-                  category={drop.category}
-                />
-              );
-            } else if (selected === null) {
-              return (
-                <LaunchpadDrops
-                  key={index}
-                  image={drop.image}
-                  network={drop.network}
-                  name={drop.name}
-                  launchDate={drop.launchDate}
-                  isCategory={true}
-                  category={drop.category}
-                />
-              );
-            }
-          })}
+        <div className="flex-row-scroll">
+          {LaunchpadDropsMocks &&
+            LaunchpadDropsMocks.map((drop, index) => {
+              if (
+                drop.category &&
+                selected !== null &&
+                drop.category.includes(filterOptions[selected])
+              ) {
+                return (
+                  <LaunchpadDrops
+                    key={index}
+                    image={drop.image}
+                    network={drop.network}
+                    name={drop.name}
+                    launchDate={drop.launchDate}
+                    isCategory={true}
+                    category={drop.category}
+                  />
+                );
+              } else if (selected === null) {
+                return (
+                  <LaunchpadDrops
+                    key={index}
+                    image={drop.image}
+                    network={drop.network}
+                    name={drop.name}
+                    launchDate={drop.launchDate}
+                    isCategory={true}
+                    category={drop.category}
+                  />
+                );
+              }
+            })}
+        </div>
       </div>
-      <h1>MULTIPLE FILTER</h1>
-      <div className={styles.filterContainer}>
-        <MultipleFilter />
-        <FiltersBar />
+      <div>
+        <h1>MULTIPLE FILTER</h1>
+        <div className={styles.filterContainer}>
+          <MultipleFilter />
+          <FiltersBar />
+        </div>
       </div>
     </BasePage>
   );

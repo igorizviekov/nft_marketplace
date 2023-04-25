@@ -1,0 +1,70 @@
+.card {
+  width: 300px;
+  height: 450px;
+
+  background-color: var(--background-dark-green);
+  border-radius: var(--border-radius-md);
+  border: var(--border-color--accent);
+
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+
+  height: 150px;
+  padding: var(--spacing-md);
+
+  .name {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+  }
+
+  .bottom {
+    display: flex;
+    justify-content: space-between;
+
+    .arrow {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-xs);
+
+      transition: 0.2s ease-in-out;
+
+      cursor: pointer;
+
+      &:hover {
+        color: var(--yellow);
+      }
+    }
+  }
+
+  .price {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+  }
+
+  .collectionName {
+    color: var(--growth);
+
+    cursor: pointer;
+
+    &:hover {
+      color: var(--yellow);
+    }
+  }
+}
+
+.image {
+  position: relative;
+  height: 300px;
+  width: 100%;
+
+  object-fit: cover;
+  overflow: hidden;
+  border-radius: var(--border-radius-md);
+}

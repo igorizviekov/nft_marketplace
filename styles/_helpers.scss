@@ -2,7 +2,7 @@
   margin: auto;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm);
+  gap: 150px;
 
   @include respond-to(mob-landscape) {
     max-width: 1680px;
@@ -35,7 +35,7 @@
   grid-template-columns: repeat(1, 1fr);
 
   column-gap: var(--spacing-lg);
-  row-gap: var(--spacing-lg);
+  row-gap: var(--spacing-md-lg);
 
 
   @include respond-to(mob-landscape) {
