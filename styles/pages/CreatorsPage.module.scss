@@ -6,7 +6,9 @@
   height: 100vw;
 
   @include respond-to(mob-landscape) {
-    width: 495px;
+    width: 50%;
+    max-width: 500px;
+    min-width: 450px;
     height: 495px;
   }
 
@@ -17,7 +19,7 @@
   width: 100%;
 
   @include respond-to(tablet) {
-    width: 45%;
+    width: 50%;
     padding: var(--spacing-md);
 
   }
@@ -26,13 +28,44 @@
 
 .icons {
   display: flex;
+  align-items: center;
   gap: var(--spacing-md);
 
   .icon {
     background-color: var(--accent);
-    padding: var(--spacing-sm);
+    padding: var(--spacing-xs);
     border-radius: var(--border-radius-lg);
-    color: white;
+    color: black;
+  }
+
+  .profileIcon {
+    position: relative;
+    cursor: pointer;
+
+    
+    &::after{
+      content: "";
+      opacity: 0;
+      transition: 0.2s ease-in;
+    }
+    &:hover {
+      &::after {
+        content: "Edit Profile";
+        position: absolute;
+
+        width: 50px;
+        opacity: 1;
+
+        white-space: nowrap;
+
+        right: -60px;
+        top: 0;
+
+        font-size: 12px;
+
+
+      }
+    }
   }
 }
 
@@ -46,7 +79,7 @@
 
   @include respond-to(tablet) {
     align-items: flex-start;
-    justify-content: space-between;
+    justify-content: flex-start;
   }
 }
 
