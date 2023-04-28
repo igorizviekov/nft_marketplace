@@ -2,7 +2,7 @@ import styles from './header.module.scss';
 import { useState, useEffect } from 'react';
 import { NextRouter, useRouter } from 'next/router';
 import Link from 'next/link';
-import { MenuItems } from './MenuItems/MenuItems';
+import MenuItems from './MenuItems/MenuItems';
 import { Actions, useStoreActions, useStoreState } from 'easy-peasy';
 import { IStoreModel } from '../../store/model/model.types';
 import { ConnectWallet, connectWallet } from '../../utils';

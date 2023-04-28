@@ -8,7 +8,7 @@ interface IMenuItemsProps {
   setActiveTab: (_: MenuTab) => void;
 }
 
-export const MenuItems = ({ links, active, setActiveTab }: IMenuItemsProps) => {
+const MenuItems = ({ links, active, setActiveTab }: IMenuItemsProps) => {
   const generateLink = (index: number) => {
     switch (index) {
       case 0:
@@ -33,3 +33,5 @@ export const MenuItems = ({ links, active, setActiveTab }: IMenuItemsProps) => {
     </ul>
   );
 };
+
+export default MenuItems;
