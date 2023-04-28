@@ -14,7 +14,6 @@ export const Button = ({
   disabled,
 }: IButtonProps) => (
   <button
-    type="button"
     onClick={onClick}
     disabled={disabled}
     className={isPrimary ? styles.primary : styles.secondary}

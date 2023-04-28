@@ -61,10 +61,10 @@ export const Header = () => {
     connectCryptoWallet('silent');
   }, []);
 
-  const NftBtnLabel = <span className="flexCenter gap-5">Connect Wallet</span>;
+  const NftBtnLabel = 'Connect Wallet';
 
   const actionBtn = (
-    <div className="animate-fadeIn flex gap-6 sm:flex-col">
+    <>
       {!walletState.isWalletConnected && (
         <Button
           label={NftBtnLabel}
@@ -73,7 +73,7 @@ export const Header = () => {
         />
       )}
       <DropdownMenu />
-    </div>
+    </>
   );
 
   const headerContent = (
