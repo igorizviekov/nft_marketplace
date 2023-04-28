@@ -46,14 +46,14 @@ const HorizontalScroll = ({ children }: IHorizontalScrollProps) => {
 
   return (
     <div
-      onMouseEnter={disableScroll}
-      onMouseLeave={enableScroll}
+      // onMouseEnter={disableScroll}
+      // onMouseLeave={enableScroll}
       className={styles.container}
     >
       <ScrollMenu
         LeftArrow={LeftArrow}
         RightArrow={RightArrow}
-        onWheel={onWheel}
+        // onWheel={onWheel}
       >
         {children}
       </ScrollMenu>
@@ -61,19 +61,19 @@ const HorizontalScroll = ({ children }: IHorizontalScrollProps) => {
   );
 };
 
-function onWheel(apiObj: scrollVisibilityApiType, ev: React.WheelEvent): void {
-  const isThouchpad = Math.abs(ev.deltaX) !== 0 || Math.abs(ev.deltaY) < 15;
+// function onWheel(apiObj: scrollVisibilityApiType, ev: React.WheelEvent): void {
+//   const isThouchpad = Math.abs(ev.deltaX) !== 0 || Math.abs(ev.deltaY) < 15;
 
-  if (isThouchpad) {
-    ev.stopPropagation();
-    return;
-  }
+//   if (isThouchpad) {
+//     ev.stopPropagation();
+//     return;
+//   }
 
-  if (ev.deltaY < 0) {
-    apiObj.scrollNext();
-  } else if (ev.deltaY > 0) {
-    apiObj.scrollPrev();
-  }
-}
+//   if (ev.deltaY > 0) {
+//     apiObj.scrollNext();
+//   } else if (ev.deltaY < 0) {
+//     apiObj.scrollPrev();
+//   }
+// }
 
 export default HorizontalScroll;
