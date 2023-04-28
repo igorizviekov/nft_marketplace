@@ -4,27 +4,14 @@
   padding: var(--spacing-sm) var(--spacing-lg);
 
   &__link {
-    @apply flex flex-1 flex-row justify-start relative ;
+    display: flex;
+    flex-grow: 1;
+
+    justify-content: flex-start;
+    position: relative;
 
     &__logo {
-      @apply cursor-pointer animate-fadeIn;
-    }
-  }
-
-  &__theme {
-    @apply flex flex-initial flex-row justify-center animate-fadeIn;
-
-    &__toggle {
-      @apply flex items-center mr-2;
-
-      &__label {
-        @apply w-9 h-5 bg-black rounded-2xl p-1 relative cursor-pointer;
-
-        &__ball {
-          background-color: var(--background);
-          @apply w-4 h-4 absolute rounded-full;
-        }
-      }
+      cursor: pointer;
     }
   }
 
@@ -32,8 +19,7 @@
 
     display: flex;
     gap: 50px;
-    // padding: 0;
-    &__list {
-    }
+
+    &__list {}
   }
 }

@@ -2,12 +2,10 @@ import styles from './header.module.scss';
 import { useState, useEffect } from 'react';
 import { NextRouter, useRouter } from 'next/router';
 import Link from 'next/link';
-import { MenuItems } from './MenuItems';
+import { MenuItems } from './MenuItems/MenuItems';
 import { Actions, useStoreActions, useStoreState } from 'easy-peasy';
 import { IStoreModel } from '../../store/model/model.types';
 import { ConnectWallet, connectWallet } from '../../utils';
-import Lottie from 'lottie-react';
-import metaMaskIcon from '../../assets/icons/metamask-icon.json';
 import { toast } from 'react-toastify';
 import { MenuTab } from '../../store/model/ui/ui.types';
 import { Button } from '../ui/Button';
@@ -16,8 +14,7 @@ import { FaPhoenixSquadron } from 'react-icons/fa';
 import Icon from '../ui/Icon/Icon';
 
 export const Header = () => {
-  const router = useRouter();
-  const [menuTabs, setMenuTabs] = useState<MenuTab[]>(['Explore']);
+  const [menuTabs, setMenuTabs] = useState<MenuTab[]>([]);
 
   const classNames = [
     'flexBetween',
@@ -45,11 +42,11 @@ export const Header = () => {
     }
     const wallet = await connectWallet(mode);
     const { isConnected } = wallet;
-    
+
     walletActions.setIsWalletConnected(isConnected);
     if (isConnected) {
       walletActions.setActiveWallet(wallet.account);
-      setMenuTabs(['Explore', 'Listed', 'My NFTs']);
+      setMenuTabs(['Listed', 'My NFTs']);
       if (mode === 'active') {
         location.reload();
       }
@@ -60,54 +57,21 @@ export const Header = () => {
     }
   };
 
-  const checkActive = (active: MenuTab, router: NextRouter) => {
-    switch (router.pathname) {
-      case '/':
-        if (active !== 'Explore') actions.toggleTab('Explore');
-        break;
-      case '/listed':
-        if (active !== 'Listed') actions.toggleTab('Listed');
-        break;
-      case '/my-nft':
-        if (active !== 'My NFTs') actions.toggleTab('My NFTs');
-        break;
-      default:
-        actions.toggleTab('');
-        break;
-    }
-  };
-
-  // update active tab state depending from the route
-  useEffect(() => {
-    checkActive(state.tab, router);
-  }, [router.pathname]);
-
   useEffect(() => {
     connectCryptoWallet('silent');
   }, []);
 
-  const NftBtnLabel = walletState.isWalletConnected ? (
-    'Connect Wallet'
-  ) : (
-    <span className="flexCenter gap-5">
-      Connect
-      <Lottie
-        animationData={metaMaskIcon}
-        loop={false}
-        style={{ height: 20 }}
-      />
-    </span>
-  );
-
-  const NftBtnHandler = walletState.isWalletConnected
-    ? () => {
-        router.push('/create-nft');
-      }
-    : () => connectCryptoWallet('active');
+  const NftBtnLabel = <span className="flexCenter gap-5">Connect Wallet</span>;
 
   const actionBtn = (
     <div className="animate-fadeIn flex gap-6 sm:flex-col">
-      <Button label={NftBtnLabel} onClick={NftBtnHandler} isPrimary />
+      {!walletState.isWalletConnected && (
+        <Button
+          label={NftBtnLabel}
+          onClick={() => connectCryptoWallet('active')}
+          isPrimary={true}
+        />
+      )}
       <DropdownMenu />
     </div>
   );
@@ -127,10 +91,7 @@ export const Header = () => {
     <nav className={classNames}>
       <div className={styles['header__link']}>
         <Link href="/">
-          <div
-            className={styles['header__link__logo']}
-            onClick={() => actions.toggleTab('Explore')}
-          >
+          <div className={styles['header__link__logo']}>
             <Icon
               icon={
                 <FaPhoenixSquadron style={{ width: '50px', height: '50px' }} />

@@ -1,7 +1,6 @@
 interface IButtonProps {
   isPrimary: boolean;
   label: string | JSX.Element | JSX.Element[];
-  classStyles?: string;
   onClick: () => void;
   disabled?: boolean;
 }
@@ -11,7 +10,6 @@ import styles from './Button.module.scss';
 export const Button = ({
   label,
   isPrimary,
-  classStyles,
   onClick,
   disabled,
 }: IButtonProps) => (

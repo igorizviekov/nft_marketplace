@@ -9,12 +9,20 @@ import { useState } from 'react';
 import { INFTCategories } from '../components/Filter/Filter.types';
 import { MultipleFilter } from '../components/MulitpleFilter/MultipleFilter';
 import FiltersBar from '../components/FiltersBar/FiltersBar';
+import HomeHero from '../components/HomeHero/HomeHero';
 export default function Home() {
   const [selected, setSelected] = useState<number>(0);
   const filterOptions: INFTCategories[] = ['Cat 1', 'Cat 2', 'Cat 3'];
 
   return (
     <BasePage>
+      <HomeHero
+        title={'Phoenix Mint - We are Live!'}
+        copy={
+          "Attention all traders! Phoenix Mint is now live and ready for you to start trading NFTs. Don't miss out on this opportunity to own unique digital assets for a fraction of the cost. Start trading today at unbeatable prices! #NFT #PhoenixMint #CryptoTrading"
+        }
+        callToAction={'Call me to action!'}
+      />
       <div>
         <h1>Popular Collections</h1>
         <div className={'grid-container'}>

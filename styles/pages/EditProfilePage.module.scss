@@ -9,6 +9,9 @@
   width: 100vw;
   height: 100vw;
 
+  position: sticky;
+  top: var(--spacing-lg);
+
   @include respond-to(mob-landscape) {
     width: 50%;
     max-width: 500px;

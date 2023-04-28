@@ -15,6 +15,19 @@
   }
 }
 
+.arrow {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+
+  transition: 0.2s ease-in-out;
+
+  cursor: pointer;
+
+  &:hover {
+    color: var(--yellow);
+  }
+}
 
 .image {
   width: 300px;
@@ -27,5 +40,10 @@
     top: 10px;
     left: 10px;
     z-index: 1;
+
+    background-color: white;
+
+    padding: var(--spacing-xs);
+    border-radius: 50%;
   }
 }

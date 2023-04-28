@@ -6,7 +6,7 @@ import { FiMoon, FiSun } from 'react-icons/fi';
 import stylesHeader from '../header.module.scss';
 import { Actions, useStoreActions, useStoreState } from 'easy-peasy';
 import { IStoreModel } from '../../../store/model/model.types';
-import { MenuItems } from '../MenuItems';
+import { MenuItems } from '../MenuItems/MenuItems';
 
 interface IBurgerMenuProps {
   isOpen: boolean;

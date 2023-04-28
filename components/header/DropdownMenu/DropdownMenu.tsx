@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { AiOutlinePoweroff } from 'react-icons/ai';
+import { AiOutlinePlus, AiOutlinePoweroff } from 'react-icons/ai';
 import { FaEthereum, FaFolderOpen } from 'react-icons/fa';
 import { IoIosWallet, IoMdSettings } from 'react-icons/io';
 import { GiEgyptianProfile } from 'react-icons/gi';
@@ -7,7 +7,6 @@ import { TbRefresh } from 'react-icons/tb';
 import { useOutsideAlerter } from '../../../hooks/useOutsideAlerter';
 import { useStoreState } from '../../../store';
 import { Button } from '../../ui/Button';
-import Icon from '../../ui/Icon/Icon';
 import styles from './DropdownMenu.module.scss';
 import { IDropdownMenu } from './DropdownMenu.types';
 import DropdownMenuItem from './DropdownMenuItem/DropdownMenuItem';
@@ -53,6 +52,11 @@ const DropdownMenu = ({}: IDropdownMenu) => {
             label={'Profile Settings'}
             icon={<IoMdSettings />}
             href={'/edit'}
+          />
+          <DropdownMenuItem
+            label={'Create NFT'}
+            icon={<AiOutlinePlus />}
+            href={'/create-nft'}
           />
           <DropdownMenuItem
             label={'Balance: 0.00'}
