@@ -1,4 +1,6 @@
+import { StaticImageData } from 'next/image';
+
 export interface IBaseImageProps {
-  imageUrl?: string;
+  imageUrl?: string | StaticImageData;
   description?: string;
 }

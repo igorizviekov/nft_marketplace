@@ -10,6 +10,7 @@ import { INFTCategories } from '../components/Filter/Filter.types';
 import { MultipleFilter } from '../components/MulitpleFilter/MultipleFilter';
 import FiltersBar from '../components/FiltersBar/FiltersBar';
 import HomeHero from '../components/HomeHero/HomeHero';
+import HorizontalScroll from '../components/HorizontalScroll/HorizontalScroll';
 export default function Home() {
   const [selected, setSelected] = useState<number>(0);
   const filterOptions: INFTCategories[] = ['Cat 1', 'Cat 2', 'Cat 3'];
@@ -42,7 +43,7 @@ export default function Home() {
 
       <div>
         <h1>New Launches</h1>
-        <div className="flex-row-scroll">
+        <HorizontalScroll>
           {LaunchpadDropsMocks &&
             LaunchpadDropsMocks.map((drop, index) => (
               <LaunchpadDrops
@@ -55,7 +56,7 @@ export default function Home() {
                 category={drop.category}
               />
             ))}
-        </div>
+        </HorizontalScroll>
       </div>
 
       <div>
@@ -66,7 +67,7 @@ export default function Home() {
           onSelect={setSelected}
         />
 
-        <div className="flex-row-scroll">
+        <HorizontalScroll>
           {LaunchpadDropsMocks &&
             LaunchpadDropsMocks.map((drop, index) => {
               if (
@@ -99,7 +100,7 @@ export default function Home() {
                 );
               }
             })}
-        </div>
+        </HorizontalScroll>
       </div>
       <div>
         <h1>MULTIPLE FILTER</h1>

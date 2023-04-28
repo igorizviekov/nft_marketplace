@@ -1,6 +1,5 @@
 import styles from './header.module.scss';
 import { useState, useEffect } from 'react';
-import { NextRouter, useRouter } from 'next/router';
 import Link from 'next/link';
 import MenuItems from './MenuItems/MenuItems';
 import { Actions, useStoreActions, useStoreState } from 'easy-peasy';
@@ -10,8 +9,9 @@ import { toast } from 'react-toastify';
 import { MenuTab } from '../../store/model/ui/ui.types';
 import { Button } from '../ui/Button';
 import DropdownMenu from './DropdownMenu/DropdownMenu';
-import { FaPhoenixSquadron } from 'react-icons/fa';
-import Icon from '../ui/Icon/Icon';
+import PhoenixLogo from '../../assets/icons/phoenix_logo.svg';
+import MintLogo from '../../assets/icons/mint_logo.svg';
+import BaseImage from '../ui/Base/BaseImage/BaseImage';
 
 export const Header = () => {
   const [menuTabs, setMenuTabs] = useState<MenuTab[]>([]);
@@ -92,11 +92,7 @@ export const Header = () => {
       <div className={styles['header__link']}>
         <Link href="/">
           <div className={styles['header__link__logo']}>
-            <Icon
-              icon={
-                <FaPhoenixSquadron style={{ width: '50px', height: '50px' }} />
-              }
-            />
+            <BaseImage imageUrl={PhoenixLogo} />
           </div>
         </Link>
       </div>
