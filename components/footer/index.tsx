@@ -1,43 +1,30 @@
-import { ImInstagram } from 'react-icons/im';
-import { TiSocialGithub } from 'react-icons/ti';
-import { FaLinkedinIn, FaTwitterSquare } from 'react-icons/fa';
-import Link from 'next/link';
-
+import styles from './Footer.module.scss';
+import BaseImage from '../ui/Base/BaseImage/BaseImage';
+import PhoenixMint from '../../assets//icons/phoenix_logo.svg';
 export const Footer = () => {
-  const socialIconClasses =
-    'hover:text-nft-red-violet fill-nft-dark-1 dark:fill-white my-1 sm:my-5 cursor-pointer mx-5   hover:dark:fill-nft-yellow';
-
   return (
-    <footer className="flexCenter flex-col sm:py-8 py-10 px-5bg-nft-black-1 shadow-toTop">
-      <div className="flexCenter w-full mt-5 sm:px-5 px=16">
-        <div className="flexBetween flex-row w-full minmd:w-4/5 sm:flex-col mt-7">
-          <p className="font-poppins dark:text-white text-nft-black-1 text-bold text-base sm:mb-10">
-            <strong>
-              <Link
-                href="https://igorizviekov.com/"
-                target="_blank"
-                className={socialIconClasses}
-              >
-                crypto_basset
-              </Link>
-            </strong>
-          </p>
-          <Link href="https://www.instagram.com/igorizviekov/" target="_blank">
-            <ImInstagram className={socialIconClasses} size={30} />
-          </Link>
-          <Link href="https://twitter.com/IIzviekov/" target="_blank">
-            <FaTwitterSquare className={socialIconClasses} size={30} />
-          </Link>
-          <Link href="https://github.com/igorizviekov" target="_blank">
-            <TiSocialGithub className={socialIconClasses} size={50} />
-          </Link>
-          <Link
-            href="https://www.linkedin.com/in/igorizviekov/"
-            target="_blank"
-          >
-            <FaLinkedinIn className={socialIconClasses} size={30} />
-          </Link>
+    <footer className={styles.footer}>
+      <div className={styles.firstItems}>
+        <div className={styles.logoContainer}>
+          <div className={styles.image}>
+            <BaseImage imageUrl={PhoenixMint} />
+          </div>
+          <h1>Phoenix Mint</h1>
         </div>
+
+        <h3>©2023 Phoenix Mint, Inc. All Rights Reserved.</h3>
+      </div>
+      <div className={styles.marketplace}>
+        <h4>Marketplace</h4>
+        <h3>Popular Collections</h3>
+        <h3>New Launches</h3>
+      </div>
+      <div className={styles.resources}>
+        <h4>Resources</h4>
+        <h3>Support</h3>
+        <h3>About us</h3>
+        <h3>Copyright</h3>
+        <h3>Termns & Privacy</h3>
       </div>
     </footer>
   );
