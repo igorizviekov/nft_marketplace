@@ -1,8 +1,6 @@
 .container {
   width: 100%;
 
-  margin-top: var(--spacing-sm);
-
   position: relative;
 
   .title {
@@ -16,16 +14,35 @@
 
     background-color: var(--background);
   }
+
+  //hover yellow
+  //focus green
+  //error red
 }
 
 .text {
   background-color: transparent;
-  border: 1px solid white;
+  border: var(--border-color);
 
   border-radius: var(--spacing-sm);
   padding: var(--spacing-md);
 
   height: var(--spacing-xl);
+  width: 100%;
+
+  outline: none;
+
+  margin-top: var(--spacing-md);
+}
+
+.textarea {
+  background-color: transparent;
+  border: var(--border-color);
+
+  border-radius: var(--spacing-sm);
+  padding: var(--spacing-md);
+
+  height: 150px;
   width: 100%;
 
   outline: none;

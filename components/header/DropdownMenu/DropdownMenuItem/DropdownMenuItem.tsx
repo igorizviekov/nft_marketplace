@@ -16,12 +16,12 @@ const DropdownMenuItem = ({
       {!isNotLink ? (
         <Link href={href ? href : ''} className={styles.dropdownItem} onClick={onClick}>
           <Icon icon={icon} />
-          <p>{label}</p>
+          <h3>{label}</h3>
         </Link>
       ) : (
         <div className={styles.dropdownItem} onClick={onClick}>
           <Icon icon={icon} />
-          <p>{label}</p>
+          <h3>{label}</h3>
         </div>
       )}
     </>

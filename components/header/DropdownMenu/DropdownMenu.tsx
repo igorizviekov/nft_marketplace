@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { AiOutlinePoweroff } from 'react-icons/ai';
+import { AiOutlinePlus, AiOutlinePoweroff } from 'react-icons/ai';
 import { FaEthereum, FaFolderOpen } from 'react-icons/fa';
 import { IoIosWallet, IoMdSettings } from 'react-icons/io';
 import { GiEgyptianProfile } from 'react-icons/gi';
@@ -7,7 +7,6 @@ import { TbRefresh } from 'react-icons/tb';
 import { useOutsideAlerter } from '../../../hooks/useOutsideAlerter';
 import { useStoreState } from '../../../store';
 import { Button } from '../../ui/Button';
-import Icon from '../../ui/Icon/Icon';
 import styles from './DropdownMenu.module.scss';
 import { IDropdownMenu } from './DropdownMenu.types';
 import DropdownMenuItem from './DropdownMenuItem/DropdownMenuItem';
@@ -33,11 +32,16 @@ const DropdownMenu = ({}: IDropdownMenu) => {
 //description (optional)
 //contract address (created by us)
 
+  //@TODO REPLACE WALLET STATE FOR STORE STATE WHEN MULTIPLE WALLETS ARE CONNECTED
+  const [wallets, setWallets] = useState<string[]>([]);
+
   useOutsideAlerter(
     ref,
     () => setMenuOpen(!isMenuOpen),
     () => setMenuOpen(true)
   );
+
+  console.log(walletState.activeWallet);
   return (
     <div className={styles.menu}>
       {walletState.activeWallet && (
@@ -67,6 +71,11 @@ const DropdownMenu = ({}: IDropdownMenu) => {
             onClick={() => setMenuOpen(false)}
           />
           <DropdownMenuItem
+            label={'Create NFT'}
+            icon={<AiOutlinePlus />}
+            href={'/create-nft'}
+          />
+          <DropdownMenuItem
             label={'Balance: 0.00'}
             icon={<FaEthereum />}
             isNotLink
@@ -77,12 +86,12 @@ const DropdownMenu = ({}: IDropdownMenu) => {
             href={'/wallets'}
           />
           <DropdownMenuItem
-            label={'Connect a different wallet'}
+            label={`Connect a different wallet${wallets.length > 0 && "'s"}`}
             icon={<TbRefresh />}
             href={'/connect-wallet'}
           />
           <DropdownMenuItem
-            label={'Disconnect wallet'}
+            label={`Disconnect wallet${wallets.length > 0 && "'s"}`}
             icon={<AiOutlinePoweroff />}
             isNotLink
             onClick={() => toast.warn('Wallet disconnected')}

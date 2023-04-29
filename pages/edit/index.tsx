@@ -5,6 +5,8 @@ import { Button } from '../../components/ui/Button';
 import Input from '../../components/ui/Input';
 import { useStoreActions } from '../../store';
 import styles from '../../styles/pages/EditProfilePage.module.scss';
+import ProfileImageUpload from '../../components/ProfileImageUpload/ProfileImageUpload';
+import { toast } from 'react-toastify';
 const EditProfile = () => {
   const [avatar, setAvatar] = useState<string>();
   const [username, setUsername] = useState<string>();
@@ -15,6 +17,7 @@ const EditProfile = () => {
   const [discord, setDiscord] = useState<string>();
   const [twitter, setTwitter] = useState<string>();
   const [instagram, setInstagram] = useState<string>();
+  const [file, setFile] = useState<File | null>(null);
 
   const updateProfile = useStoreActions(
     (actions) => actions.profile.updateProfile
@@ -34,12 +37,20 @@ const EditProfile = () => {
   };
   return (
     <BasePage>
-      <div className="flex-col-center">
+      <div className={styles.page}>
         <div className={styles.image}>
-          <BaseImage />
+          {avatar && <BaseImage />}
+          <ProfileImageUpload
+            file={file}
+            onUploadAbort={() => setFile(null)}
+            onDropAccepted={(arr) => setFile(arr?.[0])}
+            title={'Upload an Image'}
+            subTitle={'or Select and NFT'}
+          />
         </div>
 
         <div className={styles.form}>
+          <h1>Profile Settings</h1>
           <Input
             title={'Display Name'}
             inputType={'text'}
@@ -50,7 +61,7 @@ const EditProfile = () => {
           />
           <Input
             title={'Description'}
-            inputType={'text'}
+            inputType={'textarea'}
             placeholder={'And now, your description...'}
             handleChange={(e) =>
               setDescription((e.target as HTMLInputElement).value)
@@ -78,6 +89,7 @@ const EditProfile = () => {
               setWebsite((e.target as HTMLInputElement).value)
             }
           />
+          <h1 className={styles.social}>Social Settings</h1>
           <Input
             title={'Discord'}
             inputType={'text'}
@@ -102,8 +114,29 @@ const EditProfile = () => {
               setInstagram((e.target as HTMLInputElement).value)
             }
           />
+
+          <h1 className={styles.social}>App Settings</h1>
+          <Input
+            inputType={'text'}
+            title={'Time and Date'}
+            placeholder={'Dropdowns'}
+          />
+          <Input
+            inputType={'text'}
+            title={'Time Zone'}
+            placeholder={'Dropdowns'}
+          />
+          <Input
+            inputType={'text'}
+            title={'Language'}
+            placeholder={'Dropdowns'}
+          />
+          <Button
+            isPrimary={false}
+            label={'Save Settings'}
+            onClick={() => toast.warn('Upload to form DB')}
+          />
         </div>
-        <Button isPrimary={true} label={'Submit'} onClick={handleSubmit} />
       </div>
     </BasePage>
   );

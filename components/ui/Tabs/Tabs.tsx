@@ -9,7 +9,7 @@ export const Tabs = ({
 }: ITabsProps) => {
   const classNames = [styles['tabs'], className].filter(Boolean).join(' ');
   const tabOptions = options.map((option, i) => (
-    <h4
+    <h2
       className={`${styles['tab-option']} ${
         selected === i ? styles['selected'] : ''
       }`}
@@ -18,7 +18,7 @@ export const Tabs = ({
       onClick={() => handleChange(i)}
     >
       {option}
-    </h4>
+    </h2>
   ));
   return (
     <div className={classNames} {...props}>

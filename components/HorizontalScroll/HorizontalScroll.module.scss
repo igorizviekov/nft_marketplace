@@ -1,0 +1,46 @@
+.container {
+  position: relative;
+  // width: auto;
+
+  .leftArrow {
+    position: absolute;
+    left: -15px;
+    z-index: 1;
+    top: 38%;
+
+    background-color: var(--green);
+    padding: var(--spacing-sm);
+
+    border-radius: 50px;
+    box-shadow: var(--box-shadow);
+
+    &:hover {
+      background-color: var(--yellow);
+    }
+  }
+
+  .rightArrow {
+    position: absolute;
+    right: -15px;
+    z-index: 1;
+    top: 38%;
+
+    background-color: var(--green);
+    padding: var(--spacing-sm);
+
+    border-radius: 50px;
+    box-shadow: var(--box-shadow);
+
+    &:hover {
+      background-color: var(--yellow);
+    }
+  }
+
+  .icon {
+
+    color: black;
+
+    width: 20px;
+    height: 20px;
+  }
+}

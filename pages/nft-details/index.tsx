@@ -161,7 +161,6 @@ const NFTDetails = () => {
               <Button
                 isPrimary
                 label="List on Marketplace"
-                classStyles="mr-5 sm:mr-0 sm:mb-5 rounded-xl"
                 onClick={() =>
                   router.push(
                     `/resell-nft?tokenId=${nft.tokenId}&image=${nft.img}&price=${nft.price}`
@@ -172,7 +171,6 @@ const NFTDetails = () => {
               <Button
                 isPrimary
                 label={`Buy for ${nft.price} ${currency}`}
-                classStyles="mr-5 sm:mr-0 sm:mb-5 rounded-xl"
                 onClick={() => setIsModalVisible(true)}
               />
             )}

@@ -10,6 +10,8 @@ $gradient-primary-hover: linear-gradient(20deg, #014895 0%, #7ed6df 100%);
 
 body {
   background-color: var(--background);
+  font-family: 'Inter', 'sans-serif';
+  color: white;
 }
 
 .nft-gradient {
@@ -131,4 +133,17 @@ body {
 
 .info-alert {
   opacity: 0.8;
+}
+
+
+/* chrome and chromium based */
+.react-horizontal-scrolling-menu--scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+.react-horizontal-scrolling-menu--scroll-container {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
