@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-
 export const useDateCountdown = (date: Date): string => {
   const today = new Date().getTime();
 
@@ -12,6 +10,8 @@ export const useDateCountdown = (date: Date): string => {
 
   if (days > 0) {
     return `${days}d ${hours}h ${minutes}m`;
+  } else if (days <= 0 && hours <= 0 && minutes <= 0 && seconds <= 0) {
+    return 'end';
   } else {
     return `${hours}h ${minutes}m ${seconds}s`;
   }

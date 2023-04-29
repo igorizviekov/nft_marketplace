@@ -4,9 +4,10 @@ import styles from './LaunchpadDrops.module.scss';
 import BaseImage from '../ui/Base/BaseImage/BaseImage';
 import classNames from 'classnames';
 import Icon from '../ui/Icon/Icon';
-import { FaBitcoin, FaEthereum } from 'react-icons/fa';
+import { FaArrowRight, FaBitcoin, FaEthereum } from 'react-icons/fa';
 import { SiPrometheus } from 'react-icons/si';
 import { useDateCountdown } from './utils';
+import { toast } from 'react-toastify';
 const LaunchpadDrops = ({
   image,
   network,
@@ -19,11 +20,13 @@ const LaunchpadDrops = ({
 
   const icon =
     network === 'ETH' ? (
-      <FaEthereum style={{ color: 'black', width: '30px', height: '30px' }} />
+      <FaEthereum style={{ color: '#1d1d1d', width: '30px', height: '30px' }} />
     ) : network === 'SMR' ? (
-      <FaBitcoin style={{ color: 'black', width: '30px', height: '30px' }} />
+      <FaBitcoin style={{ color: '#1d1d1d', width: '30px', height: '30px' }} />
     ) : (
-      <SiPrometheus style={{ color: 'black', width: '30px', height: '30px' }} />
+      <SiPrometheus
+        style={{ color: '#1d1d1d', width: '30px', height: '30px' }}
+      />
     );
 
   useEffect(() => {
@@ -45,7 +48,20 @@ const LaunchpadDrops = ({
         <BaseImage imageUrl={image} />
       </div>
       <h2>{name}</h2>
-      {!isCategory && <p>{countdown}</p>}
+      {!isCategory &&
+        (countdown === 'end' ? (
+          <div
+            className={styles.arrow}
+            onClick={() => toast.warn('View collection')}
+          >
+            <p>View</p>
+            <Icon
+              icon={<FaArrowRight style={{ width: '14px', height: '14px' }} />}
+            />
+          </div>
+        ) : (
+          <p>{countdown}</p>
+        ))}
       {isCategory && <p>{category}</p>}
     </div>
   );

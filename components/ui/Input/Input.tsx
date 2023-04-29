@@ -44,7 +44,7 @@ const Input = ({
           name=""
           id=""
           rows={10}
-          className={styles.text}
+          className={styles.textarea}
           placeholder={placeholder}
           onChange={handleChange}
         />

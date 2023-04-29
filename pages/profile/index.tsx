@@ -1,26 +1,52 @@
 import React, { useState } from 'react';
-import DescriptionSticker from '../../components/DescriptionSticker/DescriptionSticker';
 import classNames from 'classnames';
+import BaseImage from '../../components/ui/Base/BaseImage/BaseImage';
+import styles from '../../styles/pages/CreatorsPage.module.scss';
+import Icon from '../../components/ui/Icon/Icon';
+import { FaDiscord, FaEdit, FaInstagram, FaTwitter } from 'react-icons/fa';
 import { Tabs } from '../../components/ui/Tabs/Tabs';
-import BasePage from '../../components/ui/Base/BasePage/BasePage';
-import ProfileImage from '../../components/ui/ProfileImage/ProfileImage';
-import { TEST_IMAGE_URL } from '../../components/ui/Base/BaseImage/BaseImage';
-import { ProfileMockNFTS } from '../../mocks/ProfileNFTS.mock';
+import { MockNFTS } from '../../mocks/CreatorPage.mock';
 import { NftCard } from '../../components/ui/nft-card';
-import styles from '../../styles/pages/ProfilePage.module.scss';
+import BasePage from '../../components/ui/Base/BasePage/BasePage';
+import DescriptionSticker from '../../components/DescriptionSticker/DescriptionSticker';
+import { FiEdit } from 'react-icons/fi';
 
-const ProfilePage = () => {
-  const [selected, setSelected] = useState<number>(0);
+const CreatorsPage = () => {
+  const [selectedTab, setSelectedTab] = useState<number>(0);
+  const [isOwnProfile, setIsOwnProfile] = useState<boolean>(true);
+  const options = ['My NFTs', 'Listed', 'Created', 'Liked', 'Activity'];
 
-  const options = ['Outgoing Offers', 'Incoming Offers'];
   return (
     <BasePage>
-      <div className={'section'}>
-        <div className={'hero-section'}>
-          <div className={styles.stickersSide}>
+      <div className={styles.hero}>
+        <div className={styles.imageContainer}>
+          <BaseImage />
+        </div>
+        <div className={classNames(styles.textContainer, 'flex-col-start')}>
+          <div className={styles.icons}>
+            <h1 className={styles.name}>Johanna DOE</h1>
+            <Icon icon={<FaDiscord style={{ width: '20px' }} />} />
+            <Icon icon={<FaTwitter />} />
+            <Icon icon={<FaInstagram />} />
+            {isOwnProfile && (
+              <Icon
+                icon={<FiEdit style={{ width: '22px', height: '22px' }} />}
+                className={styles.profileIcon}
+              />
+            )}
+          </div>
+          <p>
+            Nulla consequat massa quis enim. Donec pede justo, fringilla vel,
+            aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut,
+            imperdiet a, venenatis vitae, justo. Nulla consequat massa quis
+            enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget,
+            arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae,
+            justo.
+          </p>
+          <div className={styles.stickersContainer}>
             <DescriptionSticker
-              title={'Followers'}
-              data={'456 123'}
+              title={'Follower'}
+              data={'123 123'}
               type={'PRIMARY'}
             />
             <DescriptionSticker
@@ -28,98 +54,34 @@ const ProfilePage = () => {
               data={'12 123'}
               type={'PRIMARY'}
             />
-          </div>
-          <ProfileImage
-            profileName={'Petter Doe'}
-            profileImageUrl={TEST_IMAGE_URL}
-            profileDescription={
-              'M.F is a project that is activated, throughout the collection, around the magic number 108, which suggests that we face human karma.'
-            }
-          />
-          <div className={styles.stickersSide}>
             <DescriptionSticker
               title={'For Sale'}
               data={'123'}
               type={'PRIMARY'}
             />
-            <DescriptionSticker title={'Owned'} data={'64'} type={'PRIMARY'} />
-          </div>
-          <div className={styles.stickersBottom}>
-            <DescriptionSticker
-              title={'Followers'}
-              data={'456 123'}
-              type={'PRIMARY'}
-            />
-            <DescriptionSticker
-              title={'Following'}
-              data={'12 123'}
-              type={'PRIMARY'}
-            />
+            <DescriptionSticker title={'Owned'} data={'12'} type={'PRIMARY'} />
             <DescriptionSticker
               title={'For Sale'}
               data={'123'}
-              type={'PRIMARY'}
+              type={'SECONDARY'}
             />
-            <DescriptionSticker title={'Owned'} data={'64'} type={'PRIMARY'} />
+            <DescriptionSticker
+              title={'Owned'}
+              data={'12'}
+              type={'SECONDARY'}
+            />
           </div>
         </div>
-
-        <h1>Your statistics</h1>
-        <div className={classNames('grid-container')}>
-          <DescriptionSticker
-            title={'Solana'}
-            data={'64 SOL'}
-            type={'SECONDARY'}
-          />
-          <DescriptionSticker
-            title={'Solana'}
-            data={'64 SOL'}
-            type={'SECONDARY'}
-          />
-          <DescriptionSticker
-            title={'Solana'}
-            data={'64 SOL'}
-            type={'SECONDARY'}
-          />
-          <DescriptionSticker
-            title={'Solana'}
-            data={'64 SOL'}
-            type={'SECONDARY'}
-          />
-          <DescriptionSticker
-            title={'Solana'}
-            data={'64 SOL'}
-            type={'SECONDARY'}
-          />
-          <DescriptionSticker
-            title={'Solana'}
-            data={'64 SOL'}
-            type={'SECONDARY'}
-          />
-          <DescriptionSticker
-            title={'Solana'}
-            data={'64 SOL'}
-            type={'SECONDARY'}
-          />
-          <DescriptionSticker
-            title={'Solana'}
-            data={'64 SOL'}
-            type={'SECONDARY'}
-          />
-          <DescriptionSticker
-            title={'Solana'}
-            data={'64 SOL'}
-            type={'SECONDARY'}
-          />
-        </div>
+      </div>
+      <div className="flex-col">
         <Tabs
           options={options}
-          selected={selected}
-          handleChange={setSelected}
+          selected={selectedTab}
+          handleChange={setSelectedTab}
         />
-        <div className="flex-row-start">
-          {ProfileMockNFTS.map((nft, index) => {
-            if (nft.status === options[selected]) {
+        <div className={styles.nftRow}>
+          {MockNFTS.map((nft, index) => {
+            if (nft.status === options[selectedTab]) {
               return (
                 <NftCard
                   key={index + nft.tokenId}
@@ -140,4 +102,4 @@ const ProfilePage = () => {
   );
 };
 
-export default ProfilePage;
+export default CreatorsPage;

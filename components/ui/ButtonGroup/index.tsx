@@ -18,7 +18,6 @@ export const ButtonGroup = ({ options }: IButtonGroupProps) => {
           label={option.label}
           isPrimary={i === 0}
           onClick={option.handleClick}
-          classStyles="mx-2 sm:my-1"
         />
       ))}
     </div>

@@ -100,7 +100,6 @@ const ReSellNFT = () => {
         <div className="mt-7 w-full flex">
           <Button
             label="List NFT"
-            classStyles="rounded-xl"
             onClick={handleResell}
             isPrimary
           />

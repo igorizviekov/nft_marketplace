@@ -101,7 +101,6 @@ const MyNFTs: NextPage = () => {
             onClick={() => {
               router.push('/');
             }}
-            classStyles="w-100"
           />
         </div>
       </>

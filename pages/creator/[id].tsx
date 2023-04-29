@@ -9,34 +9,11 @@ import { MockNFTS } from '../../mocks/CreatorPage.mock';
 import { NftCard } from '../../components/ui/nft-card';
 import BasePage from '../../components/ui/Base/BasePage/BasePage';
 import DescriptionSticker from '../../components/DescriptionSticker/DescriptionSticker';
-import { IDescriptionStickerProps } from '../../components/DescriptionSticker/DescriptionSticker.types';
+
 const CreatorsPage = () => {
   const [selectedTab, setSelectedTab] = useState<number>(0);
 
   const options = ['On Sale', 'Created', 'Owned', 'Liked', 'Activity'];
-
-  const profileStickers: IDescriptionStickerProps[] = [
-    {
-      title: 'asd',
-      data: 'adasd',
-      type: 'PRIMARY',
-    },
-    {
-      title: 'asd',
-      data: 'adasd',
-      type: 'PRIMARY',
-    },
-    {
-      title: 'asd',
-      data: 'adasd',
-      type: 'PRIMARY',
-    },
-    {
-      title: 'asd',
-      data: 'adasd',
-      type: 'PRIMARY',
-    },
-  ];
   return (
     <BasePage>
       <div className={classNames('section')}>

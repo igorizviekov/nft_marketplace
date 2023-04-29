@@ -2,7 +2,14 @@ import { useStoreState } from 'easy-peasy';
 import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
 import { IStoreModel } from '../../../store/model/model.types';
-
+import styles from './NFTCard.module.scss';
+import { toast } from 'react-toastify';
+import Icon from '../Icon/Icon';
+import {
+  FaArrowAltCircleRight,
+  FaArrowRight,
+  FaEthereum,
+} from 'react-icons/fa';
 export interface INftCardProps {
   name: string;
   seller: string;
@@ -18,7 +25,7 @@ export interface INftCardProps {
 type NFTStatus =
   | 'On Sale'
   | 'Created'
-  | 'Owned'
+  | 'My NTFs'
   | 'Liked'
   | 'Activity'
   | 'Outgoing Offers'
@@ -38,52 +45,43 @@ export const NftCard = ({
   const { currency } = walletState;
 
   return (
-    <Link
-      href={{
-        pathname: '/nft-details',
-        query: {
-          img: img.toString(),
-          name,
-          owner,
-          price,
-          seller,
-          tokenId,
-          description,
-          nickname,
-        },
-      }}
-    >
-      <div className="flex-1 min-w-215 max-w-max xs:max-w-none sm:w-2/3sm:min-w-155 minmd:min-w-256 minlg:min-w-327 bg-nft-black-3 rounded-2xl p-4 mt-4  cursor-pointer shadow-md hover:shadow-lg">
-        <div className="relative w-full h-52 sm:h-36 minmd:h-60 minlg:h-300 rounded-2xl overflow-hidden">
-          <Image
-            src={img}
-            alt="nft"
-            fill
-            sizes="(max-width: 768px) 100vw,
+    <div className={styles.card}>
+      <div className={styles.image}>
+        <Image
+          src={img}
+          alt="nft"
+          fill
+          sizes="(max-width: 768px) 100vw,
               (max-width: 1200px) 50vw,
               33vw"
-            style={{
-              objectFit: 'cover',
-            }}
-          />
-        </div>
-        <div className="mt-3 flex flex-col sm:items-center">
-          <p className="font-poppins dark:text-white text-nft-black-1 font-semibold text-sm minlg:text-xl">
-            {name}
+          style={{
+            objectFit: 'cover',
+          }}
+        />
+      </div>
+      <div className={styles.text}>
+        <div className={styles.name}>
+          <h2>{name}</h2>
+          <p
+            className={styles.collectionName}
+            onClick={() => toast.warn('OpenCollection')}
+          >
+            {'Collection Name'}
           </p>
-          <div className="flexBetween mt-1 minlg:mt-3 flex-row xs:flex-col xs:items-start xs:mt-3">
-            <p className="font-poppins dark:text-white text-nft-black-1 font-semibold text-xs minlg:text-lg">
-              {Number(price).toFixed(2)}
-              <span className="normal"> {currency}</span>
-            </p>
-            <p className="font-poppins dark:text-white text-nft-black-1 font-semibold text-xs minlg:text-lg">
-              {owner.length > 10 && !nickname
-                ? `${owner.slice(0, 3)}...${owner.slice(owner.length - 5)}`
-                : nickname}
-            </p>
+        </div>
+        <div className={styles.bottom}>
+          <div className={styles.price}>
+            <Icon icon={<FaEthereum />} />
+            <h2>{Number(price).toFixed(2)}</h2>
+          </div>
+          <div className={styles.arrow}>
+            <p>View</p>
+            <Icon
+              icon={<FaArrowRight style={{ width: '14px', height: '14px' }} />}
+            />
           </div>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };

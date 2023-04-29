@@ -34,8 +34,9 @@
   }
 
   &:hover {
-    border: var(--border-color);
-    box-shadow: var(--box-shadow-white);
+    border: var(--border-color--accent);
+    box-shadow: var(--box-shadow-green);
+    background-color: var(--background-dark-green);
     padding-left: var(--spacing-sm-md);
   }
 }

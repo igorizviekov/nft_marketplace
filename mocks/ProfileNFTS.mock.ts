@@ -3,7 +3,7 @@ import { INftCardProps } from '../components/ui/nft-card';
 
 export const ProfileMockNFTS: INftCardProps[] = [
   {
-    name: 'Mock NFT',
+    name: 'Rusty Robots Country Club #11123',
     seller: 'Johanna',
     owner: 'Johanna',
     description: 'Description of the NFT',

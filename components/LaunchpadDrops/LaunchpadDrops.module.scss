@@ -1,16 +1,35 @@
 .container {
-  border: var(--border-color);
+  background-color: #182218;
 
   border-radius: var(--border-radius-sm);
   padding-bottom: var(--spacing-md);
 
+  border: 1px solid transparent;
+
+  margin: 0 10px;
+
   cursor: pointer;
+  transition: 0.2s ease-in-out;
 
   &:hover {
-    box-shadow: var(--box-shadow-white);
+    border: var(--border-color--accent);
+    box-shadow: var(--box-shadow-green);
   }
 }
 
+.arrow {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+
+  transition: 0.2s ease-in-out;
+
+  cursor: pointer;
+
+  &:hover {
+    color: var(--yellow);
+  }
+}
 
 .image {
   width: 300px;
@@ -23,5 +42,10 @@
     top: 10px;
     left: 10px;
     z-index: 1;
+
+    background-color: white;
+
+    padding: var(--spacing-xs);
+    border-radius: 50%;
   }
 }
