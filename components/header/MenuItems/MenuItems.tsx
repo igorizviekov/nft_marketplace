@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { MenuTab } from '../../../store/model/ui/ui.types';
 import styles from './MenuItems.module.scss';
 import classNames from 'classnames';
+import BaseLink from '../../ui/Base/BaseLink/BaseLink';
 interface IMenuItemsProps {
   links: string[];
   active: string;
@@ -22,12 +23,10 @@ const MenuItems = ({ links, active, setActiveTab }: IMenuItemsProps) => {
   return (
     <ul className={styles.list}>
       {links.map((link, i) => (
-        <li
-          key={link + i}
-          onClick={() => setActiveTab(link as MenuTab)}
-          className={classNames(styles.link, active === link && styles.active)}
-        >
-          <Link href={generateLink(i)}>{link}</Link>
+        <li key={link + i} onClick={() => setActiveTab(link as MenuTab)}>
+          <BaseLink href={generateLink(i)} active={active}>
+            {link}
+          </BaseLink>
         </li>
       ))}
     </ul>
