@@ -11,10 +11,12 @@ import { MultipleFilter } from '../components/MulitpleFilter/MultipleFilter';
 import FiltersBar from '../components/FiltersBar/FiltersBar';
 import HomeHero from '../components/HomeHero/HomeHero';
 import HorizontalScroll from '../components/HorizontalScroll/HorizontalScroll';
+import { Button } from '../components/ui/Button';
+import { useRouter } from 'next/router';
 export default function Home() {
   const [selected, setSelected] = useState<number>(0);
   const filterOptions: INFTCategories[] = ['Cat 1', 'Cat 2', 'Cat 3'];
-
+  const router = useRouter();
   return (
     <BasePage>
       <HomeHero
@@ -38,6 +40,13 @@ export default function Home() {
                 index={index}
               />
             ))}
+        </div>
+        <div className={styles.button}>
+          <Button
+            isPrimary={false}
+            label={'View all collections'}
+            onClick={() => router.push('collections')}
+          />
         </div>
       </div>
 
