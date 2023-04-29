@@ -5,6 +5,8 @@ import { Button } from '../../components/ui/Button';
 import Input from '../../components/ui/Input';
 import { useStoreActions } from '../../store';
 import styles from '../../styles/pages/EditProfilePage.module.scss';
+import ProfileImageUpload from '../../components/ProfileImageUpload/ProfileImageUpload';
+import { toast } from 'react-toastify';
 const EditProfile = () => {
   const [avatar, setAvatar] = useState<string>();
   const [username, setUsername] = useState<string>();
@@ -15,6 +17,7 @@ const EditProfile = () => {
   const [discord, setDiscord] = useState<string>();
   const [twitter, setTwitter] = useState<string>();
   const [instagram, setInstagram] = useState<string>();
+  const [file, setFile] = useState<File | null>(null);
 
   const updateProfile = useStoreActions(
     (actions) => actions.profile.updateProfile
@@ -36,7 +39,14 @@ const EditProfile = () => {
     <BasePage>
       <div className={styles.page}>
         <div className={styles.image}>
-          <BaseImage />
+          {avatar && <BaseImage />}
+          <ProfileImageUpload
+            file={file}
+            onUploadAbort={() => setFile(null)}
+            onDropAccepted={(arr) => setFile(arr?.[0])}
+            title={'Upload an Image'}
+            subTitle={'or Select and NFT'}
+          />
         </div>
 
         <div className={styles.form}>
@@ -124,9 +134,7 @@ const EditProfile = () => {
           <Button
             isPrimary={false}
             label={'Save Settings'}
-            onClick={function (): void {
-              throw new Error('Function not implemented.');
-            }}
+            onClick={() => toast.warn('Upload to form DB')}
           />
         </div>
       </div>

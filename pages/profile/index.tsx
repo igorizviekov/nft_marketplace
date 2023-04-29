@@ -10,6 +10,7 @@ import { NftCard } from '../../components/ui/nft-card';
 import BasePage from '../../components/ui/Base/BasePage/BasePage';
 import DescriptionSticker from '../../components/DescriptionSticker/DescriptionSticker';
 import { FiEdit } from 'react-icons/fi';
+
 const CreatorsPage = () => {
   const [selectedTab, setSelectedTab] = useState<number>(0);
   const [isOwnProfile, setIsOwnProfile] = useState<boolean>(true);

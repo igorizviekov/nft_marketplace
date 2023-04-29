@@ -22,11 +22,16 @@ const DropdownMenu = ({}: IDropdownMenu) => {
   const walletEnds =
     walletState.activeWallet && walletState.activeWallet.slice(38, 42);
 
+  //@TODO REPLACE WALLET STATE FOR STORE STATE WHEN MULTIPLE WALLETS ARE CONNECTED
+  const [wallets, setWallets] = useState<string[]>([]);
+
   useOutsideAlerter(
     ref,
     () => setMenuOpen(!isMenuOpen),
     () => setMenuOpen(true)
   );
+
+  console.log(walletState.activeWallet);
   return (
     <div className={styles.menu}>
       {walletState.activeWallet && (
@@ -69,12 +74,12 @@ const DropdownMenu = ({}: IDropdownMenu) => {
             href={'/wallets'}
           />
           <DropdownMenuItem
-            label={'Connect a different wallet'}
+            label={`Connect a different wallet${wallets.length > 0 && "'s"}`}
             icon={<TbRefresh />}
             href={'/connect-wallet'}
           />
           <DropdownMenuItem
-            label={'Disconnect wallet'}
+            label={`Disconnect wallet${wallets.length > 0 && "'s"}`}
             icon={<AiOutlinePoweroff />}
             isNotLink
             onClick={() => toast.warn('Wallet disconnected')}
