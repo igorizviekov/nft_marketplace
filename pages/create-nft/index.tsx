@@ -292,7 +292,6 @@ const CreateNFT: NextPage = () => {
           <Button
             isPrimary
             label="Create NFT"
-            classStyles="rounded-xl"
             disabled={
               !isFormValid(
                 formInput.name,
