@@ -9,7 +9,7 @@ const BaseLink = ({ href, children, active }: IBaseLinkProps) => {
       href={href}
       className={classNames(styles.link, active === children && styles.active)}
     >
-      {children}
+      <h3>{children}</h3>
     </Link>
   );
 };

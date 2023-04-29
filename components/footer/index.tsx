@@ -1,6 +1,7 @@
 import styles from './Footer.module.scss';
 import BaseImage from '../ui/Base/BaseImage/BaseImage';
 import PhoenixMint from '../../assets//icons/phoenix_logo.svg';
+import BaseLink from '../ui/Base/BaseLink/BaseLink';
 export const Footer = () => {
   return (
     <footer className={styles.footer}>
@@ -16,15 +17,15 @@ export const Footer = () => {
       </div>
       <div className={styles.marketplace}>
         <h4>Marketplace</h4>
-        <h3>Popular Collections</h3>
-        <h3>New Launches</h3>
+        <BaseLink href={''}>Popular Collections</BaseLink>
+        <BaseLink href={''}>New Launches</BaseLink>
       </div>
       <div className={styles.resources}>
         <h4>Resources</h4>
-        <h3>Support</h3>
-        <h3>About us</h3>
-        <h3>Copyright</h3>
-        <h3>Termns & Privacy</h3>
+        <BaseLink href={''}>Support</BaseLink>
+        <BaseLink href={''}>About us</BaseLink>
+        <BaseLink href={''}>Copyright</BaseLink>
+        <BaseLink href={''}>Termns & Privacy</BaseLink>
       </div>
     </footer>
   );
