@@ -78,7 +78,6 @@ const SingleForm = () => {
         <Button
           isPrimary
           label="Create NFT"
-          classStyles="rounded-xl"
           disabled={
             !isFormValid(
               formInput.name,
