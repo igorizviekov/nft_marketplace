@@ -6,6 +6,27 @@ $border: 1px;
   margin-top: var(--spacing-md);
   position: relative;
 
+  &:hover {
+    color: var(--yellow);
+
+    .header {
+      border: var(--border-color-yellow);
+    }
+
+  }
+
+  &:focus-within {
+    color: var(--green);
+
+    .header {
+      border: var(--border-color-green);
+    }
+
+    .options {
+      border: var(--border-color-green);
+    }
+  }
+
   .heading {
     display: block;
 
@@ -19,6 +40,7 @@ $border: 1px;
       content: ' *';
       color: red;
     }
+
   }
 
   .header {
@@ -26,13 +48,13 @@ $border: 1px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    
+
     background-color: var(--background);
     padding: var(--spacing-md);
-    
+
     border-radius: var(--border-radius-sm);
     border: $border solid white;
-    
+
     cursor: pointer;
   }
 
@@ -42,11 +64,11 @@ $border: 1px;
     padding: 0;
     z-index: 2;
     background-color: var(--background);
-    
+
     border: 1px solid white;
     border-top: none;
-    border-bottom-left-radius: 0.25rem;
-    border-bottom-right-radius: 0.25rem;
+    border-bottom-left-radius: var(--border-radius-sm);
+    border-bottom-right-radius: var(--border-radius-sm);
     margin-top: 0;
 
     cursor: pointer;
@@ -54,8 +76,9 @@ $border: 1px;
     .item {
       padding: 0.75rem 1rem;
       display: block;
-      &:hover{
-        background-color: var(--background-hover);
+
+      &:hover {
+        color: var(--yellow);
       }
     }
   }
