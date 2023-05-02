@@ -5,19 +5,24 @@ import { Button } from '../../components/ui/Button';
 import { isFormValid, submitNewNFT } from '../../scripts/utils';
 import { Dropdown } from '../../components/ui/dropdown';
 import AddCollectionModal from '../../components/AddCollectionModal/AddCollectionModal';
-
+import styles from '../../styles/pages/CreateNFTPage.module.scss';
+import classNames from 'classnames';
 export interface IFormInput {
-  price: string;
   name: string;
   description: string;
+  price: string;
+  image?: string;
+  collection?: string;
 }
 
 export const ADD_COLLECTION = '+ Add Collection';
 const SingleForm = () => {
   const [formInput, setFormInput] = useState<IFormInput>({
-    price: '',
+    price: '0',
     name: '',
     description: '',
+    image: '',
+    collection: '',
   });
 
   const OPTIONS = ['Collection 1', 'Collection 2', 'Collection 3'];
@@ -29,7 +34,7 @@ const SingleForm = () => {
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
 
   return (
-    <div className="flex-col-center">
+    <div className={classNames('flex-col-center', styles.form)}>
       <FileUpload
         subTitle="JPG, PNG, GIF, SVG, WEBP, Max 600KB."
         title="Drag or click to upload a file"
@@ -63,6 +68,7 @@ const SingleForm = () => {
         }
       />
       <Dropdown
+        heading="Select a collection"
         options={[...OPTIONS, ADD_COLLECTION]}
         checked={selected}
         placeholder="Or create a new one"
@@ -77,6 +83,7 @@ const SingleForm = () => {
         inputType="number"
         title="Price"
         placeholder="NFT Price"
+        value={formInput.price}
         handleChange={(e) =>
           setFormInput({
             ...formInput,
@@ -93,7 +100,8 @@ const SingleForm = () => {
             !isFormValid(
               formInput.name,
               Number(formInput.price),
-              formInput.description
+              formInput.description,
+              file
             )
           }
           onClick={() =>

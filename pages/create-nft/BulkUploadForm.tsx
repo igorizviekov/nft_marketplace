@@ -8,6 +8,8 @@ import BulkUpload from '../../components/BulkUpload/BulkUpload';
 import BaseLink from '../../components/ui/Base/BaseLink/BaseLink';
 import { ADD_COLLECTION } from './SingleForm';
 import AddCollectionModal from '../../components/AddCollectionModal/AddCollectionModal';
+import styles from '../../styles/pages/CreateNFTPage.module.scss';
+import classNames from 'classnames';
 
 export interface ICollectionFormProps {
   price: string;
@@ -44,7 +46,7 @@ const CollectionForm = () => {
 
   const [selected, setSelected] = useState<number>(0);
   return (
-    <div className="flex-col-center">
+    <div className={classNames('flex-col-center', styles.form)}>
       <BulkUpload
         file={file}
         onDropAccepted={(arr) => {
@@ -76,6 +78,7 @@ const CollectionForm = () => {
         placeholder={'Enter NFT name'}
       />
       <Dropdown
+        heading="Select a collection"
         options={[...OPTIONS, ADD_COLLECTION]}
         checked={selected}
         placeholder="Or create a new one"
@@ -93,7 +96,8 @@ const CollectionForm = () => {
             !isFormValid(
               formInput.name,
               Number(formInput.price),
-              formInput.description
+              formInput.description,
+              file
             )
           }
           onClick={() =>

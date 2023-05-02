@@ -5,18 +5,18 @@ import { useRouter } from 'next/router';
 import { create as ipfsClient } from 'ipfs-http-client';
 import { IFormInput } from '../pages/create-nft';
 import { useStoreState } from '../store';
+import { privateEncrypt } from 'crypto';
 
 export const isFormValid = (
   name: string,
   price: number,
   description: string,
-  file?: File
-) => {
-  if (!file) return false;
+  file: File | null
+): boolean => {
+  if (file === null) return false;
   if (!name.length) return false;
-  if (Number.isNaN(price)) return false;
-  if (price <= 0) return false;
   if (!description.length) return false;
+  if (price < 0) return false;
   return true;
 };
 
@@ -135,9 +135,9 @@ export const submitNewNFT = async (
   file: File | null
 ) => {
   const { name, price, description } = formInput;
-  const userState = useStoreState((state) => state.user);
+  // const userState = useStoreState((state) => state.user);
 
-  if (!isFormValid(name, Number(price), description)) {
+  if (!isFormValid(name, Number(price), description, file)) {
     setIsError('Please provide all necessary data to continue');
   }
   try {
@@ -149,8 +149,8 @@ export const submitNewNFT = async (
       description,
       setIsLoading,
       setIsError,
-      userState.name,
-      userState.avatar
+      // userState.name,
+      // userState.avatar
     );
   } catch {
     setIsError('Error occurred when submitting a new NFT. Please try again');
