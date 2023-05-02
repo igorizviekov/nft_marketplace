@@ -13,7 +13,7 @@ $border: 1px;
     padding: var(--spacing-xs);
     position: absolute;
     left: var(--spacing-sm);
-    top: -14px;
+    top: -18px;
 
     &__required:after {
       content: ' *';

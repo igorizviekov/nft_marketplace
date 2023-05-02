@@ -49,87 +49,9 @@ const CollectionForm = () => {
         file={file}
       />
       <Input
-        inputType="text"
-        title="Collection Name"
-        placeholder="Collection Name"
-        handleChange={(e) =>
-          setFormInput({
-            ...formInput,
-            name: (e.target as HTMLInputElement).value,
-          })
-        }
-      />
-
-      <Input
-        inputType="text"
-        title="Collection Symbol"
-        placeholder="Collection Symbol"
-        handleChange={(e) =>
-          setFormInput({
-            ...formInput,
-            name: (e.target as HTMLInputElement).value,
-          })
-        }
-      />
-
-      <Dropdown
-        heading={'Category'}
-        options={['Category 1', 'Category 2', 'Category 3']}
-        checked={selected}
-        onChange={setSelected}
-      />
-
-      <Dropdown
-        heading="Chain"
-        options={['Shimmer', 'Polygon', 'Binance']}
-        checked={selected}
-        onChange={setSelected}
-      />
-
-      <Input
-        inputType="textarea"
-        title="Collection Description"
-        placeholder="Collection Description"
-        handleChange={(e) =>
-          setFormInput({
-            ...formInput,
-            description: (e.target as HTMLTextAreaElement).value,
-          })
-        }
-      />
-
-      <Input
-        inputType="number"
-        title="Royalties"
-        placeholder="%"
-        handleChange={(e) =>
-          setFormInput({
-            ...formInput,
-            price: (e.target as HTMLInputElement).value,
-          })
-        }
-      />
-      <Input
-        inputType="text"
-        title="Royalties Address"
-        placeholder="Royalties Address"
-        handleChange={(e) =>
-          setFormInput({
-            ...formInput,
-            price: (e.target as HTMLInputElement).value,
-          })
-        }
-      />
-      <Input
-        inputType="text"
-        title="Website"
-        placeholder="https://mywebsite.io"
-        handleChange={(e) =>
-          setFormInput({
-            ...formInput,
-            price: (e.target as HTMLInputElement).value,
-          })
-        }
+        title={'NFT Name'}
+        inputType={'text'}
+        placeholder={'Enter NFT name'}
       />
 
       <div className="mt-7 w-full flex justify-end">

@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import BasePage from '../../components/ui/Base/BasePage/BasePage';
 import { Button } from '../../components/ui/Button';
-import { FileUpload } from '../../components/file-upload';
 import { Modal } from '../../components/modal';
 import { CreateError } from '../../components/modal/create-error';
-import { toast } from 'react-toastify';
-import { isFormValid, submitNewNFT } from '../../scripts/utils';
-import { useStoreState } from '../../store';
 import { Dropdown } from '../../components/ui/dropdown';
 import SingleForm from './SingleForm';
 import CollectionForm from './CollectionForm';

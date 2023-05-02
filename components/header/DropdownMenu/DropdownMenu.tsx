@@ -21,16 +21,6 @@ const DropdownMenu = ({}: IDropdownMenu) => {
     walletState.activeWallet && walletState.activeWallet.slice(0, 5);
   const walletEnds =
     walletState.activeWallet && walletState.activeWallet.slice(38, 42);
-//collection input is gonna be a modal with
-//image
-//name
-//symbol
-//category
-//chain
-//royalies % (optional)
-//website (optional)  
-//description (optional)
-//contract address (created by us)
 
   //@TODO REPLACE WALLET STATE FOR STORE STATE WHEN MULTIPLE WALLETS ARE CONNECTED
   const [wallets, setWallets] = useState<string[]>([]);

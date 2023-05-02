@@ -5,6 +5,7 @@ import { Button } from '../../components/ui/Button';
 import { isFormValid, submitNewNFT } from '../../scripts/utils';
 import { toast } from 'react-toastify';
 import { Dropdown } from '../../components/ui/dropdown';
+import AddCollectionModal from '../../components/AddCollectionModal/AddCollectionModal';
 
 export interface IFormInput {
   price: string;
@@ -12,15 +13,21 @@ export interface IFormInput {
   description: string;
 }
 
+export const ADD_COLLECTION = '+ Add Collection';
 const SingleForm = () => {
   const [formInput, setFormInput] = useState<IFormInput>({
     price: '',
     name: '',
     description: '',
   });
+
+  const OPTIONS = ['Collection 1', 'Collection 2', 'Collection 3'];
   const [file, setFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean | string>(false);
+
+  const [selected, setSelected] = useState<number>(0);
+  const [isModalOpen, setModalOpen] = useState<boolean>(false);
 
   return (
     <>
@@ -57,11 +64,16 @@ const SingleForm = () => {
         }
       />
       <Dropdown
-        options={['collection 1', 'collection 2', 'Add collection, opens a modal']}
-        checked={0}
-        heading={'Type of mint'}
-        onChange={() => toast.warn('asdasi')}
+        options={[...OPTIONS, ADD_COLLECTION]}
+        checked={selected}
+        placeholder="Or create a new one"
+        onChange={setSelected}
+        openModal={() => setModalOpen(true)}
       />
+
+      {isModalOpen && (
+        <AddCollectionModal handleModalClose={() => setModalOpen(false)} />
+      )}
       <Input
         inputType="number"
         title="Price"

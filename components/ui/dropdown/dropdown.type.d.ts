@@ -19,4 +19,8 @@ export interface IDropdownProps
    * Input change handler
    */
   onChange: (option: number) => void;
+  /**
+   *
+   */
+  openModal: () => void;
 }
