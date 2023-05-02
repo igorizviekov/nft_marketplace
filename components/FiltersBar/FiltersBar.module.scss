@@ -13,4 +13,9 @@
   gap: var(--spacing-xs);
 
   cursor: pointer;
+
+  &:hover{
+    border: var(--border-color-yellow);
+    color: var(--yellow);
+  }
 }
