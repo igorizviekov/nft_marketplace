@@ -76,12 +76,14 @@ const DropdownMenu = ({}: IDropdownMenu) => {
             href={'/wallets'}
           />
           <DropdownMenuItem
-            label={`Connect a different wallet${wallets.length > 0 && "'s"}`}
+            label={`Connect a different wallet${
+              wallets.length > 0 ? "'s" : ''
+            }`}
             icon={<TbRefresh />}
             href={'/connect-wallet'}
           />
           <DropdownMenuItem
-            label={`Disconnect wallet${wallets.length > 0 && "'s"}`}
+            label={`Disconnect wallet${wallets.length > 0 ? "'s" : ''}`}
             icon={<AiOutlinePoweroff />}
             isNotLink
             onClick={() => toast.warn('Wallet disconnected')}

@@ -30,7 +30,7 @@ const SingleForm = () => {
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
 
   return (
-    <>
+    <div className="flex-col-center">
       <FileUpload
         subTitle="JPG, PNG, GIF, SVG, WEBP, Max 600KB."
         title="Drag or click to upload a file"
@@ -102,7 +102,7 @@ const SingleForm = () => {
           }
         />
       </div>
-    </>
+    </div>
   );
 };
 

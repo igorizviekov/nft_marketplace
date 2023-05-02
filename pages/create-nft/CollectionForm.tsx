@@ -38,7 +38,7 @@ const CollectionForm = () => {
 
   const [selected, setSelected] = useState<number>(0);
   return (
-    <>
+    <div className="flex-col-center">
       <FileUpload
         subTitle="JPG, PNG, GIF, SVG, WEBP, Max 600KB."
         title="Drag or click to upload a file"
@@ -57,7 +57,7 @@ const CollectionForm = () => {
       <div className="mt-7 w-full flex justify-end">
         <Button
           isPrimary
-          label="Create NFT"
+          label="Upload"
           disabled={
             !isFormValid(
               formInput.name,
@@ -70,7 +70,7 @@ const CollectionForm = () => {
           }
         />
       </div>
-    </>
+    </div>
   );
 };
 
