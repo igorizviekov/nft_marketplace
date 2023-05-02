@@ -1,8 +1,22 @@
 .container {
-  width: 50%;
-  margin: var(--spacing-xl);
+  width: auto;
+  margin: var(--spacing-sm);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xl);
+
+}
+
+.column {
+  height: 100%;
 
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm);
+  justify-content: space-between;
+  gap: var(--spacing-md);
+
+
+  text-align: center;
 }

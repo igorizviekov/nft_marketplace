@@ -14,6 +14,13 @@
       cursor: pointer;
       width: 50px;
       height: 50px;
+      transition: ease-in-out;
+
+      // &:hover {
+
+      //   -webkit-animation: spin 1s ;
+      //   animation: spin 1s ;
+      // }
     }
   }
 
@@ -23,5 +30,29 @@
     gap: 50px;
 
     &__list {}
+  }
+}
+
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotateY(0deg);
+  }
+
+  to {
+    -webkit-transform: rotateY(-180deg);
+  }
+}
+
+@keyframes spin {
+  from {
+    -moz-transform: rotateY(0deg);
+    -ms-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+  }
+
+  to {
+    -moz-transform: rotateY(-360deg);
+    -ms-transform: rotateY(-360deg);
+    transform: rotateY(-360deg);
   }
 }

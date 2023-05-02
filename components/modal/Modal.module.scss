@@ -24,9 +24,12 @@
 
 .container {
   position: relative;
-  min-height: 20vh;
-  width: 50%;
+  width: auto;
+  height: auto;
 
+  padding: var(--spacing-xl);
+
+  overflow-y: scroll;
   background-color: var(--background);
 
   border: var(--border-color);
@@ -35,4 +38,29 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  scroll-behavior: smooth;
+
+  /* width */
+  &::-webkit-scrollbar {
+    width: 15px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: var(--background);
+    border-radius: var(--border-radius-md);
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: var(--background-light);
+    border: 1px solid white;
+    border-radius: var(--border-radius-sm);
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--yellow);
+  }
 }

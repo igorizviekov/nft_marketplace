@@ -22,7 +22,7 @@ const Input = ({
   const { currency } = walletState;
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} tabIndex={0}>
       <p className={styles.title}>{title}</p>
 
       {inputType === 'number' ? (
