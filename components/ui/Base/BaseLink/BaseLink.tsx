@@ -7,6 +7,7 @@ const BaseLink = ({ href, children, active }: IBaseLinkProps) => {
   return (
     <Link
       href={href}
+      target='#blank'
       className={classNames(styles.link, active === children && styles.active)}
     >
       <h3>{children}</h3>

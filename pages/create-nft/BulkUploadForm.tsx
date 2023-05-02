@@ -4,6 +4,10 @@ import Input from '../../components/ui/Input';
 import { Button } from '../../components/ui/Button';
 import { isFormValid, submitNewNFT } from '../../scripts/utils';
 import { Dropdown } from '../../components/ui/dropdown';
+import BulkUpload from '../../components/BulkUpload/BulkUpload';
+import BaseLink from '../../components/ui/Base/BaseLink/BaseLink';
+import { ADD_COLLECTION } from './SingleForm';
+import AddCollectionModal from '../../components/AddCollectionModal/AddCollectionModal';
 
 export interface ICollectionFormProps {
   price: string;
@@ -22,6 +26,8 @@ export interface ISingleFormProps {
 }
 const CollectionForm = () => {
   const [file, setFile] = useState<File | null>(null);
+  const [isModalOpen, setModalOpen] = useState<boolean>(false);
+  const OPTIONS = ['Collection 1', 'Collection 2', 'Collection 3'];
 
   const [formInput, setFormInput] = useState<ICollectionFormProps>({
     price: '',
@@ -39,21 +45,46 @@ const CollectionForm = () => {
   const [selected, setSelected] = useState<number>(0);
   return (
     <div className="flex-col-center">
-      <FileUpload
-        subTitle="JPG, PNG, GIF, SVG, WEBP, Max 600KB."
-        title="Drag or click to upload a file"
+      <BulkUpload
+        file={file}
         onDropAccepted={(arr) => {
           setFile(arr?.[0]);
         }}
         onUploadAbort={() => setFile(null)}
-        file={file}
+        title={'Upload all images for the collection'}
+        subTitle={'as a .zip or .rar'}
       />
+      <BulkUpload
+        file={file}
+        onDropAccepted={(arr) => {
+          setFile(arr?.[0]);
+        }}
+        onUploadAbort={() => setFile(null)}
+        title={'Upload metadata'}
+        subTitle={'as a .csv file'}
+      />
+      <BaseLink
+        href={
+          'https://docs.google.com/spreadsheets/d/1t4EPrrKsbTUEjfAJMUgnWkyBRNFLO6bSycB8RyXIQy8/edit#gid=1841889481'
+        }
+      >
+        <p>You can dowload our template here!</p>
+      </BaseLink>
       <Input
         title={'NFT Name'}
         inputType={'text'}
         placeholder={'Enter NFT name'}
       />
-
+      <Dropdown
+        options={[...OPTIONS, ADD_COLLECTION]}
+        checked={selected}
+        placeholder="Or create a new one"
+        onChange={setSelected}
+        openModal={() => setModalOpen(true)}
+      />
+      {isModalOpen && (
+        <AddCollectionModal handleModalClose={() => setModalOpen(false)} />
+      )}
       <div className="mt-7 w-full flex justify-end">
         <Button
           isPrimary

@@ -1,37 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import BasePage from '../../components/ui/Base/BasePage/BasePage';
-import { Button } from '../../components/ui/Button';
-import { Modal } from '../../components/modal';
-import { CreateError } from '../../components/modal/create-error';
 import { Dropdown } from '../../components/ui/dropdown';
 import SingleForm from './SingleForm';
-import CollectionForm from './CollectionForm';
+import CollectionForm from './BulkUploadForm';
 
-export type TypeOfMint = 'Single' | 'Bulk Upload';
+export type TypeOfMint = 'Single Upload' | 'Bulk Upload';
 
 const CreateSingleForm = () => {
-  const options: TypeOfMint[] = ['Single', 'Bulk Upload'];
+  const options: TypeOfMint[] = ['Single Upload', 'Bulk Upload'];
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
   const [selected, setSelected] = useState<number>(0);
 
-  const modal = isModalVisible && (
-    <Modal
-      header="Failed to create NFT"
-      footer={
-        <Button
-          isPrimary={false}
-          label="Dismiss"
-          onClick={() => setIsModalVisible(false)}
-        />
-      }
-      body={<CreateError />}
-      onClose={() => setIsModalVisible(false)}
-    />
-  );
   return (
     <BasePage>
-      {modal}
       <div className="w-full animate-fadeIn">
         <h1>Create NFT</h1>
         <Dropdown
@@ -39,11 +21,18 @@ const CreateSingleForm = () => {
           checked={selected}
           heading={'Type of mint'}
           onChange={setSelected}
+          openModal={function (): void {
+            throw new Error('Function not implemented.');
+          }}
         />
         <div className="mt-24">
           <div className="mt-4"></div>
         </div>
-        {options[selected] === 'Single' ? <SingleForm /> : <CollectionForm />}
+        {options[selected] === 'Single Upload' ? (
+          <SingleForm />
+        ) : (
+          <CollectionForm />
+        )}
       </div>
     </BasePage>
   );

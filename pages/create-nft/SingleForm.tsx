@@ -3,7 +3,6 @@ import Input from '../../components/ui/Input';
 import { FileUpload } from '../../components/file-upload';
 import { Button } from '../../components/ui/Button';
 import { isFormValid, submitNewNFT } from '../../scripts/utils';
-import { toast } from 'react-toastify';
 import { Dropdown } from '../../components/ui/dropdown';
 import AddCollectionModal from '../../components/AddCollectionModal/AddCollectionModal';
 
