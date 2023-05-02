@@ -25,7 +25,8 @@
   transition: 0.2s ease-in-out;
 
   &:hover {
-    border: var(--border-color--accent);
+    border: var(--border-color-yellow);
+    color: var(--yellow);
   }
 }
 
