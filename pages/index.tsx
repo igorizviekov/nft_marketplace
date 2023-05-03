@@ -13,7 +13,6 @@ import HomeHero from '../components/HomeHero/HomeHero';
 import HorizontalScroll from '../components/HorizontalScroll/HorizontalScroll';
 import { Button } from '../components/ui/Button';
 import { useRouter } from 'next/router';
-import { Spinner } from '../components/spinner';
 export default function Home() {
   const [selected, setSelected] = useState<number>(0);
   const filterOptions: INFTCategories[] = ['Cat 1', 'Cat 2', 'Cat 3'];
