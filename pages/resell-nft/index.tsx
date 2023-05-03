@@ -77,7 +77,7 @@ const ReSellNFT = () => {
   }, [isError]);
 
   const content = isLoading ? (
-    <Spinner styles="min-h-screen flexCenter animate-fadeIn" />
+    <Spinner />
   ) : image ? (
     <div className="flex justify-center sm:px-4 p-12 pt-28">
       <div className="w-1/3 sm:w-full md:min-h-screen">
@@ -98,11 +98,7 @@ const ReSellNFT = () => {
           alt="NFT"
         />
         <div className="mt-7 w-full flex">
-          <Button
-            label="List NFT"
-            onClick={handleResell}
-            isPrimary
-          />
+          <Button label="List NFT" onClick={handleResell} isPrimary />
         </div>
       </div>
     </div>

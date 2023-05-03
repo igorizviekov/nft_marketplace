@@ -17,7 +17,7 @@ export const NftList = ({ isLoading, nfts, searchProps }: INFTListProps) => {
     <div className="mb-12">
       <div className="w-full flex flex-wrap justify-start md:justify-center ">
         {isLoading ? (
-          <Spinner styles="min-h-screen w-full mt-20 animate-fadeIn" />
+          <Spinner />
         ) : !isLoading && !nfts.length ? (
           <h1 className="font-poppins dark:text-white text-nft-black-1 text-2xl minlg:text-4xl font-semibold my-5 px-5 sm:text-center min-h-screen">
             No NFTs Listed for Sale

@@ -17,7 +17,7 @@ const CreateNFT: NextPage = () => {
   const isRehydrated = useStoreRehydrated();
 
   return isLoading || !isRehydrated ? (
-    <Spinner styles="min-h-screen flexCenter animate-fadeIn" />
+    <Spinner />
   ) : (
     <BasePage>
       <CreateNftForm />
