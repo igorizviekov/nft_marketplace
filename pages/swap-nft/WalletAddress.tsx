@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { Button } from '../../components/ui/Button';
 
 import Input from '../../components/ui/Input';
-import { IStepsProps } from './types';
-import styles from './swap-page.module.scss';
+import { IStepsProps } from '.';
+import styles from '../../styles/pages/swap-page.module.scss';
+
 
 const WalletAddress = ({ setSteps }: IStepsProps) => {
   const [swapAddress, setSwapAddress] = useState<string>();

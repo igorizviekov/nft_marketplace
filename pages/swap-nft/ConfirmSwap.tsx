@@ -1,8 +1,8 @@
 import React from 'react';
 import { Button } from '../../components/ui/Button';
 import { NftCard } from '../../components/ui/nft-card';
-import { IStepsProps } from './types';
-import styles from './swap-page.module.scss';
+import { IStepsProps } from '.';
+import styles from '../../styles/pages/swap-page.module.scss';
 
 const ConfirmSwap = ({ setSteps }: IStepsProps) => {
   return (

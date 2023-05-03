@@ -1,8 +1,8 @@
 import React from 'react';
 import AddNftCard from '../../components/ui/add-nft-card';
 import { Button } from '../../components/ui/Button';
-import { IStepsProps } from './types';
-import styles from './swap-page.module.scss';
+import styles from '../../styles/pages/swap-page.module.scss';
+import { IStepsProps } from '.';
 
 const EnterNFTS = ({ setSteps }: IStepsProps) => {
   return (
