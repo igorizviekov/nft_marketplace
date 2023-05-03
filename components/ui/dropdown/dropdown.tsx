@@ -1,6 +1,6 @@
 import styles from './dropdown.module.scss';
 import { useState } from 'react';
-import { IDropdownProps } from './dropdown.type';
+import { IDropdownProps } from './dropdown.types';
 import Icon from '../Icon/Icon';
 import { BsArrowDown } from 'react-icons/bs';
 import { ADD_COLLECTION } from '../../../pages/create-nft/SingleForm';
