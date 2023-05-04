@@ -1,0 +1,81 @@
+.container {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(1, 1fr);
+  padding: var(--spacing-sm);
+
+  margin: var(--spacing-sm) 0;
+
+  border: var(--border-color);
+  border-radius: var(--border-radius-sm);
+
+  cursor: pointer;
+
+  &:hover {
+    border: var(--border-color-yellow);
+    color: var(--yellow);
+    box-shadow: var(--box-shadow-yellow);
+
+  }
+
+  .image {
+    height: 50px;
+    width: 50px;
+  }
+
+  .floor {
+    color: var(--green);
+  }
+
+}
+
+.collectionName {
+  min-width: 300px;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+
+  grid-column: 1 / span 3;
+}
+
+.floor {
+  min-width: 50px;
+  margin: auto;
+}
+
+.volume {
+  min-width: 50px;
+  margin: auto;
+
+}
+
+.sales {
+  min-width: 50px;
+  margin: auto;
+
+}
+
+.owners {
+  min-width: 50px;
+  margin: auto;
+
+}
+
+.supply {
+  min-width: 50px;
+  margin: auto;
+
+}
+
+.tableHeader {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(1, 1fr);
+
+  padding: var(--spacing-sm);
+
+  margin: var(--spacing-sm) 0;
+
+  border: var(--border-color);
+  border-radius: var(--border-radius-sm);
+}

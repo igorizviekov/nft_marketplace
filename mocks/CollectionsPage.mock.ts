@@ -2,6 +2,16 @@ import { ICollectionBannerProps } from '../components/CollectionBanner/Collectio
 
 export const AllCollections: ICollectionBannerProps[] = [
   {
+    uid: 1,
+    name: 'Collection Name',
+    floor: 20,
+    volume: 300,
+    sales: 76,
+    owners: 25,
+    supply: 1000,
+  },
+  {
+    uid: 1,
     name: 'Collection Name',
     floor: 0,
     volume: 0,
@@ -10,6 +20,7 @@ export const AllCollections: ICollectionBannerProps[] = [
     supply: 0,
   },
   {
+    uid: 1,
     name: 'Collection Name',
     floor: 0,
     volume: 0,
@@ -18,6 +29,7 @@ export const AllCollections: ICollectionBannerProps[] = [
     supply: 0,
   },
   {
+    uid: 1,
     name: 'Collection Name',
     floor: 0,
     volume: 0,
@@ -26,6 +38,7 @@ export const AllCollections: ICollectionBannerProps[] = [
     supply: 0,
   },
   {
+    uid: 1,
     name: 'Collection Name',
     floor: 0,
     volume: 0,
@@ -34,6 +47,7 @@ export const AllCollections: ICollectionBannerProps[] = [
     supply: 0,
   },
   {
+    uid: 1,
     name: 'Collection Name',
     floor: 0,
     volume: 0,
@@ -42,22 +56,7 @@ export const AllCollections: ICollectionBannerProps[] = [
     supply: 0,
   },
   {
-    name: 'Collection Name',
-    floor: 0,
-    volume: 0,
-    sales: 0,
-    owners: 0,
-    supply: 0,
-  },
-  {
-    name: 'Collection Name',
-    floor: 0,
-    volume: 0,
-    sales: 0,
-    owners: 0,
-    supply: 0,
-  },
-  {
+    uid: 1,
     name: 'Collection Name',
     floor: 0,
     volume: 0,
