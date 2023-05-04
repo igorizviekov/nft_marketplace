@@ -90,6 +90,7 @@ const ReSellNFT = () => {
           placeholder="NFT Price"
           handleChange={(e) => setPrice((e.target as HTMLInputElement).value)}
           value={price}
+          id={''}
         />
         <img
           src={image as string}

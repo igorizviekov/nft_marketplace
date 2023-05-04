@@ -5,7 +5,6 @@ import Input from '../../components/ui/Input';
 import { IStepsProps } from '.';
 import styles from '../../styles/pages/swap-page.module.scss';
 
-
 const WalletAddress = ({ setSteps }: IStepsProps) => {
   const [swapAddress, setSwapAddress] = useState<string>();
 
@@ -22,6 +21,7 @@ const WalletAddress = ({ setSteps }: IStepsProps) => {
         handleChange={(e) =>
           setSwapAddress((e.target as HTMLInputElement).value)
         }
+        id={''}
       />
       <div>
         <Button
