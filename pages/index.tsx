@@ -111,13 +111,6 @@ export default function Home() {
             })}
         </HorizontalScroll>
       </div>
-      <div>
-        <h1>MULTIPLE FILTER</h1>
-        <div className={styles.filterContainer}>
-          <MultipleFilter />
-          <FiltersBar />
-        </div>
-      </div>
     </BasePage>
   );
 }
