@@ -4,6 +4,18 @@
 
   position: relative;
 
+  .currency {
+    position: absolute;
+    top: 30px;
+    right: 20px;
+  }
+
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
   .title {
     position: absolute;
     z-index: 1;
@@ -58,10 +70,6 @@
       }
     }
   }
-
-  //hover yellow
-  //focus green
-  //error red
 }
 
 .text {
@@ -79,22 +87,56 @@
   outline: none;
 
 
+
 }
+
 
 .textarea {
   height: 150px;
   width: 100%;
 
-  margin-top: var(--spacing-md);
+  margin-top: var(--spacing-sm);
   padding: var(--spacing-md);
   background-color: transparent;
 
   border: var(--border-color);
-  border-radius: var(--spacing-sm); 
+  border-radius: var(--spacing-sm);
 
 
   outline: none;
 
+}
+
+.error {
+
+  input {
+    border: var(--border-color-error) !important;
+    color: var(--error) !important;
+
+
+    &::placeholder {
+      color: var(--error) !important;
+    }
+  }
+
+  textarea {
+    border: var(--border-color-error) !important;
+    color: var(--error) !important;
+
+
+    &::placeholder {
+      color: var(--error) !important;
+    }
+  }
+
+  small {
+    color: var(--error) !important;
+    padding-left: var(--spacing-md);
+  }
+
+  p {
+    color: var(--error);
+  }
 
 
 

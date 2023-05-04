@@ -25,7 +25,8 @@ const BulkUpload = ({
     <Dropzone
       ref={(node) => (dropzoneRef = node)}
       accept={{
-        'file/*': ['.zip', '/.rar'],
+        'text/*': ['.csv'],
+        //@TODO Add appilcation/zip and application/x-rar-compressed
       }}
       onDropRejected={(res) => {
         setError('Upload failed');

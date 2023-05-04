@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { FileUpload } from '../../components/file-upload';
 import Input from '../../components/ui/Input';
 import { Button } from '../../components/ui/Button';
 import { isFormValid, submitNewNFT } from '../../scripts/utils';
@@ -76,6 +75,7 @@ const CollectionForm = () => {
         title={'NFT Name'}
         inputType={'text'}
         placeholder={'Enter NFT name'}
+        id={''}
       />
       <Dropdown
         heading="Select a collection"

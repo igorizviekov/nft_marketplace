@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import Input from '../../components/ui/Input';
 import { FileUpload } from '../../components/file-upload';
 import { Button } from '../../components/ui/Button';
@@ -7,6 +7,11 @@ import { Dropdown } from '../../components/ui/dropdown';
 import AddCollectionModal from '../../components/AddCollectionModal/AddCollectionModal';
 import styles from '../../styles/pages/CreateNFTPage.module.scss';
 import classNames from 'classnames';
+import {
+  validateDescription,
+  validateName,
+  validatePrice,
+} from '../../components/ui/Input/utils';
 export interface IFormInput {
   name: string;
   description: string;
@@ -33,6 +38,12 @@ const SingleForm = () => {
   const [selected, setSelected] = useState<number>(0);
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
 
+  const handleForm = (e: ChangeEvent<Element>) => {
+    setFormInput({
+      ...formInput,
+      [e.target.id]: (e.target as HTMLInputElement).value,
+    });
+  };
   return (
     <div className={classNames('flex-col-center', styles.form)}>
       <FileUpload
@@ -45,6 +56,7 @@ const SingleForm = () => {
         file={file}
       />
       <Input
+        id="name"
         inputType="text"
         title="Name"
         placeholder="NFT Name"
@@ -54,6 +66,7 @@ const SingleForm = () => {
             name: (e.target as HTMLInputElement).value,
           })
         }
+        error={validateName(formInput.name)}
       />
 
       <Input
@@ -66,6 +79,8 @@ const SingleForm = () => {
             description: (e.target as HTMLTextAreaElement).value,
           })
         }
+        id={'description'}
+        error={validateDescription(formInput.description)}
       />
       <Dropdown
         heading="Select a collection"
@@ -90,6 +105,8 @@ const SingleForm = () => {
             price: (e.target as HTMLInputElement).value,
           })
         }
+        id={'price'}
+        error={validatePrice(Number(formInput.price))}
       />
 
       <div className="mt-7 w-full flex justify-end">

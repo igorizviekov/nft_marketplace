@@ -29,16 +29,19 @@ const AddCollectionModal = ({ handleModalClose }: IAddCollectionModalProps) => {
               placeholder={
                 'This will let you add multiple wallets with different royalties'
               }
+              id={'royalties'}
             />
             <Input
               title={'Website (Optional)'}
               inputType={'text'}
               placeholder={'Enter collections name'}
+              id={'website'}
             />
             <Input
               title={'Description (Optional)'}
               inputType={'textarea'}
               placeholder={'Enter collections name'}
+              id={'description'}
             />
           </div>
           <div className={styles.column}>
@@ -46,16 +49,13 @@ const AddCollectionModal = ({ handleModalClose }: IAddCollectionModalProps) => {
               title={'Name'}
               inputType={'text'}
               placeholder={'Enter collections name'}
+              id={'name'}
             />
             <Input
               title={'Symbol'}
               inputType={'text'}
               placeholder={'Enter collections name'}
-            />
-            <Input
-              title={'Category'}
-              inputType={'text'}
-              placeholder={'Enter collections name'}
+              id={'symbol'}
             />
             <Dropdown
               heading={'Chain'}

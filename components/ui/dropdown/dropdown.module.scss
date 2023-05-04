@@ -23,7 +23,10 @@ $border: 1px;
     }
 
     .options {
-      border: var(--border-color-green);
+      top: none;
+      border-left: var(--border-color-green);
+      border-right: var(--border-color-green);
+      border-bottom: var(--border-color-green);
     }
   }
 
