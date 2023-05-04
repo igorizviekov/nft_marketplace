@@ -1,5 +1,5 @@
 import styles from './header.module.scss';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, SetStateAction } from 'react';
 import Link from 'next/link';
 import MenuItems from './MenuItems/MenuItems';
 import { Actions, useStoreActions, useStoreState } from 'easy-peasy';
@@ -12,6 +12,8 @@ import DropdownMenu from './DropdownMenu/DropdownMenu';
 import PhoenixLogo from '../../assets/icons/phoenix_logo.svg';
 import MintLogo from '../../assets/icons/mint_logo.svg';
 import BaseImage from '../ui/Base/BaseImage/BaseImage';
+import { SearchFilter } from '../search-filter';
+import { ActiveSelectOption } from '../search-filter/search-filter.types';
 
 export const Header = () => {
   const [menuTabs, setMenuTabs] = useState<MenuTab[]>([]);
@@ -95,6 +97,18 @@ export const Header = () => {
             <BaseImage imageUrl={PhoenixLogo} />
           </div>
         </Link>
+        <SearchFilter
+          activeSelect={'Recently added'}
+          setActiveSelect={function (
+            value: SetStateAction<ActiveSelectOption>
+          ): void {
+            throw new Error('Function not implemented.');
+          }}
+          onHandleSearch={function (value: string): void {
+            throw new Error('Function not implemented.');
+          }}
+          onClearSearch={() => toast.warn('clear search')}
+        />
       </div>
       {headerContent}
     </nav>

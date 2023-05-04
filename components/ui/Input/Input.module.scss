@@ -1,51 +1,143 @@
 .container {
   width: 100%;
+  height: 100%;
 
   position: relative;
+
+  .currency {
+    position: absolute;
+    top: 30px;
+    right: 20px;
+  }
+
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 
   .title {
     position: absolute;
     z-index: 1;
 
-    top: 4px;
+    top: -2px;
+    text-shadow: var(--box-shadow-white);
     left: 16px;
 
-    padding: var(--spacing-xs);
+    padding: 0 var(--spacing-xs);
 
     background-color: var(--background);
+
+
   }
 
-  //hover yellow
-  //focus green
-  //error red
+  &:hover {
+    color: var(--yellow);
+
+    .text {
+      border: var(--border-color-yellow);
+
+      &::placeholder {
+        color: var(--yellow);
+      }
+    }
+
+    .textarea {
+      border: var(--border-color-yellow);
+
+      &::placeholder {
+        color: var(--yellow);
+      }
+    }
+  }
+
+  &:focus-within {
+    color: var(--green);
+
+    .text {
+      border: var(--border-color-green);
+
+      &::placeholder {
+        color: var(--green);
+      }
+    }
+
+    .textarea {
+      border: var(--border-color-green);
+
+      &::placeholder {
+        color: var(--green);
+      }
+    }
+  }
 }
 
 .text {
-  background-color: transparent;
-  border: var(--border-color);
-
-  border-radius: var(--spacing-sm);
-  padding: var(--spacing-md);
-
   height: var(--spacing-xl);
   width: 100%;
+  background-color: transparent;
+
+  margin-top: var(--spacing-sm);
+  padding: var(--spacing-md);
+
+  border: var(--border-color);
+  border-radius: var(--spacing-sm);
+
 
   outline: none;
 
-  margin-top: var(--spacing-md);
+
+
 }
 
+
 .textarea {
-  background-color: transparent;
-  border: var(--border-color);
-
-  border-radius: var(--spacing-sm);
-  padding: var(--spacing-md);
-
   height: 150px;
   width: 100%;
 
+  margin-top: var(--spacing-sm);
+  padding: var(--spacing-md);
+  background-color: transparent;
+
+  border: var(--border-color);
+  border-radius: var(--spacing-sm);
+
+
   outline: none;
 
-  margin-top: var(--spacing-md);
+}
+
+.error {
+
+  input {
+    border: var(--border-color-error) !important;
+    color: var(--error) !important;
+
+
+    &::placeholder {
+      color: var(--error) !important;
+    }
+  }
+
+  textarea {
+    border: var(--border-color-error) !important;
+    color: var(--error) !important;
+
+
+    &::placeholder {
+      color: var(--error) !important;
+    }
+  }
+
+  small {
+    color: var(--error) !important;
+    padding-left: var(--spacing-md);
+  }
+
+  p {
+    color: var(--error);
+  }
+
+
+
 }

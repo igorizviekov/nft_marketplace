@@ -4,8 +4,8 @@
 
   padding: var(--spacing-sm);
 
-  border: var(--border-color--accent);
-  color: var(--accent);
+  border: var(--border-color-green);
+  color: var(--green);
 
   display: flex;
   align-items: center;
@@ -13,4 +13,9 @@
   gap: var(--spacing-xs);
 
   cursor: pointer;
+
+  &:hover{
+    border: var(--border-color-yellow);
+    color: var(--yellow);
+  }
 }

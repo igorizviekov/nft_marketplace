@@ -3,9 +3,14 @@ import ConfirmedSwap from './ConfirmedSwap';
 import ConfirmSwap from './ConfirmSwap';
 import EnterNFTS from './EnterNfts';
 import WalletAddress from './WalletAddress';
-import { Steps } from './types';
-import styles from './swap-page.module.scss';
+import styles from '../../styles/pages/swap-page.module.scss';
 import BasePage from '../../components/ui/Base/BasePage/BasePage';
+export interface IStepsProps {
+  setSteps: (steps: Steps) => void;
+}
+
+export type Steps = 'WalletAddress' | 'EnterNFTS' | 'ConfirmSwap' | 'Confirmed';
+
 const SwapPage = () => {
   const [steps, setSteps] = useState<Steps>('WalletAddress');
 

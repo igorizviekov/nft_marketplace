@@ -10,6 +10,10 @@ $z-indexes: (
   --primary: #ffffff;
   --secondary: #fff7ea;
   --error: #c24747;
+  --accent: #3BC385;
+
+  --background: #1D1D1D;
+  --background-hover: #666666;
   --accent: #24501E;
   --background: #1D1D1D;
   --background-dark-green: #182218;
@@ -50,6 +54,9 @@ $z-indexes: (
 //border color
 --border-color: 1px solid white;
 --border-color--accent: 1px solid var(--accent);
+--border-color-yellow: 1px solid var(--yellow);
+--border-color-green: 1px solid var(--green);
+--border-color-error: 1px solid var(--error);
 
 // background
 --bg-gradient: linear-gradient(150deg,

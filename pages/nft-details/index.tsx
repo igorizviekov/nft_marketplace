@@ -93,7 +93,7 @@ const NFTDetails = () => {
 
   const content =
     isLoading && nft ? (
-      <Spinner styles="min-h-screen flexCenter animate-fadeIn" />
+      <Spinner />
     ) : nft ? (
       <div className="relative flex justify-center md:flex-col min-h-screen md:pt-24 animate-fadeIn">
         <div className="relative flex-1 flexCenter sm:px-4 p-12 border-r md:border-r-0 md:border-b dark:border-nft-black-1 border-nft-gray-1">
@@ -182,9 +182,9 @@ const NFTDetails = () => {
     );
 
   const modal = isModalVisible && nft && (
-    <Modal
-      header="Check Out"
-      footer={
+    <Modal onClose={() => setIsModalVisible(false)}>
+      <>
+        <PaymentBody nft={nft as INftCardProps} currency={currency} />
         <ButtonGroup
           options={[
             { label: 'Checkout', handleClick: handleCheckout },
@@ -194,10 +194,8 @@ const NFTDetails = () => {
             },
           ]}
         />
-      }
-      body={<PaymentBody nft={nft as INftCardProps} currency={currency} />}
-      onClose={() => setIsModalVisible(false)}
-    />
+      </>
+    </Modal>
   );
 
   return (

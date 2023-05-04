@@ -1,0 +1,66 @@
+.backdrop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: fixed;
+
+  inset: 0;
+  z-index: 10;
+
+  backdrop-filter: blur(5px);
+}
+
+.icon {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--yellow);
+  }
+}
+
+.container {
+  position: relative;
+  width: auto;
+  height: auto;
+
+  padding: var(--spacing-xl);
+
+  overflow-y: scroll;
+  background-color: var(--background);
+
+  border: var(--border-color);
+  border-radius: var(--border-radius-sm);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  scroll-behavior: smooth;
+
+  /* width */
+  &::-webkit-scrollbar {
+    width: 15px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: var(--background);
+    border-radius: var(--border-radius-md);
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: var(--background-light);
+    border: 1px solid white;
+    border-radius: var(--border-radius-sm);
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--yellow);
+  }
+}

@@ -58,6 +58,7 @@ const EditProfile = () => {
             handleChange={(e) =>
               setUsername((e.target as HTMLInputElement).value)
             }
+            id={''}
           />
           <Input
             title={'Description'}
@@ -66,12 +67,14 @@ const EditProfile = () => {
             handleChange={(e) =>
               setDescription((e.target as HTMLInputElement).value)
             }
+            id={''}
           />
           <Input
             title={'Email'}
             inputType={'text'}
             placeholder={'An email...'}
             handleChange={(e) => setEmail((e.target as HTMLInputElement).value)}
+            id={''}
           />
           <Input
             title={'Location'}
@@ -80,6 +83,7 @@ const EditProfile = () => {
             handleChange={(e) =>
               setLocation((e.target as HTMLInputElement).value)
             }
+            id={''}
           />
           <Input
             title={'Website'}
@@ -88,6 +92,7 @@ const EditProfile = () => {
             handleChange={(e) =>
               setWebsite((e.target as HTMLInputElement).value)
             }
+            id={''}
           />
           <h1 className={styles.social}>Social Settings</h1>
           <Input
@@ -97,6 +102,7 @@ const EditProfile = () => {
             handleChange={(e) =>
               setDiscord((e.target as HTMLInputElement).value)
             }
+            id={''}
           />
           <Input
             title={'Twitter'}
@@ -105,6 +111,7 @@ const EditProfile = () => {
             handleChange={(e) =>
               setTwitter((e.target as HTMLInputElement).value)
             }
+            id={''}
           />
           <Input
             title={'Instagram'}
@@ -113,6 +120,7 @@ const EditProfile = () => {
             handleChange={(e) =>
               setInstagram((e.target as HTMLInputElement).value)
             }
+            id={''}
           />
 
           <h1 className={styles.social}>App Settings</h1>
@@ -120,16 +128,19 @@ const EditProfile = () => {
             inputType={'text'}
             title={'Time and Date'}
             placeholder={'Dropdowns'}
+            id={''}
           />
           <Input
             inputType={'text'}
             title={'Time Zone'}
             placeholder={'Dropdowns'}
+            id={''}
           />
           <Input
             inputType={'text'}
             title={'Language'}
             placeholder={'Dropdowns'}
+            id={''}
           />
           <Button
             isPrimary={false}

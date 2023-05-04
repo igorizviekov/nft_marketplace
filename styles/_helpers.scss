@@ -93,8 +93,17 @@
 
   padding: var(--spacing-md) 0;
   gap: var(--spacing-md);
+}
 
+.flex-row-between {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
 
+  flex-wrap: wrap;
+  padding: var(--spacing-md) 0;
+  gap: var(--spacing-md);
 }
 
 .flex-row-scroll {

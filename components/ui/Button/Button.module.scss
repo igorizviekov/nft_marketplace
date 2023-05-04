@@ -24,7 +24,20 @@
 
   transition: 0.2s ease-in-out;
 
-  &:hover{
-    border: var(--border-color--accent);
+  &:hover {
+    border: var(--border-color-yellow);
+    color: var(--yellow);
   }
+}
+
+.disabled {
+  padding: var(--spacing-md) var(--spacing-lg);
+
+  border-radius: 100px;
+
+  background-color: transparent;
+  border: var(--border-color-error);
+  color: var(--error);
+
+  transition: 0.2s ease-in-out;
 }

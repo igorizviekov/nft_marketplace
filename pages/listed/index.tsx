@@ -85,7 +85,7 @@ const ListedNFTs: NextPage = () => {
     }
   }, [isError]);
 
-  let content = <Spinner styles="min-h-screen flexCenter animate-fadeIn" />;
+  let content = <Spinner />;
 
   if (!isLoading && nfts.length === 0) {
     content = (

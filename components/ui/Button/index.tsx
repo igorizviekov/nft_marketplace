@@ -16,7 +16,9 @@ export const Button = ({
   <button
     onClick={onClick}
     disabled={disabled}
-    className={isPrimary ? styles.primary : styles.secondary}
+    className={
+      disabled ? styles.disabled : isPrimary ? styles.primary : styles.secondary
+    }
   >
     <h3>{label}</h3>
   </button>

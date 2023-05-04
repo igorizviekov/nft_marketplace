@@ -10,6 +10,9 @@
 
   background-color: var(--background-light);
 
+  &:hover {
+    color: var(--yellow);
+  }
 }
 
 .filter {
@@ -27,6 +30,12 @@
 }
 
 .selected {
-  border: 1px solid var(--accent);
-  color: var(--accent);
+  border: var(--border-color-green);
+  color: var(--green);
+
+  &:hover {
+    color: var(--yellow);
+    border: var(--border-color-yellow);
+  }
+
 }

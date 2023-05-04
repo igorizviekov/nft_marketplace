@@ -52,11 +52,13 @@ const DropdownMenu = ({}: IDropdownMenu) => {
             label={'My Items'}
             icon={<FaFolderOpen />}
             href={'/profile'}
+            onClick={() => setMenuOpen(false)}
           />
           <DropdownMenuItem
-            label={'Profile Settings'}
+            label={'Settings'}
             icon={<IoMdSettings />}
             href={'/edit'}
+            onClick={() => setMenuOpen(false)}
           />
           <DropdownMenuItem
             label={'Create NFT'}
@@ -74,12 +76,14 @@ const DropdownMenu = ({}: IDropdownMenu) => {
             href={'/wallets'}
           />
           <DropdownMenuItem
-            label={`Connect a different wallet${wallets.length > 0 && "'s"}`}
+            label={`Connect a different wallet${
+              wallets.length > 0 ? "'s" : ''
+            }`}
             icon={<TbRefresh />}
             href={'/connect-wallet'}
           />
           <DropdownMenuItem
-            label={`Disconnect wallet${wallets.length > 0 && "'s"}`}
+            label={`Disconnect wallet${wallets.length > 0 ? "'s" : ''}`}
             icon={<AiOutlinePoweroff />}
             isNotLink
             onClick={() => toast.warn('Wallet disconnected')}
