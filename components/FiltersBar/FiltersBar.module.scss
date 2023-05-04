@@ -1,3 +1,4 @@
+
 .selectedFilter {
   height: 40px;
   width: auto;
@@ -14,8 +15,14 @@
 
   cursor: pointer;
 
-  &:hover{
+  &:hover {
     border: var(--border-color-yellow);
     color: var(--yellow);
   }
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
 }

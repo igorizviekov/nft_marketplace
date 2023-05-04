@@ -21,6 +21,11 @@ export interface INftCardProps {
   nickname?: string;
   avatar?: string;
   status?: NFTStatus;
+  traits?: ITraits[];
+}
+export interface ITraits {
+  trait_type: string;
+  value: string;
 }
 type NFTStatus =
   | 'On Sale'

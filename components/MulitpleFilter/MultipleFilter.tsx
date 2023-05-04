@@ -5,24 +5,22 @@ import { Accordion } from 'react-accordion-ts';
 import 'react-accordion-ts/src/panel.css';
 import Icon from '../ui/Icon/Icon';
 import { BsChevronDown } from 'react-icons/bs';
-import { FilterMock } from '../../mocks/MultipleFilter.mock';
 import { useStoreActions, useStoreState } from '../../store';
-import { VscClose } from 'react-icons/vsc';
 import classNames from 'classnames';
-export const MultipleFilter = ({}: IMultipleFilterProps) => {
+export const MultipleFilter = ({ values }: IMultipleFilterProps) => {
   const addFilter = useStoreActions((actions) => actions.filter.addFilter);
 
   const filters = useStoreState((state) => state.filter.filters);
-  const items = FilterMock.map(({ content, title }) => ({
+  const items = values?.traits.map(({ trait_type, values }) => ({
     title: (
       <div className={styles.title}>
-        <h3>{title}</h3>
+        <h3>{trait_type}</h3>
         <Icon icon={<BsChevronDown />} />
       </div>
     ),
     content: (
       <>
-        {content.map((item, index) => {
+        {values.map((item, index) => {
           const selected = filters.includes(item);
           return (
             <div
@@ -39,8 +37,6 @@ export const MultipleFilter = ({}: IMultipleFilterProps) => {
   }));
 
   return (
-    <>
-      <Accordion items={items} duration={200} multiple={false} />
-    </>
+    <>{items && <Accordion items={items} duration={200} multiple={false} />}</>
   );
 };

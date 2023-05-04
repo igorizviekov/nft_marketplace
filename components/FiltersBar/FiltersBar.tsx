@@ -15,21 +15,28 @@ const FiltersBar = ({}: IFiltersBarProps) => {
   return (
     <>
       {filters.length > 0 && (
-        <div className={styles.selectedFilter} onClick={() => clearFilters()}>
-          {'Clear all'}
-          <Icon icon={<VscClose />} />
+        <div className={styles.filters}>
+          {filters.length > 0 && (
+            <div
+              className={styles.selectedFilter}
+              onClick={() => clearFilters()}
+            >
+              {'Clear all'}
+              <Icon icon={<VscClose />} />
+            </div>
+          )}
+          {filters.map((filter, index) => (
+            <div
+              key={index}
+              className={styles.selectedFilter}
+              onClick={() => deleteFilter(filter)}
+            >
+              {filter}
+              <Icon icon={<VscClose />} />
+            </div>
+          ))}
         </div>
       )}
-      {filters.map((filter, index) => (
-        <div
-          key={index}
-          className={styles.selectedFilter}
-          onClick={() => deleteFilter(filter)}
-        >
-          {filter}
-          <Icon icon={<VscClose />} />
-        </div>
-      ))}
     </>
   );
 };
