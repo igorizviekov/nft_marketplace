@@ -31,7 +31,9 @@ const ConfirmSwap = ({ setSteps }: IStepsProps) => {
             description={'Descriptiion'}
             img={''}
             price={12}
-            tokenId={0} traits={[]}          />
+            tokenId={0}
+            traits={[]}
+          />
         </div>
       </div>
       <div className="flex flex-col items-center text-center gap-1">
