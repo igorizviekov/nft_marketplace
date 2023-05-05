@@ -77,9 +77,9 @@ transform 0.6s var(--ease-in-out-cubic);
 // box-shadow
 --box-shadow: -1px -1px 16px -7px rgba(97, 97, 97, 0.795);
 
---box-shadow-white: -1px -1px 16px -7px rgb(255, 255, 255);
---box-shadow-green: -1px -1px 16px -7px var(--accent);
---box-shadow-yellow: -1px -1px 16px -7px var(--yellow);
+--box-shadow-white: 0px 0px 10px 1px rgb(255, 255, 255);
+--box-shadow-green: 0px 0px 5px 1px var(--accent);
+--box-shadow-yellow: 0px 0px 10px 1px var(--yellow);
 
 @include respond-to(sm) {
   --box-shadow: 0px 60px 30px rgba(25, 29, 22, 0.01),

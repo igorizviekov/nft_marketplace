@@ -18,7 +18,7 @@ const FiltersBar = ({}: IFiltersBarProps) => {
         <div className={styles.filters}>
           {filters.length > 0 && (
             <div
-              className={styles.selectedFilter}
+              className={styles.clearAll}
               onClick={() => clearFilters()}
             >
               {'Clear all'}

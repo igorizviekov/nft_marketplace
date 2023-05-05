@@ -79,6 +79,7 @@ const NFTDetails = () => {
           tokenId: Number(tokenId),
           price: Number(price),
           nickname: nickname as string,
+          traits: nickname as any,
         });
       }
       setIsLoading(false);
