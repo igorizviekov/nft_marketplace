@@ -5,7 +5,6 @@ import { Actions, useStoreActions, useStoreState } from 'easy-peasy';
 import { IStoreModel } from '../../store/model/model.types';
 import { ConnectWallet, connectWallet } from '../../utils';
 import { toast } from 'react-toastify';
-import { MenuTab } from '../../store/model/ui/ui.types';
 import { Button } from '../ui/Button';
 import DropdownMenu from './DropdownMenu/DropdownMenu';
 import PhoenixLogo from '../../assets/icons/phoenix_logo.svg';

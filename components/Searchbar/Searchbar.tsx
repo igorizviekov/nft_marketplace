@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ISearchFilterProps } from './Searchbar.types';
 import styles from './Searchbar.module.scss';
 import Input from '../ui/Input';
+import { BsSearch } from 'react-icons/bs';
 export const Searchbar = ({
   onHandleSearch,
   onClearSearch,
@@ -36,6 +37,7 @@ export const Searchbar = ({
           setDebouncedSearch((e.target as HTMLInputElement).value)
         }
         value={debouncedSearch}
+        icon={<BsSearch />}
       />
     </div>
   );
