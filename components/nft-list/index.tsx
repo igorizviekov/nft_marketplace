@@ -1,4 +1,4 @@
-import { INftCardProps, NftCard } from '../ui/NFTCard/NFTCard';
+import { INftCardProps } from '../ui/NFTCard/NFTCard.types';
 import { SearchFilter } from '../SearchFilter/SearchFilter';
 import { Spinner } from '../spinner';
 import { ISearchFilterProps } from '../SearchFilter/SearchFilter.types';

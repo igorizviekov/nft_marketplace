@@ -8,12 +8,13 @@ import classNames from 'classnames';
 import { FaDiscord, FaInstagram, FaTwitter } from 'react-icons/fa';
 import { MultipleFilter } from '../../components/MulitpleFilter/MultipleFilter';
 import FiltersBar from '../../components/FiltersBar/FiltersBar';
-import { INftCardProps, ITraits, NftCard } from '../../components/ui/NFTCard/NFTCard';
+import { NftCard } from '../../components/ui/NFTCard/NFTCard';
 import {
   CollectionNFTS,
   CollectionTraits,
 } from '../../mocks/SingleCollectionPage.mock';
 import { useStoreState } from '../../store';
+import { INftCardProps } from '../../components/ui/NFTCard/NFTCard.types';
 
 const SingleCollectionPage = () => {
   const filters = useStoreState((state) => state.filter.filters);

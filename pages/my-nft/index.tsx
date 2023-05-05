@@ -1,6 +1,7 @@
 import { NextPage } from 'next';
 import { fetchContract } from '../../utils';
-import { INftCardProps, NftCard } from '../../components/ui/NFTCard/NFTCard';
+import { NftCard } from '../../components/ui/NFTCard/NFTCard';
+import { INftCardProps } from '../../components/ui/NFTCard/NFTCard.types';
 import { useEffect, useState } from 'react';
 import { useStoreRehydrated } from 'easy-peasy';
 import { ethers } from 'ethers';

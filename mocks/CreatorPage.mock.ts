@@ -1,5 +1,5 @@
 import { TEST_IMAGE_URL } from '../components/ui/Base/BaseImage/BaseImage';
-import { INftCardProps } from '../components/ui/NFTCard/NFTCard';
+import { INftCardProps } from '../components/ui/NFTCard/NFTCard.types';
 
 export const MockNFTS: INftCardProps[] = [
   {

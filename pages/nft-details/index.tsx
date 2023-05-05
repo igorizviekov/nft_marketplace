@@ -2,7 +2,7 @@ import { useStoreState } from 'easy-peasy';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { Spinner } from '../../components/spinner';
-import { INftCardProps } from '../../components/ui/NFTCard/NFTCard';
+import { INftCardProps } from '../../components/ui/NFTCard/NFTCard.types';
 import { IStoreModel } from '../../store/model/model.types';
 import Image from 'next/image';
 import { Button } from '../../components/ui/Button';

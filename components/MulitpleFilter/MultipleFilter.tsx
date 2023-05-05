@@ -7,7 +7,7 @@ import Icon from '../ui/Icon/Icon';
 import { BsChevronDown } from 'react-icons/bs';
 import { useStoreActions, useStoreState } from '../../store';
 import classNames from 'classnames';
-import { ITraits } from '../ui/NFTCard/NFTCard';
+import { ITraits } from '../ui/NFTCard/NFTCard.types';
 export const MultipleFilter = ({ values }: IMultipleFilterProps) => {
   const addFilter = useStoreActions((actions) => actions.filter.addFilter);
 

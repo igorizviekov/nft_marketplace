@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button } from '../../components/ui/Button';
-import { NftCard } from '../../components/ui/NFTCard/NFTCard';
 import { IStepsProps } from '.';
 import styles from '../../styles/pages/swap-page.module.scss';
 

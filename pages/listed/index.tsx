@@ -3,7 +3,7 @@ import { ethers } from 'ethers';
 import { NextPage } from 'next';
 import { useState, useEffect } from 'react';
 import { Spinner } from '../../components/spinner';
-import { INftCardProps, NftCard } from '../../components/ui/NFTCard/NFTCard';
+import { INftCardProps } from '../../components/ui/NFTCard/NFTCard.types';
 import { fetchContract } from '../../utils';
 import Web3Modal from 'web3modal';
 import { toast } from 'react-toastify';

@@ -1,7 +1,7 @@
 import { ethers } from 'ethers';
 import { JsonRpcProvider, JsonRpcSigner } from '@ethersproject/providers';
 import { MarketAddress, MarketAddressABI } from '../context/constants';
-import { INftCardProps } from '../components/ui/NFTCard/NFTCard';
+import { INftCardProps } from '../components/ui/NFTCard/NFTCard.types';
 import { ITopCreator } from '../components/top-sellers/top-sellers.types';
 import { ActiveSelectOption } from '../components/SearchFilter/SearchFilter.types';
 
