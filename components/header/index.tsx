@@ -88,8 +88,6 @@ export const Header = () => {
           </div>
         </Link>
         <Searchbar
-          activeSelect={'Recently added'}
-          setActiveSelect={() => console.log('should change filter')}
           onHandleSearch={() => console.log('should serach')}
           onClearSearch={() => console.log('clear search')}
         />

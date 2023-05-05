@@ -10,8 +10,7 @@ interface INFTListProps {
 }
 
 export const NftList = ({ isLoading, nfts, searchProps }: INFTListProps) => {
-  const { onClearSearch, onHandleSearch, setActiveSelect, activeSelect } =
-    searchProps;
+  const { onClearSearch, onHandleSearch } = searchProps;
 
   return (
     <div className="mb-12">
@@ -29,8 +28,6 @@ export const NftList = ({ isLoading, nfts, searchProps }: INFTListProps) => {
                 Trending NFTs
               </h1>
               <Searchbar
-                activeSelect={activeSelect}
-                setActiveSelect={setActiveSelect}
                 onClearSearch={onClearSearch}
                 onHandleSearch={onHandleSearch}
               />
