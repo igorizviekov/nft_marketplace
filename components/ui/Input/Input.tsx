@@ -73,8 +73,4 @@ const Input = ({
   );
 };
 
-Input.defaultProps = {
-  handleChange: () => {},
-};
-
 export default Input;
