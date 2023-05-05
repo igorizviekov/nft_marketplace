@@ -25,7 +25,7 @@ const SingleCollectionPage = () => {
           filter.value === trait.value && filter.trait_type === trait.trait_type
       );
     });
-    return hasFilter;
+    return hasFilter ? hasFilter : false;
   }
   return (
     <BasePage>
