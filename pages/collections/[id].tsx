@@ -8,7 +8,7 @@ import classNames from 'classnames';
 import { FaDiscord, FaInstagram, FaTwitter } from 'react-icons/fa';
 import { MultipleFilter } from '../../components/MulitpleFilter/MultipleFilter';
 import FiltersBar from '../../components/FiltersBar/FiltersBar';
-import { NftCard } from '../../components/ui/nft-card';
+import { INftCardProps, ITraits, NftCard } from '../../components/ui/nft-card';
 import {
   CollectionNFTS,
   CollectionTraits,
@@ -18,6 +18,15 @@ import { useStoreState } from '../../store';
 const SingleCollectionPage = () => {
   const filters = useStoreState((state) => state.filter.filters);
 
+  function hasTrait(nft: INftCardProps): boolean {
+    const hasFilter = nft.traits?.some((trait) => {
+      return filters.some(
+        (filter) =>
+          filter.value === trait.value && filter.trait_type === trait.trait_type
+      );
+    });
+    return hasFilter;
+  }
   return (
     <BasePage>
       <div className={styles.hero}>
@@ -77,19 +86,35 @@ const SingleCollectionPage = () => {
           <div className={'flex-row-start'}>
             {CollectionNFTS &&
               CollectionNFTS.map((nft, index) => {
-                return (
-                  <NftCard
-                    key={nft.tokenId + index}
-                    name={nft.name}
-                    seller={nft.seller}
-                    owner={nft.owner}
-                    description={nft.description}
-                    img={nft.img}
-                    price={nft.price}
-                    tokenId={0}
-                    traits={nft.traits}
-                  />
-                );
+                if (hasTrait(nft)) {
+                  return (
+                    <NftCard
+                      key={nft.tokenId + index}
+                      name={nft.name}
+                      seller={nft.seller}
+                      owner={nft.owner}
+                      description={nft.description}
+                      img={nft.img}
+                      price={nft.price}
+                      tokenId={0}
+                      traits={nft.traits}
+                    />
+                  );
+                } else if (filters.length === 0) {
+                  return (
+                    <NftCard
+                      key={nft.tokenId + index}
+                      name={nft.name}
+                      seller={nft.seller}
+                      owner={nft.owner}
+                      description={nft.description}
+                      img={nft.img}
+                      price={nft.price}
+                      tokenId={0}
+                      traits={nft.traits}
+                    />
+                  );
+                }
               })}
           </div>
         </div>

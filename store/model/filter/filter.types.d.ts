@@ -1,16 +1,12 @@
 import { Action } from 'easy-peasy';
 import { INFTCategories } from '../../../components/Filter/Filter.types';
 import { ICollectionTrait } from '../../../mocks/SingleCollectionPage.mock';
+import { ITraits } from '../../../components/ui/nft-card';
 
 export interface IFilterModel {
-  filters: IFilterTrait[];
+  filters: ITraits[];
 
-  addFilter: Action<IFilterModel, IFilterTrait>;
-  deleteFilter: Action<IFilterModel, IFilterTrait>;
+  addFilter: Action<IFilterModel, ITraits>;
+  deleteFilter: Action<IFilterModel, ITraits>;
   clearFilters: Action<IFilterModel>;
-}
-
-export interface IFilterTrait {
-  trait_type: string;
-  value: string;
 }

@@ -7,7 +7,13 @@ export const FilterModel: IFilterModel = {
     if (state.filters.length === 0) {
       state.filters.push(payload);
     } else {
-      if (!state.filters.includes(payload)) {
+      if (
+        !state.filters.some(
+          (filter) =>
+            filter.trait_type === payload.trait_type &&
+            filter.value === payload.value
+        )
+      ) {
         state.filters.push(payload);
       }
     }

@@ -7,6 +7,7 @@ import Icon from '../ui/Icon/Icon';
 import { BsChevronDown } from 'react-icons/bs';
 import { useStoreActions, useStoreState } from '../../store';
 import classNames from 'classnames';
+import { ITraits } from '../ui/nft-card';
 export const MultipleFilter = ({ values }: IMultipleFilterProps) => {
   const addFilter = useStoreActions((actions) => actions.filter.addFilter);
 
@@ -22,10 +23,10 @@ export const MultipleFilter = ({ values }: IMultipleFilterProps) => {
     content: (
       <>
         {trait.values.map((value, index) => {
-          const selected = filters.includes({
-            trait_type: trait.trait_type,
-            value: value,
-          });
+          const selected = filters.some(
+            (filter: ITraits) =>
+              filter.value === value && filter.trait_type === trait.trait_type
+          );
           return (
             <div
               key={index}

@@ -12,7 +12,7 @@ export const CollectionNFTS: INftCardProps[] = [
     tokenId: 12093012,
     status: 'Outgoing Offers',
     traits: [
-      { trait_type: 'background', value: 'wine red' },
+      { trait_type: 'background', value: 'value 23' },
       { trait_type: 'body', value: 'blue' },
       { trait_type: 'button', value: 'none' },
       { trait_type: 'antenna', value: 'dork funnel' },
@@ -38,7 +38,7 @@ export const CollectionNFTS: INftCardProps[] = [
     tokenId: 12093012,
     status: 'Outgoing Offers',
     traits: [
-      { trait_type: 'background', value: 'wine red' },
+      { trait_type: 'background', value: 'value 24' },
       { trait_type: 'body', value: 'blue' },
       { trait_type: 'button', value: 'none' },
       { trait_type: 'antenna', value: 'dork funnel' },
@@ -64,7 +64,7 @@ export const CollectionNFTS: INftCardProps[] = [
     tokenId: 12093012,
     status: 'Outgoing Offers',
     traits: [
-      { trait_type: 'background', value: 'wine red' },
+      { trait_type: 'background', value: 'value 13' },
       { trait_type: 'body', value: 'blue' },
       { trait_type: 'button', value: 'none' },
       { trait_type: 'antenna', value: 'dork funnel' },
@@ -90,7 +90,7 @@ export const CollectionNFTS: INftCardProps[] = [
     tokenId: 12093012,
     status: 'Outgoing Offers',
     traits: [
-      { trait_type: 'background', value: 'wine red' },
+      { trait_type: 'background', value: 'value 44' },
       { trait_type: 'body', value: 'blue' },
       { trait_type: 'button', value: 'none' },
       { trait_type: 'antenna', value: 'dork funnel' },

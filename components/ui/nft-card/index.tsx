@@ -18,10 +18,10 @@ export interface INftCardProps {
   img: StaticImageData | string;
   price: number;
   tokenId: number;
+  traits: ITraits[];
   nickname?: string;
   avatar?: string;
   status?: NFTStatus;
-  traits?: ITraits[];
 }
 export interface ITraits {
   trait_type: string;
