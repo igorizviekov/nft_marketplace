@@ -34,7 +34,7 @@ export const Searchbar = ({
         inputType={'text'}
         id={'search'}
         handleChange={(e) =>
-          setDebouncedSearch((e.target as HTMLInputElement).value)
+          setDebouncedSearch((e.target as HTMLInputElement).value as string)
         }
         value={debouncedSearch}
         icon={<BsSearch />}
