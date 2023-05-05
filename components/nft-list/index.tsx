@@ -1,7 +1,7 @@
 import { INftCardProps } from '../ui/NFTCard/NFTCard.types';
-import { SearchFilter } from '../SearchFilter/SearchFilter';
+import { Searchbar } from '../Searchbar/Searchbar';
 import { Spinner } from '../spinner';
-import { ISearchFilterProps } from '../SearchFilter/SearchFilter.types';
+import { ISearchFilterProps } from '../Searchbar/Searchbar.types';
 
 interface INFTListProps {
   nfts: INftCardProps[];
@@ -28,7 +28,7 @@ export const NftList = ({ isLoading, nfts, searchProps }: INFTListProps) => {
               <h1 className="font-poppins dark:text-white text-nft-black-1 text-2xl minlg:text-4xl font-semibold my-5 px-5 sm:text-center">
                 Trending NFTs
               </h1>
-              <SearchFilter
+              <Searchbar
                 activeSelect={activeSelect}
                 setActiveSelect={setActiveSelect}
                 onClearSearch={onClearSearch}
