@@ -29,9 +29,14 @@ const FiltersBar = ({}: IFiltersBarProps) => {
             <div
               key={index}
               className={styles.selectedFilter}
-              onClick={() => deleteFilter(filter)}
+              onClick={() =>
+                deleteFilter({
+                  trait_type: filter.trait_type,
+                  value: filter.value,
+                })
+              }
             >
-              {filter}
+              {`${filter.trait_type}: ${filter.value}`}
               <Icon icon={<VscClose />} />
             </div>
           ))}

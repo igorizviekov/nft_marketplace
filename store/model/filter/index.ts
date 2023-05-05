@@ -15,7 +15,10 @@ export const FilterModel: IFilterModel = {
 
   deleteFilter: action((state, payload) => {
     state.filters.map((filter, index) => {
-      if (filter === payload) {
+      if (
+        filter.value === payload.value &&
+        filter.trait_type === filter.trait_type
+      ) {
         state.filters.splice(index, 1);
       }
     });

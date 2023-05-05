@@ -11,24 +11,30 @@ export const MultipleFilter = ({ values }: IMultipleFilterProps) => {
   const addFilter = useStoreActions((actions) => actions.filter.addFilter);
 
   const filters = useStoreState((state) => state.filter.filters);
-  const items = values?.traits.map(({ trait_type, values }) => ({
+
+  const itemsTest = values?.traits.map((trait) => ({
     title: (
       <div className={styles.title}>
-        <h3>{trait_type}</h3>
+        <h3>{trait.trait_type}</h3>
         <Icon icon={<BsChevronDown />} />
       </div>
     ),
     content: (
       <>
-        {values.map((item, index) => {
-          const selected = filters.includes(item);
+        {trait.values.map((value, index) => {
+          const selected = filters.includes({
+            trait_type: trait.trait_type,
+            value: value,
+          });
           return (
             <div
               key={index}
               className={classNames(styles.filter, selected && styles.selected)}
-              onClick={() => addFilter(item)}
+              onClick={() =>
+                addFilter({ trait_type: trait.trait_type, value: value })
+              }
             >
-              <p>{item}</p>
+              <p>{value}</p>
             </div>
           );
         })}
@@ -37,6 +43,10 @@ export const MultipleFilter = ({ values }: IMultipleFilterProps) => {
   }));
 
   return (
-    <>{items && <Accordion items={items} duration={200} multiple={false} />}</>
+    <>
+      {itemsTest && (
+        <Accordion items={itemsTest} duration={200} multiple={false} />
+      )}
+    </>
   );
 };
