@@ -1,58 +1,23 @@
 .header {
-  background-color: var(--background);
   width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
   padding: var(--spacing-sm) var(--spacing-lg);
+  background-color: var(--background);
 
-  &__link {
+  .logo {
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    transition: ease-in-out;
+  }
+
+  .network {
     display: flex;
-    flex-grow: 1;
-
-    justify-content: flex-start;
-    position: relative;
-
-    &__logo {
-      cursor: pointer;
-      width: 50px;
-      height: 50px;
-      transition: ease-in-out;
-
-      // &:hover {
-
-      //   -webkit-animation: spin 1s ;
-      //   animation: spin 1s ;
-      // }
-    }
-  }
-
-  &__menu-items {
-
-    display: flex;
-    gap: 50px;
-
-    &__list {}
-  }
-}
-
-@-webkit-keyframes spin {
-  from {
-    -webkit-transform: rotateY(0deg);
-  }
-
-  to {
-    -webkit-transform: rotateY(-180deg);
-  }
-}
-
-@keyframes spin {
-  from {
-    -moz-transform: rotateY(0deg);
-    -ms-transform: rotateY(0deg);
-    transform: rotateY(0deg);
-  }
-
-  to {
-    -moz-transform: rotateY(-360deg);
-    -ms-transform: rotateY(-360deg);
-    transform: rotateY(-360deg);
+    align-items: center;
+    gap: var(--spacing-md);
   }
 }

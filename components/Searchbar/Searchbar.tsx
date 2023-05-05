@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { ActiveSelectOption, ISearchFilterProps } from './Searchbar.types';
+import { ISearchFilterProps } from './Searchbar.types';
+import styles from './Searchbar.module.scss';
 import Input from '../ui/Input';
 export const Searchbar = ({
   onHandleSearch,
@@ -7,13 +8,6 @@ export const Searchbar = ({
 }: ISearchFilterProps) => {
   const [search, setSearch] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState(search);
-  const [toggle, setToggle] = useState(false);
-
-  const activeSelectList: ActiveSelectOption[] = [
-    'Recently added',
-    'Price (low to high)',
-    'Price (high to low)',
-  ];
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -32,7 +26,7 @@ export const Searchbar = ({
   }, [search]);
 
   return (
-    <>
+    <div className={styles.container}>
       <Input
         title={''}
         placeholder={'Search an NFT Collection or Creator'}
@@ -43,6 +37,6 @@ export const Searchbar = ({
         }
         value={debouncedSearch}
       />
-    </>
+    </div>
   );
 };
