@@ -32,7 +32,7 @@ const CollectionBanner = ({
       )}
       <div
         className={styles.container}
-        onClick={() => toast.warn('router.push(`collection/${uid}`)')}
+        onClick={() => router.push(`collections/${uid}`)}
       >
         <div className={styles.collectionName}>
           {index && <p>{index}</p>}
