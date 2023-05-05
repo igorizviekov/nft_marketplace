@@ -11,30 +11,7 @@ const ConfirmSwap = ({ setSteps }: IStepsProps) => {
         Review and Confirm Swap
       </p>
       <div className="flex gap-2">
-        <div className="flex w-full">
-          <NftCard
-            name={'Mock NFT'}
-            seller={'Any seller'}
-            owner={'Owner'}
-            description={'Descriptiion'}
-            img={''}
-            price={12}
-            tokenId={0}
-            traits={[]}
-          />
-        </div>
-        <div className="flex w-full">
-          <NftCard
-            name={'Mock NFT'}
-            seller={'Any seller'}
-            owner={'Owner'}
-            description={'Descriptiion'}
-            img={''}
-            price={12}
-            tokenId={0}
-            traits={[]}
-          />
-        </div>
+        <div className="flex w-full">{/* //@TODO Add nfts */}</div>
       </div>
       <div className="flex flex-col items-center text-center gap-1">
         <p>

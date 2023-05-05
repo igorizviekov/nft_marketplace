@@ -106,9 +106,7 @@ const ListedNFTs: NextPage = () => {
               Your NFTs Listed for Sale
             </h2>
             <div className="mt-3 w-full flex flex-wrap justify-start md:justify-center">
-              {nfts.map((nft) => (
-                <NftCard key={nft.tokenId} {...nft} />
-              ))}
+              {/* //@TODO Add NFTS */}
             </div>
           </div>
         </div>
