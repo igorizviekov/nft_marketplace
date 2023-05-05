@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ActiveSelectOption, ISearchFilterProps } from './search-filter.types';
+import { ActiveSelectOption, ISearchFilterProps } from './SearchFilter.types';
 import { FcSearch } from 'react-icons/fc';
 import { BackgroundBlur } from '../ui/background';
 

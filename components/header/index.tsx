@@ -1,7 +1,6 @@
 import styles from './header.module.scss';
 import { useState, useEffect, SetStateAction } from 'react';
 import Link from 'next/link';
-import MenuItems from './MenuItems/MenuItems';
 import { Actions, useStoreActions, useStoreState } from 'easy-peasy';
 import { IStoreModel } from '../../store/model/model.types';
 import { ConnectWallet, connectWallet } from '../../utils';
@@ -10,10 +9,9 @@ import { MenuTab } from '../../store/model/ui/ui.types';
 import { Button } from '../ui/Button';
 import DropdownMenu from './DropdownMenu/DropdownMenu';
 import PhoenixLogo from '../../assets/icons/phoenix_logo.svg';
-import MintLogo from '../../assets/icons/mint_logo.svg';
 import BaseImage from '../ui/Base/BaseImage/BaseImage';
-import { SearchFilter } from '../search-filter';
-import { ActiveSelectOption } from '../search-filter/search-filter.types';
+import { SearchFilter } from '../SearchFilter/SearchFilter';
+import { ActiveSelectOption } from '../SearchFilter/SearchFilter.types';
 
 export const Header = () => {
   const [menuTabs, setMenuTabs] = useState<MenuTab[]>([]);
@@ -79,14 +77,7 @@ export const Header = () => {
   );
 
   const headerContent = (
-    <div className={styles['header__menu-items']}>
-      <MenuItems
-        links={menuTabs}
-        active={state.tab}
-        setActiveTab={actions.toggleTab}
-      />
-      {actionBtn}
-    </div>
+    <div className={styles['header__menu-items']}>{actionBtn}</div>
   );
 
   return (

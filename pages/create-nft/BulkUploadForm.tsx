@@ -46,6 +46,14 @@ const CollectionForm = () => {
   const [selected, setSelected] = useState<number>(0);
   return (
     <div className={classNames('flex-col-center', styles.form)}>
+      <Dropdown
+        heading="Select a collection"
+        options={[...OPTIONS, ADD_COLLECTION]}
+        checked={selected}
+        placeholder="Or create a new one"
+        onChange={setSelected}
+        openModal={() => setModalOpen(true)}
+      />
       <BulkUpload
         file={file}
         onDropAccepted={(arr) => {
@@ -72,19 +80,12 @@ const CollectionForm = () => {
         <p>You can dowload our template here!</p>
       </BaseLink>
       <Input
-        title={'NFT Name'}
-        inputType={'text'}
-        placeholder={'Enter NFT name'}
+        title={'NFT Price'}
+        inputType={'number'}
+        placeholder={'Enter NFT price'}
         id={''}
       />
-      <Dropdown
-        heading="Select a collection"
-        options={[...OPTIONS, ADD_COLLECTION]}
-        checked={selected}
-        placeholder="Or create a new one"
-        onChange={setSelected}
-        openModal={() => setModalOpen(true)}
-      />
+
       {isModalOpen && (
         <AddCollectionModal handleModalClose={() => setModalOpen(false)} />
       )}

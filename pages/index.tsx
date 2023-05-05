@@ -7,8 +7,6 @@ import LaunchpadDrops from '../components/LaunchpadDrops/LaunchpadDrops';
 import Filter from '../components/Filter/Filter';
 import { useState } from 'react';
 import { INFTCategories } from '../components/Filter/Filter.types';
-import { MultipleFilter } from '../components/MulitpleFilter/MultipleFilter';
-import FiltersBar from '../components/FiltersBar/FiltersBar';
 import HomeHero from '../components/HomeHero/HomeHero';
 import HorizontalScroll from '../components/HorizontalScroll/HorizontalScroll';
 import { Button } from '../components/ui/Button';

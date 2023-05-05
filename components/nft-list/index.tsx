@@ -1,7 +1,7 @@
 import { INftCardProps, NftCard } from '../ui/nft-card';
-import { SearchFilter } from '../search-filter';
+import { SearchFilter } from '../SearchFilter/SearchFilter';
 import { Spinner } from '../spinner';
-import { ISearchFilterProps } from '../search-filter/search-filter.types';
+import { ISearchFilterProps } from '../SearchFilter/SearchFilter.types';
 
 interface INFTListProps {
   nfts: INftCardProps[];
