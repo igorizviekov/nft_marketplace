@@ -3,7 +3,7 @@ import { JsonRpcProvider, JsonRpcSigner } from '@ethersproject/providers';
 import { MarketAddress, MarketAddressABI } from '../context/constants';
 import { INftCardProps } from '../components/ui/NFTCard/NFTCard.types';
 import { ITopCreator } from '../components/top-sellers/top-sellers.types';
-import { ActiveSelectOption } from '../components/Searchbar/Searchbar.types';
+import { ActiveSelectOption } from '../components/SortBy/SortBy.types';
 
 export const randomId = (length: number): string => {
   let res = '';
