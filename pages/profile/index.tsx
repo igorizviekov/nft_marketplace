@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
 import BaseImage from '../../components/ui/Base/BaseImage/BaseImage';
-import styles from '../../styles/pages/CreatorsPage.module.scss';
+import styles from '../../styles/pages/ProfilePage.module.scss';
 import Icon from '../../components/ui/Icon/Icon';
 import { FaDiscord, FaEdit, FaInstagram, FaTwitter } from 'react-icons/fa';
 import { Tabs } from '../../components/ui/Tabs/Tabs';
@@ -11,7 +11,7 @@ import BasePage from '../../components/ui/Base/BasePage/BasePage';
 import DescriptionSticker from '../../components/DescriptionSticker/DescriptionSticker';
 import { FiEdit } from 'react-icons/fi';
 
-const CreatorsPage = () => {
+const ProfilePage = () => {
   const [selectedTab, setSelectedTab] = useState<number>(0);
   const [isOwnProfile, setIsOwnProfile] = useState<boolean>(true);
   const options = ['My NFTs', 'Listed', 'Created', 'Liked', 'Activity'];
@@ -103,4 +103,4 @@ const CreatorsPage = () => {
   );
 };
 
-export default CreatorsPage;
+export default ProfilePage;

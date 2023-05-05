@@ -1,29 +1,110 @@
 @use '../mixins' as *;
 
-.stickersSide {
-  display: none;
+.imageContainer {
+
+  width: 100vw;
+  height: 100vw;
+
+  @include respond-to(mob-landscape) {
+    width: 50%;
+    max-width: 500px;
+    min-width: 450px;
+    height: 495px;
+  }
+
+
+}
+
+.textContainer {
+  width: 100%;
 
   @include respond-to(tablet) {
-    width: 200px;
+    width: 50%;
+    padding: var(--spacing-md);
 
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-md);
+  }
+
+}
+
+.icons {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+
+  .name {
+    margin-right: var(--spacing-sm);
+  }
+
+  .icon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .profileIcon {
+    position: relative;
+    cursor: pointer;
+    margin-left: var(--spacing-sm);
+
+
+    &::after {
+      content: "";
+      opacity: 0;
+      transition: 0.2s ease-in;
+    }
+
+    &:hover {
+      color: var(--yellow);
+
+      &::after {
+        content: "Edit Profile";
+        position: absolute;
+
+        width: 50px;
+        opacity: 1;
+
+        white-space: nowrap;
+
+        right: -60px;
+        top: 0;
+
+        font-size: 12px;
+
+
+      }
+    }
   }
 }
 
-.stickersBottom {
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
 
+  gap: var(--spacing-lg);
+
+  margin-bottom: var(--spacing-lg);
+
+  @include respond-to(tablet) {
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+}
+
+.stickersContainer {
   display: grid;
+  width: 100%;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
 
-  row-gap: var(--spacing-md);
   column-gap: var(--spacing-md);
-  width: 100%;
+  row-gap: var(--spacing-md);
+}
 
+.nftRow{
+  
+  display: flex;
 
-  @include respond-to(tablet) {
-    display: none;
-  }
+  margin-top: var(--spacing-md);
+  gap: var(--spacing-md);
 }
