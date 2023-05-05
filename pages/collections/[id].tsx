@@ -8,7 +8,7 @@ import classNames from 'classnames';
 import { FaDiscord, FaInstagram, FaTwitter } from 'react-icons/fa';
 import { MultipleFilter } from '../../components/MulitpleFilter/MultipleFilter';
 import FiltersBar from '../../components/FiltersBar/FiltersBar';
-import { INftCardProps, ITraits, NftCard } from '../../components/ui/nft-card';
+import { INftCardProps, ITraits, NftCard } from '../../components/ui/NFTCard/NFTCard';
 import {
   CollectionNFTS,
   CollectionTraits,
@@ -25,7 +25,7 @@ const SingleCollectionPage = () => {
           filter.value === trait.value && filter.trait_type === trait.trait_type
       );
     });
-    return hasFilter ? hasFilter : false;
+    return hasFilter;
   }
   return (
     <BasePage>

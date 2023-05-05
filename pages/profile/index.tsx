@@ -6,7 +6,7 @@ import Icon from '../../components/ui/Icon/Icon';
 import { FaDiscord, FaEdit, FaInstagram, FaTwitter } from 'react-icons/fa';
 import { Tabs } from '../../components/ui/Tabs/Tabs';
 import { MockNFTS } from '../../mocks/CreatorPage.mock';
-import { NftCard } from '../../components/ui/nft-card';
+import { NftCard } from '../../components/ui/NFTCard/NFTCard';
 import BasePage from '../../components/ui/Base/BasePage/BasePage';
 import DescriptionSticker from '../../components/DescriptionSticker/DescriptionSticker';
 import { FiEdit } from 'react-icons/fi';
