@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from 'react';
+
 export interface ISortByProps {
   activeSelect: ActiveSelectOption;
   setActiveSelect: Dispatch<SetStateAction<ActiveSelectOption>>;
