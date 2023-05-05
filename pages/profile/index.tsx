@@ -92,6 +92,7 @@ const CreatorsPage = () => {
                   img={nft.img}
                   price={nft.price}
                   tokenId={nft.tokenId}
+                  traits={[]}
                 />
               );
             }

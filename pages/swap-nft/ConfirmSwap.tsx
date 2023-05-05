@@ -20,6 +20,7 @@ const ConfirmSwap = ({ setSteps }: IStepsProps) => {
             img={''}
             price={12}
             tokenId={0}
+            traits={[]}
           />
         </div>
         <div className="flex w-full">
@@ -30,8 +31,7 @@ const ConfirmSwap = ({ setSteps }: IStepsProps) => {
             description={'Descriptiion'}
             img={''}
             price={12}
-            tokenId={0}
-          />
+            tokenId={0} traits={[]}          />
         </div>
       </div>
       <div className="flex flex-col items-center text-center gap-1">
