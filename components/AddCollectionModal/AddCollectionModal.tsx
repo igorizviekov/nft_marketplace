@@ -6,6 +6,8 @@ import { Button } from '../ui/Button';
 import GeneralInformation from './GeneralInformation';
 import NetworkInformation from './NetworkInformation';
 import RoyaltiesInformation from './RoyaltiesInformation';
+import Icon from '../ui/Icon/Icon';
+import { BsFillArrowLeftCircleFill } from 'react-icons/bs';
 const AddCollectionModal = ({ handleModalClose }: IAddCollectionModalProps) => {
   const [steps, setSteps] = useState<Steps[]>([
     'General',
@@ -22,10 +24,10 @@ const AddCollectionModal = ({ handleModalClose }: IAddCollectionModalProps) => {
     <Modal onClose={handleModalClose}>
       <div className={styles.column}>
         {steps[selected] !== 'General' && selected !== 0 && (
-          <Button
-            isPrimary={false}
-            label={'Go Back'}
+          <Icon
             onClick={() => setSelected(selected - 1)}
+            className={styles.icon}
+            icon={<BsFillArrowLeftCircleFill style={{ width: '30px', height: '30px' }} />}
           />
         )}
         {steps[selected] === 'General' && <GeneralInformation />}

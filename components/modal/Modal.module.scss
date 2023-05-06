@@ -30,11 +30,9 @@
 .container {
   position: relative;
   width: 60%;
-  min-height: 60%;
+  min-height: 70%;
 
   padding: var(--spacing-xl);
-
-  overflow-y: scroll;
   background-color: var(--background);
 
   border: var(--border-color);
