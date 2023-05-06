@@ -7,7 +7,13 @@ export const FilterModel: IFilterModel = {
     if (state.filters.length === 0) {
       state.filters.push(payload);
     } else {
-      if (!state.filters.includes(payload)) {
+      if (
+        !state.filters.some(
+          (filter) =>
+            filter.trait_type === payload.trait_type &&
+            filter.value === payload.value
+        )
+      ) {
         state.filters.push(payload);
       }
     }
@@ -15,7 +21,10 @@ export const FilterModel: IFilterModel = {
 
   deleteFilter: action((state, payload) => {
     state.filters.map((filter, index) => {
-      if (filter === payload) {
+      if (
+        filter.value === payload.value &&
+        filter.trait_type === filter.trait_type
+      ) {
         state.filters.splice(index, 1);
       }
     });

@@ -1,8 +1,8 @@
-import { useStoreState } from 'easy-peasy';
+import { useStoreState } from '../../store';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { Spinner } from '../../components/spinner';
-import { INftCardProps } from '../../components/ui/nft-card';
+import { INftCardProps } from '../../components/ui/NFTCard/NFTCard.types';
 import { IStoreModel } from '../../store/model/model.types';
 import Image from 'next/image';
 import { Button } from '../../components/ui/Button';
@@ -22,9 +22,7 @@ const NFTDetails = () => {
 
   const router = useRouter();
 
-  const { activeWallet, currency } = useStoreState(
-    (state: IStoreModel) => state.wallet
-  );
+  const { activeWallet, currency } = useStoreState((state) => state.wallet);
 
   const buyNFT = async () => {
     if (!nft) return;
@@ -79,6 +77,7 @@ const NFTDetails = () => {
           tokenId: Number(tokenId),
           price: Number(price),
           nickname: nickname as string,
+          traits: nickname as any,
         });
       }
       setIsLoading(false);

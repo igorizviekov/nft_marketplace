@@ -3,15 +3,9 @@ import { IHorizontalScrollProps } from './HorizontalScroll.types';
 import styles from './HorizontalScroll.module.scss';
 import { ScrollMenu, VisibilityContext } from 'react-horizontal-scrolling-menu';
 import 'react-horizontal-scrolling-menu/dist/styles.css';
-import usePreventBodyScroll from '../../hooks/usePreventBodyScroll';
 import Icon from '../ui/Icon/Icon';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-
-type scrollVisibilityApiType = React.ContextType<typeof VisibilityContext>;
-
 const HorizontalScroll = ({ children }: IHorizontalScrollProps) => {
-  const { disableScroll, enableScroll } = usePreventBodyScroll();
-
   function LeftArrow() {
     const { isFirstItemVisible, scrollPrev } =
       React.useContext(VisibilityContext);
@@ -45,35 +39,12 @@ const HorizontalScroll = ({ children }: IHorizontalScrollProps) => {
   }
 
   return (
-    <div
-      // onMouseEnter={disableScroll}
-      // onMouseLeave={enableScroll}
-      className={styles.container}
-    >
-      <ScrollMenu
-        LeftArrow={LeftArrow}
-        RightArrow={RightArrow}
-        // onWheel={onWheel}
-      >
+    <div className={styles.container}>
+      <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
         {children}
       </ScrollMenu>
     </div>
   );
 };
-
-// function onWheel(apiObj: scrollVisibilityApiType, ev: React.WheelEvent): void {
-//   const isThouchpad = Math.abs(ev.deltaX) !== 0 || Math.abs(ev.deltaY) < 15;
-
-//   if (isThouchpad) {
-//     ev.stopPropagation();
-//     return;
-//   }
-
-//   if (ev.deltaY > 0) {
-//     apiObj.scrollNext();
-//   } else if (ev.deltaY < 0) {
-//     apiObj.scrollPrev();
-//   }
-// }
 
 export default HorizontalScroll;

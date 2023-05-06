@@ -5,32 +5,37 @@ import { Accordion } from 'react-accordion-ts';
 import 'react-accordion-ts/src/panel.css';
 import Icon from '../ui/Icon/Icon';
 import { BsChevronDown } from 'react-icons/bs';
-import { FilterMock } from '../../mocks/MultipleFilter.mock';
 import { useStoreActions, useStoreState } from '../../store';
-import { VscClose } from 'react-icons/vsc';
 import classNames from 'classnames';
-export const MultipleFilter = ({}: IMultipleFilterProps) => {
+import { ITraits } from '../ui/NFTCard/NFTCard.types';
+export const MultipleFilter = ({ values }: IMultipleFilterProps) => {
   const addFilter = useStoreActions((actions) => actions.filter.addFilter);
 
   const filters = useStoreState((state) => state.filter.filters);
-  const items = FilterMock.map(({ content, title }) => ({
+
+  const itemsTest = values?.traits.map((trait) => ({
     title: (
       <div className={styles.title}>
-        <h3>{title}</h3>
+        <h3>{trait.trait_type}</h3>
         <Icon icon={<BsChevronDown />} />
       </div>
     ),
     content: (
       <>
-        {content.map((item, index) => {
-          const selected = filters.includes(item);
+        {trait.values.map((value, index) => {
+          const selected = filters.some(
+            (filter: ITraits) =>
+              filter.value === value && filter.trait_type === trait.trait_type
+          );
           return (
             <div
               key={index}
               className={classNames(styles.filter, selected && styles.selected)}
-              onClick={() => addFilter(item)}
+              onClick={() =>
+                addFilter({ trait_type: trait.trait_type, value: value })
+              }
             >
-              <p>{item}</p>
+              <p>{value}</p>
             </div>
           );
         })}
@@ -40,7 +45,9 @@ export const MultipleFilter = ({}: IMultipleFilterProps) => {
 
   return (
     <>
-      <Accordion items={items} duration={200} multiple={false} />
+      {itemsTest && (
+        <Accordion items={itemsTest} duration={200} multiple={false} />
+      )}
     </>
   );
 };

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button } from '../../components/ui/Button';
-import { NftCard } from '../../components/ui/nft-card';
 import { IStepsProps } from '.';
 import styles from '../../styles/pages/swap-page.module.scss';
 
@@ -11,28 +10,7 @@ const ConfirmSwap = ({ setSteps }: IStepsProps) => {
         Review and Confirm Swap
       </p>
       <div className="flex gap-2">
-        <div className="flex w-full">
-          <NftCard
-            name={'Mock NFT'}
-            seller={'Any seller'}
-            owner={'Owner'}
-            description={'Descriptiion'}
-            img={''}
-            price={12}
-            tokenId={0}
-          />
-        </div>
-        <div className="flex w-full">
-          <NftCard
-            name={'Mock NFT'}
-            seller={'Any seller'}
-            owner={'Owner'}
-            description={'Descriptiion'}
-            img={''}
-            price={12}
-            tokenId={0}
-          />
-        </div>
+        <div className="flex w-full">{/* //@TODO Add nfts */}</div>
       </div>
       <div className="flex flex-col items-center text-center gap-1">
         <p>

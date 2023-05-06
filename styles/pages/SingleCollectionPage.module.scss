@@ -1,6 +1,6 @@
 @use '../mixins' as *;
 
-.imageContainer {
+.image {
 
   width: 100vw;
   height: 100vw;
@@ -11,8 +11,6 @@
     min-width: 450px;
     height: 495px;
   }
-
-
 }
 
 .textContainer {
@@ -24,55 +22,6 @@
 
   }
 
-}
-
-.icons {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-md);
-
-  .name {
-    margin-right: var(--spacing-sm);
-  }
-
-  .icon {
-    width: 22px;
-    height: 22px;
-  }
-
-  .profileIcon {
-    position: relative;
-    cursor: pointer;
-    margin-left: var(--spacing-sm);
-
-
-    &::after {
-      content: "";
-      opacity: 0;
-      transition: 0.2s ease-in;
-    }
-
-    &:hover {
-      color: var(--yellow);
-
-      &::after {
-        content: "Edit Profile";
-        position: absolute;
-
-        width: 50px;
-        opacity: 1;
-
-        white-space: nowrap;
-
-        right: -60px;
-        top: 0;
-
-        font-size: 12px;
-
-
-      }
-    }
-  }
 }
 
 .hero {
@@ -101,10 +50,30 @@
   row-gap: var(--spacing-md);
 }
 
-.nftRow{
-  
+.icons {
   display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
 
-  margin-top: var(--spacing-md);
+  .name {
+    margin-right: var(--spacing-sm);
+  }
+
+  .icon {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+.nftContainer {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.results {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
   gap: var(--spacing-md);
 }

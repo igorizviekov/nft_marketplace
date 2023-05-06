@@ -1,35 +1,11 @@
 import { useStoreState } from 'easy-peasy';
-import Image, { StaticImageData } from 'next/image';
-import Link from 'next/link';
+import Image from 'next/image';
 import { IStoreModel } from '../../../store/model/model.types';
 import styles from './NFTCard.module.scss';
 import { toast } from 'react-toastify';
 import Icon from '../Icon/Icon';
-import {
-  FaArrowAltCircleRight,
-  FaArrowRight,
-  FaEthereum,
-} from 'react-icons/fa';
-export interface INftCardProps {
-  name: string;
-  seller: string;
-  owner: string;
-  description: string;
-  img: StaticImageData | string;
-  price: number;
-  tokenId: number;
-  nickname?: string;
-  avatar?: string;
-  status?: NFTStatus;
-}
-type NFTStatus =
-  | 'On Sale'
-  | 'Created'
-  | 'My NTFs'
-  | 'Liked'
-  | 'Activity'
-  | 'Outgoing Offers'
-  | 'Incoming Offers';
+import { FaArrowRight, FaEthereum } from 'react-icons/fa';
+import { INftCardProps } from './NFTCard.types';
 
 export const NftCard = ({
   name,

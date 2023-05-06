@@ -3,7 +3,7 @@ import { ethers } from 'ethers';
 import { NextPage } from 'next';
 import { useState, useEffect } from 'react';
 import { Spinner } from '../../components/spinner';
-import { INftCardProps, NftCard } from '../../components/ui/nft-card';
+import { INftCardProps } from '../../components/ui/NFTCard/NFTCard.types';
 import { fetchContract } from '../../utils';
 import Web3Modal from 'web3modal';
 import { toast } from 'react-toastify';
@@ -106,9 +106,7 @@ const ListedNFTs: NextPage = () => {
               Your NFTs Listed for Sale
             </h2>
             <div className="mt-3 w-full flex flex-wrap justify-start md:justify-center">
-              {nfts.map((nft) => (
-                <NftCard key={nft.tokenId} {...nft} />
-              ))}
+              {/* //@TODO Add NFTS */}
             </div>
           </div>
         </div>

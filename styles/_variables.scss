@@ -13,7 +13,6 @@ $z-indexes: (
   --accent: #3BC385;
 
   --background: #1D1D1D;
-  --background-hover: #666666;
   --accent: #24501E;
   --background: #1D1D1D;
   --background-dark-green: #182218;
@@ -21,24 +20,34 @@ $z-indexes: (
 
   --yellow: #DEF334;
   --green: #39EA22;
-  --downfall: #EA2222;
+  --red: #EA2222;
+  --white: #ffffff;
 
-  // spacing
-  --spacing-xs: 6px;
-  --spacing-sm: 12px;
-  --spacing-sm-md: 16px;
-  --spacing-md: 20px;
-  --spacing-md-lg: 32px;
-  --spacing-lg: 40px;
-  --spacing-xl: 60px;
-  --spacing-xxl: 150px;
 
-  // section
-  --section-padding: 40px;
+  //Hover
+  --background-hover: var(--background-dark-green
+  );
+--border-color-hover: 1px solid var(--accent);
+--box-shadow-hover: 0px 0px 5px 1px var(--accent);
+--text-color-hover: var(--green);
+--text-color-hover-dark: var(--accent);
+--text-color-hover-alt: var(--yellow);
 
-  @include respond-to(sm) {
-    --section-padding: calc(2 * 40px
-    );
+// spacing
+--spacing-xs: 6px;
+--spacing-sm: 12px;
+--spacing-sm-md: 16px;
+--spacing-md: 20px;
+--spacing-md-lg: 32px;
+--spacing-lg: 40px;
+--spacing-xl: 60px;
+--spacing-xxl: 150px;
+
+// section
+--section-padding: 40px;
+
+@include respond-to(sm) {
+  --section-padding: calc(2 * 40px);
 }
 
 @include respond-to(xxl) {
@@ -46,6 +55,7 @@ $z-indexes: (
 }
 
 // radius
+--border-radius-xs: 5px;
 --border-radius-sm: 10px;
 --border-radius-md: 20px;
 --border-radius-lg: 30px;
@@ -77,9 +87,9 @@ transform 0.6s var(--ease-in-out-cubic);
 // box-shadow
 --box-shadow: -1px -1px 16px -7px rgba(97, 97, 97, 0.795);
 
---box-shadow-white: -1px -1px 16px -7px rgb(255, 255, 255);
---box-shadow-green: -1px -1px 16px -7px var(--accent);
---box-shadow-yellow: -1px -1px 16px -7px var(--yellow);
+--box-shadow-white: 0px 0px 10px 1px rgb(255, 255, 255);
+--box-shadow-green: 0px 0px 5px 1px var(--accent);
+--box-shadow-yellow: 0px 0px 10px 1px var(--yellow);
 
 @include respond-to(sm) {
   --box-shadow: 0px 60px 30px rgba(25, 29, 22, 0.01),

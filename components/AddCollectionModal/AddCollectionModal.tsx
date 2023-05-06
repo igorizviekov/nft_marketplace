@@ -21,7 +21,7 @@ const AddCollectionModal = ({ handleModalClose }: IAddCollectionModalProps) => {
               file={file}
               onUploadAbort={() => setFile(null)}
               title={'Upload'}
-              subTitle={'Collection banner'}
+              subTitle={'Collection Avatar'}
             />
             <Input
               title={'Royalties (Optional)'}
@@ -38,7 +38,7 @@ const AddCollectionModal = ({ handleModalClose }: IAddCollectionModalProps) => {
               id={'website'}
             />
             <Input
-              title={'Description (Optional)'}
+              title={'Description'}
               inputType={'textarea'}
               placeholder={'Enter collections name'}
               id={'description'}
@@ -58,7 +58,7 @@ const AddCollectionModal = ({ handleModalClose }: IAddCollectionModalProps) => {
               id={'symbol'}
             />
             <Dropdown
-              heading={'Chain'}
+              heading={'Network'}
               placeholder={'Enter collections name'}
               options={['BNB', 'SMR', 'BTC']}
               checked={chain}

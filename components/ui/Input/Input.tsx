@@ -4,6 +4,7 @@ import { useStoreState } from 'easy-peasy';
 import { IStoreModel } from '../../../store/model/model.types';
 import styles from './Input.module.scss';
 import classNames from 'classnames';
+import Icon from '../Icon/Icon';
 type InputProps = {
   inputType: 'text' | 'textarea' | 'number';
   title: string;
@@ -12,6 +13,7 @@ type InputProps = {
   handleChange?: React.ChangeEventHandler;
   value?: string | number;
   error?: string;
+  icon?: JSX.Element;
 };
 
 const Input = ({
@@ -22,6 +24,7 @@ const Input = ({
   value,
   id,
   error,
+  icon,
 }: InputProps) => {
   const walletState = useStoreState((state: IStoreModel) => state.wallet);
   const { currency } = walletState;
@@ -64,13 +67,10 @@ const Input = ({
           value={value}
         />
       )}
+      {icon && <Icon icon={icon} className={styles.icon} />}
       <small>{error}</small>
     </div>
   );
-};
-
-Input.defaultProps = {
-  handleChange: () => {},
 };
 
 export default Input;

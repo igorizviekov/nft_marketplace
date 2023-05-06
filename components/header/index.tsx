@@ -1,35 +1,17 @@
 import styles from './header.module.scss';
-import { useState, useEffect, SetStateAction } from 'react';
+import { useEffect } from 'react';
 import Link from 'next/link';
-import MenuItems from './MenuItems/MenuItems';
 import { Actions, useStoreActions, useStoreState } from 'easy-peasy';
 import { IStoreModel } from '../../store/model/model.types';
 import { ConnectWallet, connectWallet } from '../../utils';
 import { toast } from 'react-toastify';
-import { MenuTab } from '../../store/model/ui/ui.types';
 import { Button } from '../ui/Button';
 import DropdownMenu from './DropdownMenu/DropdownMenu';
 import PhoenixLogo from '../../assets/icons/phoenix_logo.svg';
-import MintLogo from '../../assets/icons/mint_logo.svg';
 import BaseImage from '../ui/Base/BaseImage/BaseImage';
-import { SearchFilter } from '../search-filter';
-import { ActiveSelectOption } from '../search-filter/search-filter.types';
+import { Searchbar } from '../Searchbar/Searchbar';
 
 export const Header = () => {
-  const [menuTabs, setMenuTabs] = useState<MenuTab[]>([]);
-
-  const classNames = [
-    'flexBetween',
-    'dark:bg-nft-black-1',
-    'dark:border-nft-black-1',
-    styles['header'],
-  ].join(' ');
-
-  const state = useStoreState((state: IStoreModel) => state.ui);
-  const actions = useStoreActions(
-    (actions: Actions<IStoreModel>) => actions.ui
-  );
-
   const walletState = useStoreState((state: IStoreModel) => state.wallet);
   const walletActions = useStoreActions(
     (actions: Actions<IStoreModel>) => actions.wallet
@@ -43,33 +25,21 @@ export const Header = () => {
       return;
     }
     const wallet = await connectWallet(mode);
-    const { isConnected } = wallet;
+    const { isConnected, account } = wallet;
 
     walletActions.setIsWalletConnected(isConnected);
-    if (isConnected) {
-      walletActions.setActiveWallet(wallet.account);
-      setMenuTabs(['Listed', 'My NFTs']);
-      if (mode === 'active') {
-        location.reload();
-      }
-    } else {
-      mode === 'active'
-        ? toast.error('No accounts found.')
-        : console.log('Wallet is not connected');
-    }
+    walletActions.setActiveWallet(account);
   };
 
   useEffect(() => {
     connectCryptoWallet('silent');
   }, []);
 
-  const NftBtnLabel = 'Connect Wallet';
-
   const actionBtn = (
     <>
       {!walletState.isWalletConnected && (
         <Button
-          label={NftBtnLabel}
+          label={'Connect Wallet'}
           onClick={() => connectCryptoWallet('active')}
           isPrimary={true}
         />
@@ -78,39 +48,21 @@ export const Header = () => {
     </>
   );
 
-  const headerContent = (
-    <div className={styles['header__menu-items']}>
-      <MenuItems
-        links={menuTabs}
-        active={state.tab}
-        setActiveTab={actions.toggleTab}
-      />
-      {actionBtn}
-    </div>
-  );
-
   return (
-    <nav className={classNames}>
-      <div className={styles['header__link']}>
-        <Link href="/">
-          <div className={styles['header__link__logo']}>
-            <BaseImage imageUrl={PhoenixLogo} />
-          </div>
-        </Link>
-        <SearchFilter
-          activeSelect={'Recently added'}
-          setActiveSelect={function (
-            value: SetStateAction<ActiveSelectOption>
-          ): void {
-            throw new Error('Function not implemented.');
-          }}
-          onHandleSearch={function (value: string): void {
-            throw new Error('Function not implemented.');
-          }}
-          onClearSearch={() => toast.warn('clear search')}
-        />
+    <nav className={styles.header}>
+      <Link href="/">
+        <div className={styles.logo}>
+          <BaseImage imageUrl={PhoenixLogo} />
+        </div>
+      </Link>
+      <Searchbar
+        onHandleSearch={() => console.log('should serach')}
+        onClearSearch={() => console.log('clear search')}
+      />
+      <div className={styles.network}>
+        <p>Network Dropdown</p>
+        {actionBtn}
       </div>
-      {headerContent}
     </nav>
   );
 };

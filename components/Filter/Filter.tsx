@@ -11,7 +11,7 @@ const Filter = ({ options, selected, onSelect }: IFilterProps) => {
     }
   }
   return (
-    <div className="flex-row-start">
+    <div className={styles.filter}>
       {options &&
         options.map((option, index) => (
           <div

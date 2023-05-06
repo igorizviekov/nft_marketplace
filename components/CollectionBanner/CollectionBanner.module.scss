@@ -12,9 +12,9 @@
   cursor: pointer;
 
   &:hover {
-    border: var(--border-color-yellow);
-    color: var(--yellow);
-    box-shadow: var(--box-shadow-yellow);
+    border: var(--border-color-hover);
+    color: var(--green);
+    box-shadow: var(--box-shadow-hover);
 
   }
 

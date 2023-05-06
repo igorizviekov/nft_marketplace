@@ -4,11 +4,23 @@
 
   position: relative;
 
+  border-radius: var(--border-radius-sm);
+
+  transition: 0.2s ease-in-out;
+
   .currency {
     position: absolute;
     top: 30px;
     right: 20px;
   }
+
+  .icon {
+    position: absolute;
+    top: 22px;
+    right: 20px;
+
+  }
+
 
   input[type=number]::-webkit-inner-spin-button,
   input[type=number]::-webkit-inner-spin-button {
@@ -21,10 +33,9 @@
     z-index: 1;
 
     top: -2px;
-    text-shadow: var(--box-shadow-white);
     left: 16px;
 
-    padding: 0 var(--spacing-xs);
+    padding: 0 3px;
 
     background-color: var(--background);
 
@@ -32,21 +43,31 @@
   }
 
   &:hover {
-    color: var(--yellow);
+    color: var(--text-color-hover);
+
+    .icon {
+      svg {
+        fill: var(--text-color-hover-dark)
+      }
+    }
 
     .text {
-      border: var(--border-color-yellow);
+      border: var(--border-color-hover);
+      box-shadow: var(--box-shadow-hover);
+
 
       &::placeholder {
-        color: var(--yellow);
+        color: var(--text-color-hover-dark);
       }
     }
 
     .textarea {
-      border: var(--border-color-yellow);
+      border: var(--border-color-hover);
+      box-shadow: var(--box-shadow-hover);
+
 
       &::placeholder {
-        color: var(--yellow);
+        color: var(--text-color-hover-dark);
       }
     }
   }
@@ -54,8 +75,16 @@
   &:focus-within {
     color: var(--green);
 
+    .icon {
+      svg {
+        fill: var(--green)
+      }
+    }
+
     .text {
       border: var(--border-color-green);
+      box-shadow: var(--box-shadow-hover);
+
 
       &::placeholder {
         color: var(--green);
@@ -64,6 +93,8 @@
 
     .textarea {
       border: var(--border-color-green);
+      box-shadow: var(--box-shadow-hover);
+
 
       &::placeholder {
         color: var(--green);
@@ -85,6 +116,7 @@
 
 
   outline: none;
+  transition: 0.2s ease-in-out;
 
 
 
@@ -102,12 +134,14 @@
   border: var(--border-color);
   border-radius: var(--spacing-sm);
 
+  transition: 0.2s ease-in-out;
 
   outline: none;
 
 }
 
 .error {
+  transition: 0.2s ease-in-out;
 
   input {
     border: var(--border-color-error) !important;

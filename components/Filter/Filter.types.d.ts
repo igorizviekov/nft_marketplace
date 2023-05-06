@@ -4,4 +4,11 @@ export interface IFilterProps {
   onSelect: Dispatch<SetStateAction<number>>;
 }
 
-export type INFTCategories = 'Cat 1' | 'Cat 2' | 'Cat 3';
+export type INFTCategories =
+  | 'Collectibles'
+  | 'PFPS'
+  | 'Art'
+  | 'Games'
+  | 'Virtual Worlds'
+  | 'Sports'
+  | 'Music';

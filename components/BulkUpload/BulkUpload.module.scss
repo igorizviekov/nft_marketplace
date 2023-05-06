@@ -14,9 +14,10 @@
   border-radius: var(--border-radius-sm);
 
   cursor: pointer;
+  transition: 0.2s ease-in-out;
 
   &:hover {
-    color: var(--yellow);
-    border: 2px dashed var(--yellow)
+    color: var(--text-color-hover);
+    border: 2px dashed var(--accent)
   }
 }

@@ -12,8 +12,9 @@
   transition: 0.2s ease-in-out;
 
   &:hover {
-    border: var(--border-color--accent);
-    box-shadow: var(--box-shadow-green);
+    border: var(--border-color-hover);
+    color: var(--text-color-hover);
+    box-shadow: var(--box-shadow-hover);
   }
 }
 
@@ -22,12 +23,10 @@
   align-items: center;
   gap: var(--spacing-xs);
 
-  transition: 0.2s ease-in-out;
-
   cursor: pointer;
 
   &:hover {
-    color: var(--yellow);
+    color: var(--text-color-hover-alt);
   }
 }
 

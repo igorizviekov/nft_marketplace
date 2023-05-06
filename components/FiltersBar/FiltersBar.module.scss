@@ -4,6 +4,7 @@
 
   padding: var(--spacing-sm);
 
+  border-radius: var(--border-radius-xs);
   border: var(--border-color-green);
   color: var(--green);
 
@@ -13,9 +14,41 @@
   gap: var(--spacing-xs);
 
   cursor: pointer;
+  transition: 0.2s ease-in-out;
 
-  &:hover{
+  &:hover {
     border: var(--border-color-yellow);
-    color: var(--yellow);
+    color: var(--text-color-hover-alt);
   }
+}
+
+.clearAll {
+  height: 40px;
+  width: auto;
+
+  padding: var(--spacing-sm);
+
+  border-radius: var(--border-radius-xs);
+  border: var(--border-color);
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-xs);
+
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+
+  &:hover {
+    border: var(--border-color-green);
+    color: var(--green);
+    box-shadow: var(--box-shadow-green);
+  }
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
 }

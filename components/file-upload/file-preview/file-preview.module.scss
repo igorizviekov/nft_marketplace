@@ -13,6 +13,12 @@
   border: 2px dashed white;
   border-radius: var(--border-radius-sm);
 
+  cursor: pointer;
+
+  &:hover {
+    border: 2px dashed var(--accent);
+  }
+
   &__thumb {
     max-height: 320px;
     max-width: 320px;
@@ -35,10 +41,11 @@
 
     color: var(--green);
 
+    transition: 0.2s ease-in-out;
+
     &:hover {
       color: var(--yellow);
     }
 
-    cursor: pointer;
   }
 }

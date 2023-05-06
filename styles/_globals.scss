@@ -12,6 +12,8 @@ body {
   background-color: var(--background);
   font-family: 'Inter', 'sans-serif';
   color: white;
+
+  scroll-behavior: smooth;
 }
 
 .nft-gradient {

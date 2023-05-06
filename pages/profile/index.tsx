@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
 import BaseImage from '../../components/ui/Base/BaseImage/BaseImage';
-import styles from '../../styles/pages/CreatorsPage.module.scss';
+import styles from '../../styles/pages/ProfilePage.module.scss';
 import Icon from '../../components/ui/Icon/Icon';
 import { FaDiscord, FaEdit, FaInstagram, FaTwitter } from 'react-icons/fa';
 import { Tabs } from '../../components/ui/Tabs/Tabs';
 import { MockNFTS } from '../../mocks/CreatorPage.mock';
-import { NftCard } from '../../components/ui/nft-card';
+import { NftCard } from '../../components/ui/NFTCard/NFTCard';
 import BasePage from '../../components/ui/Base/BasePage/BasePage';
 import DescriptionSticker from '../../components/DescriptionSticker/DescriptionSticker';
 import { FiEdit } from 'react-icons/fi';
 
-const CreatorsPage = () => {
+const ProfilePage = () => {
   const [selectedTab, setSelectedTab] = useState<number>(0);
   const [isOwnProfile, setIsOwnProfile] = useState<boolean>(true);
   const options = ['My NFTs', 'Listed', 'Created', 'Liked', 'Activity'];
@@ -92,6 +92,7 @@ const CreatorsPage = () => {
                   img={nft.img}
                   price={nft.price}
                   tokenId={nft.tokenId}
+                  traits={nft.traits}
                 />
               );
             }
@@ -102,4 +103,4 @@ const CreatorsPage = () => {
   );
 };
 
-export default CreatorsPage;
+export default ProfilePage;
