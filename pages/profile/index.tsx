@@ -10,14 +10,14 @@ import { NftCard } from '../../components/ui/NFTCard/NFTCard';
 import BasePage from '../../components/ui/Base/BasePage/BasePage';
 import DescriptionSticker from '../../components/DescriptionSticker/DescriptionSticker';
 import { FiEdit } from 'react-icons/fi';
-import CollectionBanner from '../../components/CollectionBanner/CollectionBanner';
 import ActivityBanner from '../../components/ActivityBanner/ActivityBanner';
+import { useRouter } from 'next/router';
 
 const ProfilePage = () => {
+  const router = useRouter();
   const [selectedTab, setSelectedTab] = useState<number>(0);
   const [isOwnProfile, setIsOwnProfile] = useState<boolean>(true);
   const options = ['My NFTs', 'Listed', 'Created', 'Liked', 'Activity'];
-
   return (
     <BasePage>
       <div className={styles.hero}>
@@ -34,6 +34,7 @@ const ProfilePage = () => {
               <Icon
                 icon={<FiEdit style={{ width: '22px', height: '22px' }} />}
                 className={styles.profileIcon}
+                onClick={() => router.push('/edit')}
               />
             )}
           </div>
