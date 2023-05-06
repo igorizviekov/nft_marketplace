@@ -1,12 +1,14 @@
 .link {
   color: white;
+  transition: 0.2s ease-in-out;
 
   &:hover {
-    color: var(--yellow);
+    color: var(--text-color-hover);
   }
 
 }
 
 .active {
-  color: #DBFF34
+  color: #DBFF34;
+  transition: 0.2s ease-in-out;
 }

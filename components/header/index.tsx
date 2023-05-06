@@ -1,5 +1,5 @@
 import styles from './header.module.scss';
-import { useState, useEffect, SetStateAction } from 'react';
+import { useEffect } from 'react';
 import Link from 'next/link';
 import { Actions, useStoreActions, useStoreState } from 'easy-peasy';
 import { IStoreModel } from '../../store/model/model.types';

@@ -8,14 +8,25 @@
     z-index: 1;
     top: 38%;
 
-    background-color: var(--green);
+    background-color: var(--background-dark-green);
+    border: var(--border-color);
     padding: var(--spacing-sm);
 
     border-radius: 50px;
     box-shadow: var(--box-shadow);
 
+    svg {
+      fill: var(--white);
+    }
+
+    transition: 0.2 ease-in-out;
+
     &:hover {
-      background-color: var(--yellow);
+      border: var(--border-color-hover);
+      box-shadow: var(--box-shadow-hover);
+      svg {
+        fill: var(--text-color-hover)
+      }
     }
   }
 
@@ -25,14 +36,24 @@
     z-index: 1;
     top: 38%;
 
-    background-color: var(--green);
+    background-color: var(--background-dark-green);
+    border: var(--border-color);
+
     padding: var(--spacing-sm);
 
     border-radius: 50px;
     box-shadow: var(--box-shadow);
 
+    svg {
+      fill: var(--white);
+    }
+
     &:hover {
-      background-color: var(--yellow);
+      border: var(--border-color-hover);
+      box-shadow: var(--box-shadow-hover);
+      svg {
+        fill: var(--text-color-hover)
+      }
     }
   }
 
@@ -40,7 +61,7 @@
 
     color: black;
 
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
   }
 }

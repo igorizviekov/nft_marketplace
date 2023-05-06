@@ -13,7 +13,15 @@ import { Button } from '../components/ui/Button';
 import { useRouter } from 'next/router';
 export default function Home() {
   const [selected, setSelected] = useState<number>(0);
-  const filterOptions: INFTCategories[] = ['Cat 1', 'Cat 2', 'Cat 3'];
+  const filterOptions: INFTCategories[] = [
+    'Collectibles',
+    'PFPS',
+    'Art',
+    'Games',
+    'Virtual Worlds',
+    'Sports',
+    'Music',
+  ];
   const router = useRouter();
   return (
     <BasePage>

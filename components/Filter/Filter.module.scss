@@ -1,25 +1,28 @@
-.filter {
+.option {
+  margin: var(--spacing-sm) 0;
   padding: var(--spacing-sm);
   border-radius: var(--border-radius-sm);
   border: var(--border-color);
 
+  cursor: pointer;
+
   &:hover {
-    box-shadow: var(--box-shadow-white);
+    box-shadow: var(--box-shadow-hover);
+    color: var(--text-color-hover);
+    border: var(--border-color-hover);
   }
 }
 
-.option {
-  padding: var(--spacing-xs);
-  border-radius: var(--border-radius-sm);
-  border: var(--border-color);
+.selected {
+  box-shadow: var(--box-shadow-hover);
+  border: var(--border-color-hover);
+  color: var(--green);
 
   cursor: pointer;
 }
 
-.selected {
-  background-color: var(--secondary);
-  box-shadow: var(--box-shadow-white);
-  color: var(--background);
-
-  cursor: pointer;
+.filter{
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-md);
 }

@@ -1,12 +1,15 @@
 .tabs {
   width: fit-content;
+  height: 24px;
   display: flex;
+
 
   .tab-option {
     position: relative;
     cursor: pointer;
     margin-right: var(--spacing-lg);
     z-index: 5;
+    transition: 0.2s ease-in-out;
 
     &:last-child {
       margin-right: 0;
@@ -21,6 +24,8 @@
     padding-bottom: 0.3rem;
 
     color: var(--green);
+
+    transition: 0.2s ease-in-out;
 
     &:hover {
       color: var(--green);

@@ -53,7 +53,7 @@
     }
 
     &:hover {
-      color: var(--yellow);
+      color: var(--text-color-hover);
 
       &::after {
         content: "Edit Profile";
@@ -101,8 +101,8 @@
   row-gap: var(--spacing-md);
 }
 
-.nftRow{
-  
+.nftRow {
+
   display: flex;
 
   margin-top: var(--spacing-md);

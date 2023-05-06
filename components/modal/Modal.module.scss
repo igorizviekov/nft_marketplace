@@ -12,13 +12,18 @@
 }
 
 .icon {
+  width: 30px;
+  height: 30px;
   position: absolute;
   right: 10px;
   top: 10px;
   cursor: pointer;
 
+  border-radius: 50%;
+
   &:hover {
-    color: var(--yellow);
+    color: var(--green);
+    box-shadow: var(--box-shadow-hover);
   }
 }
 
