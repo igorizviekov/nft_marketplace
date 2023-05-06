@@ -25,9 +25,10 @@ export const Header = () => {
       return;
     }
     const wallet = await connectWallet(mode);
-    const { isConnected } = wallet;
+    const { isConnected, account } = wallet;
 
     walletActions.setIsWalletConnected(isConnected);
+    walletActions.setActiveWallet(account);
   };
 
   useEffect(() => {

@@ -31,10 +31,10 @@ const DropdownMenu = ({}: IDropdownMenu) => {
     () => setMenuOpen(true)
   );
 
-  console.log(walletState.activeWallet);
+  console.log(walletState)
   return (
     <div className={styles.menu}>
-      {walletState.activeWallet && (
+      {walletState.isWalletConnected && (
         <Button
           isPrimary={false}
           label={walletStart + '...' + walletEnds}
