@@ -12,11 +12,9 @@
 }
 
 .icon {
-  width: 30px;
-  height: 30px;
   position: absolute;
   right: 10px;
-  top: 10px;
+  top: 20px;
   cursor: pointer;
 
   border-radius: 50%;
@@ -44,6 +42,7 @@
   align-items: center;
 
   scroll-behavior: smooth;
+  overflow-y: scroll;
 
   /* width */
   &::-webkit-scrollbar {

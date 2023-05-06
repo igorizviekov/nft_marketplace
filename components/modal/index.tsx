@@ -4,7 +4,7 @@ import { IModalProps } from './modal.types';
 import Icon from '../ui/Icon/Icon';
 import { useOutsideAlerter } from '../../hooks/useOutsideAlerter';
 import styles from './Modal.module.scss';
-import { RiCloseCircleFill } from 'react-icons/ri';
+import { BsXCircleFill } from 'react-icons/bs';
 
 export const Modal = ({ children, onClose }: IModalProps) => {
   const modalRef = useRef<HTMLDivElement>(null);
@@ -17,7 +17,7 @@ export const Modal = ({ children, onClose }: IModalProps) => {
         <div className={styles.icon}>
           <Icon
             icon={
-              <RiCloseCircleFill
+              <BsXCircleFill
                 style={{ width: '30px', height: '30px' }}
               />
             }
