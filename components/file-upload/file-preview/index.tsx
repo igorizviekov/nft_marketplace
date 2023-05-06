@@ -27,12 +27,7 @@ export const FilePreview = ({
         className={styles['file-preview__thumb']}
       />
       <div className={styles['file-preview__controls']}>
-        <Button label="Replace" onClick={onReplace} isPrimary />
-        <Button
-          label="Upload"
-          onClick={() => toast.warn('Upload to DB')}
-          isPrimary={false}
-        />
+        <Button label="Replace" onClick={onReplace} isPrimary={false} />
       </div>
     </div>
   );
