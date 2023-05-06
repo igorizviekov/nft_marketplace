@@ -10,6 +10,8 @@ import { NftCard } from '../../components/ui/NFTCard/NFTCard';
 import BasePage from '../../components/ui/Base/BasePage/BasePage';
 import DescriptionSticker from '../../components/DescriptionSticker/DescriptionSticker';
 import { FiEdit } from 'react-icons/fi';
+import CollectionBanner from '../../components/CollectionBanner/CollectionBanner';
+import ActivityBanner from '../../components/ActivityBanner/ActivityBanner';
 
 const ProfilePage = () => {
   const [selectedTab, setSelectedTab] = useState<number>(0);
@@ -80,23 +82,35 @@ const ProfilePage = () => {
           handleChange={setSelectedTab}
         />
         <div className={styles.nftRow}>
-          {MockNFTS.map((nft, index) => {
-            if (nft.status === options[selectedTab]) {
-              return (
-                <NftCard
-                  key={index + nft.tokenId}
-                  name={nft.name}
-                  seller={nft.seller}
-                  owner={nft.owner}
-                  description={nft.description}
-                  img={nft.img}
-                  price={nft.price}
-                  tokenId={nft.tokenId}
-                  traits={nft.traits}
-                />
-              );
-            }
-          })}
+          {options[selectedTab] !== 'Activity' &&
+            MockNFTS.map((nft, index) => {
+              if (nft.status === options[selectedTab]) {
+                return (
+                  <NftCard
+                    key={index + nft.tokenId}
+                    name={nft.name}
+                    seller={nft.seller}
+                    owner={nft.owner}
+                    description={nft.description}
+                    img={nft.img}
+                    price={nft.price}
+                    tokenId={nft.tokenId}
+                    traits={nft.traits}
+                  />
+                );
+              }
+            })}
+          {options[selectedTab] === 'Activity' && (
+            <ActivityBanner
+              img={''}
+              name={'Rusty Robot Country Club #1010'}
+              transactionType={'Listing'}
+              seller={'0xa3de3788307a25f76815edde4776e7c1d25a3684'}
+              buyer={'0xa3de3788307a25f76815edde4776e7c1d25a3684'}
+              time={new Date('2023-05-06T17:30:01')}
+              total={13}
+            />
+          )}
         </div>
       </div>
     </BasePage>
