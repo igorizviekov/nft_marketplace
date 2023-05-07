@@ -20,7 +20,6 @@ $z-indexes: (
 
   --yellow: #DEF334;
   --green: #39EA22;
-  --red: #EA2222;
   --white: #ffffff;
 
 
@@ -30,6 +29,7 @@ $z-indexes: (
 --border-color-hover: 1px solid var(--accent);
 --border-color-hover-alt: 1px solid var(--green);
 --box-shadow-hover: 0px 0px 5px 1px var(--accent);
+--box-shadow-error: 0px 0px 5px 1px var(--error);
 --text-color-hover: var(--green);
 --text-color-hover-dark: var(--accent);
 --text-color-hover-alt: var(--yellow);

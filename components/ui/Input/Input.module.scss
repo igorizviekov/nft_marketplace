@@ -154,12 +154,15 @@
     &::placeholder {
       color: var(--error) !important;
     }
+
+    box-shadow: var(--box-shadow-error) !important;
   }
 
   textarea {
     border: var(--border-color-error) !important;
     color: var(--error) !important;
 
+    box-shadow: var(--box-shadow-error) !important;
 
     &::placeholder {
       color: var(--error) !important;
