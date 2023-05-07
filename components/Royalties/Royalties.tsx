@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from 'react';
 import styles from './Royalties.module.scss';
 import Input from '../ui/Input';
-import { useStoreActions,useStoreState } from '../../store';
+import { useStoreActions, useStoreState } from '../../store';
 import { IRoyaltiesForm } from './Royalties.types';
 import Icon from '../ui/Icon/Icon';
 import { BsPlusCircleFill } from 'react-icons/bs';
@@ -12,18 +12,12 @@ const Royalties = () => {
     (actions) => actions.collection.addRoyalty
   );
 
-  const royaltyAddresses = useStoreState((state) => state.collection.royalties)
+  const royaltyAddresses = useStoreState((state) => state.collection.royalties);
 
   const [formInput, setFormInput] = useState<IRoyaltiesForm>({
     walletAddress: '',
     percentage: '',
   });
-  const handleForm = (e: ChangeEvent<Element>) => {
-    setFormInput({
-      ...formInput,
-      [e.target.id]: (e.target as HTMLInputElement).value,
-    });
-  };
   return (
     <div className={styles.container}>
       <Input
@@ -39,7 +33,8 @@ const Royalties = () => {
         }
         id={''}
         error={
-          formInput.walletAddress && isWalletValid(formInput.walletAddress, royaltyAddresses)
+          formInput.walletAddress &&
+          isWalletValid(formInput.walletAddress, royaltyAddresses)
         }
       />
       <div className={styles.percentage}>

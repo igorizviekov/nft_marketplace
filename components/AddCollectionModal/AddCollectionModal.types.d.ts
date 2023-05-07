@@ -3,3 +3,10 @@ export interface IAddCollectionModalProps {
 }
 
 export type Steps = 'General' | 'Network' | 'Royalties';
+
+export interface IGeneralInformationInput {
+  file: File | null;
+  name: string;
+  description: string;
+  website?: string;
+}

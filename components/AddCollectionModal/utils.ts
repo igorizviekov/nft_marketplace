@@ -8,8 +8,10 @@ export function validateDescription(description: string): string {
     return 'Description cannot be longer that 500 characters';
   else return '';
 }
+export function validateWebsite(website: string): string {
+  const websiteRegex =
+    /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-zA-Z0-9]+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,63}(:[0-9]{1,5})?(\/.*)?$/;
 
-export function validatePrice(price: number): string {
-  if (price < 0) return "Price can't be negative";
-  else return '';
+  if (website && websiteRegex.test(website)) return '';
+  return 'Enter a valid website';
 }
