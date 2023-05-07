@@ -12,15 +12,15 @@ const CreateSingleForm = () => {
 
   const [selected, setSelected] = useState<number>(0);
 
-  const handleChange = (e: React.ChangeEvent<Element>) => {};
   return (
     <BasePage>
       <div className="w-full animate-fadeIn">
         <h1>Create NFT</h1>
         <Dropdown
           options={options}
+          checked={selected}
           heading={'Type of mint'}
-          onChange={handleChange}
+          onChange={setSelected}
           openModal={function (): void {
             throw new Error('Function not implemented.');
           }}

@@ -1,6 +1,8 @@
 import styles from './dropdown.module.scss';
 import { useState } from 'react';
 import { IDropdownProps } from './dropdown.types';
+import Icon from '../Icon/Icon';
+import { BsArrowDown } from 'react-icons/bs';
 import { ADD_COLLECTION } from '../../../pages/create-nft/SingleForm';
 
 export function Dropdown({
@@ -8,41 +10,38 @@ export function Dropdown({
   heading,
   onChange,
   options,
-  id,
+  checked,
   placeholder,
   openModal,
-  value,
   ...props
 }: IDropdownProps) {
-  console.log(value);
   const [expanded, setExpanded] = useState(false);
   const headingElement = heading && <p className={styles.heading}>{heading}</p>;
 
   const toggleOptions = () => setExpanded(!expanded);
 
-  const handleClick = () => {
-    if (value === ADD_COLLECTION) {
+  const handleClick = (index: number, option: string) => {
+    if (option === ADD_COLLECTION) {
       openModal();
+    } else {
+      toggleOptions();
+      onChange(index);
     }
   };
 
   const OptionList = () => {
     return (
-      <select
-        value={value}
-        className={styles.select}
-        onChange={onChange}
-        id={id}
-      >
-        {placeholder && !required && (
-          <option className={styles.item}>None</option>
-        )}
+      <ul className={styles.options}>
         {options.map((option, index) => (
-          <option key={option + index} className={styles.item}>
+          <p
+            key={option + index}
+            onClick={() => handleClick(index, option)}
+            className={styles.item}
+          >
             {option}
-          </option>
+          </p>
         ))}
-      </select>
+      </ul>
     );
   };
 
@@ -55,7 +54,11 @@ export function Dropdown({
       {...props}
     >
       {headingElement}
-      <OptionList />
+      <div className={styles.header}>
+        <p>{checked !== -1 ? options[checked] : 'Please select an option'}</p>
+        <Icon icon={<BsArrowDown />} />
+      </div>
+      {expanded && <OptionList />}
     </div>
   );
 }

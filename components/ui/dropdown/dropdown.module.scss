@@ -45,7 +45,7 @@ $border: 1px;
 
   .heading {
     display: block;
-
+    
     background-color: var(--background);
     padding: var(--spacing-xs);
     position: absolute;
@@ -54,7 +54,7 @@ $border: 1px;
 
   }
 
-  .select {
+  .header {
     height: var(--spacing-xl);
     width: 100%;
     display: flex;

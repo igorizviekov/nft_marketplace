@@ -44,20 +44,14 @@ const CollectionForm = () => {
   const [isError, setIsError] = useState<boolean | string>(false);
 
   const [selected, setSelected] = useState<number>(0);
-
-  const changeHandler = (e: React.ChangeEvent<Element>) => {
-    setFormInput({
-      ...formInput,
-      [e.currentTarget.id]: (e.target as HTMLInputElement).value,
-    });
-  };
   return (
     <div className={classNames('flex-col-center', styles.form)}>
       <Dropdown
         heading="Select a collection"
         options={[...OPTIONS, ADD_COLLECTION]}
+        checked={selected}
         placeholder="Or create a new one"
-        onChange={changeHandler}
+        onChange={setSelected}
         openModal={() => setModalOpen(true)}
       />
       <BulkUpload

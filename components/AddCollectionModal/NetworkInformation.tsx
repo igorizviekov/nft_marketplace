@@ -12,7 +12,6 @@ const NetworkInformation = ({ handleSteps }: IModalSteps) => {
   const [mainCategory, setMainCategory] = useState<number>(-1);
   const [subcategory, setSubCategory] = useState<number>(-1);
   const [chain, setChain] = useState<number>(-1);
-
   const setNetworkInformation = useStoreActions(
     (actions) => actions.collection.setNetworkInformation
   );
@@ -39,16 +38,28 @@ const NetworkInformation = ({ handleSteps }: IModalSteps) => {
   ];
   const networks: INetwork[] = ['ETH', 'POLYGON', 'SMR'];
 
-  const changeHandler = (e: React.ChangeEvent<Element>) => {
+  const changeHandler = () => {
     setNetworkInformation({
       ...networkInformation,
-      [e.currentTarget.id]: (e.target as HTMLInputElement).value,
+      network: networks[chain],
+      mainCategory: categories[mainCategory],
+      subCategory: categories[subcategory],
     });
   };
   const handleClick = () => {
     handleSteps();
   };
 
+  const handleError = () => {
+    if (chain || subcategory || mainCategory === -1) setFormError(true);
+    else if (!networkInformation.symbol) setFormError(true);
+    else setFormError(false);
+  };
+
+  useEffect(() => {
+    changeHandler();
+    handleError();
+  }, [chain, subcategory, mainCategory]);
   return (
     <>
       <h1>Network Information</h1>
@@ -58,17 +69,21 @@ const NetworkInformation = ({ handleSteps }: IModalSteps) => {
         placeholder={'Enter collections name'}
         id={'symbol'}
         value={networkInformation.symbol}
-        handleChange={changeHandler}
+        handleChange={(e) =>
+          setNetworkInformation({
+            ...networkInformation,
+            symbol: (e.target as HTMLInputElement).value.toLocaleUpperCase(),
+          })
+        }
         error={validateSymbol(networkInformation.symbol)}
       />
       <Dropdown
         heading={'Network'}
         required
-        id="network"
         placeholder={'Select a network'}
         options={networks}
-        value={networkInformation.network}
-        onChange={changeHandler}
+        checked={chain}
+        onChange={setChain}
         openModal={function (): void {
           throw new Error('Function not implemented.');
         }}
@@ -76,11 +91,10 @@ const NetworkInformation = ({ handleSteps }: IModalSteps) => {
       <Dropdown
         heading={'Main Category'}
         required
-        id="mainCategory"
         placeholder={'Select a category'}
         options={categories}
-        value={networkInformation.mainCategory}
-        onChange={changeHandler}
+        checked={mainCategory}
+        onChange={setMainCategory}
         openModal={function (): void {
           throw new Error('Function not implemented.');
         }}
@@ -88,11 +102,10 @@ const NetworkInformation = ({ handleSteps }: IModalSteps) => {
       <Dropdown
         heading={'Subcategory'}
         required
-        id={'subCategory'}
-        value={networkInformation.subCategory}
         placeholder={'Select a sub category'}
         options={categories}
-        onChange={changeHandler}
+        checked={subcategory}
+        onChange={setSubCategory}
         openModal={function (): void {
           throw new Error('Function not implemented.');
         }}

@@ -35,18 +35,15 @@ const SingleForm = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean | string>(false);
 
+  const [selected, setSelected] = useState<number>(-1);
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
 
   const changeHandler = (e: React.ChangeEvent<Element>) => {
     setFormInput({
       ...formInput,
-      [e.target.id]: (e.target as HTMLInputElement).value,
-    });
-
-    if ((e.target as HTMLInputElement).value === ADD_COLLECTION) {
-      setModalOpen(true);
-    }
-  };
+      [e.target.id]: (e.target as HTMLInputElement).value
+    })
+  } 
 
   return (
     <div className={classNames('flex-col-center', styles.form)}>
@@ -64,7 +61,12 @@ const SingleForm = () => {
         inputType="text"
         title="Name"
         placeholder="NFT Name"
-        handleChange={changeHandler}
+        handleChange={(e) =>
+          setFormInput({
+            ...formInput,
+            name: (e.target as HTMLInputElement).value,
+          })
+        }
         error={validateName(formInput.name)}
       />
 
@@ -72,17 +74,21 @@ const SingleForm = () => {
         inputType="textarea"
         title="Description"
         placeholder="NFT Description"
-        handleChange={changeHandler}
+        handleChange={(e) =>
+          setFormInput({
+            ...formInput,
+            description: (e.target as HTMLTextAreaElement).value,
+          })
+        }
         id={'description'}
         error={validateDescription(formInput.description)}
       />
       <Dropdown
         heading="Select a collection"
-        id="collection"
         options={[...OPTIONS, ADD_COLLECTION]}
-        value={formInput.collection}
+        checked={selected}
         placeholder="Or create a new one"
-        onChange={changeHandler}
+        onChange={setSelected}
         openModal={() => setModalOpen(true)}
       />
 
@@ -94,7 +100,12 @@ const SingleForm = () => {
         title="Price"
         placeholder="NFT Price"
         value={formInput.price}
-        handleChange={changeHandler}
+        handleChange={(e) =>
+          setFormInput({
+            ...formInput,
+            price: (e.target as HTMLInputElement).value,
+          })
+        }
         id={'price'}
         error={validatePrice(Number(formInput.price))}
       />
