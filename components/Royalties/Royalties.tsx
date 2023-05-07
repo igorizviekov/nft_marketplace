@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { useState } from 'react';
 import styles from './Royalties.module.scss';
 import Input from '../ui/Input';
 import { useStoreActions, useStoreState } from '../../store';

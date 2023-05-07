@@ -13,6 +13,7 @@ import {
   validatePrice,
 } from '../../components/ui/Input/utils';
 import Royalties from '../../components/Royalties/Royalties';
+import { toast } from 'react-toastify';
 export interface IFormInput {
   name: string;
   description: string;
@@ -33,9 +34,6 @@ const SingleForm = () => {
 
   const OPTIONS = ['Collection 1', 'Collection 2', 'Collection 3'];
   const [file, setFile] = useState<File | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isError, setIsError] = useState<boolean | string>(false);
-
   const [selected, setSelected] = useState<number>(-1);
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
 
@@ -122,7 +120,7 @@ const SingleForm = () => {
             file
           )
         }
-        onClick={() => submitNewNFT(formInput, setIsError, setIsLoading, file)}
+        onClick={() => toast.warn('Create NFT')}
       />
     </div>
   );
