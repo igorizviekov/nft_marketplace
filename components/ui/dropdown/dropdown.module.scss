@@ -28,6 +28,11 @@ $border: 1px;
 
     .header {
       border: var(--border-color-green);
+
+      .placeholder {
+        color: var(--accent);
+        transition: 0.2s ease-in-out;
+      }
     }
 
     .options {
@@ -49,8 +54,9 @@ $border: 1px;
 
   }
 
-  .header {
+  .select {
     height: var(--spacing-xl);
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;

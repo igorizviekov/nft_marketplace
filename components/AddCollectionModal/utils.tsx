@@ -1,4 +1,4 @@
-import { useStoreActions } from '../../store';
+import { useStoreActions, useStoreDispatch } from '../../store';
 
 export function validateName(name: string): string {
   const setFormError = useStoreActions(
@@ -36,7 +36,15 @@ export function validateWebsite(website?: string): string {
 
 export function validateSymbol(symbol: string) {
   const symbolRegex = /^[A-Z0-9]{2,10}$/;
-
-  if (symbolRegex.test(symbol)) return '';
-  return 'Invalid Symbol';
+  const setFormError = useStoreActions(
+    (actions) => actions.collection.setNetworkInformationError
+  );
+  if (symbolRegex.test(symbol)) {
+    return '';
+  } else if (symbol === '') {
+    return '';
+  } else {
+    setFormError(true);
+    return 'Invalid Symbol';
+  }
 }

@@ -35,8 +35,18 @@ const SingleForm = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean | string>(false);
 
-  const [selected, setSelected] = useState<number>(-1);
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
+
+  const changeHandler = (e: React.ChangeEvent<Element>) => {
+    setFormInput({
+      ...formInput,
+      [e.target.id]: (e.target as HTMLInputElement).value,
+    });
+
+    if ((e.target as HTMLInputElement).value === ADD_COLLECTION) {
+      setModalOpen(true);
+    }
+  };
 
   return (
     <div className={classNames('flex-col-center', styles.form)}>
@@ -54,12 +64,7 @@ const SingleForm = () => {
         inputType="text"
         title="Name"
         placeholder="NFT Name"
-        handleChange={(e) =>
-          setFormInput({
-            ...formInput,
-            name: (e.target as HTMLInputElement).value,
-          })
-        }
+        handleChange={changeHandler}
         error={validateName(formInput.name)}
       />
 
@@ -67,21 +72,17 @@ const SingleForm = () => {
         inputType="textarea"
         title="Description"
         placeholder="NFT Description"
-        handleChange={(e) =>
-          setFormInput({
-            ...formInput,
-            description: (e.target as HTMLTextAreaElement).value,
-          })
-        }
+        handleChange={changeHandler}
         id={'description'}
         error={validateDescription(formInput.description)}
       />
       <Dropdown
         heading="Select a collection"
+        id="collection"
         options={[...OPTIONS, ADD_COLLECTION]}
-        checked={selected}
+        value={formInput.collection}
         placeholder="Or create a new one"
-        onChange={setSelected}
+        onChange={changeHandler}
         openModal={() => setModalOpen(true)}
       />
 
@@ -93,12 +94,7 @@ const SingleForm = () => {
         title="Price"
         placeholder="NFT Price"
         value={formInput.price}
-        handleChange={(e) =>
-          setFormInput({
-            ...formInput,
-            price: (e.target as HTMLInputElement).value,
-          })
-        }
+        handleChange={changeHandler}
         id={'price'}
         error={validatePrice(Number(formInput.price))}
       />

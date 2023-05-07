@@ -10,15 +10,11 @@ export interface IDropdownProps
    */
   options: string[];
 
-  /**
-   * Selected option
-   */
-  checked: number;
 
   /**
    * Input change handler
    */
-  onChange: (option: number) => void;
+  onChange: React.ChangeEventHandler;
   /**
    *
    */
