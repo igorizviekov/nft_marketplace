@@ -7,10 +7,20 @@ export const CollectionsModel: ICollectionModel = {
     file: null,
     name: '',
     description: '',
-    website: ''
+    website: '',
+  },
+  networkInformation: {
+    symbol: '',
+    network: 'ETH',
+    mainCategory: 'Art',
+    subCategory: 'Art',
   },
   generalInformationFormError: true,
+  networkInformationError: true,
 
+  /**
+   * Royalties Actions
+   */
   addRoyalty: action((state, payload) => {
     state.royalties.push(payload);
   }),
@@ -22,6 +32,9 @@ export const CollectionsModel: ICollectionModel = {
     });
   }),
 
+  /**
+   * General information Actions
+   */
   editGeneralInformation: action((state, payload) => {
     state.generalInformation = {
       file: payload.file,
@@ -32,5 +45,21 @@ export const CollectionsModel: ICollectionModel = {
   }),
   setGeneralInformationFormError: action((state, payload) => {
     state.generalInformationFormError = payload;
+  }),
+
+  /**
+   * Network information Actions
+   */
+
+  setNetworkInformation: action((state, payload) => {
+    state.networkInformation = {
+      symbol: payload.symbol,
+      network: payload.network,
+      mainCategory: payload.mainCategory,
+      subCategory: payload.subCategory,
+    };
+  }),
+  setNetworkInformationError: action((state, payload) => {
+    state.networkInformationError = payload;
   }),
 };

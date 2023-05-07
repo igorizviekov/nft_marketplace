@@ -32,6 +32,14 @@ export function Dropdown({
   const OptionList = () => {
     return (
       <ul className={styles.options}>
+        {placeholder && !required && (
+          <p
+            className={styles.item}
+            onClick={() => handleClick(-1, placeholder)}
+          >
+            None
+          </p>
+        )}
         {options.map((option, index) => (
           <p
             key={option + index}
@@ -55,7 +63,7 @@ export function Dropdown({
     >
       {headingElement}
       <div className={styles.header}>
-        <p>{options[checked]}</p>
+        <p>{checked !== -1 ? options[checked] : <p className={styles.placeholder}>{placeholder}</p>}</p>
         <Icon icon={<BsArrowDown />} />
       </div>
       {expanded && <OptionList />}

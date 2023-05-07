@@ -35,7 +35,7 @@ const SingleForm = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean | string>(false);
 
-  const [selected, setSelected] = useState<number>(0);
+  const [selected, setSelected] = useState<number>(-1);
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
 
   return (

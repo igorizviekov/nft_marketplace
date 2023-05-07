@@ -12,6 +12,13 @@ $border: 1px;
 
     .header {
       border: var(--border-color-hover);
+      transition: 0.2s ease-in-out;
+
+      .placeholder {
+        color: var(--accent);
+        transition: 0.2s ease-in-out;
+
+      }
     }
 
   }
@@ -40,11 +47,6 @@ $border: 1px;
     left: var(--spacing-sm);
     top: -18px;
 
-    &__required:after {
-      content: ' *';
-      color: red;
-    }
-
   }
 
   .header {
@@ -60,6 +62,10 @@ $border: 1px;
     border: $border solid white;
 
     cursor: pointer;
+  }
+
+  .placeholder {
+    color: rgb(154, 154, 154);
   }
 
   .options {
@@ -83,6 +89,7 @@ $border: 1px;
       transition: 0.2s ease-in-out;
 
       border-radius: var(--border-radius-sm);
+
       &:hover {
         color: var(--yellow);
         background-color: var(--background-hover);

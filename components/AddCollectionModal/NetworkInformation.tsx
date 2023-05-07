@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
 import Input from '../ui/Input';
 import { Dropdown } from '../ui/dropdown';
-import {
-  IModalSteps,
-  INetworkInformationInput,
-} from './AddCollectionModal.types';
+import { IModalSteps } from './AddCollectionModal.types';
 import { INFTCategories } from '../Filter/Filter.types';
 import { INetwork } from '../NetworkDropdown/NetworkDropdown.types';
 import { Button } from '../ui/Button';
+import { useStoreActions, useStoreState } from '../../store';
 
 const NetworkInformation = ({ handleSteps }: IModalSteps) => {
-  const [mainCategory, setMainCategory] = useState<number>(0);
-  const [subcategory, setSubCategory] = useState<number>(0);
-  const [chain, setChain] = useState<number>(0);
+  const [mainCategory, setMainCategory] = useState<number>(-1);
+  const [subcategory, setSubCategory] = useState<number>(-1);
+  const [chain, setChain] = useState<number>(-1);
+
+  const setNetworkInformation = useStoreActions(
+    (actions) => actions.collection.setNetworkInformation
+  );
+  const networkInformation = useStoreState(
+    (state) => state.collection.networkInformation
+  );
 
   const categories: INFTCategories[] = [
     'Art',
@@ -24,13 +29,8 @@ const NetworkInformation = ({ handleSteps }: IModalSteps) => {
     'Virtual Worlds',
   ];
   const networks: INetwork[] = ['ETH', 'POLYGON', 'SMR'];
-  const [formInput, setFormInput] = useState<INetworkInformationInput>({
-    symbol: '',
-    network: 'ETH',
-    mainCategory: 'Cat 1',
-    subCategory: 'Cat 1',
-  });
 
+  const changeHandler = (e: React.ChangeEvent<Element>) => {};
   function handleClick() {
     handleSteps();
   }
@@ -42,17 +42,17 @@ const NetworkInformation = ({ handleSteps }: IModalSteps) => {
         inputType={'text'}
         placeholder={'Enter collections name'}
         id={'symbol'}
-        value={formInput.symbol}
+        value={networkInformation.symbol}
         handleChange={(e) =>
-          setFormInput({
-            ...formInput,
+          setNetworkInformation({
+            ...networkInformation,
             symbol: (e.target as HTMLInputElement).value,
           })
         }
       />
       <Dropdown
         heading={'Network'}
-        placeholder={'Enter collections name'}
+        placeholder={'Select a network'}
         options={networks}
         checked={chain}
         onChange={setChain}
@@ -62,7 +62,7 @@ const NetworkInformation = ({ handleSteps }: IModalSteps) => {
       />
       <Dropdown
         heading={'Main Category'}
-        placeholder={'Enter collections name'}
+        placeholder={'Select a category'}
         options={categories}
         checked={mainCategory}
         onChange={setMainCategory}
@@ -72,7 +72,7 @@ const NetworkInformation = ({ handleSteps }: IModalSteps) => {
       />
       <Dropdown
         heading={'Subcategory'}
-        placeholder={'Enter collections name'}
+        placeholder={'Select a sub category'}
         options={categories}
         checked={subcategory}
         onChange={setSubCategory}

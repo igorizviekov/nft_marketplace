@@ -30,7 +30,7 @@ export function validateWebsite(website?: string): string {
   else if (website === '') return '';
   else {
     setFormError(true);
-    return 'Invalid Email';
+    return 'Invalid Website';
   }
 }
 
