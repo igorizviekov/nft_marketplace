@@ -14,6 +14,9 @@ import {
 } from '../../components/ui/Input/utils';
 import Royalties from '../../components/Royalties/Royalties';
 import { toast } from 'react-toastify';
+import { Royalty } from '../../store/model/collection/collection.types';
+import { useStoreActions, useStoreState } from '../../store';
+import RoyaltiesList from '../../components/Royalties/RoyaltiesList';
 export interface IFormInput {
   name: string;
   description: string;
@@ -31,6 +34,12 @@ const SingleForm = () => {
     image: '',
     collection: '',
   });
+
+  const royalties = useStoreState((state) => state.nftMint.royalties);
+  const addRoyalty = useStoreActions((actions) => actions.nftMint.addRoyalty);
+  const deleteRoyalty = useStoreActions(
+    (actions) => actions.nftMint.deleteRoyalty
+  );
 
   const OPTIONS = ['Collection 1', 'Collection 2', 'Collection 3'];
   const [file, setFile] = useState<File | null>(null);
@@ -90,7 +99,12 @@ const SingleForm = () => {
         onChange={setSelected}
         openModal={() => setModalOpen(true)}
       />
-      {selected === -1 && <Royalties />}
+      {selected === -1 && (
+        <>
+          <Royalties royalties={royalties} addRoyalty={addRoyalty} />
+          <RoyaltiesList royalties={royalties} deleteRoyalty={deleteRoyalty} />
+        </>
+      )}
       {isModalOpen && (
         <AddCollectionModal handleModalClose={() => setModalOpen(false)} />
       )}

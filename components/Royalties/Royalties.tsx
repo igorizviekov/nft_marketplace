@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import styles from './Royalties.module.scss';
 import Input from '../ui/Input';
 import { useStoreActions, useStoreState } from '../../store';
-import { IRoyaltiesForm } from './Royalties.types';
+import { IRoyaltiesForm, IRoyaltiesProps } from './Royalties.types';
 import Icon from '../ui/Icon/Icon';
 import { BsPlusCircleFill } from 'react-icons/bs';
 import { isWalletValid, validatePercentage } from './utils';
 
-const Royalties = () => {
-  const addRoyalty = useStoreActions(
-    (actions) => actions.collection.addRoyalty
-  );
+const Royalties = ({ royalties, addRoyalty }: IRoyaltiesProps) => {
+  // const addRoyalty = useStoreActions(
+  //   (actions) => actions.collection.addRoyalty
+  // );
 
   const royaltyAddresses = useStoreState((state) => state.collection.royalties);
 
