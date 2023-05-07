@@ -12,25 +12,31 @@ const RoyaltiesInformation = () => {
   return (
     <>
       <h1>Royalties information</h1>
-      <div className={styles.royaltyContainer}>
-        {royalties &&
-          royalties.map((royalty, index) => (
-            <div className={styles.royalty} key={index + royalty.walletAddress}>
-              <div>
-                <p>Address: {royalty.walletAddress}</p>
-                <p>Percentage: {royalty.percentage}</p>
-              </div>
-              <Icon
-                icon={
-                  <BsXCircleFill style={{ width: '30px', height: '30px' }} />
-                }
-                className={styles.icon}
-                onClick={() => deleteRoyalty(royalty)}
-              />
-            </div>
-          ))}
-      </div>
       <Royalties />
+      {royalties.length > 0 && (
+        <>
+          <div className={styles.royaltyContainer}>
+            {royalties.map((royalty, index) => (
+              <div
+                className={styles.royalty}
+                key={index + royalty.walletAddress}
+              >
+                <div>
+                  <p>Address: {royalty.walletAddress}</p>
+                  <p>Percentage: {royalty.percentage}</p>
+                </div>
+                <Icon
+                  icon={
+                    <BsXCircleFill style={{ width: '30px', height: '30px' }} />
+                  }
+                  className={styles.icon}
+                  onClick={() => deleteRoyalty(royalty)}
+                />
+              </div>
+            ))}
+          </div>
+        </>
+      )}
     </>
   );
 };
