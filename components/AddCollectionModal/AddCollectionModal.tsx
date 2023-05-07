@@ -16,6 +16,8 @@ const AddCollectionModal = ({ handleModalClose }: IAddCollectionModalProps) => {
   ]);
   const [selected, setSelected] = useState<number>(0);
 
+  const buttonLabel =
+    steps[selected] === 'Royalties' ? 'Save collection' : 'Next Step';
   function handleClick() {
     if (steps[selected] === 'Royalties') console.log('Save everything');
     else setSelected(selected + 1);
@@ -27,20 +29,21 @@ const AddCollectionModal = ({ handleModalClose }: IAddCollectionModalProps) => {
           <Icon
             onClick={() => setSelected(selected - 1)}
             className={styles.icon}
-            icon={<BsFillArrowLeftCircleFill style={{ width: '30px', height: '30px' }} />}
+            icon={
+              <BsFillArrowLeftCircleFill
+                style={{ width: '30px', height: '30px' }}
+              />
+            }
           />
         )}
+
         {steps[selected] === 'General' && <GeneralInformation />}
         {steps[selected] === 'Network' && <NetworkInformation />}
         {steps[selected] === 'Royalties' && <RoyaltiesInformation />}
 
         <p>Contract address will go here as info for the user?</p>
 
-        <Button
-          isPrimary={false}
-          label={'Save collection'}
-          onClick={handleClick}
-        />
+        <Button isPrimary={false} label={buttonLabel} onClick={handleClick} />
       </div>
     </Modal>
   );

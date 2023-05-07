@@ -1,12 +1,35 @@
 import React from 'react';
 import Royalties from '../Royalties/Royalties';
-
+import { useStoreState, useStoreActions } from '../../store';
+import Icon from '../ui/Icon/Icon';
+import styles from '../Royalties/Royalties.module.scss';
+import { BsXCircleFill } from 'react-icons/bs';
 const RoyaltiesInformation = () => {
+  const royalties = useStoreState((state) => state.collection.royalties);
+  const deleteRoyalty = useStoreActions(
+    (actions) => actions.collection.deleteRoyalty
+  );
   return (
     <>
       <h1>Royalties information</h1>
-      <p>Address: 0xa3de3788307a25f76815edde4776e7c1d25a3684</p>
-      <p>Percentage: 0.05%</p>
+      <div className={styles.royaltyContainer}>
+        {royalties &&
+          royalties.map((royalty, index) => (
+            <div className={styles.royalty} key={index + royalty.walletAddress}>
+              <div>
+                <p>Address: {royalty.walletAddress}</p>
+                <p>Percentage: {royalty.percentage}</p>
+              </div>
+              <Icon
+                icon={
+                  <BsXCircleFill style={{ width: '30px', height: '30px' }} />
+                }
+                className={styles.icon}
+                onClick={() => deleteRoyalty(royalty)}
+              />
+            </div>
+          ))}
+      </div>
       <Royalties />
     </>
   );

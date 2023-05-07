@@ -38,12 +38,6 @@ const SingleForm = () => {
   const [selected, setSelected] = useState<number>(0);
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
 
-  const handleForm = (e: ChangeEvent<Element>) => {
-    setFormInput({
-      ...formInput,
-      [e.target.id]: (e.target as HTMLInputElement).value,
-    });
-  };
   return (
     <div className={classNames('flex-col-center', styles.form)}>
       <FileUpload

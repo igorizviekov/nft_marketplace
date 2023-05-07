@@ -4,6 +4,9 @@
 
   position: relative;
 
+  display: flex;
+  flex-direction: column;
+
   border-radius: var(--border-radius-sm);
 
   transition: 0.2s ease-in-out;

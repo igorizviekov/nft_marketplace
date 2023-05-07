@@ -1,8 +1,52 @@
 .container {
-  width: 1000px;
-  
+  width: auto;
+
   display: flex;
   flex-direction: column;
 
   gap: var(--spacing-sm);
+}
+
+.percentage {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+
+}
+
+.icon {
+  margin-top: var(--spacing-xs);
+  border-radius: 50px;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--text-color-hover);
+    box-shadow: var(--box-shadow-hover);
+  }
+}
+
+.royalty {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+
+  text-align: start;
+
+  border: var(--border-color);
+  border-radius: var(--border-radius-sm);
+  padding: var(--spacing-md);
+}
+
+.royaltyContainer {
+  max-height: 50vh;
+
+  padding: var(--spacing-sm) ;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  
+  
+  scroll-behavior: smooth;
+  overflow-y: scroll;
 }
