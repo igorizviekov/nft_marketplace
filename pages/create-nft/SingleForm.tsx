@@ -12,6 +12,7 @@ import {
   validateName,
   validatePrice,
 } from '../../components/ui/Input/utils';
+import Royalties from '../../components/Royalties/Royalties';
 export interface IFormInput {
   name: string;
   description: string;
@@ -41,9 +42,9 @@ const SingleForm = () => {
   const changeHandler = (e: React.ChangeEvent<Element>) => {
     setFormInput({
       ...formInput,
-      [e.target.id]: (e.target as HTMLInputElement).value
-    })
-  } 
+      [e.target.id]: (e.target as HTMLInputElement).value,
+    });
+  };
 
   return (
     <div className={classNames('flex-col-center', styles.form)}>
@@ -84,14 +85,14 @@ const SingleForm = () => {
         error={validateDescription(formInput.description)}
       />
       <Dropdown
-        heading="Select a collection"
+        heading="Select a collection (Optional)"
         options={[...OPTIONS, ADD_COLLECTION]}
         checked={selected}
         placeholder="Or create a new one"
         onChange={setSelected}
         openModal={() => setModalOpen(true)}
       />
-
+      {selected === -1 && <Royalties />}
       {isModalOpen && (
         <AddCollectionModal handleModalClose={() => setModalOpen(false)} />
       )}
@@ -110,23 +111,19 @@ const SingleForm = () => {
         error={validatePrice(Number(formInput.price))}
       />
 
-      <div className="mt-7 w-full flex justify-end">
-        <Button
-          isPrimary
-          label="Create NFT"
-          disabled={
-            !isFormValid(
-              formInput.name,
-              Number(formInput.price),
-              formInput.description,
-              file
-            )
-          }
-          onClick={() =>
-            submitNewNFT(formInput, setIsError, setIsLoading, file)
-          }
-        />
-      </div>
+      <Button
+        isPrimary
+        label="Create NFT"
+        disabled={
+          !isFormValid(
+            formInput.name,
+            Number(formInput.price),
+            formInput.description,
+            file
+          )
+        }
+        onClick={() => submitNewNFT(formInput, setIsError, setIsLoading, file)}
+      />
     </div>
   );
 };
