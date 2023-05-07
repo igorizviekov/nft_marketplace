@@ -19,7 +19,7 @@ const RoyaltiesInformation = ({ handleSteps }: IModalSteps) => {
   return (
     <>
       <h1>Royalties information</h1>
-      <Royalties royalties={royalties} addRoyalty={addRoyalty} />
+      <Royalties addRoyalty={addRoyalty} />
       <RoyaltiesList royalties={royalties} deleteRoyalty={deleteRoyalty} />
       <Button
         isPrimary={false}

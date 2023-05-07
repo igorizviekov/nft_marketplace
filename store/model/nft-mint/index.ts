@@ -10,6 +10,7 @@ export const NFTMintModel: INFTMintModel = {
     collection: '',
   },
   royalties: [],
+  traits: [],
 
   editGeneralInformation: action((state, payload) => {
     state.nftGeneralInfo = {
@@ -28,6 +29,19 @@ export const NFTMintModel: INFTMintModel = {
   deleteRoyalty: action((state, payload) => {
     state.royalties?.map((royalty, index) => {
       if (royalty.walletAddress === payload.walletAddress) {
+        state.royalties?.splice(index, 1);
+      }
+    });
+  }),
+  addTrait: action((state, payload) => {
+    state.traits?.push(payload);
+  }),
+  deleteTrait: action((state, payload) => {
+    state.traits?.map((trait, index) => {
+      if (
+        trait.traitType === payload.traitType &&
+        trait.value === payload.value
+      ) {
         state.royalties?.splice(index, 1);
       }
     });

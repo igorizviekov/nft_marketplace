@@ -7,11 +7,7 @@ import Icon from '../ui/Icon/Icon';
 import { BsPlusCircleFill } from 'react-icons/bs';
 import { isWalletValid, validatePercentage } from './utils';
 
-const Royalties = ({ royalties, addRoyalty }: IRoyaltiesProps) => {
-  // const addRoyalty = useStoreActions(
-  //   (actions) => actions.collection.addRoyalty
-  // );
-
+const Royalties = ({ addRoyalty }: IRoyaltiesProps) => {
   const royaltyAddresses = useStoreState((state) => state.collection.royalties);
 
   const [formInput, setFormInput] = useState<IRoyaltiesForm>({

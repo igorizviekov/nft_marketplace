@@ -5,7 +5,6 @@ import {
 } from '../../store/model/collection/collection.types';
 
 export interface IRoyaltiesProps {
-  royalties: Royalty[];
   addRoyalty: (royalty: Royalty) => void;
 }
 
