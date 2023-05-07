@@ -38,26 +38,17 @@ const NetworkInformation = ({ handleSteps }: IModalSteps) => {
   ];
   const networks: INetwork[] = ['ETH', 'POLYGON', 'SMR'];
 
-  const changeHandler = () => {
-    setNetworkInformation({
-      ...networkInformation,
-      network: networks[chain],
-      mainCategory: categories[mainCategory],
-      subCategory: categories[subcategory],
-    });
-  };
   const handleClick = () => {
     handleSteps();
   };
 
   const handleError = () => {
-    if (chain || subcategory || mainCategory === -1) setFormError(true);
-    else if (!networkInformation.symbol) setFormError(true);
+    if (chain === -1 || subcategory === -1 || mainCategory === -1)
+      setFormError(true);
     else setFormError(false);
   };
 
   useEffect(() => {
-    changeHandler();
     handleError();
   }, [chain, subcategory, mainCategory]);
   return (

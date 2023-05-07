@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useStoreActions, useStoreDispatch } from '../../store';
 
 export function validateName(name: string): string {
@@ -39,12 +40,19 @@ export function validateSymbol(symbol: string) {
   const setFormError = useStoreActions(
     (actions) => actions.collection.setNetworkInformationError
   );
-  if (symbolRegex.test(symbol)) {
-    return '';
-  } else if (symbol === '') {
-    return '';
-  } else {
-    setFormError(true);
-    return 'Invalid Symbol';
-  }
+  const [message, setMessage] = useState<string>();
+
+  useEffect(() => {
+    if (symbolRegex.test(symbol)) {
+      setMessage('');
+    } else if (symbol === '') {
+      setMessage('');
+      setFormError(true);
+    } else {
+      setFormError(true);
+      setMessage('Invalid Symbol');
+    }
+  }, [symbol]);
+
+  return message;
 }
