@@ -15,3 +15,10 @@ export function validateWebsite(website: string): string {
   if (website && websiteRegex.test(website)) return '';
   return 'Enter a valid website';
 }
+
+export function validateSymbol(symbol: string) {
+  const symbolRegex = /^[A-Z0-9]{2,10}$/;
+
+  if (symbolRegex.test(symbol)) return '';
+  return 'Invalid Symbol';
+}

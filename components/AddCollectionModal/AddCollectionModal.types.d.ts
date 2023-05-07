@@ -1,3 +1,5 @@
+import { INetwork } from '../NetworkDropdown/NetworkDropdown.types';
+
 export interface IAddCollectionModalProps {
   handleModalClose: () => void;
 }
@@ -9,4 +11,13 @@ export interface IGeneralInformationInput {
   name: string;
   description: string;
   website?: string;
+}
+
+export interface INetworkInformationInput {
+  symbol: string;
+  //@TODO ADD GLOBAL NETWORK TYPE
+  network: INetwork;
+  //@TODO ADD GLOBAL CATEGROY TYPE
+  mainCategory: 'Cat 1' | 'Cat 2' | 'Cat 3';
+  subCategory: 'Cat 1' | 'Cat 2' | 'Cat 3';
 }
