@@ -1,26 +1,63 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ProfileImageUpload from '../ProfileImageUpload/ProfileImageUpload';
 import Input from '../ui/Input';
-import { IGeneralInformationInput } from './AddCollectionModal.types';
+import { IModalSteps } from './AddCollectionModal.types';
 import { validateDescription, validateName, validateWebsite } from './utils';
+import { Button } from '../ui/Button';
+import { useStoreActions, useStoreState } from '../../store';
 
-const GeneralInformation = () => {
-  const [file, setFile] = useState<File | null>(null);
+const GeneralInformation = ({ handleSteps }: IModalSteps) => {
+  const editGeneralInformation = useStoreActions(
+    (actions) => actions.collection.editGeneralInformation
+  );
+  const generalInformation = useStoreState(
+    (state) => state.collection.generalInformation
+  );
+  const formError = useStoreState(
+    (state) => state.collection.generalInformationFormError
+  );
+  const setFormError = useStoreActions(
+    (actions) => actions.collection.setGeneralInformationFormError
+  );
 
-  const [formInput, setFormInput] = useState<IGeneralInformationInput>({
-    file: null,
-    name: '',
-    description: '',
-  });
+  function handleClick() {
+    handleSteps();
+  }
+
+  const changeHandler = (e: React.ChangeEvent<Element>) => {
+    editGeneralInformation({
+      ...generalInformation,
+      [e.currentTarget.id]: (e.target as HTMLInputElement).value,
+    });
+  };
+
+  const handleError = () => {
+    if (
+      generalInformation.name &&
+      generalInformation.description &&
+      generalInformation.file
+    ) {
+      setFormError(false);
+    } else {
+      setFormError(true);
+    }
+  };
+
+  useEffect(() => {
+    handleError();
+  }, [generalInformation]);
+
   return (
     <>
       <h1>General Information</h1>
       <ProfileImageUpload
-        file={formInput.file}
-        onUploadAbort={() => setFormInput({ ...formInput, file: null })}
+        file={generalInformation.file}
+        onUploadAbort={() =>
+          editGeneralInformation({ ...generalInformation, file: null })
+        }
         onDropAccepted={(arr) =>
-          setFormInput({
-            ...formInput,
+          editGeneralInformation({
+            ...generalInformation,
             file: arr[0],
           })
         }
@@ -32,42 +69,33 @@ const GeneralInformation = () => {
         inputType={'text'}
         placeholder={'Enter collections name'}
         id={'name'}
-        handleChange={(e) =>
-          setFormInput({
-            ...formInput,
-            name: (e.target as HTMLInputElement).value,
-          })
-        }
-        value={formInput.name}
-        error={validateName(formInput.name)}
+        handleChange={changeHandler}
+        value={generalInformation.name}
+        error={validateName(generalInformation.name)}
       />
       <Input
         title={'Description'}
         inputType={'textarea'}
         placeholder={'Enter collections description'}
         id={'description'}
-        value={formInput.description}
-        handleChange={(e) =>
-          setFormInput({
-            ...formInput,
-            description: (e.target as HTMLInputElement).value,
-          })
-        }
-        error={validateDescription(formInput.description)}
+        value={generalInformation.description}
+        handleChange={changeHandler}
+        error={validateDescription(generalInformation.description)}
       />
       <Input
         title={'Website (Optional)'}
         inputType={'text'}
         placeholder={'Link a website'}
         id={'website'}
-        value={formInput.website}
-        handleChange={(e) =>
-          setFormInput({
-            ...formInput,
-            website: (e.target as HTMLInputElement).value,
-          })
-        }
-        error={formInput.website && validateWebsite(formInput.website)}
+        value={generalInformation.website}
+        handleChange={changeHandler}
+        error={validateWebsite(generalInformation.website)}
+      />
+      <Button
+        isPrimary={false}
+        disabled={formError}
+        label={'Next Step'}
+        onClick={handleClick}
       />
     </>
   );

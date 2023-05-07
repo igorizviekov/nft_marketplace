@@ -15,9 +15,11 @@ export interface IGeneralInformationInput {
 
 export interface INetworkInformationInput {
   symbol: string;
-  //@TODO ADD GLOBAL NETWORK TYPE
   network: INetwork;
-  //@TODO ADD GLOBAL CATEGROY TYPE
   mainCategory: 'Cat 1' | 'Cat 2' | 'Cat 3';
   subCategory: 'Cat 1' | 'Cat 2' | 'Cat 3';
+}
+
+export interface IModalSteps {
+  handleSteps: () => void;
 }

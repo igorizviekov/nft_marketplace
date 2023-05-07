@@ -4,11 +4,17 @@ import { useStoreState, useStoreActions } from '../../store';
 import Icon from '../ui/Icon/Icon';
 import styles from '../Royalties/Royalties.module.scss';
 import { BsXCircleFill } from 'react-icons/bs';
-const RoyaltiesInformation = () => {
+import { IModalSteps } from './AddCollectionModal.types';
+import { Button } from '../ui/Button';
+const RoyaltiesInformation = ({ handleSteps }: IModalSteps) => {
   const royalties = useStoreState((state) => state.collection.royalties);
   const deleteRoyalty = useStoreActions(
     (actions) => actions.collection.deleteRoyalty
   );
+
+  function handleClick() {
+    handleSteps();
+  }
   return (
     <>
       <h1>Royalties information</h1>
@@ -37,6 +43,12 @@ const RoyaltiesInformation = () => {
           </div>
         </>
       )}
+      <Button
+        isPrimary={false}
+        disabled={false}
+        label={'Next Step'}
+        onClick={handleClick}
+      />
     </>
   );
 };

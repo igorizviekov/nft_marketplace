@@ -18,7 +18,7 @@ const AddCollectionModal = ({ handleModalClose }: IAddCollectionModalProps) => {
 
   const buttonLabel =
     steps[selected] === 'Royalties' ? 'Save collection' : 'Next Step';
-  function handleClick() {
+  function handleSteps() {
     if (steps[selected] === 'Royalties') console.log('Save everything');
     else setSelected(selected + 1);
   }
@@ -37,13 +37,17 @@ const AddCollectionModal = ({ handleModalClose }: IAddCollectionModalProps) => {
           />
         )}
 
-        {steps[selected] === 'General' && <GeneralInformation />}
-        {steps[selected] === 'Network' && <NetworkInformation />}
-        {steps[selected] === 'Royalties' && <RoyaltiesInformation />}
+        {steps[selected] === 'General' && (
+          <GeneralInformation handleSteps={() => setSelected(selected + 1)} />
+        )}
+        {steps[selected] === 'Network' && (
+          <NetworkInformation handleSteps={() => setSelected(selected + 1)} />
+        )}
+        {steps[selected] === 'Royalties' && (
+          <RoyaltiesInformation handleSteps={handleSteps} />
+        )}
 
         <p>Contract address will go here as info for the user?</p>
-
-        <Button isPrimary={false} label={buttonLabel} onClick={handleClick} />
       </div>
     </Modal>
   );

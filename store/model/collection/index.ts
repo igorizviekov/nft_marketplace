@@ -3,6 +3,13 @@ import { ICollectionModel } from './collection.types';
 
 export const CollectionsModel: ICollectionModel = {
   royalties: [],
+  generalInformation: {
+    file: null,
+    name: '',
+    description: '',
+    website: ''
+  },
+  generalInformationFormError: true,
 
   addRoyalty: action((state, payload) => {
     state.royalties.push(payload);
@@ -13,5 +20,17 @@ export const CollectionsModel: ICollectionModel = {
         state.royalties.splice(index, 1);
       }
     });
+  }),
+
+  editGeneralInformation: action((state, payload) => {
+    state.generalInformation = {
+      file: payload.file,
+      name: payload.name,
+      description: payload.description,
+      website: payload.website,
+    };
+  }),
+  setGeneralInformationFormError: action((state, payload) => {
+    state.generalInformationFormError = payload;
   }),
 };
