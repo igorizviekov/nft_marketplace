@@ -7,17 +7,11 @@ import { Button } from '../ui/Button';
 import { useStoreActions, useStoreState } from '../../store';
 
 const GeneralInformation = ({ handleSteps }: IModalSteps) => {
-  const editGeneralInformation = useStoreActions(
-    (actions) => actions.collection.editGeneralInformation
+  const { generalInformation, gralInfoFormError } = useStoreState(
+    (state) => state.collection
   );
-  const generalInformation = useStoreState(
-    (state) => state.collection.generalInformation
-  );
-  const formError = useStoreState(
-    (state) => state.collection.generalInformationFormError
-  );
-  const setFormError = useStoreActions(
-    (actions) => actions.collection.setGeneralInformationFormError
+  const { setGralInfoFormError, editGeneralInformation } = useStoreActions(
+    (actions) => actions.collection
   );
 
   function handleClick() {
@@ -37,9 +31,9 @@ const GeneralInformation = ({ handleSteps }: IModalSteps) => {
       generalInformation.description &&
       generalInformation.file
     ) {
-      setFormError(false);
+      setGralInfoFormError(false);
     } else {
-      setFormError(true);
+      setGralInfoFormError(true);
     }
   };
 
@@ -93,7 +87,7 @@ const GeneralInformation = ({ handleSteps }: IModalSteps) => {
       />
       <Button
         isPrimary={false}
-        disabled={formError}
+        disabled={gralInfoFormError}
         label={'Next Step'}
         onClick={handleClick}
       />

@@ -1,8 +1,7 @@
 import styles from './header.module.scss';
 import { useEffect } from 'react';
 import Link from 'next/link';
-import { Actions, useStoreActions, useStoreState } from 'easy-peasy';
-import { IStoreModel } from '../../store/model/model.types';
+import { useStoreActions, useStoreState } from '../../store';
 import { ConnectWallet, connectWallet } from '../../utils';
 import { toast } from 'react-toastify';
 import { Button } from '../ui/Button';
@@ -12,9 +11,9 @@ import BaseImage from '../ui/Base/BaseImage/BaseImage';
 import { Searchbar } from '../Searchbar/Searchbar';
 
 export const Header = () => {
-  const walletState = useStoreState((state: IStoreModel) => state.wallet);
-  const walletActions = useStoreActions(
-    (actions: Actions<IStoreModel>) => actions.wallet
+  const { isWalletConnected } = useStoreState((state) => state.wallet);
+  const { setIsWalletConnected, setActiveWallet } = useStoreActions(
+    (actions) => actions.wallet
   );
 
   const connectCryptoWallet = async (mode: ConnectWallet) => {
@@ -27,8 +26,8 @@ export const Header = () => {
     const wallet = await connectWallet(mode);
     const { isConnected, account } = wallet;
 
-    walletActions.setIsWalletConnected(isConnected);
-    walletActions.setActiveWallet(account);
+    setIsWalletConnected(isConnected);
+    setActiveWallet(account);
   };
 
   useEffect(() => {
@@ -37,7 +36,7 @@ export const Header = () => {
 
   const actionBtn = (
     <>
-      {!walletState.isWalletConnected && (
+      {!isWalletConnected && (
         <Button
           label={'Connect Wallet'}
           onClick={() => connectCryptoWallet('active')}

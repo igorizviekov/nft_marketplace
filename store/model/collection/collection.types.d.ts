@@ -3,7 +3,7 @@ import { INetwork } from '../../../components/NetworkDropdown/NetworkDropdown.ty
 import { INFTCategories } from '../../../components/Filter/Filter.types';
 export interface ICollectionModel {
   generalInformation: GeneralInformation;
-  generalInformationFormError: boolean;
+  gralInfoFormError: boolean;
 
   networkInformation: NetworkInformation;
   networkInformationError: boolean;
@@ -16,7 +16,7 @@ export interface ICollectionModel {
   setRoyaltiesError: Action<ICollectionModel, boolean>;
 
   editGeneralInformation: Action<ICollectionModel, GeneralInformation>;
-  setGeneralInformationFormError: Action<ICollectionModel, boolean>;
+  setGralInfoFormError: Action<ICollectionModel, boolean>;
 
   setNetworkInformation: Action<ICollectionModel, NetworkInformation>;
   setNetworkInformationError: Action<ICollectionModel, boolean>;

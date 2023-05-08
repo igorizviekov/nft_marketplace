@@ -15,7 +15,7 @@ export const CollectionsModel: ICollectionModel = {
     mainCategory: 'Art',
     subCategory: 'Art',
   },
-  generalInformationFormError: true,
+  gralInfoFormError: true,
   networkInformationError: true,
   royaltiesError: false,
 
@@ -47,8 +47,8 @@ export const CollectionsModel: ICollectionModel = {
       website: payload.website,
     };
   }),
-  setGeneralInformationFormError: action((state, payload) => {
-    state.generalInformationFormError = payload;
+  setGralInfoFormError: action((state, payload) => {
+    state.gralInfoFormError = payload;
   }),
 
   /**

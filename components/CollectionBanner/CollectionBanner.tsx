@@ -3,7 +3,6 @@ import styles from './CollectionBanner.module.scss';
 import { ICollectionBannerProps } from './CollectionBanner.types';
 import { useStoreState } from '../../store';
 import { useRouter } from 'next/router';
-import { toast } from 'react-toastify';
 import BaseImage from '../ui/Base/BaseImage/BaseImage';
 
 const CollectionBanner = ({
@@ -16,7 +15,7 @@ const CollectionBanner = ({
   owners,
   supply,
 }: ICollectionBannerProps) => {
-  const currency = useStoreState((state) => state.wallet.currency);
+  const { currency } = useStoreState((state) => state.wallet);
   const router = useRouter();
   return (
     <>

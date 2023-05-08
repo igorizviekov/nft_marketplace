@@ -26,8 +26,7 @@ const Input = ({
   error,
   icon,
 }: InputProps) => {
-  const walletState = useStoreState((state: IStoreModel) => state.wallet);
-  const { currency } = walletState;
+  const { currency } = useStoreState((state: IStoreModel) => state.wallet);
 
   return (
     <div

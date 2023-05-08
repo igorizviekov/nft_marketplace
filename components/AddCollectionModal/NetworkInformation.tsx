@@ -12,19 +12,11 @@ const NetworkInformation = ({ handleSteps }: IModalSteps) => {
   const [mainCategory, setMainCategory] = useState<number>(-1);
   const [subcategory, setSubCategory] = useState<number>(-1);
   const [chain, setChain] = useState<number>(-1);
-  const setNetworkInformation = useStoreActions(
-    (actions) => actions.collection.setNetworkInformation
+  const { setNetworkInformation, setNetworkInformationError } = useStoreActions(
+    (actions) => actions.collection
   );
-  const networkInformation = useStoreState(
-    (state) => state.collection.networkInformation
-  );
-
-  const formError = useStoreState(
-    (state) => state.collection.networkInformationError
-  );
-
-  const setFormError = useStoreActions(
-    (actions) => actions.collection.setNetworkInformationError
+  const { networkInformation, networkInformationError } = useStoreState(
+    (state) => state.collection
   );
 
   const categories: INFTCategories[] = [
@@ -44,8 +36,8 @@ const NetworkInformation = ({ handleSteps }: IModalSteps) => {
 
   const handleError = () => {
     if (chain === -1 || subcategory === -1 || mainCategory === -1)
-      setFormError(true);
-    else setFormError(false);
+      setNetworkInformationError(true);
+    else setNetworkInformationError(false);
   };
 
   useEffect(() => {
@@ -103,7 +95,7 @@ const NetworkInformation = ({ handleSteps }: IModalSteps) => {
       />
       <Button
         isPrimary={false}
-        disabled={formError}
+        disabled={networkInformationError}
         label={'Next Step'}
         onClick={handleClick}
       />

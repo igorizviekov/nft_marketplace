@@ -15,12 +15,12 @@ const DropdownMenu = ({}: IDropdownMenu) => {
   const [isMenuOpen, setMenuOpen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
 
-  const walletState = useStoreState((state) => state.wallet);
+  const { isWalletConnected, activeWallet } = useStoreState(
+    (state) => state.wallet
+  );
 
-  const walletStart =
-    walletState.activeWallet && walletState.activeWallet.slice(0, 5);
-  const walletEnds =
-    walletState.activeWallet && walletState.activeWallet.slice(38, 42);
+  const walletStart = activeWallet && activeWallet.slice(0, 5);
+  const walletEnds = activeWallet && activeWallet.slice(38, 42);
 
   //@TODO REPLACE WALLET STATE FOR STORE STATE WHEN MULTIPLE WALLETS ARE CONNECTED
   const [wallets, setWallets] = useState<string[]>([]);
@@ -31,10 +31,9 @@ const DropdownMenu = ({}: IDropdownMenu) => {
     () => setMenuOpen(true)
   );
 
-  console.log(walletState)
   return (
     <div className={styles.menu}>
-      {walletState.isWalletConnected && (
+      {isWalletConnected && (
         <Button
           isPrimary={false}
           label={walletStart + '...' + walletEnds}

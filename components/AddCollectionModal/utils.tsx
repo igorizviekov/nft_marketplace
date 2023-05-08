@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
-import { useStoreActions, useStoreDispatch } from '../../store';
+import { useStoreActions } from '../../store';
 
 export function validateName(name: string): string {
   const [message, setMessage] = useState<string>('');
-  const setFormError = useStoreActions(
-    (actions) => actions.collection.setGeneralInformationFormError
+  const { setGralInfoFormError } = useStoreActions(
+    (actions) => actions.collection
   );
 
   useEffect(() => {
     if (name.length > 100) {
-      setFormError(true);
+      setGralInfoFormError(true);
       setMessage('Name cannot be longer that 100 characters');
     } else setMessage('');
   }, [name]);
@@ -19,13 +19,13 @@ export function validateName(name: string): string {
 
 export function validateDescription(description: string): string {
   const [message, setMessage] = useState<string>('');
-  const setFormError = useStoreActions(
-    (actions) => actions.collection.setGeneralInformationFormError
+  const { setGralInfoFormError } = useStoreActions(
+    (actions) => actions.collection
   );
 
   useEffect(() => {
     if (description.length > 500) {
-      setFormError(true);
+      setGralInfoFormError(true);
       setMessage('Description cannot be longer that 500 characters');
     } else setMessage('');
   }, [description]);
@@ -34,8 +34,8 @@ export function validateDescription(description: string): string {
 }
 export function validateWebsite(website?: string): string {
   const [message, setMessage] = useState<string>('');
-  const setFormError = useStoreActions(
-    (actions) => actions.collection.setGeneralInformationFormError
+  const { setGralInfoFormError } = useStoreActions(
+    (actions) => actions.collection
   );
   const websiteRegex =
     /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-zA-Z0-9]+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,63}(:[0-9]{1,5})?(\/.*)?$/;
@@ -44,11 +44,11 @@ export function validateWebsite(website?: string): string {
     if (website && websiteRegex.test(website)) setMessage('');
     else if (website === '') setMessage('');
     else {
-      setFormError(true);
+      setGralInfoFormError(true);
       setMessage('Invalid Website');
     }
   }, []);
-  
+
   return message;
 }
 

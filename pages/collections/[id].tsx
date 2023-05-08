@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import BasePage from '../../components/ui/Base/BasePage/BasePage';
 import styles from '../../styles/pages/SingleCollectionPage.module.scss';
 import BaseImage from '../../components/ui/Base/BaseImage/BaseImage';
@@ -17,7 +17,7 @@ import { useStoreState } from '../../store';
 import { INftCardProps } from '../../components/ui/NFTCard/NFTCard.types';
 
 const SingleCollectionPage = () => {
-  const filters = useStoreState((state) => state.filter.filters);
+  const { filters } = useStoreState((state) => state.filter);
 
   function hasTrait(nft: INftCardProps): boolean {
     const hasFilter = nft.traits?.some((trait) => {

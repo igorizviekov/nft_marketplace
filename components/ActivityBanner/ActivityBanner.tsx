@@ -14,7 +14,7 @@ const ActivityBanner = ({
   time,
   total,
 }: IActivityBannerProps) => {
-  const currency = useStoreState((state) => state.wallet.currency);
+  const { currency } = useStoreState((state) => state.wallet);
   const [showTooltip, setShowTooltip] = useState<boolean>(false);
   return (
     <div className={styles.container}>
