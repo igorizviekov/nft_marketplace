@@ -13,7 +13,7 @@ export interface IRoyaltiesProps {
 
 export interface IRoyaltiesForm {
   walletAddress: string;
-  percentage: string;
+  percentage: string | undefined;
 }
 
 export interface IRoyaltiesListProps {

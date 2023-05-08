@@ -41,9 +41,9 @@ export function validatePercentage(
 
   useEffect(() => {
     if (price <= 0) {
-      setMessage("Price can't be negative or zero");
+      setMessage("Can't zero or less");
       setFormError(true);
-    } else {
+    } else if (price === undefined) {
       setMessage('');
       setFormError(false);
     }

@@ -16,7 +16,7 @@ const Royalties = ({
 
   const [formInput, setFormInput] = useState<IRoyaltiesForm>({
     walletAddress: '',
-    percentage: '',
+    percentage: undefined,
   });
 
   return (

@@ -18,7 +18,6 @@ import { useStoreActions, useStoreState } from '../../store';
 import RoyaltiesList from '../../components/Royalties/RoyaltiesList';
 import Traits from '../../components/Traits/Traits';
 import TraitsList from '../../components/Traits/TraitsList';
-import { Trait } from '../../store/model/nft-mint/nft-mint.types';
 export interface IFormInput {
   name: string;
   description: string;

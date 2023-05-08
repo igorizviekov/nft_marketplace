@@ -30,7 +30,7 @@ export interface NetworkInformation {
 }
 export interface Royalty {
   walletAddress: string;
-  percentage: number;
+  percentage: number | undefined;
 }
 
 export interface GeneralInformation {
