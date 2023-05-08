@@ -9,7 +9,6 @@
 
   border-radius: var(--border-radius-sm);
 
-  transition: 0.2s ease-in-out;
 
   .currency {
     position: absolute;
@@ -21,6 +20,11 @@
     position: absolute;
     top: 22px;
     right: 20px;
+
+    svg{
+      transition: 0.2s ease-in-out;
+    }
+
 
   }
 
@@ -41,6 +45,7 @@
     padding: 0 3px;
 
     background-color: var(--background);
+    transition: 0.2s ease-in-out;
 
 
   }
@@ -50,7 +55,7 @@
 
     .icon {
       svg {
-        fill: var(--text-color-hover-dark)
+        fill: var(--text-color-hover-dark);
       }
     }
 
@@ -61,6 +66,7 @@
 
       &::placeholder {
         color: var(--text-color-hover-dark);
+        transition: 0.2s ease-in-out;
       }
     }
 
@@ -71,6 +77,7 @@
 
       &::placeholder {
         color: var(--text-color-hover-dark);
+        transition: 0.2s ease-in-out;
       }
     }
   }
@@ -80,7 +87,7 @@
 
     .icon {
       svg {
-        fill: var(--green)
+        fill: var(--green);
       }
     }
 
@@ -91,6 +98,7 @@
 
       &::placeholder {
         color: var(--green);
+        transition: 0.2s ease-in-out;
       }
     }
 
@@ -101,6 +109,7 @@
 
       &::placeholder {
         color: var(--green);
+        transition: 0.2s ease-in-out;
       }
     }
   }
@@ -117,12 +126,9 @@
   border: var(--border-color);
   border-radius: var(--spacing-sm);
 
-
-  outline: none;
   transition: 0.2s ease-in-out;
 
-
-
+  outline: none;
 }
 
 
@@ -153,6 +159,7 @@
 
     &::placeholder {
       color: var(--error) !important;
+      transition: 0.2s ease-in-out;
     }
 
     box-shadow: var(--box-shadow-error) !important;
@@ -166,6 +173,8 @@
 
     &::placeholder {
       color: var(--error) !important;
+      transition: 0.2s ease-in-out;
+
     }
   }
 

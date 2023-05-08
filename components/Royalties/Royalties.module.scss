@@ -17,7 +17,9 @@
 .icon {
   margin-top: var(--spacing-xs);
   border-radius: 50px;
+
   cursor: pointer;
+  transition: 0.2s ease-in-out;
 
   &:hover {
     color: var(--text-color-hover);
@@ -29,6 +31,8 @@
   color: var(--error) !important;
   box-shadow: var(--box-shadow-error) !important;
   pointer-events: none !important;
+  transition: 0.2s ease-in-out;
+
 }
 
 
