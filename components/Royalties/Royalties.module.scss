@@ -25,6 +25,14 @@
   }
 }
 
+.error {
+  color: var(--error) !important;
+  box-shadow: var(--box-shadow-error) !important;
+  pointer-events: none !important;
+  border-radius: 50px;
+}
+
+
 .royalty {
   display: flex;
   align-items: center;

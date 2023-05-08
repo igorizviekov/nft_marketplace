@@ -17,6 +17,7 @@ export const CollectionsModel: ICollectionModel = {
   },
   generalInformationFormError: true,
   networkInformationError: true,
+  royaltiesError: false,
 
   /**
    * Royalties Actions
@@ -30,6 +31,9 @@ export const CollectionsModel: ICollectionModel = {
         state.royalties.splice(index, 1);
       }
     });
+  }),
+  setRoyaltiesError: action((state, payload) => {
+    state.royaltiesError = payload;
   }),
 
   /**

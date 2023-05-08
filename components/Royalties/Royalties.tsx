@@ -1,19 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './Royalties.module.scss';
 import Input from '../ui/Input';
-import { useStoreActions, useStoreState } from '../../store';
+import { useStoreState } from '../../store';
 import { IRoyaltiesForm, IRoyaltiesProps } from './Royalties.types';
 import Icon from '../ui/Icon/Icon';
 import { BsPlusCircleFill } from 'react-icons/bs';
 import { isWalletValid, validatePercentage } from './utils';
+import classNames from 'classnames';
 
-const Royalties = ({ addRoyalty }: IRoyaltiesProps) => {
-  const royaltyAddresses = useStoreState((state) => state.collection.royalties);
+const Royalties = ({
+  royalties,
+  addRoyalty,
+  royaltiesError,
+  setFormError,
+}: IRoyaltiesProps) => {
 
   const [formInput, setFormInput] = useState<IRoyaltiesForm>({
     walletAddress: '',
     percentage: '',
   });
+
   return (
     <div className={styles.container}>
       <Input
@@ -28,10 +34,7 @@ const Royalties = ({ addRoyalty }: IRoyaltiesProps) => {
           })
         }
         id={''}
-        error={
-          formInput.walletAddress &&
-          isWalletValid(formInput.walletAddress, royaltyAddresses)
-        }
+        error={isWalletValid(formInput.walletAddress, royalties, setFormError)}
       />
       <div className={styles.percentage}>
         <Input
@@ -45,10 +48,7 @@ const Royalties = ({ addRoyalty }: IRoyaltiesProps) => {
               percentage: (e.target as HTMLInputElement).value,
             })
           }
-          error={
-            formInput.percentage &&
-            validatePercentage(Number(formInput.percentage))
-          }
+          error={validatePercentage(Number(formInput.percentage), setFormError)}
           id={''}
         />
         <Icon
@@ -58,7 +58,7 @@ const Royalties = ({ addRoyalty }: IRoyaltiesProps) => {
               percentage: Number(formInput.percentage),
             })
           }
-          className={styles.icon}
+          className={classNames(styles.icon, royaltiesError && styles.error)}
           icon={<BsPlusCircleFill style={{ width: '30px', height: '30px' }} />}
         />
       </div>

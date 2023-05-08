@@ -37,14 +37,14 @@ const SingleForm = () => {
     collection: '',
   });
 
-  const royalties = useStoreState((state) => state.nftMint.royalties);
-  const addRoyalty = useStoreActions((actions) => actions.nftMint.addRoyalty);
-  const deleteRoyalty = useStoreActions(
-    (actions) => actions.nftMint.deleteRoyalty
-  );
-  const addTrait = useStoreActions((actions) => actions.nftMint.addTrait);
-  const deleteTrait = useStoreActions((actions) => actions.nftMint.deleteTrait);
-  const traits = useStoreState((state) => state.nftMint.traits);
+  const { royalties, traits, royaltiesError } = useStoreState((state) => state.nftMint);
+  const {
+    addRoyalty,
+    deleteRoyalty,
+    addTrait,
+    deleteTrait,
+    setRoyaltiesError,
+  } = useStoreActions((actions) => actions.nftMint);
 
   const OPTIONS = ['Collection 1', 'Collection 2', 'Collection 3'];
   const [file, setFile] = useState<File | null>(null);
@@ -106,7 +106,12 @@ const SingleForm = () => {
       />
       {selected === -1 && (
         <>
-          <Royalties addRoyalty={addRoyalty} />
+          <Royalties
+            royalties={royalties}
+            addRoyalty={addRoyalty}
+            royaltiesError={royaltiesError}
+            setFormError={setRoyaltiesError}
+          />
           <RoyaltiesList royalties={royalties} deleteRoyalty={deleteRoyalty} />
         </>
       )}

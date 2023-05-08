@@ -7,10 +7,13 @@ export interface ICollectionModel {
 
   networkInformation: NetworkInformation;
   networkInformationError: boolean;
+
   royalties: Royalty[];
+  royaltiesError: boolean;
 
   addRoyalty: Action<ICollectionModel, Royalty>;
   deleteRoyalty: Action<ICollectionModel, Royalty>;
+  setRoyaltiesError: Action<ICollectionModel, boolean>;
 
   editGeneralInformation: Action<ICollectionModel, GeneralInformation>;
   setGeneralInformationFormError: Action<ICollectionModel, boolean>;

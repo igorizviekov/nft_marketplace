@@ -5,12 +5,9 @@ import { IModalSteps } from './AddCollectionModal.types';
 import { Button } from '../ui/Button';
 import RoyaltiesList from '../Royalties/RoyaltiesList';
 const RoyaltiesInformation = ({ handleSteps }: IModalSteps) => {
-  const royalties = useStoreState((state) => state.collection.royalties);
-  const deleteRoyalty = useStoreActions(
-    (actions) => actions.collection.deleteRoyalty
-  );
-  const addRoyalty = useStoreActions(
-    (actions) => actions.collection.addRoyalty
+  const { royalties } = useStoreState((state) => state.collection);
+  const { deleteRoyalty, addRoyalty, setRoyaltiesError } = useStoreActions(
+    (actions) => actions.collection
   );
 
   function handleClick() {
@@ -19,7 +16,12 @@ const RoyaltiesInformation = ({ handleSteps }: IModalSteps) => {
   return (
     <>
       <h1>Royalties information</h1>
-      <Royalties addRoyalty={addRoyalty} />
+      <Royalties
+        royalties={royalties}
+        addRoyalty={addRoyalty}
+        royaltiesError={false}
+        setFormError={setRoyaltiesError}
+      />
       <RoyaltiesList royalties={royalties} deleteRoyalty={deleteRoyalty} />
       <Button
         isPrimary={false}

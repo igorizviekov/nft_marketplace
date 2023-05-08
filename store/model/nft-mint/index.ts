@@ -10,6 +10,7 @@ export const NFTMintModel: INFTMintModel = {
     collection: '',
   },
   royalties: [],
+  royaltiesError: false,
   traits: [],
 
   editGeneralInformation: action((state, payload) => {
@@ -32,6 +33,9 @@ export const NFTMintModel: INFTMintModel = {
         state.royalties?.splice(index, 1);
       }
     });
+  }),
+  setRoyaltiesError: action((state, payload) => {
+    state.royaltiesError = payload;
   }),
   addTrait: action((state, payload) => {
     state.traits?.push(payload);
