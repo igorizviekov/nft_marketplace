@@ -40,8 +40,8 @@ export function validatePercentage(
   const [message, setMessage] = useState<string>('');
 
   useEffect(() => {
-    if (price < 0) {
-      setMessage("Price can't be negative");
+    if (price <= 0) {
+      setMessage("Price can't be negative or zero");
       setFormError(true);
     } else {
       setMessage('');
