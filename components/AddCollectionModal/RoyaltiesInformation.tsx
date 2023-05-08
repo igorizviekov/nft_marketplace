@@ -5,7 +5,7 @@ import { IModalSteps } from './AddCollectionModal.types';
 import { Button } from '../ui/Button';
 import RoyaltiesList from '../Royalties/RoyaltiesList';
 const RoyaltiesInformation = ({ handleSteps }: IModalSteps) => {
-  const { royalties } = useStoreState((state) => state.collection);
+  const { royalties, royaltiesError } = useStoreState((state) => state.collection);
   const { deleteRoyalty, addRoyalty, setRoyaltiesError } = useStoreActions(
     (actions) => actions.collection
   );
@@ -19,7 +19,7 @@ const RoyaltiesInformation = ({ handleSteps }: IModalSteps) => {
       <Royalties
         royalties={royalties}
         addRoyalty={addRoyalty}
-        royaltiesError={false}
+        royaltiesError={royaltiesError}
         setFormError={setRoyaltiesError}
       />
       <RoyaltiesList royalties={royalties} deleteRoyalty={deleteRoyalty} />

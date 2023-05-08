@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styles from './Royalties.module.scss';
 import Input from '../ui/Input';
-import { useStoreState } from '../../store';
 import { IRoyaltiesForm, IRoyaltiesProps } from './Royalties.types';
 import Icon from '../ui/Icon/Icon';
 import { BsPlusCircleFill } from 'react-icons/bs';
