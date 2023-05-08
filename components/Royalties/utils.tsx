@@ -22,7 +22,7 @@ export function isWalletValid(
         setFormError(false);
       }
     } else if (wallet === '') {
-      setFormError(false);
+      setFormError(true);
       setMessage('');
     } else {
       setFormError(true);
@@ -34,20 +34,20 @@ export function isWalletValid(
 }
 
 export function validatePercentage(
-  price: number,
+  percentage: number,
   setFormError: (hasError: boolean) => void
 ): string {
   const [message, setMessage] = useState<string>('');
 
   useEffect(() => {
-    if (price <= 0) {
+    if (percentage <= 0) {
       setMessage("Can't zero or less");
       setFormError(true);
-    } else if (price === undefined) {
+    } else if (percentage === undefined) {
       setMessage('');
-      setFormError(false);
+      setFormError(true);
     }
-  }, [price]);
+  }, [percentage]);
 
   return message;
 }
