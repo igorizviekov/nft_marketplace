@@ -17,6 +17,8 @@ import { toast } from 'react-toastify';
 import { useStoreActions, useStoreState } from '../../store';
 import RoyaltiesList from '../../components/Royalties/RoyaltiesList';
 import Traits from '../../components/Traits/Traits';
+import TraitsList from '../../components/Traits/TraitsList';
+import { Trait } from '../../store/model/nft-mint/nft-mint.types';
 export interface IFormInput {
   name: string;
   description: string;
@@ -41,6 +43,8 @@ const SingleForm = () => {
     (actions) => actions.nftMint.deleteRoyalty
   );
   const addTrait = useStoreActions((actions) => actions.nftMint.addTrait);
+  const deleteTrait = useStoreActions((actions) => actions.nftMint.deleteTrait);
+  const traits = useStoreState((state) => state.nftMint.traits);
 
   const OPTIONS = ['Collection 1', 'Collection 2', 'Collection 3'];
   const [file, setFile] = useState<File | null>(null);
@@ -110,6 +114,7 @@ const SingleForm = () => {
         <AddCollectionModal handleModalClose={() => setModalOpen(false)} />
       )}
       <Traits addTrait={addTrait} />
+      <TraitsList traits={traits} deleteTrait={deleteTrait} />
       <Input
         inputType="number"
         title="Price"

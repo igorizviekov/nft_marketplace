@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styles from './Traits.module.scss';
 import Input from '../ui/Input';
-import { useStoreActions, useStoreState } from '../../store';
 import { ITraitForm, ITraitProps } from './Traits.types';
 import Icon from '../ui/Icon/Icon';
 import { BsPlusCircleFill } from 'react-icons/bs';

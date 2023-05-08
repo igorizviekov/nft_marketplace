@@ -42,7 +42,7 @@ export const NFTMintModel: INFTMintModel = {
         trait.traitType === payload.traitType &&
         trait.value === payload.value
       ) {
-        state.royalties?.splice(index, 1);
+        state.traits?.splice(index, 1);
       }
     });
   }),
