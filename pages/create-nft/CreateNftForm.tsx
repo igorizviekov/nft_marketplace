@@ -19,6 +19,7 @@ const CreateSingleForm = () => {
         <Dropdown
           options={options}
           checked={selected}
+          required
           heading={'Type of mint'}
           onChange={setSelected}
           openModal={function (): void {

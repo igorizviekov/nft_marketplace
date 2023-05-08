@@ -1,8 +1,8 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { useState } from 'react';
 import Input from '../../components/ui/Input';
 import { FileUpload } from '../../components/file-upload';
 import { Button } from '../../components/ui/Button';
-import { isFormValid, submitNewNFT } from '../../scripts/utils';
+import { isFormValid } from '../../scripts/utils';
 import { Dropdown } from '../../components/ui/dropdown';
 import AddCollectionModal from '../../components/AddCollectionModal/AddCollectionModal';
 import styles from '../../styles/pages/CreateNFTPage.module.scss';
@@ -14,11 +14,9 @@ import {
 } from '../../components/ui/Input/utils';
 import Royalties from '../../components/Royalties/Royalties';
 import { toast } from 'react-toastify';
-import { Royalty } from '../../store/model/collection/collection.types';
 import { useStoreActions, useStoreState } from '../../store';
 import RoyaltiesList from '../../components/Royalties/RoyaltiesList';
 import Traits from '../../components/Traits/Traits';
-import { Trait } from '../../store/model/nft-mint/nft-mint.types';
 export interface IFormInput {
   name: string;
   description: string;
@@ -42,7 +40,7 @@ const SingleForm = () => {
   const deleteRoyalty = useStoreActions(
     (actions) => actions.nftMint.deleteRoyalty
   );
-  const addTrait = useStoreActions((actions) => actions.nftMint.addTrait)
+  const addTrait = useStoreActions((actions) => actions.nftMint.addTrait);
 
   const OPTIONS = ['Collection 1', 'Collection 2', 'Collection 3'];
   const [file, setFile] = useState<File | null>(null);
@@ -111,11 +109,7 @@ const SingleForm = () => {
       {isModalOpen && (
         <AddCollectionModal handleModalClose={() => setModalOpen(false)} />
       )}
-      <Traits
-        addTrait={function (trait: Trait): void {
-          throw new Error('Function not implemented.');
-        }}
-      />
+      <Traits addTrait={addTrait} />
       <Input
         inputType="number"
         title="Price"

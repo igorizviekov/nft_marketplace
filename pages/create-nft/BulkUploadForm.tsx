@@ -50,6 +50,7 @@ const CollectionForm = () => {
         heading="Select a collection"
         options={[...OPTIONS, ADD_COLLECTION]}
         checked={selected}
+        required
         placeholder="Or create a new one"
         onChange={setSelected}
         openModal={() => setModalOpen(true)}
