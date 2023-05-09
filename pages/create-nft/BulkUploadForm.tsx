@@ -9,6 +9,7 @@ import { ADD_COLLECTION } from './SingleForm';
 import AddCollectionModal from '../../components/AddCollectionModal/AddCollectionModal';
 import styles from '../../styles/pages/CreateNFTPage.module.scss';
 import classNames from 'classnames';
+import { toast } from 'react-toastify';
 
 export interface ICollectionFormProps {
   price: string;
@@ -26,7 +27,8 @@ export interface ISingleFormProps {
   setFormInput: React.Dispatch<React.SetStateAction<ICollectionFormProps>>;
 }
 const CollectionForm = () => {
-  const [file, setFile] = useState<File | null>(null);
+  const [cvsFile, setCsvFile] = useState<File | null>(null);
+  const [rarFile, setRarFile] = useState<File | null>(null);
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
   const OPTIONS = ['Collection 1', 'Collection 2', 'Collection 3'];
 
@@ -56,22 +58,24 @@ const CollectionForm = () => {
         openModal={() => setModalOpen(true)}
       />
       <BulkUpload
-        file={file}
+        file={rarFile}
         onDropAccepted={(arr) => {
-          setFile(arr?.[0]);
+          setRarFile(arr?.[0]);
         }}
-        onUploadAbort={() => setFile(null)}
+        onUploadAbort={() => setRarFile(null)}
         title={'Upload all images for the collection'}
         subTitle={'as a .zip or .rar'}
+        isCsv={false}
       />
       <BulkUpload
-        file={file}
+        file={cvsFile}
         onDropAccepted={(arr) => {
-          setFile(arr?.[0]);
+          setCsvFile(arr?.[0]);
         }}
-        onUploadAbort={() => setFile(null)}
+        onUploadAbort={() => setCsvFile(null)}
         title={'Upload metadata'}
         subTitle={'as a .csv file'}
+        isCsv={true}
       />
       <BaseLink
         href={
@@ -94,17 +98,8 @@ const CollectionForm = () => {
         <Button
           isPrimary
           label="Upload"
-          disabled={
-            !isFormValid(
-              formInput.name,
-              Number(formInput.price),
-              formInput.description,
-              file
-            )
-          }
-          onClick={() =>
-            submitNewNFT(formInput, setIsError, setIsLoading, file)
-          }
+          disabled={true}
+          onClick={() => toast.warn('Upload bulk')}
         />
       </div>
     </div>

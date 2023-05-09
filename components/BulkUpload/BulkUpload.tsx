@@ -14,6 +14,7 @@ const BulkUpload = ({
   onUploadAbort,
   onDropAccepted,
   description,
+  isCsv,
   ...props
 }: IBulkUploadProps) => {
   let dropzoneRef: any = createRef();
@@ -21,13 +22,12 @@ const BulkUpload = ({
 
   const [fileOver, setFileOver] = useState(false);
 
+  const csv = { 'text/*': ['.csv'] };
+  const rar = { 'application/*': ['.zip', '.x-rar-compressed'] };
   const dropzone = (
     <Dropzone
       ref={(node) => (dropzoneRef = node)}
-      accept={{
-        'text/*': ['.csv'],
-        //@TODO Add appilcation/zip and application/x-rar-compressed
-      }}
+      accept={isCsv ? csv : rar}
       onDropRejected={(res) => {
         setError('Upload failed');
       }}

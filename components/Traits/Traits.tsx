@@ -1,21 +1,41 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './Traits.module.scss';
 import Input from '../ui/Input';
 import { ITraitForm, ITraitProps } from './Traits.types';
 import Icon from '../ui/Icon/Icon';
 import { BsPlusCircleFill } from 'react-icons/bs';
 import classNames from 'classnames';
+import { useStoreState } from '../../store';
 
-const Traits = ({
-  addTrait,
-  traitError,
-  setFormError,
-  traits,
-}: ITraitProps) => {
+const Traits = ({ addTrait, traitError, setFormError }: ITraitProps) => {
+  const { traits } = useStoreState((state) => state.nftMint);
+  const [error, setError] = useState<string>('');
   const [formInput, setFormInput] = useState<ITraitForm>({
     traitType: '',
     value: '',
   });
+
+  useEffect(() => {
+    const isDuplicate = traits.some(
+      (trait) =>
+        trait.traitType === formInput.traitType &&
+        trait.value === formInput.value
+    );
+    if (isDuplicate) {
+      setFormError(true);
+      setError('Trait is duplicate');
+    } else if (
+      traits.length === 0 &&
+      (formInput.traitType === '' || formInput.value === '')
+    ) {
+      setFormError(true);
+      setError('');
+    } else {
+      setError('');
+      setFormError(false);
+    }
+  }, [traits, formInput]);
+
   return (
     <div className={styles.container}>
       <Input
@@ -29,9 +49,10 @@ const Traits = ({
             traitType: (e.target as HTMLInputElement).value,
           })
         }
+        error={error}
         id={''}
       />
-      <div className={styles.percentage}>
+      <div className={styles.value}>
         <Input
           inputType={'text'}
           title={'Value (Optional)'}
