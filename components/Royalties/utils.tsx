@@ -41,11 +41,14 @@ export function validatePercentage(
 
   useEffect(() => {
     if (percentage <= 0) {
-      setMessage("Can't zero or less");
+      setMessage("Can't be zero or less");
       setFormError(true);
     } else if (percentage === undefined) {
       setMessage('');
       setFormError(true);
+    }else{
+      setFormError(false)
+      setMessage('')
     }
   }, [percentage]);
 

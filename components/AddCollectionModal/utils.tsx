@@ -41,13 +41,15 @@ export function validateWebsite(website?: string): string {
     /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-zA-Z0-9]+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,63}(:[0-9]{1,5})?(\/.*)?$/;
 
   useEffect(() => {
-    if (website && websiteRegex.test(website)) setMessage('');
+    const isValid = website && websiteRegex.test(website);
+    if (isValid) setMessage('');
     else if (website === '') setMessage('');
-    else {
+    else if (!isValid) {
+      console.log(isValid);
       setGralInfoFormError(true);
       setMessage('Invalid Website');
     }
-  }, []);
+  }, [website]);
 
   return message;
 }

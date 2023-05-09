@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import ProfileImageUpload from '../ProfileImageUpload/ProfileImageUpload';
 import Input from '../ui/Input';
 import { IModalSteps } from './AddCollectionModal.types';

@@ -18,6 +18,7 @@ import { useStoreActions, useStoreState } from '../../store';
 import RoyaltiesList from '../../components/Royalties/RoyaltiesList';
 import Traits from '../../components/Traits/Traits';
 import TraitsList from '../../components/Traits/TraitsList';
+import ProfileImageUpload from '../../components/ProfileImageUpload/ProfileImageUpload';
 export interface IFormInput {
   name: string;
   description: string;
@@ -36,7 +37,9 @@ const SingleForm = () => {
     collection: '',
   });
 
-  const { royalties, traits, royaltiesError } = useStoreState((state) => state.nftMint);
+  const { royalties, traits, royaltiesError } = useStoreState(
+    (state) => state.nftMint
+  );
   const {
     addRoyalty,
     deleteRoyalty,
@@ -59,26 +62,21 @@ const SingleForm = () => {
 
   return (
     <div className={classNames('flex-col-center', styles.form)}>
-      <FileUpload
-        subTitle="JPG, PNG, GIF, SVG, WEBP, Max 600KB."
-        title="Drag or click to upload a file"
+      <ProfileImageUpload
+        file={file}
         onDropAccepted={(arr) => {
-          setFile(arr?.[0]);
+          setFile(arr[0]);
         }}
         onUploadAbort={() => setFile(null)}
-        file={file}
+        title={'Upload your'}
+        subTitle={'NFT Image'}
       />
       <Input
-        id="name"
-        inputType="text"
-        title="Name"
+        id={'name'}
+        inputType={'text'}
+        title={'Name'}
         placeholder="NFT Name"
-        handleChange={(e) =>
-          setFormInput({
-            ...formInput,
-            name: (e.target as HTMLInputElement).value,
-          })
-        }
+        handleChange={changeHandler}
         error={validateName(formInput.name)}
       />
 
@@ -86,12 +84,7 @@ const SingleForm = () => {
         inputType="textarea"
         title="Description"
         placeholder="NFT Description"
-        handleChange={(e) =>
-          setFormInput({
-            ...formInput,
-            description: (e.target as HTMLTextAreaElement).value,
-          })
-        }
+        handleChange={changeHandler}
         id={'description'}
         error={validateDescription(formInput.description)}
       />
@@ -124,12 +117,7 @@ const SingleForm = () => {
         title="Price"
         placeholder="NFT Price"
         value={formInput.price}
-        handleChange={(e) =>
-          setFormInput({
-            ...formInput,
-            price: (e.target as HTMLInputElement).value,
-          })
-        }
+        handleChange={changeHandler}
         id={'price'}
         error={validatePrice(Number(formInput.price))}
       />

@@ -2,26 +2,22 @@ import React, { useState } from 'react';
 import styles from './AddCollectionModal.module.scss';
 import { IAddCollectionModalProps, Steps } from './AddCollectionModal.types';
 import { Modal } from '../modal';
-import { Button } from '../ui/Button';
 import GeneralInformation from './GeneralInformation';
 import NetworkInformation from './NetworkInformation';
 import RoyaltiesInformation from './RoyaltiesInformation';
 import Icon from '../ui/Icon/Icon';
 import { BsFillArrowLeftCircleFill } from 'react-icons/bs';
+
 const AddCollectionModal = ({ handleModalClose }: IAddCollectionModalProps) => {
-  const [steps, setSteps] = useState<Steps[]>([
-    'General',
-    'Network',
-    'Royalties',
-  ]);
+  const steps: Steps[] = ['General', 'Network', 'Royalties'];
+
   const [selected, setSelected] = useState<number>(0);
 
-  const buttonLabel =
-    steps[selected] === 'Royalties' ? 'Save collection' : 'Next Step';
   function handleSteps() {
     if (steps[selected] === 'Royalties') console.log('Save everything');
     else setSelected(selected + 1);
   }
+  
   return (
     <Modal onClose={handleModalClose}>
       <div className={styles.column}>
