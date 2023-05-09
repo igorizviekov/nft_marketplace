@@ -13,12 +13,12 @@ const Royalties = ({
   royaltiesError,
   setFormError,
 }: IRoyaltiesProps) => {
-
   const [formInput, setFormInput] = useState<IRoyaltiesForm>({
     walletAddress: '',
     percentage: undefined,
   });
 
+  console.log('royalties eerrroo', royaltiesError);
   return (
     <div className={styles.container}>
       <Input

@@ -9,9 +9,11 @@ export const NFTMintModel: INFTMintModel = {
     price: 0,
     collection: '',
   },
+  formError: true,
   royalties: [],
-  royaltiesError: false,
+  royaltiesError: true,
   traits: [],
+  traitsError: true,
 
   editGeneralInformation: action((state, payload) => {
     state.nftGeneralInfo = {
@@ -26,7 +28,6 @@ export const NFTMintModel: INFTMintModel = {
   addRoyalty: action((state, payload) => {
     state.royalties?.push(payload);
   }),
-
   deleteRoyalty: action((state, payload) => {
     state.royalties?.map((royalty, index) => {
       if (royalty.walletAddress === payload.walletAddress) {
@@ -37,6 +38,7 @@ export const NFTMintModel: INFTMintModel = {
   setRoyaltiesError: action((state, payload) => {
     state.royaltiesError = payload;
   }),
+
   addTrait: action((state, payload) => {
     state.traits?.push(payload);
   }),
@@ -49,5 +51,11 @@ export const NFTMintModel: INFTMintModel = {
         state.traits?.splice(index, 1);
       }
     });
+  }),
+  setTraitsError: action((state, payload) => {
+    state.traitsError = payload;
+  }),
+  setFormError: action((state, payload) => {
+    state.formError = payload;
   }),
 };

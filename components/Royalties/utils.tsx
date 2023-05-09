@@ -18,6 +18,7 @@ export function isWalletValid(
         setMessage('Duplicated wallet');
         setFormError(true);
       } else {
+        console.log('is not dup');
         setMessage('');
         setFormError(false);
       }
@@ -43,12 +44,13 @@ export function validatePercentage(
     if (percentage <= 0) {
       setMessage("Can't be zero or less");
       setFormError(true);
-    } else if (percentage === undefined) {
+    } else if (percentage === undefined || isNaN(percentage)) {
       setMessage('');
       setFormError(true);
-    }else{
-      setFormError(false)
-      setMessage('')
+    } else {
+      console.log('error is here', percentage);
+      setFormError(false);
+      setMessage('');
     }
   }, [percentage]);
 
