@@ -17,8 +17,6 @@ const Royalties = ({
     walletAddress: '',
     percentage: undefined,
   });
-
-  console.log('royalties eerrroo', royaltiesError);
   return (
     <div className={styles.container}>
       <Input

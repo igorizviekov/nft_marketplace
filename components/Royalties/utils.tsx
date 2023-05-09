@@ -18,7 +18,6 @@ export function isWalletValid(
         setMessage('Duplicated wallet');
         setFormError(true);
       } else {
-        console.log('is not dup');
         setMessage('');
         setFormError(false);
       }
@@ -48,7 +47,6 @@ export function validatePercentage(
       setMessage('');
       setFormError(true);
     } else {
-      console.log('error is here', percentage);
       setFormError(false);
       setMessage('');
     }

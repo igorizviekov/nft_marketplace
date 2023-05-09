@@ -43,6 +43,7 @@ const SingleForm = () => {
     setRoyaltiesError,
     setTraitsError,
     editGeneralInformation,
+    setFormError,
   } = useStoreActions((actions) => actions.nftMint);
 
   const OPTIONS = ['Collection 1', 'Collection 2', 'Collection 3'];
@@ -62,6 +63,18 @@ const SingleForm = () => {
       collection: OPTIONS[selected],
     });
   }, []);
+
+  useEffect(() => {
+    if (
+      Boolean(nftGeneralInfo.name) &&
+      Boolean(nftGeneralInfo.description) &&
+      Boolean(nftGeneralInfo.price)
+    ) {
+      setFormError(false);
+    } else {
+      setFormError(true);
+    }
+  }, [nftGeneralInfo]);
 
   return (
     <div className={classNames('flex-col-center', styles.form)}>
@@ -84,8 +97,12 @@ const SingleForm = () => {
         inputType={'text'}
         title={'Name'}
         placeholder="NFT Name"
-        handleChange={(changeHandler)}
-        error={validateName(nftGeneralInfo.name)}
+        handleChange={changeHandler}
+        error={validateName(
+          nftGeneralInfo.name,
+          nftGeneralInfo.description,
+          nftGeneralInfo.price
+        )}
       />
 
       <Input
@@ -94,7 +111,11 @@ const SingleForm = () => {
         placeholder="NFT Description"
         handleChange={changeHandler}
         id={'description'}
-        error={validateDescription(nftGeneralInfo.description)}
+        error={validateDescription(
+          nftGeneralInfo.description,
+          nftGeneralInfo.name,
+          nftGeneralInfo.price
+        )}
       />
       <Dropdown
         heading="Select a collection (Optional)"
@@ -132,7 +153,11 @@ const SingleForm = () => {
         value={nftGeneralInfo.price}
         handleChange={changeHandler}
         id={'price'}
-        error={validatePrice(Number(nftGeneralInfo.price))}
+        error={validatePrice(
+          nftGeneralInfo.price,
+          nftGeneralInfo.name,
+          nftGeneralInfo.description
+        )}
       />
 
       <Button
