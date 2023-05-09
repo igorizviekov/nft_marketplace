@@ -68,7 +68,8 @@ const SingleForm = () => {
     if (
       Boolean(nftGeneralInfo.name) &&
       Boolean(nftGeneralInfo.description) &&
-      Boolean(nftGeneralInfo.price)
+      Boolean(nftGeneralInfo.price) &&
+      Boolean(nftGeneralInfo.image)
     ) {
       setFormError(false);
     } else {
