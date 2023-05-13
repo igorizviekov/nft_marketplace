@@ -8,10 +8,10 @@ import { useStoreActions, useStoreState } from '../../store';
 
 const GeneralInformation = ({ handleSteps }: IModalSteps) => {
   const { generalInformation, gralInfoFormError } = useStoreState(
-    (state) => state.collection
+    (state) => state.createCollection
   );
   const { setGralInfoFormError, editGeneralInformation } = useStoreActions(
-    (actions) => actions.collection
+    (actions) => actions.createCollection
   );
 
   function handleClick() {

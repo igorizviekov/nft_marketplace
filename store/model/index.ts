@@ -4,7 +4,7 @@ import { WalletModel } from './wallet';
 import { persist } from 'easy-peasy';
 import { ProfileModel } from './profile';
 import { FilterModel } from './filter';
-import { CollectionsModel } from './create-collection';
+import { CreateCollectionModel } from './create-collection';
 import { NFTMintModel } from './nft-mint';
 import { BulkUploadModel } from './bulk-upload';
 import { AppModel } from './app';
@@ -15,7 +15,7 @@ export const model: IStoreModel = {
   user: persist(UserModel),
   profile: ProfileModel,
   filter: FilterModel,
-  collection: CollectionsModel,
+  createCollection: CreateCollectionModel,
   nftMint: NFTMintModel,
   bulkUpload: BulkUploadModel,
   singleCollection: SingleCollectionModel,

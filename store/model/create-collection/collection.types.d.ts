@@ -1,7 +1,7 @@
 import { Action } from 'easy-peasy';
 import { INetwork } from '../../../components/NetworkDropdown/NetworkDropdown.types';
 import { INFTCategories } from '../../../components/Filter/Filter.types';
-export interface ICollectionModel {
+export interface ICreateCollectionModel {
   generalInformation: GeneralInformation;
   gralInfoFormError: boolean;
 
@@ -11,15 +11,15 @@ export interface ICollectionModel {
   royalties: Royalty[];
   royaltiesError: boolean;
 
-  addRoyalty: Action<ICollectionModel, Royalty>;
-  deleteRoyalty: Action<ICollectionModel, Royalty>;
-  setRoyaltiesError: Action<ICollectionModel, boolean>;
+  addRoyalty: Action<ICreateCollectionModel, Royalty>;
+  deleteRoyalty: Action<ICreateCollectionModel, Royalty>;
+  setRoyaltiesError: Action<ICreateCollectionModel, boolean>;
 
-  editGeneralInformation: Action<ICollectionModel, GeneralInformation>;
-  setGralInfoFormError: Action<ICollectionModel, boolean>;
+  editGeneralInformation: Action<ICreateCollectionModel, GeneralInformation>;
+  setGralInfoFormError: Action<ICreateCollectionModel, boolean>;
 
-  setNetworkInformation: Action<ICollectionModel, NetworkInformation>;
-  setNetworkInformationError: Action<ICollectionModel, boolean>;
+  setNetworkInformation: Action<ICreateCollectionModel, NetworkInformation>;
+  setNetworkInformationError: Action<ICreateCollectionModel, boolean>;
 }
 
 export interface NetworkInformation {

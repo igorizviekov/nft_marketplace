@@ -4,7 +4,7 @@ export interface IAddCollectionModalProps {
   handleModalClose: () => void;
 }
 
-export type Steps = 'General' | 'Network' | 'Royalties';
+export type Steps = 'General' | 'Network' | 'Royalties' | 'Confirmation';
 
 export interface IGeneralInformationInput {
   file: File | null;

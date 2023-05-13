@@ -1,7 +1,7 @@
 import { action } from 'easy-peasy';
-import { ICollectionModel } from './collection.types';
+import { ICreateCollectionModel } from './collection.types';
 
-export const CollectionsModel: ICollectionModel = {
+export const CreateCollectionModel: ICreateCollectionModel = {
   royalties: [],
   generalInformation: {
     file: null,

@@ -13,10 +13,10 @@ const NetworkInformation = ({ handleSteps }: IModalSteps) => {
   const [subcategory, setSubCategory] = useState<number>(-1);
   const [chain, setChain] = useState<number>(-1);
   const { setNetworkInformation, setNetworkInformationError } = useStoreActions(
-    (actions) => actions.collection
+    (actions) => actions.createCollection
   );
   const { networkInformation, networkInformationError } = useStoreState(
-    (state) => state.collection
+    (state) => state.createCollection
   );
 
   const categories: INFTCategories[] = [
