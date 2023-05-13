@@ -24,7 +24,9 @@ const SingleCollectionPage = () => {
   const router = useRouter();
   const { query } = router;
   const { filters } = useStoreState((state) => state.filter);
-  const { collectionData } = useStoreState((state) => state.singleCollection);
+  const { collectionData, isLoading } = useStoreState(
+    (state) => state.singleCollection
+  );
   function hasTrait(nft: INftCardProps): boolean {
     const hasFilter = nft.traits?.some((trait) => {
       return filters.some(
@@ -37,7 +39,7 @@ const SingleCollectionPage = () => {
   useFetchSingleCollection(query.id);
   return (
     <BasePage>
-      {collectionData ? (
+      {collectionData && !isLoading ? (
         <>
           <div className={styles.hero}>
             <div className={styles.image}>

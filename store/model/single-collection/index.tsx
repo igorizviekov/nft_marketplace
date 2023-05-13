@@ -3,6 +3,8 @@ import { ISingleCollectionModel } from './single-collection.types';
 
 export const SingleCollectionModel: ISingleCollectionModel = {
   collectionData: undefined,
+  isLoading: false,
+
   setCollectionData: action((state, payload) => {
     state.collectionData = {
       blockchain_id: payload.blockchain_id,
@@ -16,5 +18,9 @@ export const SingleCollectionModel: ISingleCollectionModel = {
       symbol: payload.symbol,
       website: payload.website,
     };
+  }),
+
+  setIsLoading: action((state, payload) => {
+    state.isLoading = payload;
   }),
 };

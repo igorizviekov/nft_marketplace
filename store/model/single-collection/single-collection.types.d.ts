@@ -2,8 +2,10 @@ import { Action } from 'easy-peasy';
 
 export interface ISingleCollectionModel {
   collectionData: ISingleCollection | undefined;
+  isLoading: boolean;
 
   setCollectionData: Action<ISingleCollectionModel, ISingleCollection>;
+  setIsLoading: Action<ISingleCollectionModel, boolean>;
 }
 
 export interface ISingleCollection {
