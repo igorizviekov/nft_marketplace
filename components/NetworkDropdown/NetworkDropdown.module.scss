@@ -1,0 +1,46 @@
+.icon {
+  border-radius: 50px;
+
+  transition: 0.2s ease-in-out;
+
+  path {
+    transition: 0.2s ease-in-out;
+
+    fill: var(--accent);
+  }
+
+
+
+}
+
+.container {
+  width: auto;
+  display: flex;
+  align-items: center;
+
+  gap: var(--spacing-md);
+
+  border: var(--border-color);
+  border-radius: var(--border-radius-sm);
+  padding: var(--spacing-xs);
+
+  transition: 0.2s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--background-hover);
+    border: var(--border-color-hover);
+    color: var(--text-color-hover);
+    box-shadow: var(--box-shadow-hover);
+
+    .icon {
+      box-shadow: var(--box-shadow-hover);
+
+      path {
+        fill: var(--green);
+      }
+    }
+  }
+
+
+}

@@ -9,7 +9,8 @@ import DropdownMenu from './DropdownMenu/DropdownMenu';
 import PhoenixLogo from '../../assets/icons/phoenix_logo.svg';
 import BaseImage from '../ui/Base/BaseImage/BaseImage';
 import { Searchbar } from '../Searchbar/Searchbar';
-import { fetchAppData } from '../../service/fetchAppData';
+import { useFetchAppData } from '../../service/useFetchAppData';
+import NetworkDropdown from '../NetworkDropdown/NetworkDropdown';
 
 export const Header = () => {
   const { isWalletConnected } = useStoreState((state) => state.wallet);
@@ -32,7 +33,7 @@ export const Header = () => {
     setActiveWallet(account);
   };
 
-  fetchAppData();
+  useFetchAppData();
 
   useEffect(() => {
     connectCryptoWallet('silent');
@@ -62,10 +63,7 @@ export const Header = () => {
         onClearSearch={() => console.log('clear search')}
       />
       <div className={styles.network}>
-        {blockchains &&
-          blockchains.map((blockchain, index) => (
-            <p key={index}>{blockchain.currency_symbol}</p>
-          ))}
+        {blockchains && <NetworkDropdown networks={blockchains} />}
         {actionBtn}
       </div>
     </nav>

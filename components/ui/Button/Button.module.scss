@@ -10,7 +10,10 @@
   transition: 0.2s ease-in-out;
 
   &:hover {
-    background-color: var(--yellow);
+    background-color: var(--background-hover);
+    border: var(--border-color-hover);
+    color: var(--text-color-hover);
+    box-shadow: var(--box-shadow-hover);
   }
 }
 
