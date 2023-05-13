@@ -5,22 +5,17 @@ import { useStoreActions, useStoreState } from '../../store';
 import { VscClose } from 'react-icons/vsc';
 import Icon from '../ui/Icon/Icon';
 const FiltersBar = ({}: IFiltersBarProps) => {
-  const deleteFilter = useStoreActions(
-    (actions) => actions.filter.deleteFilter
+  const { deleteFilter, clearFilters } = useStoreActions(
+    (actions) => actions.filter
   );
-  const clearFilters = useStoreActions(
-    (actions) => actions.filter.clearFilters
-  );
-  const filters = useStoreState((state) => state.filter.filters);
+
+  const { filters } = useStoreState((state) => state.filter);
   return (
     <>
       {filters.length > 0 && (
         <div className={styles.filters}>
           {filters.length > 0 && (
-            <div
-              className={styles.clearAll}
-              onClick={() => clearFilters()}
-            >
+            <div className={styles.clearAll} onClick={() => clearFilters()}>
               {'Clear all'}
               <Icon icon={<VscClose />} />
             </div>

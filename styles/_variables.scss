@@ -10,17 +10,14 @@ $z-indexes: (
   --primary: #ffffff;
   --secondary: #fff7ea;
   --error: #c24747;
-  --accent: #3BC385;
 
   --background: #1D1D1D;
   --accent: #24501E;
-  --background: #1D1D1D;
   --background-dark-green: #182218;
   --background-light: #2c2c2c;
 
   --yellow: #DEF334;
   --green: #39EA22;
-  --red: #EA2222;
   --white: #ffffff;
 
 
@@ -28,7 +25,9 @@ $z-indexes: (
   --background-hover: var(--background-dark-green
   );
 --border-color-hover: 1px solid var(--accent);
---box-shadow-hover: 0px 0px 5px 1px var(--accent);
+--border-color-hover-alt: 1px solid var(--green);
+--box-shadow-hover: 0px 0px 5px 2px var(--accent);
+--box-shadow-error: 0px 0px 5px 1px var(--error);
 --text-color-hover: var(--green);
 --text-color-hover-dark: var(--accent);
 --text-color-hover-alt: var(--yellow);

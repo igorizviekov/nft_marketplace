@@ -5,13 +5,19 @@ $border: 1px;
 
   margin-top: var(--spacing-md);
   position: relative;
-  transition: 0.2s ease-in-out;
 
   &:hover {
     color: var(--text-color-hover);
 
     .header {
       border: var(--border-color-hover);
+      transition: 0.2s ease-in-out;
+
+      .placeholder {
+        color: var(--accent);
+        transition: 0.2s ease-in-out;
+
+      }
     }
 
   }
@@ -21,6 +27,11 @@ $border: 1px;
 
     .header {
       border: var(--border-color-green);
+
+      .placeholder {
+        color: var(--accent);
+        transition: 0.2s ease-in-out;
+      }
     }
 
     .options {
@@ -33,25 +44,23 @@ $border: 1px;
 
   .heading {
     display: block;
-
+    
     background-color: var(--background);
     padding: var(--spacing-xs);
     position: absolute;
     left: var(--spacing-sm);
     top: -18px;
-
-    &__required:after {
-      content: ' *';
-      color: red;
-    }
+    transition: 0.2s ease-in-out;
 
   }
 
   .header {
     height: var(--spacing-xl);
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    transition: 0.2s ease-in-out;
 
     background-color: var(--background);
     padding: var(--spacing-md);
@@ -60,6 +69,10 @@ $border: 1px;
     border: $border solid white;
 
     cursor: pointer;
+  }
+
+  .placeholder {
+    color: rgb(154, 154, 154);
   }
 
   .options {
@@ -83,6 +96,7 @@ $border: 1px;
       transition: 0.2s ease-in-out;
 
       border-radius: var(--border-radius-sm);
+
       &:hover {
         color: var(--yellow);
         background-color: var(--background-hover);

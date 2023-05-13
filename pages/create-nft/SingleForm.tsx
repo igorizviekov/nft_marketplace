@@ -1,8 +1,6 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Input from '../../components/ui/Input';
-import { FileUpload } from '../../components/file-upload';
 import { Button } from '../../components/ui/Button';
-import { isFormValid, submitNewNFT } from '../../scripts/utils';
 import { Dropdown } from '../../components/ui/dropdown';
 import AddCollectionModal from '../../components/AddCollectionModal/AddCollectionModal';
 import styles from '../../styles/pages/CreateNFTPage.module.scss';
@@ -12,6 +10,13 @@ import {
   validateName,
   validatePrice,
 } from '../../components/ui/Input/utils';
+import Royalties from '../../components/Royalties/Royalties';
+import { toast } from 'react-toastify';
+import { useStoreActions, useStoreState } from '../../store';
+import RoyaltiesList from '../../components/Royalties/RoyaltiesList';
+import Traits from '../../components/Traits/Traits';
+import TraitsList from '../../components/Traits/TraitsList';
+import ProfileImageUpload from '../../components/ProfileImageUpload/ProfileImageUpload';
 export interface IFormInput {
   name: string;
   description: string;
@@ -22,110 +27,146 @@ export interface IFormInput {
 
 export const ADD_COLLECTION = '+ Add Collection';
 const SingleForm = () => {
-  const [formInput, setFormInput] = useState<IFormInput>({
-    price: '0',
-    name: '',
-    description: '',
-    image: '',
-    collection: '',
-  });
+  const {
+    royalties,
+    traits,
+    royaltiesError,
+    nftGeneralInfo,
+    formError,
+    traitsError,
+  } = useStoreState((state) => state.nftMint);
+  const {
+    addRoyalty,
+    deleteRoyalty,
+    addTrait,
+    deleteTrait,
+    setRoyaltiesError,
+    setTraitsError,
+    editGeneralInformation,
+    setFormError,
+  } = useStoreActions((actions) => actions.nftMint);
 
   const OPTIONS = ['Collection 1', 'Collection 2', 'Collection 3'];
-  const [file, setFile] = useState<File | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isError, setIsError] = useState<boolean | string>(false);
-
-  const [selected, setSelected] = useState<number>(0);
+  const [selected, setSelected] = useState<number>(-1);
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
 
-  const handleForm = (e: ChangeEvent<Element>) => {
-    setFormInput({
-      ...formInput,
+  const changeHandler = (e: React.ChangeEvent<Element>) => {
+    editGeneralInformation({
+      ...nftGeneralInfo,
       [e.target.id]: (e.target as HTMLInputElement).value,
     });
   };
+
+  useEffect(() => {
+    editGeneralInformation({
+      ...nftGeneralInfo,
+      collection: OPTIONS[selected],
+    });
+  }, []);
+
+  useEffect(() => {
+    if (
+      Boolean(nftGeneralInfo.name) &&
+      Boolean(nftGeneralInfo.description) &&
+      Boolean(nftGeneralInfo.price) &&
+      Boolean(nftGeneralInfo.image)
+    ) {
+      setFormError(false);
+    } else {
+      setFormError(true);
+    }
+  }, [nftGeneralInfo]);
+
   return (
     <div className={classNames('flex-col-center', styles.form)}>
-      <FileUpload
-        subTitle="JPG, PNG, GIF, SVG, WEBP, Max 600KB."
-        title="Drag or click to upload a file"
+      <ProfileImageUpload
+        file={nftGeneralInfo.image}
         onDropAccepted={(arr) => {
-          setFile(arr?.[0]);
+          editGeneralInformation({
+            ...nftGeneralInfo,
+            image: arr[0],
+          });
         }}
-        onUploadAbort={() => setFile(null)}
-        file={file}
+        onUploadAbort={() =>
+          editGeneralInformation({ ...nftGeneralInfo, image: null })
+        }
+        title={'Upload your'}
+        subTitle={'NFT Image'}
       />
       <Input
-        id="name"
-        inputType="text"
-        title="Name"
+        id={'name'}
+        inputType={'text'}
+        title={'Name'}
         placeholder="NFT Name"
-        handleChange={(e) =>
-          setFormInput({
-            ...formInput,
-            name: (e.target as HTMLInputElement).value,
-          })
-        }
-        error={validateName(formInput.name)}
+        handleChange={changeHandler}
+        error={validateName(
+          nftGeneralInfo.name,
+          nftGeneralInfo.description,
+          nftGeneralInfo.price
+        )}
       />
 
       <Input
         inputType="textarea"
         title="Description"
         placeholder="NFT Description"
-        handleChange={(e) =>
-          setFormInput({
-            ...formInput,
-            description: (e.target as HTMLTextAreaElement).value,
-          })
-        }
+        handleChange={changeHandler}
         id={'description'}
-        error={validateDescription(formInput.description)}
+        error={validateDescription(
+          nftGeneralInfo.description,
+          nftGeneralInfo.name,
+          nftGeneralInfo.price
+        )}
       />
       <Dropdown
-        heading="Select a collection"
+        heading="Select a collection (Optional)"
         options={[...OPTIONS, ADD_COLLECTION]}
         checked={selected}
         placeholder="Or create a new one"
         onChange={setSelected}
         openModal={() => setModalOpen(true)}
       />
-
+      {selected === -1 && (
+        <>
+          <Royalties
+            royalties={royalties}
+            addRoyalty={addRoyalty}
+            royaltiesError={royaltiesError}
+            setFormError={setRoyaltiesError}
+          />
+          <RoyaltiesList royalties={royalties} deleteRoyalty={deleteRoyalty} />
+        </>
+      )}
       {isModalOpen && (
         <AddCollectionModal handleModalClose={() => setModalOpen(false)} />
       )}
+      <Traits
+        traits={traits}
+        addTrait={addTrait}
+        setFormError={setTraitsError}
+        traitError={traitsError}
+      />
+      <TraitsList traits={traits} deleteTrait={deleteTrait} />
       <Input
         inputType="number"
         title="Price"
         placeholder="NFT Price"
-        value={formInput.price}
-        handleChange={(e) =>
-          setFormInput({
-            ...formInput,
-            price: (e.target as HTMLInputElement).value,
-          })
-        }
+        value={nftGeneralInfo.price}
+        handleChange={changeHandler}
         id={'price'}
-        error={validatePrice(Number(formInput.price))}
+        error={validatePrice(
+          nftGeneralInfo.price,
+          nftGeneralInfo.name,
+          nftGeneralInfo.description
+        )}
       />
 
-      <div className="mt-7 w-full flex justify-end">
-        <Button
-          isPrimary
-          label="Create NFT"
-          disabled={
-            !isFormValid(
-              formInput.name,
-              Number(formInput.price),
-              formInput.description,
-              file
-            )
-          }
-          onClick={() =>
-            submitNewNFT(formInput, setIsError, setIsLoading, file)
-          }
-        />
-      </div>
+      <Button
+        isPrimary
+        label="Create NFT"
+        disabled={formError}
+        onClick={() => toast.warn('Create NFT')}
+      />
     </div>
   );
 };

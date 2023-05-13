@@ -2,7 +2,6 @@ import { ethers } from 'ethers';
 import { JsonRpcProvider, JsonRpcSigner } from '@ethersproject/providers';
 import { MarketAddress, MarketAddressABI } from '../context/constants';
 import { INftCardProps } from '../components/ui/NFTCard/NFTCard.types';
-import { ITopCreator } from '../components/top-sellers/top-sellers.types';
 import { ActiveSelectOption } from '../components/SortBy/SortBy.types';
 
 export const randomId = (length: number): string => {
@@ -48,30 +47,6 @@ export const connectWallet = async (
  */
 export const fetchContract = (signer: JsonRpcSigner | JsonRpcProvider) =>
   new ethers.Contract(MarketAddress, MarketAddressABI, signer);
-
-export const getTopCreators = (nfts: INftCardProps[]) =>
-  nfts
-    .reduce((creators, currentNFT) => {
-      const index = (creators as ITopCreator[]).findIndex(
-        (creator) => creator.seller === currentNFT.seller
-      );
-      if (index > -1) {
-        (creators as ITopCreator[])[index].sum += Number(currentNFT.price);
-        if (currentNFT.avatar) {
-          (creators as ITopCreator[])[index].avatar = currentNFT?.avatar;
-        }
-      } else {
-        (creators as ITopCreator[]).push({
-          seller: currentNFT.seller,
-          sum: Number(currentNFT.price),
-          avatar: currentNFT?.avatar,
-          nickname: currentNFT?.nickname,
-        });
-      }
-      return creators;
-    }, [])
-    .sort((a, b) => (b as ITopCreator).sum - (a as ITopCreator).sum)
-    .slice(0, 10);
 
 export const sortNfts = (type: ActiveSelectOption, nfts: INftCardProps[]) => {
   switch (type) {

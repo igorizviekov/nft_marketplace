@@ -6,7 +6,7 @@ import styles from './Input.module.scss';
 import classNames from 'classnames';
 import Icon from '../Icon/Icon';
 type InputProps = {
-  inputType: 'text' | 'textarea' | 'number';
+  inputType: 'text' | 'textarea' | 'number' | 'percentage';
   title: string;
   placeholder: string;
   id: string;
@@ -26,8 +26,7 @@ const Input = ({
   error,
   icon,
 }: InputProps) => {
-  const walletState = useStoreState((state: IStoreModel) => state.wallet);
-  const { currency } = walletState;
+  const { currency } = useStoreState((state: IStoreModel) => state.wallet);
 
   return (
     <div
@@ -57,7 +56,7 @@ const Input = ({
           onChange={handleChange}
           value={value}
         />
-      ) : (
+      ) : inputType === 'text' ? (
         <input
           type="text"
           id={id}
@@ -66,6 +65,18 @@ const Input = ({
           onChange={handleChange}
           value={value}
         />
+      ) : (
+        inputType === 'percentage' && (
+          <input
+            type="number"
+            id={id}
+            min="0"
+            className={styles.text}
+            placeholder={placeholder}
+            onChange={handleChange}
+            value={value}
+          />
+        )
       )}
       {icon && <Icon icon={icon} className={styles.icon} />}
       <small>{error}</small>

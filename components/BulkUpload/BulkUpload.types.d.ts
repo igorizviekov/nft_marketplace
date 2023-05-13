@@ -30,4 +30,8 @@ export interface IBulkUploadProps extends DropzoneOptions {
    * Secondary label string displayed on the dropzone
    */
   subTitle: string;
+  /**
+   * Is a csv upload form or not
+   */
+  isCsv: boolean;
 }

@@ -1,8 +1,7 @@
 import styles from './header.module.scss';
 import { useEffect } from 'react';
 import Link from 'next/link';
-import { Actions, useStoreActions, useStoreState } from 'easy-peasy';
-import { IStoreModel } from '../../store/model/model.types';
+import { useStoreActions, useStoreState } from '../../store';
 import { ConnectWallet, connectWallet } from '../../utils';
 import { toast } from 'react-toastify';
 import { Button } from '../ui/Button';
@@ -10,12 +9,15 @@ import DropdownMenu from './DropdownMenu/DropdownMenu';
 import PhoenixLogo from '../../assets/icons/phoenix_logo.svg';
 import BaseImage from '../ui/Base/BaseImage/BaseImage';
 import { Searchbar } from '../Searchbar/Searchbar';
+import { useFetchAppData } from '../../service/useFetchAppData';
+import NetworkDropdown from '../NetworkDropdown/NetworkDropdown';
 
 export const Header = () => {
-  const walletState = useStoreState((state: IStoreModel) => state.wallet);
-  const walletActions = useStoreActions(
-    (actions: Actions<IStoreModel>) => actions.wallet
+  const { isWalletConnected } = useStoreState((state) => state.wallet);
+  const { setIsWalletConnected, setActiveWallet } = useStoreActions(
+    (actions) => actions.wallet
   );
+  const { blockchains, isLoading } = useStoreState((state) => state.app);
 
   const connectCryptoWallet = async (mode: ConnectWallet) => {
     if (!window.ethereum) {
@@ -27,9 +29,11 @@ export const Header = () => {
     const wallet = await connectWallet(mode);
     const { isConnected, account } = wallet;
 
-    walletActions.setIsWalletConnected(isConnected);
-    walletActions.setActiveWallet(account);
+    setIsWalletConnected(isConnected);
+    setActiveWallet(account);
   };
+
+  useFetchAppData();
 
   useEffect(() => {
     connectCryptoWallet('silent');
@@ -37,7 +41,7 @@ export const Header = () => {
 
   const actionBtn = (
     <>
-      {!walletState.isWalletConnected && (
+      {!isWalletConnected && (
         <Button
           label={'Connect Wallet'}
           onClick={() => connectCryptoWallet('active')}
@@ -47,7 +51,6 @@ export const Header = () => {
       <DropdownMenu />
     </>
   );
-
   return (
     <nav className={styles.header}>
       <Link href="/">
@@ -60,7 +63,9 @@ export const Header = () => {
         onClearSearch={() => console.log('clear search')}
       />
       <div className={styles.network}>
-        <p>Network Dropdown</p>
+        {blockchains && (
+          <NetworkDropdown isLoading={isLoading} networks={blockchains} />
+        )}
         {actionBtn}
       </div>
     </nav>

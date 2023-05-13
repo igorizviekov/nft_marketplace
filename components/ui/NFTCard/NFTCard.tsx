@@ -17,8 +17,7 @@ export const NftCard = ({
   description,
   nickname,
 }: INftCardProps) => {
-  const walletState = useStoreState((state: IStoreModel) => state.wallet);
-  const { currency } = walletState;
+  const { currency } = useStoreState((state: IStoreModel) => state.wallet);
 
   return (
     <div className={styles.card}>

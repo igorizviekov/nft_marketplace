@@ -12,11 +12,9 @@
 }
 
 .icon {
-  width: 30px;
-  height: 30px;
   position: absolute;
   right: 10px;
-  top: 10px;
+  top: 20px;
   cursor: pointer;
 
   border-radius: 50%;
@@ -30,11 +28,9 @@
 .container {
   position: relative;
   width: 60%;
-  height: auto;
+  min-height: 70%;
 
   padding: var(--spacing-xl);
-
-  overflow-y: scroll;
   background-color: var(--background);
 
   border: var(--border-color);
@@ -42,6 +38,7 @@
 
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
 
   scroll-behavior: smooth;

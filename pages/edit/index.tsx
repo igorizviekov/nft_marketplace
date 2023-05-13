@@ -19,9 +19,7 @@ const EditProfile = () => {
   const [instagram, setInstagram] = useState<string>();
   const [file, setFile] = useState<File | null>(null);
 
-  const updateProfile = useStoreActions(
-    (actions) => actions.profile.updateProfile
-  );
+  const { updateProfile } = useStoreActions((actions) => actions.profile);
   const handleSubmit = () => {
     updateProfile({
       avatar: avatar,

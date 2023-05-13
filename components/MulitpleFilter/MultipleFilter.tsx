@@ -9,9 +9,8 @@ import { useStoreActions, useStoreState } from '../../store';
 import classNames from 'classnames';
 import { ITraits } from '../ui/NFTCard/NFTCard.types';
 export const MultipleFilter = ({ values }: IMultipleFilterProps) => {
-  const addFilter = useStoreActions((actions) => actions.filter.addFilter);
-
-  const filters = useStoreState((state) => state.filter.filters);
+  const { addFilter } = useStoreActions((actions) => actions.filter);
+  const { filters } = useStoreState((state) => state.filter);
 
   const itemsTest = values?.traits.map((trait) => ({
     title: (

@@ -13,4 +13,8 @@ export interface IFilePreviewProps {
    * Replace uploaded file handler
    */
   onReplace: () => void;
+
+  isCsv?: boolean;
+
+  isRar?: boolean;
 }
