@@ -53,7 +53,7 @@ const SingleCollectionPage = () => {
                 <Icon icon={<FaInstagram style={{ width: '20px' }} />} />
               </div>
               <p>{collectionData.description}</p>
-              <BaseLink href={collectionData.website}>
+              <BaseLink href={collectionData.website} isExternal>
                 {collectionData.website}
               </BaseLink>
               <div className={styles.stickersContainer}>
