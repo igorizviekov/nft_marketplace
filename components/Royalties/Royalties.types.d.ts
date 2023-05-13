@@ -2,7 +2,7 @@ import { Action } from 'easy-peasy';
 import {
   ICollectionModel,
   Royalty,
-} from '../../store/model/collection/collection.types';
+} from '../../store/model/create-collection/collection.types';
 
 export interface IRoyaltiesProps {
   royalties: Royalty[];

@@ -1,4 +1,4 @@
-import { Royalty } from '../collection/collection.types';
+import { Royalty } from '../create-collection/collection.types';
 import { Action } from 'easy-peasy';
 export interface INFTMintModel {
   nftGeneralInfo: INFTGeneralInfo;

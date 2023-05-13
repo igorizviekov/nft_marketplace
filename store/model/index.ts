@@ -4,7 +4,7 @@ import { WalletModel } from './wallet';
 import { persist } from 'easy-peasy';
 import { ProfileModel } from './profile';
 import { FilterModel } from './filter';
-import { CollectionsModel } from './collection';
+import { CollectionsModel } from './create-collection';
 import { NFTMintModel } from './nft-mint';
 import { BulkUploadModel } from './bulk-upload';
 import { AppModel } from './app';

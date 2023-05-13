@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Royalty } from '../../store/model/collection/collection.types';
+import { Royalty } from '../../store/model/create-collection/collection.types';
 
 export function isWalletValid(
   wallet: string,
