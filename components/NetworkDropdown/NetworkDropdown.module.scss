@@ -1,6 +1,9 @@
 .icon {
   border-radius: 50px;
 
+  width: 35px;
+  height: 35px;
+
   transition: 0.2s ease-in-out;
 
   path {
@@ -22,7 +25,7 @@
 
   border: var(--border-color);
   border-radius: var(--border-radius-sm);
-  padding: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-sm);
 
   transition: 0.2s ease-in-out;
   cursor: pointer;

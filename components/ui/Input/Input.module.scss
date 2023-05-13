@@ -55,7 +55,7 @@
 
     .icon {
       svg {
-        fill: var(--text-color-hover-dark);
+        fill: var(--text-color-hover);
       }
     }
 
@@ -65,7 +65,7 @@
 
 
       &::placeholder {
-        color: var(--text-color-hover-dark);
+        color: var(--text-color-hover);
         transition: 0.2s ease-in-out;
       }
     }
@@ -76,7 +76,7 @@
 
 
       &::placeholder {
-        color: var(--text-color-hover-dark);
+        color: var(--text-color-hover);
         transition: 0.2s ease-in-out;
       }
     }
