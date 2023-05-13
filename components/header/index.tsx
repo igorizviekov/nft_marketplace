@@ -17,7 +17,7 @@ export const Header = () => {
   const { setIsWalletConnected, setActiveWallet } = useStoreActions(
     (actions) => actions.wallet
   );
-  const { blockchains } = useStoreState((state) => state.app);
+  const { blockchains, isLoading } = useStoreState((state) => state.app);
 
   const connectCryptoWallet = async (mode: ConnectWallet) => {
     if (!window.ethereum) {
@@ -63,7 +63,9 @@ export const Header = () => {
         onClearSearch={() => console.log('clear search')}
       />
       <div className={styles.network}>
-        {blockchains && <NetworkDropdown networks={blockchains} />}
+        {blockchains && (
+          <NetworkDropdown isLoading={isLoading} networks={blockchains} />
+        )}
         {actionBtn}
       </div>
     </nav>

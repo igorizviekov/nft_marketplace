@@ -3,7 +3,9 @@ import { useStoreActions, useStoreState } from '../store';
 import { useEffect } from 'react';
 import { IBlockchain } from '../store/model/app/app.types';
 export async function useFetchAppData() {
-  const { setBlockchains } = useStoreActions((actions) => actions.app);
+  const { setBlockchains, setIsLoading } = useStoreActions(
+    (actions) => actions.app
+  );
   const { blockchains } = useStoreState((state) => state.app);
   useEffect(() => {
     if (blockchains.length === 0) {
@@ -12,6 +14,7 @@ export async function useFetchAppData() {
         .then((response) => {
           response.data.data.map((blockchain: IBlockchain) => {
             setBlockchains(blockchain);
+            setIsLoading(false);
           });
         })
         .catch((error) => {

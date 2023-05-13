@@ -3,6 +3,7 @@ import { IAppModel } from './app.types';
 
 export const AppModel: IAppModel = {
   blockchains: [],
+  isLoading: true,
 
   setBlockchains: action((state, payload) => {
     const duplicated = state.blockchains.some(
@@ -11,5 +12,9 @@ export const AppModel: IAppModel = {
     if (!duplicated) {
       state.blockchains.push(payload);
     }
+  }),
+
+  setIsLoading: action((state, payload) => {
+    state.isLoading = payload;
   }),
 };
