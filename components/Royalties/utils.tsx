@@ -39,11 +39,15 @@ export function validatePercentage(
 ): string {
   const [message, setMessage] = useState<string>('');
 
+  const isZeroOrLess = percentage <= 0;
+  const isUndefined = percentage === undefined;
+  const isNotANumber = isNaN(percentage);
+
   useEffect(() => {
-    if (percentage <= 0) {
+    if (isZeroOrLess) {
       setMessage("Can't be zero or less");
       setFormError(true);
-    } else if (percentage === undefined || isNaN(percentage)) {
+    } else if (isUndefined || isNotANumber) {
       setMessage('');
       setFormError(true);
     } else {

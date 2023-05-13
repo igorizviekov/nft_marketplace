@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Input from '../../components/ui/Input';
 import { Button } from '../../components/ui/Button';
-import { isFormValid, submitNewNFT } from '../../scripts/utils';
 import { Dropdown } from '../../components/ui/dropdown';
 import BulkUpload from '../../components/BulkUpload/BulkUpload';
 import BaseLink from '../../components/ui/Base/BaseLink/BaseLink';
@@ -10,42 +9,21 @@ import AddCollectionModal from '../../components/AddCollectionModal/AddCollectio
 import styles from '../../styles/pages/CreateNFTPage.module.scss';
 import classNames from 'classnames';
 import { toast } from 'react-toastify';
+import { useStoreActions, useStoreState } from '../../store';
 
-export interface ICollectionFormProps {
-  price: string;
-  name: string;
-  description: string;
-  symbol: string;
-  category: 'Category 1' | 'Category 2' | 'Category 3';
-  chain: '';
-  royalties?: number;
-  website?: string;
-}
-
-export interface ISingleFormProps {
-  collectionInput: ICollectionFormProps;
-  setFormInput: React.Dispatch<React.SetStateAction<ICollectionFormProps>>;
-}
 const CollectionForm = () => {
-  const [cvsFile, setCsvFile] = useState<File | null>(null);
-  const [rarFile, setRarFile] = useState<File | null>(null);
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
   const OPTIONS = ['Collection 1', 'Collection 2', 'Collection 3'];
 
-  const [formInput, setFormInput] = useState<ICollectionFormProps>({
-    price: '',
-    name: '',
-    description: '',
-    symbol: '',
-    category: 'Category 1',
-    chain: '',
-    royalties: 0,
-    website: '',
-  });
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isError, setIsError] = useState<boolean | string>(false);
-
   const [selected, setSelected] = useState<number>(0);
+
+  const { bulkInformation, formError } = useStoreState(
+    (state) => state.bulkUpload
+  );
+  const { editBulkInformation, setFormError } = useStoreActions(
+    (actions) => actions.bulkUpload
+  );
+
   return (
     <div className={classNames('flex-col-center', styles.form)}>
       <Dropdown
@@ -58,21 +36,37 @@ const CollectionForm = () => {
         openModal={() => setModalOpen(true)}
       />
       <BulkUpload
-        file={rarFile}
+        file={bulkInformation.images}
         onDropAccepted={(arr) => {
-          setRarFile(arr?.[0]);
+          editBulkInformation({
+            ...bulkInformation,
+            images: arr?.[0],
+          });
         }}
-        onUploadAbort={() => setRarFile(null)}
+        onUploadAbort={() =>
+          editBulkInformation({
+            ...bulkInformation,
+            images: null,
+          })
+        }
         title={'Upload all images for the collection'}
         subTitle={'as a .zip or .rar'}
         isCsv={false}
       />
       <BulkUpload
-        file={cvsFile}
+        file={bulkInformation.metadata}
         onDropAccepted={(arr) => {
-          setCsvFile(arr?.[0]);
+          editBulkInformation({
+            ...bulkInformation,
+            metadata: arr?.[0],
+          });
         }}
-        onUploadAbort={() => setCsvFile(null)}
+        onUploadAbort={() =>
+          editBulkInformation({
+            ...bulkInformation,
+            metadata: null,
+          })
+        }
         title={'Upload metadata'}
         subTitle={'as a .csv file'}
         isCsv={true}
@@ -88,20 +82,24 @@ const CollectionForm = () => {
         title={'NFT Price'}
         inputType={'number'}
         placeholder={'Enter NFT price'}
+        value={bulkInformation.price && bulkInformation.price}
+        handleChange={(e) =>
+          editBulkInformation({
+            ...bulkInformation,
+            price: Number((e.target as HTMLInputElement).value),
+          })
+        }
         id={''}
       />
-
       {isModalOpen && (
         <AddCollectionModal handleModalClose={() => setModalOpen(false)} />
       )}
-      <div className="mt-7 w-full flex justify-end">
-        <Button
-          isPrimary
-          label="Upload"
-          disabled={true}
-          onClick={() => toast.warn('Upload bulk')}
-        />
-      </div>
+      <Button
+        isPrimary
+        label="Upload"
+        disabled={formError}
+        onClick={() => toast.warn('Upload bulk')}
+      />
     </div>
   );
 };

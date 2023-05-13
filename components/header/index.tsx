@@ -9,12 +9,14 @@ import DropdownMenu from './DropdownMenu/DropdownMenu';
 import PhoenixLogo from '../../assets/icons/phoenix_logo.svg';
 import BaseImage from '../ui/Base/BaseImage/BaseImage';
 import { Searchbar } from '../Searchbar/Searchbar';
+import { fetchAppData } from '../../service/fetchAppData';
 
 export const Header = () => {
   const { isWalletConnected } = useStoreState((state) => state.wallet);
   const { setIsWalletConnected, setActiveWallet } = useStoreActions(
     (actions) => actions.wallet
   );
+  const { blockchains } = useStoreState((state) => state.app);
 
   const connectCryptoWallet = async (mode: ConnectWallet) => {
     if (!window.ethereum) {
@@ -29,6 +31,8 @@ export const Header = () => {
     setIsWalletConnected(isConnected);
     setActiveWallet(account);
   };
+
+  fetchAppData();
 
   useEffect(() => {
     connectCryptoWallet('silent');
@@ -46,7 +50,6 @@ export const Header = () => {
       <DropdownMenu />
     </>
   );
-
   return (
     <nav className={styles.header}>
       <Link href="/">
@@ -59,7 +62,10 @@ export const Header = () => {
         onClearSearch={() => console.log('clear search')}
       />
       <div className={styles.network}>
-        <p>Network Dropdown</p>
+        {blockchains &&
+          blockchains.map((blockchain, index) => (
+            <p key={index}>{blockchain.currency_symbol}</p>
+          ))}
         {actionBtn}
       </div>
     </nav>

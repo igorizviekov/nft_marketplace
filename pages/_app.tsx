@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import '../styles/style.scss';
 import { Analytics } from '@vercel/analytics/react';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import { fetchAppData } from '../service/fetchAppData';
 
 export default function App({ Component, pageProps }: AppProps) {
   type Props = StoreProvider['props'] & { children: React.ReactNode };
