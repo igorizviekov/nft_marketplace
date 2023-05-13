@@ -77,6 +77,7 @@ export default function Home() {
             !isCollectionsLoading &&
             collections.map((collection, index) => (
               <PopularCollection
+                id={collection.id}
                 image={collection.image}
                 name={collection.name}
                 key={index}

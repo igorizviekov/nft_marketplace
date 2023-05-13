@@ -3,16 +3,22 @@ import { IPopularCollectionProps } from './PopularCollection.types';
 import styles from './PopularCollection.module.scss';
 import BaseImage from '../ui/Base/BaseImage/BaseImage';
 import { parseVolume } from './utils';
+import { useRouter } from 'next/router';
 
 const PopularCollection = ({
+  id,
   image,
   name,
   floorPrice,
   volume,
   index,
 }: IPopularCollectionProps) => {
+  const router = useRouter();
   return (
-    <div className={styles.container}>
+    <div
+      className={styles.container}
+      onClick={() => router.push(`/collections/${id}`)}
+    >
       <h3 className={styles.index}>{index + 1}</h3>
       <div className={styles.image}>
         <BaseImage imageUrl={image} />
