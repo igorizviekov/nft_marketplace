@@ -54,8 +54,6 @@ export default function Home() {
         );
       }
     });
-
-  console.log(foundLaunches);
   return (
     <BasePage>
       <HomeHero

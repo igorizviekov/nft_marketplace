@@ -45,7 +45,6 @@ export function validateWebsite(website?: string): string {
     if (isValid) setMessage('');
     else if (website === '') setMessage('');
     else if (!isValid) {
-      console.log(isValid);
       setGralInfoFormError(true);
       setMessage('Invalid Website');
     }
