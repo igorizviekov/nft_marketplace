@@ -1,10 +1,11 @@
 export interface ICollectionBannerProps {
-  uid: number;
+  uid: string;
   name: string;
-  floor: number;
-  volume: number;
-  sales: number;
-  owners: number;
-  supply: number;
+  image: string;
+  floor?: number;
+  volume?: number;
+  sales?: number;
+  owners?: number;
+  supply?: number;
   index?: number;
 }

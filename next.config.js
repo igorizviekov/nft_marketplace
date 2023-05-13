@@ -12,6 +12,7 @@ const nextConfig = {
       'd7hftxdivxxvm.cloudfront.net',
       'media.istockphoto.com',
       'img.freepik.com',
+      'i.imgur.com',
     ],
   },
 };

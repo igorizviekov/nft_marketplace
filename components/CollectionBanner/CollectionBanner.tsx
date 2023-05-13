@@ -8,6 +8,7 @@ import BaseImage from '../ui/Base/BaseImage/BaseImage';
 const CollectionBanner = ({
   uid,
   name,
+  image,
   volume,
   floor,
   sales,
@@ -29,26 +30,39 @@ const CollectionBanner = ({
           <p className={styles.supply}>Total Supply</p>
         </div>
       )}
-      <div
-        className={styles.container}
-        onClick={() => router.push(`collections/${uid}`)}
-      >
+      <div className={styles.container} onClick={() => router.push(`/collections/${uid}`)}>
         <div className={styles.collectionName}>
           {index && <p>{index}</p>}
           <div className={styles.image}>
-            <BaseImage />
+            <BaseImage imageUrl={image} />
           </div>
           <p>{name}</p>
         </div>
         <p className={styles.floor}>
-          {floor === 0 ? ' - ' : `${floor.toString()} ${currency}`}
+          {floor === 0 ? ' - ' : `${floor?.toString()} ${currency}`}
         </p>
-        <p className={styles.volume}>
-          {volume} {currency}
-        </p>
-        <p className={styles.sales}>{sales} </p>
-        <p className={styles.owners}>{owners} </p>
-        <p className={styles.supply}>{supply} </p>
+        {volume ? (
+          <p className={styles.volume}>
+            {volume} {currency}
+          </p>
+        ) : (
+          <p className={styles.volume}>0</p>
+        )}
+        {sales ? (
+          <p className={styles.sales}>{sales} </p>
+        ) : (
+          <p className={styles.sales}>0</p>
+        )}
+        {owners ? (
+          <p className={styles.owners}>{owners} </p>
+        ) : (
+          <p className={styles.owners}>0</p>
+        )}
+        {supply ? (
+          <p className={styles.supply}>{supply} </p>
+        ) : (
+          <p className={styles.supply}>0</p>
+        )}
       </div>
     </>
   );

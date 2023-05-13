@@ -1,0 +1,19 @@
+import { useEffect } from 'react';
+import { useStoreActions, useStoreState } from '../store';
+import axios from 'axios';
+
+export const useFetchSingleCollection = (id: string | string[] | undefined) => {
+  const { setCollectionData } = useStoreActions(
+    (actions) => actions.singleCollection
+  );
+  useEffect(() => {
+    if (id) {
+      axios
+        .get(`https://nft-api-production-3c8d.up.railway.app/collection/${id}`)
+        .then((response) => {
+          setCollectionData(response.data.data);
+        })
+        .catch((error) => console.error(error));
+    }
+  }, [id]);
+};

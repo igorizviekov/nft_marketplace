@@ -7,6 +7,7 @@ import { ICollectionModel } from './create-collection/collection.types';
 import { INFTMintModel } from './nft-mint/nft-mint.types';
 import { IBulkUploadModel } from './bulk-upload/bulk-upload.types';
 import { IAppModel } from './app/app.types';
+import { ISingleCollectionModel } from './single-collection/single-collection.types';
 
 export interface IStoreModel {
   app: IAppModel;
@@ -17,4 +18,5 @@ export interface IStoreModel {
   collection: ICollectionModel;
   nftMint: INFTMintModel;
   bulkUpload: IBulkUploadModel;
+  singleCollection: ISingleCollectionModel;
 }

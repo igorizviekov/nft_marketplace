@@ -12,8 +12,13 @@ import HorizontalScroll from '../components/HorizontalScroll/HorizontalScroll';
 import { Button } from '../components/ui/Button';
 import { useRouter } from 'next/router';
 import NoCollectionCard from '../components/CollectionCard/NoCollectionCard';
+import { useFetchCollections } from '../service/useFetchCollections';
+import { useStoreState } from '../store';
 export default function Home() {
   const [selected, setSelected] = useState<number>(0);
+  const { isCollectionsLoading, collections } = useStoreState(
+    (state) => state.app
+  );
   const filterOptions: INFTCategories[] = [
     'Collectibles',
     'PFPS',
@@ -54,6 +59,8 @@ export default function Home() {
         );
       }
     });
+
+  useFetchCollections();
   return (
     <BasePage>
       <HomeHero
@@ -66,13 +73,12 @@ export default function Home() {
       <div>
         <h1>Popular Collections</h1>
         <div className={'grid-container'}>
-          {PopularCollectionsMock &&
-            PopularCollectionsMock.map((collection, index) => (
+          {collections &&
+            !isCollectionsLoading &&
+            collections.map((collection, index) => (
               <PopularCollection
                 image={collection.image}
                 name={collection.name}
-                floorPrice={collection.floorPrice}
-                volume={collection.volume}
                 key={index}
                 index={index}
               />

@@ -4,10 +4,11 @@ import { IBaseLinkProps } from './BaseLink.types';
 import Link from 'next/link';
 import classNames from 'classnames';
 const BaseLink = ({ href, children, active }: IBaseLinkProps) => {
+  console.log(href)
   return (
     <Link
       href={href}
-      target='#blank'
+      target='_blank'
       className={classNames(styles.link, active === children && styles.active)}
     >
       <h3>{children}</h3>

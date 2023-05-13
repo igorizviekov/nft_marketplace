@@ -24,8 +24,8 @@ const PopularCollection = ({
           <p className={styles.growth}>0%</p>
         </div>
         <div className={styles.bottom}>
-          <h3>{floorPrice} Floor</h3>
-          <h3>Vol. {parseVolume(volume)}</h3>
+          {floorPrice ? <h3>{floorPrice} Floor</h3> : <h3>0 Floor</h3>}
+          {volume ? <h3>Vol. {parseVolume(volume)}</h3> : <h3>Vol. 0</h3>}
         </div>
       </div>
     </div>
