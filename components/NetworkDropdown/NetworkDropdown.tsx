@@ -26,11 +26,11 @@ const NetworkDropdown = ({ networks }: INetworkProps) => {
   return (
     <div className={styles.container}>
       {networks &&
-        networks.map((network) => (
-          <>
+        networks.map((network, index) => (
+          <div className={styles.selected} key={index + network.id}>
             <NetworkIcon symbol={network.currency_symbol} />
-            <p>{network.currency_symbol}</p>
-          </>
+            <h3>{network.currency_symbol}</h3>
+          </div>
         ))}
 
       <Icon icon={<BsChevronDown />} />

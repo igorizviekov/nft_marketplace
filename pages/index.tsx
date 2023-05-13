@@ -3,7 +3,7 @@ import PopularCollection from '../components/PopularCollection/PopularCollection
 import { PopularCollectionsMock } from '../mocks/PopularCollections.mock';
 import styles from '../styles/pages/HomePage.module.scss';
 import { LaunchpadDropsMocks } from '../mocks/LaunchpadDrops.mock';
-import LaunchpadDrops from '../components/LaunchpadDrops/LaunchpadDrops';
+import LaunchpadDrops from '../components/CollectionCard/CollectionCard';
 import Filter from '../components/Filter/Filter';
 import { useState } from 'react';
 import { INFTCategories } from '../components/Filter/Filter.types';
@@ -11,6 +11,7 @@ import HomeHero from '../components/HomeHero/HomeHero';
 import HorizontalScroll from '../components/HorizontalScroll/HorizontalScroll';
 import { Button } from '../components/ui/Button';
 import { useRouter } from 'next/router';
+import NoCollectionCard from '../components/CollectionCard/NoCollectionCard';
 export default function Home() {
   const [selected, setSelected] = useState<number>(0);
   const filterOptions: INFTCategories[] = [
@@ -23,6 +24,38 @@ export default function Home() {
     'Music',
   ];
   const router = useRouter();
+
+  const foundLaunches =
+    LaunchpadDropsMocks &&
+    LaunchpadDropsMocks.map((drop, index) => {
+      if (drop.category.includes(filterOptions[selected])) {
+        return (
+          <LaunchpadDrops
+            key={index}
+            image={drop.image}
+            network={drop.network}
+            name={drop.name}
+            launchDate={drop.launchDate}
+            isCategory={true}
+            category={drop.category}
+          />
+        );
+      } else if (selected === null) {
+        return (
+          <LaunchpadDrops
+            key={index}
+            image={drop.image}
+            network={drop.network}
+            name={drop.name}
+            launchDate={drop.launchDate}
+            isCategory={true}
+            category={drop.category}
+          />
+        );
+      }
+    });
+
+  console.log(foundLaunches);
   return (
     <BasePage>
       <HomeHero
@@ -83,41 +116,13 @@ export default function Home() {
         />
 
         <HorizontalScroll>
-          {LaunchpadDropsMocks &&
-            LaunchpadDropsMocks.map((drop, index) => {
-              if (
-                drop.category &&
-                selected !== null &&
-                drop.category.includes(filterOptions[selected])
-              ) {
-                return (
-                  <LaunchpadDrops
-                    key={index}
-                    image={drop.image}
-                    network={drop.network}
-                    name={drop.name}
-                    launchDate={drop.launchDate}
-                    isCategory={true}
-                    category={drop.category}
-                  />
-                );
-              } else if (selected === null) {
-                return (
-                  <LaunchpadDrops
-                    key={index}
-                    image={drop.image}
-                    network={drop.network}
-                    name={drop.name}
-                    launchDate={drop.launchDate}
-                    isCategory={true}
-                    category={drop.category}
-                  />
-                );
-              }
-            })}
+          {!foundLaunches.every((found) => found === undefined) ? (
+            foundLaunches
+          ) : (
+            <NoCollectionCard />
+          )}
         </HorizontalScroll>
       </div>
     </BasePage>
   );
 }
-

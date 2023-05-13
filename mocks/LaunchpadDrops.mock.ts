@@ -1,4 +1,4 @@
-import { ILaunchpadDropsProps } from '../components/LaunchpadDrops/LaunchpadDrops.types';
+import { ILaunchpadDropsProps } from '../components/CollectionCard/CollectionCard.types';
 
 export const LaunchpadDropsMocks: ILaunchpadDropsProps[] = [
   {

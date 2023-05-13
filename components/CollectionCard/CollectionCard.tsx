@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { ILaunchpadDropsProps } from './LaunchpadDrops.types';
-import styles from './LaunchpadDrops.module.scss';
+import { ILaunchpadDropsProps } from './CollectionCard.types';
+import styles from './CollectionCard.module.scss';
 import BaseImage from '../ui/Base/BaseImage/BaseImage';
 import classNames from 'classnames';
 import Icon from '../ui/Icon/Icon';
