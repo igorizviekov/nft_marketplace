@@ -17,6 +17,7 @@ import RoyaltiesList from '../../components/Royalties/RoyaltiesList';
 import Traits from '../../components/Traits/Traits';
 import TraitsList from '../../components/Traits/TraitsList';
 import ProfileImageUpload from '../../components/ProfileImageUpload/ProfileImageUpload';
+import { submitNewNFT } from '../../scripts/utils';
 export interface IFormInput {
   name: string;
   description: string;
@@ -44,6 +45,7 @@ const SingleForm = () => {
     setTraitsError,
     editGeneralInformation,
     setFormError,
+    setIsLoading,
   } = useStoreActions((actions) => actions.nftMint);
 
   const { isCollectionCreated } = useStoreActions(
@@ -103,6 +105,7 @@ const SingleForm = () => {
         title={'Name'}
         placeholder="NFT Name"
         handleChange={changeHandler}
+        value={nftGeneralInfo.name}
         error={validateName(
           nftGeneralInfo.name,
           nftGeneralInfo.description,
@@ -115,6 +118,7 @@ const SingleForm = () => {
         title="Description"
         placeholder="NFT Description"
         handleChange={changeHandler}
+        value={nftGeneralInfo.description}
         id={'description'}
         error={validateDescription(
           nftGeneralInfo.description,
@@ -174,7 +178,7 @@ const SingleForm = () => {
         isPrimary
         label="Create NFT"
         disabled={formError}
-        onClick={() => toast.warn('Create NFT')}
+        onClick={() => submitNewNFT(nftGeneralInfo, setIsLoading)}
       />
     </div>
   );

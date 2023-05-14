@@ -9,9 +9,13 @@ export const NFTMintModel: INFTMintModel = {
     price: 0,
     collection: '',
   },
+
+  isLoading: false,
   formError: true,
+
   royalties: [],
   royaltiesError: true,
+
   traits: [],
   traitsError: true,
 
@@ -57,5 +61,8 @@ export const NFTMintModel: INFTMintModel = {
   }),
   setFormError: action((state, payload) => {
     state.formError = payload;
+  }),
+  setIsLoading: action((state, payload) => {
+    state.isLoading = payload;
   }),
 };
