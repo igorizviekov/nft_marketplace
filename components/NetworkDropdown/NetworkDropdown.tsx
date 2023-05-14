@@ -1,10 +1,11 @@
 import React from 'react';
 import styles from './NetworkDropdown.module.scss';
 import { INetworkProps } from './NetworkDropdown.types';
-import Ethereum from '../../assets/icons/network-icons/ethereum.svg';
+import Ethereum from '../../assets/icons/network-icons/Ethereum';
 import Shimmer from '../../assets/icons/network-icons/Shimmer';
-import Polygon from '../../assets/icons/network-icons/polygon.svg';
-import BinanceSC from '../../assets/icons/network-icons/bsc.svg';
+import Polygon from '../../assets/icons/network-icons/Polygon';
+import BinanceSC from '../../assets/icons/network-icons/BinanceSC';
+import Solana from '../../assets/icons/network-icons/Solana';
 import Image from 'next/image';
 import Icon from '../ui/Icon/Icon';
 import { BsChevronDown } from 'react-icons/bs';
@@ -12,15 +13,15 @@ const NetworkDropdown = ({ networks, isLoading }: INetworkProps) => {
   const NetworkIcon = ({ symbol }: { symbol: string }) => {
     switch (symbol) {
       case 'SMR':
-        return <Icon icon={<Shimmer className={styles.icon} />} />;
+        return <Shimmer className={styles.icon} />;
       case 'ETH':
-        return <Image src={Ethereum} alt={'Shimmer'} />;
+        return <Ethereum className={styles.icon} />;
       case 'MATIC':
-        return <Image src={Polygon} alt={'Shimmer'} />;
+        return <Polygon className={styles.icon} />;
       case 'BSC':
-        return <Image src={BinanceSC} alt={'Shimmer'} />;
+        return <BinanceSC className={styles.icon} />;
       default:
-        return <Image src={BinanceSC} alt={'Shimmer'} />;
+        return <Solana className={styles.icon} />;
     }
   };
   return (

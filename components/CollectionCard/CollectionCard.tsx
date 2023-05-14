@@ -4,8 +4,7 @@ import styles from './CollectionCard.module.scss';
 import BaseImage from '../ui/Base/BaseImage/BaseImage';
 import classNames from 'classnames';
 import Icon from '../ui/Icon/Icon';
-import { FaArrowRight, FaBitcoin, FaEthereum } from 'react-icons/fa';
-import { SiPrometheus } from 'react-icons/si';
+import { FaArrowRight, FaEthereum } from 'react-icons/fa';
 import { useDateCountdown } from './utils';
 import { toast } from 'react-toastify';
 import { useStoreState } from '../../store';
@@ -28,13 +27,11 @@ const LaunchpadDrops = ({
   );
   const icon =
     foundNetwork?.currency_symbol === 'ETH' ? (
-      <FaEthereum style={{ color: '#1d1d1d', width: '30px', height: '30px' }} />
+      <FaEthereum className={styles.network} />
     ) : foundNetwork?.currency_symbol === 'SMR' ? (
       <Shimmer className={styles.network} />
     ) : (
-      <SiPrometheus
-        style={{ color: '#1d1d1d', width: '30px', height: '30px' }}
-      />
+      <Shimmer className={styles.network} />
     );
 
   useEffect(() => {
@@ -71,10 +68,12 @@ const LaunchpadDrops = ({
         ) : (
           <p>{countdown}</p>
         ))}
-      <div>
-        {isCategory && <p>{primaryCategory}</p>}
-        {isCategory && <p>{secondaryCategory}</p>}
-      </div>
+      {isCategory && (
+        <div>
+          <p>{primaryCategory}</p>
+          <p>{secondaryCategory}</p>
+        </div>
+      )}
     </div>
   );
 };

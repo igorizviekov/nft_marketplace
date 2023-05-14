@@ -14,6 +14,7 @@ import { useRouter } from 'next/router';
 import NoCollectionCard from '../components/CollectionCard/NoCollectionCard';
 import { useFetchCollections } from '../service/useFetchCollections';
 import { useStoreState } from '../store';
+import { useFetchNFTs } from '../service/useFetchNFTS';
 export default function Home() {
   const [selected, setSelected] = useState<number>(0);
   const { isCollectionsLoading, collections } = useStoreState(
@@ -69,7 +70,10 @@ export default function Home() {
       }
     });
 
+  // const nfts = useFetchNFTs();
   useFetchCollections();
+
+  // console.log(nfts);
   return (
     <BasePage>
       <HomeHero
