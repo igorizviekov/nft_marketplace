@@ -1,6 +1,5 @@
 import { Action } from 'easy-peasy';
 import { IWalletModel } from './wallet/wallet.types';
-import { IUserModel } from './user/user.types';
 import { IProfileModel } from './profile/profile.types';
 import { IFilterModel } from './filter/filter.types';
 import { ICreateCollectionModel } from './create-collection/collection.types';
@@ -12,7 +11,6 @@ import { ISingleCollectionModel } from './single-collection/single-collection.ty
 export interface IStoreModel {
   app: IAppModel;
   wallet: IWalletModel;
-  user: IUserModel;
   profile: IProfileModel;
   filter: IFilterModel;
   createCollection: ICreateCollectionModel;
