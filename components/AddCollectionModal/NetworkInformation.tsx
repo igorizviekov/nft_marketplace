@@ -9,8 +9,8 @@ import { useStoreActions, useStoreState } from '../../store';
 import { validateSymbol } from './utils';
 
 const NetworkInformation = ({ handleSteps }: IModalSteps) => {
-  const [mainCategory, setMainCategory] = useState<number>(-1);
-  const [subcategory, setSubCategory] = useState<number>(-1);
+  const [categoryPrimary, setCategoryPrimary] = useState<number>(-1);
+  const [categorySecondary, setCategorySecondary] = useState<number>(-1);
   const [chain, setChain] = useState<number>(-1);
   const { setNetworkInformation, setNetworkInformationError } = useStoreActions(
     (actions) => actions.createCollection
@@ -31,18 +31,23 @@ const NetworkInformation = ({ handleSteps }: IModalSteps) => {
   const networks: INetwork[] = ['ETH', 'POLYGON', 'SMR'];
 
   const handleClick = () => {
+    setNetworkInformation({
+      ...networkInformation,
+      categoryPrimary: categories[categoryPrimary],
+      categorySecondary: categories[categorySecondary],
+    });
     handleSteps();
   };
 
   const handleError = () => {
-    if (chain === -1 || subcategory === -1 || mainCategory === -1)
+    if (chain === -1 || categorySecondary === -1 || categoryPrimary === -1)
       setNetworkInformationError(true);
     else setNetworkInformationError(false);
   };
 
   useEffect(() => {
     handleError();
-  }, [chain, subcategory, mainCategory]);
+  }, [chain, categorySecondary, categoryPrimary]);
   return (
     <>
       <h1>Network Information</h1>
@@ -76,19 +81,19 @@ const NetworkInformation = ({ handleSteps }: IModalSteps) => {
         required
         placeholder={'Select a category'}
         options={categories}
-        checked={mainCategory}
-        onChange={setMainCategory}
+        checked={categoryPrimary}
+        onChange={setCategoryPrimary}
         openModal={function (): void {
           throw new Error('Function not implemented.');
         }}
       />
       <Dropdown
-        heading={'Subcategory'}
+        heading={'categorySecondary'}
         required
         placeholder={'Select a sub category'}
         options={categories}
-        checked={subcategory}
-        onChange={setSubCategory}
+        checked={categorySecondary}
+        onChange={setCategorySecondary}
         openModal={function (): void {
           throw new Error('Function not implemented.');
         }}

@@ -25,7 +25,7 @@ export async function useCreateCollection({
         blockchain_id: 'f09b46f6-5287-4a4a-b36a-c3fac11d963e',
         description: generalInformation.description,
         symbol: networkInformation.symbol,
-        categoryPrimary: networkInformation.categorySecondary.toLowerCase(),
+        categoryPrimary: networkInformation.categoryPrimary.toLowerCase(),
         categorySecondary: networkInformation.categorySecondary.toLowerCase(),
 
         //@todo add royalties once the db schema is changed
