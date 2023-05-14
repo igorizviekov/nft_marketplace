@@ -59,7 +59,9 @@ const ProfilePage = () => {
                 )}
               </div>
               {/* <p>{profile.description}</p> */}
-              <p>{profile.website}</p>
+              <BaseLink href={`http://${profile.website}`}>
+                {profile.website}
+              </BaseLink>
               <div className={styles.stickersContainer}>
                 <DescriptionSticker
                   title={'Follower'}
