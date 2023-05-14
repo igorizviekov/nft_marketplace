@@ -38,7 +38,9 @@ export const Header = () => {
 
   useAuth();
   useFetchAppData();
-
+  useEffect(() => {
+    connectCryptoWallet('silent');
+  }, []);
 
   const actionBtn = (
     <>

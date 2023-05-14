@@ -30,31 +30,40 @@ export default function Home() {
   ];
   const router = useRouter();
 
-  const foundLaunches =
-    LaunchpadDropsMocks &&
-    LaunchpadDropsMocks.map((drop, index) => {
-      if (drop.category.includes(filterOptions[selected])) {
+  const foundCollections =
+    collections &&
+    collections.map((collection, index) => {
+      if (
+        (selected &&
+          collection.categoryPrimary.includes(
+            filterOptions[selected].toLowerCase()
+          )) ||
+        (selected &&
+          collection.categorySecondary.includes(
+            filterOptions[selected].toLowerCase()
+          ))
+      ) {
         return (
           <LaunchpadDrops
             key={index}
-            image={drop.image}
-            network={drop.network}
-            name={drop.name}
-            launchDate={drop.launchDate}
+            image={collection.image}
+            network={collection.blockchain_id}
+            name={collection.name}
             isCategory={true}
-            category={drop.category}
+            primaryCategory={collection.categoryPrimary as INFTCategories}
+            secondaryCategory={collection.categorySecondary as INFTCategories}
           />
         );
       } else if (selected === null) {
         return (
           <LaunchpadDrops
             key={index}
-            image={drop.image}
-            network={drop.network}
-            name={drop.name}
-            launchDate={drop.launchDate}
+            image={collection.image}
+            network={collection.blockchain_id}
+            name={collection.name}
             isCategory={true}
-            category={drop.category}
+            primaryCategory={collection.categoryPrimary as INFTCategories}
+            secondaryCategory={collection.categorySecondary as INFTCategories}
           />
         );
       }
@@ -106,7 +115,8 @@ export default function Home() {
                 name={drop.name}
                 launchDate={drop.launchDate}
                 isCategory={false}
-                category={drop.category}
+                primaryCategory={drop.primaryCategory}
+                secondaryCategory={drop.secondaryCategory}
               />
             ))}
         </HorizontalScroll>
@@ -119,10 +129,9 @@ export default function Home() {
           selected={selected}
           onSelect={setSelected}
         />
-
         <HorizontalScroll>
-          {!foundLaunches.every((found) => found === undefined) ? (
-            foundLaunches
+          {!foundCollections.every((found) => found === undefined) ? (
+            foundCollections
           ) : (
             <NoCollectionCard />
           )}

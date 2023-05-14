@@ -8,21 +8,29 @@ import { FaArrowRight, FaBitcoin, FaEthereum } from 'react-icons/fa';
 import { SiPrometheus } from 'react-icons/si';
 import { useDateCountdown } from './utils';
 import { toast } from 'react-toastify';
+import { useStoreState } from '../../store';
+import Shimmer from '../../assets/icons/network-icons/Shimmer';
 const LaunchpadDrops = ({
   image,
   network,
   name,
   launchDate,
   isCategory,
-  category,
+  primaryCategory,
+  secondaryCategory,
 }: ILaunchpadDropsProps) => {
   const [countdown, setCoundown] = useState<string>('');
 
+  const { blockchains } = useStoreState((state) => state.app);
+
+  const foundNetwork = blockchains.find(
+    (blockchain) => blockchain.id === network
+  );
   const icon =
-    network === 'ETH' ? (
+    foundNetwork?.currency_symbol === 'ETH' ? (
       <FaEthereum style={{ color: '#1d1d1d', width: '30px', height: '30px' }} />
-    ) : network === 'SMR' ? (
-      <FaBitcoin style={{ color: '#1d1d1d', width: '30px', height: '30px' }} />
+    ) : foundNetwork?.currency_symbol === 'SMR' ? (
+      <Shimmer className={styles.network} />
     ) : (
       <SiPrometheus
         style={{ color: '#1d1d1d', width: '30px', height: '30px' }}
@@ -30,21 +38,22 @@ const LaunchpadDrops = ({
     );
 
   useEffect(() => {
-    setCoundown(useDateCountdown(launchDate));
-
-    const interval = setInterval(() => {
+    if (launchDate) {
       setCoundown(useDateCountdown(launchDate));
-    }, 1000);
 
-    return () => {
-      clearInterval(interval);
-    };
+      const interval = setInterval(() => {
+        setCoundown(useDateCountdown(launchDate));
+      }, 1000);
+      return () => {
+        clearInterval(interval);
+      };
+    }
   });
 
   return (
     <div className={classNames('flex-col-center', styles.container)}>
       <div className={styles.image}>
-        <Icon icon={icon} className={styles.network} />
+        <Icon icon={icon} />
         <BaseImage imageUrl={image} />
       </div>
       <h2>{name}</h2>
@@ -62,7 +71,10 @@ const LaunchpadDrops = ({
         ) : (
           <p>{countdown}</p>
         ))}
-      {isCategory && <p>{category}</p>}
+      <div>
+        {isCategory && <p>{primaryCategory}</p>}
+        {isCategory && <p>{secondaryCategory}</p>}
+      </div>
     </div>
   );
 };
