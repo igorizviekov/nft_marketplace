@@ -6,7 +6,6 @@ import Shimmer from '../../assets/icons/network-icons/Shimmer';
 import Polygon from '../../assets/icons/network-icons/Polygon';
 import BinanceSC from '../../assets/icons/network-icons/BinanceSC';
 import Solana from '../../assets/icons/network-icons/Solana';
-import Image from 'next/image';
 import Icon from '../ui/Icon/Icon';
 import { BsChevronDown } from 'react-icons/bs';
 const NetworkDropdown = ({ networks, isLoading }: INetworkProps) => {

@@ -1,6 +1,6 @@
 import styles from './Footer.module.scss';
 import BaseImage from '../ui/Base/BaseImage/BaseImage';
-import PhoenixMint from '../../assets//icons/phoenix_logo.svg';
+import PhoenixMint from '../../assets/icons/phoenix_logo.svg';
 import BaseLink from '../ui/Base/BaseLink/BaseLink';
 export const Footer = () => {
   return (

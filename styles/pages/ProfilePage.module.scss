@@ -104,7 +104,7 @@
 .nftRow {
 
   display: flex;
-
+  flex-wrap: wrap;
   margin-top: var(--spacing-md);
   gap: var(--spacing-md);
 }
