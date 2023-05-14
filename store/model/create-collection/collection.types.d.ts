@@ -2,6 +2,9 @@ import { Action } from 'easy-peasy';
 import { INetwork } from '../../../components/NetworkDropdown/NetworkDropdown.types';
 import { INFTCategories } from '../../../components/Filter/Filter.types';
 export interface ICreateCollectionModel {
+  isCreatingCollection: boolean;
+  isCollectionCreated: Action<ICreateCollectionModel, boolean>;
+
   generalInformation: GeneralInformation;
   gralInfoFormError: boolean;
 

@@ -8,6 +8,7 @@ import RoyaltiesInformation from './RoyaltiesInformation';
 import Icon from '../ui/Icon/Icon';
 import { BsFillArrowLeftCircleFill } from 'react-icons/bs';
 import ConfirmationInformation from './ConfirmationInformation';
+import { useStoreActions } from '../../store';
 
 const AddCollectionModal = ({ handleModalClose }: IAddCollectionModalProps) => {
   const steps: Steps[] = ['General', 'Network', 'Royalties', 'Confirmation'];
@@ -18,7 +19,7 @@ const AddCollectionModal = ({ handleModalClose }: IAddCollectionModalProps) => {
     if (steps[selected] === 'Confirmation') console.log('Save everything');
     else setSelected(selected + 1);
   }
-
+  const {} = useStoreActions((actions) => actions.createCollection);
   return (
     <Modal onClose={handleModalClose}>
       <div className={styles.column}>
@@ -44,7 +45,7 @@ const AddCollectionModal = ({ handleModalClose }: IAddCollectionModalProps) => {
           <RoyaltiesInformation handleSteps={handleSteps} />
         )}
         {steps[selected] === 'Confirmation' && (
-          <ConfirmationInformation handleSteps={handleSteps} />
+          <ConfirmationInformation handleModalClose={handleModalClose} />
         )}
         <p>Contract address will go here as info for the user?</p>
       </div>

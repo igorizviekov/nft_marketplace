@@ -19,6 +19,10 @@ export const CreateCollectionModel: ICreateCollectionModel = {
   networkInformationError: true,
   royaltiesError: false,
 
+  isCreatingCollection: false,
+  isCollectionCreated: action((state, payload) => {
+    state.isCreatingCollection = payload;
+  }),
   /**
    * Royalties Actions
    */

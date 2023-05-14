@@ -46,6 +46,10 @@ const SingleForm = () => {
     setFormError,
   } = useStoreActions((actions) => actions.nftMint);
 
+  const { isCollectionCreated } = useStoreActions(
+    (actions) => actions.createCollection
+  );
+
   const OPTIONS = ['Collection 1', 'Collection 2', 'Collection 3'];
   const [selected, setSelected] = useState<number>(-1);
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
@@ -138,7 +142,12 @@ const SingleForm = () => {
         </>
       )}
       {isModalOpen && (
-        <AddCollectionModal handleModalClose={() => setModalOpen(false)} />
+        <AddCollectionModal
+          handleModalClose={() => {
+            isCollectionCreated(false);
+            setModalOpen(false);
+          }}
+        />
       )}
       <Traits
         traits={traits}

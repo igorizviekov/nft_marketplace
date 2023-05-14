@@ -23,3 +23,7 @@ export interface INetworkInformationInput {
 export interface IModalSteps {
   handleSteps: () => void;
 }
+
+export interface IConfirmationModal {
+  handleModalClose: () => void;
+}

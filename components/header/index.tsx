@@ -11,9 +11,12 @@ import BaseImage from '../ui/Base/BaseImage/BaseImage';
 import { Searchbar } from '../Searchbar/Searchbar';
 import { useFetchAppData } from '../../service/useFetchAppData';
 import NetworkDropdown from '../NetworkDropdown/NetworkDropdown';
+import { useAuth } from '../../service/useAuth';
 
 export const Header = () => {
-  const { isWalletConnected } = useStoreState((state) => state.wallet);
+  const { isWalletConnected, activeWallet } = useStoreState(
+    (state) => state.wallet
+  );
   const { setIsWalletConnected, setActiveWallet } = useStoreActions(
     (actions) => actions.wallet
   );
@@ -33,11 +36,9 @@ export const Header = () => {
     setActiveWallet(account);
   };
 
+  useAuth();
   useFetchAppData();
 
-  useEffect(() => {
-    connectCryptoWallet('silent');
-  }, []);
 
   const actionBtn = (
     <>
