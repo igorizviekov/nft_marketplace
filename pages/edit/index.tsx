@@ -3,41 +3,27 @@ import BaseImage from '../../components/ui/Base/BaseImage/BaseImage';
 import BasePage from '../../components/ui/Base/BasePage/BasePage';
 import { Button } from '../../components/ui/Button';
 import Input from '../../components/ui/Input';
-import { useStoreActions } from '../../store';
+import { useStoreActions, useStoreState } from '../../store';
 import styles from '../../styles/pages/EditProfilePage.module.scss';
 import ProfileImageUpload from '../../components/ProfileImageUpload/ProfileImageUpload';
 import { toast } from 'react-toastify';
+import useUpdateProfile from '../../service/useUpdateProfile';
 const EditProfile = () => {
-  const [avatar, setAvatar] = useState<string>();
-  const [username, setUsername] = useState<string>();
-  const [description, setDescription] = useState<string>();
-  const [email, setEmail] = useState<string>();
-  const [location, setLocation] = useState<string>();
-  const [website, setWebsite] = useState<string>();
-  const [discord, setDiscord] = useState<string>();
-  const [twitter, setTwitter] = useState<string>();
-  const [instagram, setInstagram] = useState<string>();
   const [file, setFile] = useState<File | null>(null);
-
   const { updateProfile } = useStoreActions((actions) => actions.profile);
-  const handleSubmit = () => {
+  const { profile } = useStoreState((state) => state.profile);
+
+  const handleChange = (e: React.ChangeEvent<Element>) => {
     updateProfile({
-      avatar: avatar,
-      username: username,
-      description: description,
-      email: email,
-      location: location,
-      website: website,
-      discord: discord,
-      twitter: twitter,
-      instagram: instagram,
+      ...profile,
+      [e.target.id]: (e.target as HTMLInputElement).value,
     });
   };
   return (
     <BasePage>
       <div className={styles.page}>
         <div className={styles.image}>
-          {avatar && <BaseImage />}
+          {/* {profile.image && <BaseImage />} */}
           <ProfileImageUpload
             file={file}
             onUploadAbort={() => setFile(null)}
@@ -53,56 +39,52 @@ const EditProfile = () => {
             title={'Display Name'}
             inputType={'text'}
             placeholder={'Enter you display name...'}
-            handleChange={(e) =>
-              setUsername((e.target as HTMLInputElement).value)
-            }
-            id={''}
+            handleChange={handleChange}
+            value={profile.name}
+            id={'name'}
           />
-          <Input
+          {/* <Input
             title={'Description'}
             inputType={'textarea'}
             placeholder={'And now, your description...'}
-            handleChange={(e) =>
-              setDescription((e.target as HTMLInputElement).value)
-            }
-            id={''}
-          />
+            handleChange={handleChange}
+            value={profile.description}
+            id={'description'}
+          /> */}
           <Input
             title={'Email'}
             inputType={'text'}
             placeholder={'An email...'}
-            handleChange={(e) => setEmail((e.target as HTMLInputElement).value)}
-            id={''}
+            value={profile.email}
+            handleChange={handleChange}
+            id={'email'}
           />
           <Input
             title={'Location'}
             inputType={'text'}
             placeholder={'Your location if you want to...'}
-            handleChange={(e) =>
-              setLocation((e.target as HTMLInputElement).value)
-            }
-            id={''}
+            value={profile.location}
+            handleChange={handleChange}
+            id={'location'}
           />
           <Input
             title={'Website'}
             inputType={'text'}
             placeholder={'If you got a website...'}
-            handleChange={(e) =>
-              setWebsite((e.target as HTMLInputElement).value)
-            }
-            id={''}
+            value={profile.website}
+            handleChange={handleChange}
+            id={'website'}
           />
           <h1 className={styles.social}>Social Settings</h1>
           <Input
             title={'Discord'}
             inputType={'text'}
             placeholder={'Your discord ID...'}
-            handleChange={(e) =>
-              setDiscord((e.target as HTMLInputElement).value)
-            }
-            id={''}
+            value={profile.discord}
+            handleChange={handleChange}
+            id={'discord'}
           />
-          <Input
+          {/* <Input
             title={'Twitter'}
             inputType={'text'}
             placeholder={'Your twitter profile URL...'}
@@ -119,9 +101,9 @@ const EditProfile = () => {
               setInstagram((e.target as HTMLInputElement).value)
             }
             id={''}
-          />
+          /> */}
 
-          <h1 className={styles.social}>App Settings</h1>
+          {/* <h1 className={styles.social}>App Settings</h1>
           <Input
             inputType={'text'}
             title={'Time and Date'}
@@ -139,11 +121,11 @@ const EditProfile = () => {
             title={'Language'}
             placeholder={'Dropdowns'}
             id={''}
-          />
+          /> */}
           <Button
             isPrimary={false}
             label={'Save Settings'}
-            onClick={() => toast.warn('Upload to form DB')}
+            onClick={() => useUpdateProfile(profile)}
           />
         </div>
       </div>

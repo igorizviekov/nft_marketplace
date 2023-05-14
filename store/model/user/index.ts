@@ -2,14 +2,18 @@ import { action } from 'easy-peasy';
 import { IUser, IUserModel } from './user.types';
 
 export const UserModel: IUserModel = {
-  name: '',
-  avatar: '',
-  setUser: action((state, payload: IUser) => {
-    state.name = payload.name;
-    state.avatar = payload.avatar;
+  user: undefined,
+  setUser: action((state, payload) => {
+    state.user = Object.create({
+      name: payload.name,
+      image: payload.image,
+      description: payload.description,
+      location: payload.location,
+      discord: payload.discord,
+      website: payload.website,
+    });
   }),
   clearUser: action((state) => {
-    state.name = '';
-    state.avatar = '';
+    state.user = undefined;
   }),
 };

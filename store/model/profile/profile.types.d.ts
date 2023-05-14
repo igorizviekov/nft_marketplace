@@ -7,13 +7,13 @@ export interface IProfileModel {
 }
 
 export interface IProfile {
-  avatar?: string;
-  username?: string;
-  description?: string;
+  name?: string;
   email?: string;
   location?: string;
   website?: string;
   discord?: string;
-  twitter?: string;
-  instagram?: string;
+  // description?: string;
+  // image?: string;
+  // twitter?: string;
+  // instagram?: string;
 }

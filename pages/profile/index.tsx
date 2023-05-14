@@ -12,108 +12,130 @@ import DescriptionSticker from '../../components/DescriptionSticker/DescriptionS
 import { FiEdit } from 'react-icons/fi';
 import ActivityBanner from '../../components/ActivityBanner/ActivityBanner';
 import { useRouter } from 'next/router';
+import useFetchProfile from '../../service/useFetchProfile';
+import { useStoreState } from '../../store';
+import { Spinner } from '../../components/spinner';
+import BaseLink from '../../components/ui/Base/BaseLink/BaseLink';
 
 const ProfilePage = () => {
   const router = useRouter();
+  const { profile } = useStoreState((state) => state.profile);
   const [selectedTab, setSelectedTab] = useState<number>(0);
   const [isOwnProfile, setIsOwnProfile] = useState<boolean>(true);
   const options = ['My NFTs', 'Listed', 'Created', 'Liked', 'Activity'];
+  useFetchProfile();
   return (
     <BasePage>
-      <div className={styles.hero}>
-        <div className={styles.imageContainer}>
-          <BaseImage />
-        </div>
-        <div className={classNames(styles.textContainer, 'flex-col-start')}>
-          <div className={styles.icons}>
-            <h1 className={styles.name}>Johanna DOE</h1>
-            <Icon icon={<FaDiscord style={{ width: '20px' }} />} />
-            <Icon icon={<FaTwitter />} />
-            <Icon icon={<FaInstagram />} />
-            {isOwnProfile && (
-              <Icon
-                icon={<FiEdit style={{ width: '22px', height: '22px' }} />}
-                className={styles.profileIcon}
-                onClick={() => router.push('/edit')}
-              />
-            )}
-          </div>
-          <p>
-            Nulla consequat massa quis enim. Donec pede justo, fringilla vel,
-            aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut,
-            imperdiet a, venenatis vitae, justo. Nulla consequat massa quis
-            enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget,
-            arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae,
-            justo.
-          </p>
-          <div className={styles.stickersContainer}>
-            <DescriptionSticker
-              title={'Follower'}
-              data={'123 123'}
-              type={'PRIMARY'}
-            />
-            <DescriptionSticker
-              title={'Following'}
-              data={'12 123'}
-              type={'PRIMARY'}
-            />
-            <DescriptionSticker
-              title={'For Sale'}
-              data={'123'}
-              type={'PRIMARY'}
-            />
-            <DescriptionSticker title={'Owned'} data={'12'} type={'PRIMARY'} />
-            <DescriptionSticker
-              title={'For Sale'}
-              data={'123'}
-              type={'SECONDARY'}
-            />
-            <DescriptionSticker
-              title={'Owned'}
-              data={'12'}
-              type={'SECONDARY'}
-            />
-          </div>
-        </div>
-      </div>
-      <div className="flex-col">
-        <Tabs
-          options={options}
-          selected={selectedTab}
-          handleChange={setSelectedTab}
-        />
-        <div className={styles.nftRow}>
-          {options[selectedTab] !== 'Activity' &&
-            MockNFTS.map((nft, index) => {
-              if (nft.status === options[selectedTab]) {
-                return (
-                  <NftCard
-                    key={index + nft.tokenId}
-                    name={nft.name}
-                    seller={nft.seller}
-                    owner={nft.owner}
-                    description={nft.description}
-                    img={nft.img}
-                    price={nft.price}
-                    tokenId={nft.tokenId}
-                    traits={nft.traits}
+      {profile ? (
+        <>
+          <div className={styles.hero}>
+            <div className={styles.imageContainer}>
+              <BaseImage />
+            </div>
+            <div className={classNames(styles.textContainer, 'flex-col-start')}>
+              <div className={styles.icons}>
+                <h1 className={styles.name}>{profile.name}</h1>
+                {profile.discord && (
+                  <BaseLink href={'https://discord.com'}>
+                    <Icon icon={<FaDiscord style={{ width: '20px' }} />} />
+                  </BaseLink>
+                )}
+                {/* {profile.twitter && (
+                  <BaseLink href={'https://twitter.com'}>
+                    <Icon icon={<FaTwitter style={{ width: '20px' }} />} />
+                  </BaseLink>
+                )}
+                {profile.instagram && (
+                  <BaseLink href={'https://instagram.com'}>
+                    <Icon icon={<FaInstagram style={{ width: '20px' }} />} />
+                  </BaseLink>
+                )} */}
+                {isOwnProfile && (
+                  <Icon
+                    icon={<FiEdit style={{ width: '22px', height: '22px' }} />}
+                    className={styles.profileIcon}
+                    onClick={() => router.push('/edit')}
                   />
-                );
-              }
-            })}
-          {options[selectedTab] === 'Activity' && (
-            <ActivityBanner
-              img={''}
-              name={'Rusty Robot Country Club #1010'}
-              transactionType={'Listing'}
-              seller={'0xa3de3788307a25f76815edde4776e7c1d25a3684'}
-              buyer={'0xa3de3788307a25f76815edde4776e7c1d25a3684'}
-              time={new Date('2023-05-06T17:30:01')}
-              total={13}
+                )}
+              </div>
+              {/* <p>{profile.description}</p> */}
+              <p>{profile.website}</p>
+              <div className={styles.stickersContainer}>
+                <DescriptionSticker
+                  title={'Follower'}
+                  data={'123 123'}
+                  type={'PRIMARY'}
+                />
+                <DescriptionSticker
+                  title={'Following'}
+                  data={'12 123'}
+                  type={'PRIMARY'}
+                />
+                <DescriptionSticker
+                  title={'For Sale'}
+                  data={'123'}
+                  type={'PRIMARY'}
+                />
+                <DescriptionSticker
+                  title={'Owned'}
+                  data={'12'}
+                  type={'PRIMARY'}
+                />
+                <DescriptionSticker
+                  title={'For Sale'}
+                  data={'123'}
+                  type={'SECONDARY'}
+                />
+                <DescriptionSticker
+                  title={'Owned'}
+                  data={'12'}
+                  type={'SECONDARY'}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="flex-col">
+            <Tabs
+              options={options}
+              selected={selectedTab}
+              handleChange={setSelectedTab}
             />
-          )}
-        </div>
-      </div>
+            <div className={styles.nftRow}>
+              {options[selectedTab] !== 'Activity' &&
+                MockNFTS.map((nft, index) => {
+                  if (nft.status === options[selectedTab]) {
+                    return (
+                      <NftCard
+                        key={index + nft.tokenId}
+                        name={nft.name}
+                        seller={nft.seller}
+                        owner={nft.owner}
+                        description={nft.description}
+                        img={nft.img}
+                        price={nft.price}
+                        tokenId={nft.tokenId}
+                        traits={nft.traits}
+                      />
+                    );
+                  }
+                })}
+              {options[selectedTab] === 'Activity' && (
+                <ActivityBanner
+                  img={''}
+                  name={'Rusty Robot Country Club #1010'}
+                  transactionType={'Listing'}
+                  seller={'0xa3de3788307a25f76815edde4776e7c1d25a3684'}
+                  buyer={'0xa3de3788307a25f76815edde4776e7c1d25a3684'}
+                  time={new Date('2023-05-06T17:30:01')}
+                  total={13}
+                />
+              )}
+            </div>
+          </div>
+        </>
+      ) : (
+        <Spinner />
+      )}
     </BasePage>
   );
 };
