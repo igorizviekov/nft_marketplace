@@ -28,8 +28,8 @@ export interface ICreateCollectionModel {
 export interface NetworkInformation {
   symbol: string;
   network: INetwork;
-  mainCategory: INFTCategories;
-  subCategory: INFTCategories;
+  categoryPrimary: INFTCategories;
+  categorySecondary: INFTCategories;
 }
 export interface Royalty {
   walletAddress: string;

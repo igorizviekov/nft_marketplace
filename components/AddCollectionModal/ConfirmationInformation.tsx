@@ -35,8 +35,8 @@ const ConfirmationInformation = ({ handleModalClose }: IConfirmationModal) => {
             <h2 className={styles.title}>Network information</h2>
             <p>Symbol: {networkInformation.symbol}</p>
             <p>Network: {networkInformation.network}</p>
-            <p>Primary Category: {networkInformation.mainCategory}</p>
-            <p>Secondary Category: {networkInformation.subCategory}</p>
+            <p>Primary Category: {networkInformation.categoryPrimary}</p>
+            <p>Secondary Category: {networkInformation.categorySecondary}</p>
           </div>
           {royalties.length !== 0 && (
             <div>

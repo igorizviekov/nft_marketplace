@@ -12,8 +12,8 @@ export const CreateCollectionModel: ICreateCollectionModel = {
   networkInformation: {
     symbol: '',
     network: 'ETH',
-    mainCategory: 'Art',
-    subCategory: 'Art',
+    categoryPrimary: 'Art',
+    categorySecondary: 'Art',
   },
   gralInfoFormError: true,
   networkInformationError: true,
@@ -63,8 +63,8 @@ export const CreateCollectionModel: ICreateCollectionModel = {
     state.networkInformation = {
       symbol: payload.symbol,
       network: payload.network,
-      mainCategory: payload.mainCategory,
-      subCategory: payload.subCategory,
+      categoryPrimary: payload.categoryPrimary,
+      categorySecondary: payload.categorySecondary,
     };
   }),
   setNetworkInformationError: action((state, payload) => {
