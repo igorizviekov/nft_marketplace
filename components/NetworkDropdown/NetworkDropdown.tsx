@@ -8,6 +8,8 @@ import BinanceSC from '../../assets/icons/network-icons/BinanceSC';
 import Solana from '../../assets/icons/network-icons/Solana';
 import Icon from '../ui/Icon/Icon';
 import { BsChevronDown } from 'react-icons/bs';
+import { Button } from '../ui/Button';
+import { toast } from 'react-toastify';
 const NetworkDropdown = ({ networks, isLoading }: INetworkProps) => {
   const NetworkIcon = ({ symbol }: { symbol: string }) => {
     switch (symbol) {
@@ -24,18 +26,24 @@ const NetworkDropdown = ({ networks, isLoading }: INetworkProps) => {
     }
   };
   return (
-    <div className={styles.container}>
-      {networks &&
-        !isLoading &&
-        networks.map((network, index) => (
-          <div className={styles.selected} key={index + network.id}>
-            <NetworkIcon symbol={network.currency_symbol} />
-            <h3>{network.currency_symbol}</h3>
-          </div>
-        ))}
+    <Button
+      isPrimary={false}
+      className={styles.container}
+      onClick={() => toast.warn('Open dropdooown')}
+    >
+      <>
+        {networks &&
+          !isLoading &&
+          networks.map((network, index) => (
+            <div className={styles.selected} key={index + network.id}>
+              <NetworkIcon symbol={network.currency_symbol} />
+              <h3>{network.currency_symbol}</h3>
+            </div>
+          ))}
 
-      <Icon icon={<BsChevronDown />} />
-    </div>
+        <Icon icon={<BsChevronDown />} />
+      </>
+    </Button>
   );
 };
 

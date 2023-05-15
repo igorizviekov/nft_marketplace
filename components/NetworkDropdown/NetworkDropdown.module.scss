@@ -29,22 +29,14 @@
   width: auto;
   display: flex;
   align-items: center;
-  width: 153px;
 
   gap: var(--spacing-md);
-  border: var(--border-color);
   border-radius: 100px;
-  padding: var(--spacing-sm) var(--spacing-md);
 
   transition: 0.2s ease-in-out;
   cursor: pointer;
 
   &:hover {
-    background-color: var(--background-hover);
-    border: var(--border-color-hover);
-    color: var(--text-color-hover);
-    box-shadow: var(--box-shadow-hover);
-
     .icon {
       box-shadow: var(--box-shadow-hover);
 

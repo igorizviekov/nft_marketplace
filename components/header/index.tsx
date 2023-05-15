@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import { Button } from '../ui/Button';
 import DropdownMenu from './DropdownMenu/DropdownMenu';
 import PhoenixLogo from '../../assets/icons/phoenix_logo.svg';
+import LogoText from '../../assets/icons/text-logo.png';
 import BaseImage from '../ui/Base/BaseImage/BaseImage';
 import { Searchbar } from '../Searchbar/Searchbar';
 import { useFetchAppData } from '../../service/useFetchAppData';
@@ -54,11 +55,17 @@ export const Header = () => {
       <DropdownMenu />
     </>
   );
+
   return (
     <nav className={styles.header}>
       <Link href="/">
-        <div className={styles.logo}>
-          <BaseImage imageUrl={PhoenixLogo} />
+        <div className={styles.network}>
+          <div className={styles.logo}>
+            <BaseImage imageUrl={PhoenixLogo} />
+          </div>
+          <div className={styles.logoText}>
+            <BaseImage imageUrl={LogoText} className={styles.text} />
+          </div>
         </div>
       </Link>
       <Searchbar
