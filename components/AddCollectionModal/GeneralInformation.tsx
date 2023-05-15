@@ -88,7 +88,7 @@ const GeneralInformation = ({ handleSteps }: IModalSteps) => {
       <Button
         isPrimary={false}
         disabled={gralInfoFormError}
-        label={'Next Step'}
+        label={'Continue'}
         onClick={handleClick}
       />
     </>

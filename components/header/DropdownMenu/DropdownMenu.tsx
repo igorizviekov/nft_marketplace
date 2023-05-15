@@ -19,8 +19,8 @@ const DropdownMenu = ({}: IDropdownMenu) => {
     (state) => state.wallet
   );
 
-  const walletStart = activeWallet && activeWallet.slice(0, 5);
-  const walletEnds = activeWallet && activeWallet.slice(38, 42);
+  const walletStart = activeWallet && activeWallet.slice(0, 6);
+  const walletEnds = activeWallet && activeWallet.slice(37, 42);
 
   //@TODO REPLACE WALLET STATE FOR STORE STATE WHEN MULTIPLE WALLETS ARE CONNECTED
   const [wallets, setWallets] = useState<string[]>([]);

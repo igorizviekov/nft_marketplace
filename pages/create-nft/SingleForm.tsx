@@ -11,7 +11,6 @@ import {
   validatePrice,
 } from '../../components/ui/Input/utils';
 import Royalties from '../../components/Royalties/Royalties';
-import { toast } from 'react-toastify';
 import { useStoreActions, useStoreState } from '../../store';
 import RoyaltiesList from '../../components/Royalties/RoyaltiesList';
 import Traits from '../../components/Traits/Traits';

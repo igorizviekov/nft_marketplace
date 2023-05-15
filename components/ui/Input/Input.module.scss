@@ -7,7 +7,7 @@
   display: flex;
   flex-direction: column;
 
-  border-radius: var(--border-radius-sm);
+  border-radius: 100px;
 
 
   .currency {
@@ -124,7 +124,7 @@
   padding: var(--spacing-md);
 
   border: var(--border-color);
-  border-radius: var(--spacing-sm);
+  border-radius: 100px;
 
   transition: 0.2s ease-in-out;
 
@@ -141,7 +141,7 @@
   background-color: transparent;
 
   border: var(--border-color);
-  border-radius: var(--spacing-sm);
+  border-radius: var(--spacing-md);
 
   transition: 0.2s ease-in-out;
 

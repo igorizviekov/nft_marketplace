@@ -107,7 +107,7 @@ const EditProfile = () => {
           <Input
             inputType={'text'}
             title={'Time and Date'}
-            placeholder={'Dropdowns'}
+            placeholder={'how time and date are formated'}
             id={''}
           />
           <Input

@@ -1,5 +1,5 @@
 .page {
-  margin: auto;
+  margin: var(--spacing-xl) auto var(--spacing-xxl) auto;
   display: flex;
   flex-direction: column;
   gap: 150px;

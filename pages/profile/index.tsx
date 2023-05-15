@@ -55,7 +55,9 @@ const ProfilePage = () => {
               <div className={styles.icons}>
                 <h1 className={styles.name}>{profile.name}</h1>
                 {profile.discord && (
-                  <BaseLink href={'https://discord.com'}>
+                  <BaseLink
+                    href={`https://discordapp.com/users/${profile.discord}`}
+                  >
                     <Icon icon={<FaDiscord style={{ width: '20px' }} />} />
                   </BaseLink>
                 )}

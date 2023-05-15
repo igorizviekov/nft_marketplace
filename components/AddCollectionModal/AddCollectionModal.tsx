@@ -47,7 +47,6 @@ const AddCollectionModal = ({ handleModalClose }: IAddCollectionModalProps) => {
         {steps[selected] === 'Confirmation' && (
           <ConfirmationInformation handleModalClose={handleModalClose} />
         )}
-        <p>Contract address will go here as info for the user?</p>
       </div>
     </Modal>
   );

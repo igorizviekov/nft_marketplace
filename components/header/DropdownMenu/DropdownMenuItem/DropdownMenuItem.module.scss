@@ -28,11 +28,6 @@
 
   }
 
-  @include respond-to(desktop-xl) {
-    width: 400px;
-
-  }
-
   &:hover {
     border: var(--border-color-hover);
     box-shadow: var(--box-shadow-hover);
