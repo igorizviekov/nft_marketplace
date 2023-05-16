@@ -10,7 +10,7 @@ export const CollectionNFTS: INftCardProps[] = [
     img: TEST_IMAGE_URL,
     price: 8,
     tokenId: 12093012,
-    status: 'Outgoing Offers',
+    status: 'On Sale',
     traits: [
       { trait_type: 'background', value: 'value 23' },
       { trait_type: 'body', value: 'blue' },
@@ -36,7 +36,7 @@ export const CollectionNFTS: INftCardProps[] = [
     img: TEST_IMAGE_URL,
     price: 8,
     tokenId: 12093012,
-    status: 'Outgoing Offers',
+    status: 'On Sale',
     traits: [
       { trait_type: 'background', value: 'value 13' },
       { trait_type: 'body', value: 'blue' },
@@ -62,7 +62,7 @@ export const CollectionNFTS: INftCardProps[] = [
     img: TEST_IMAGE_URL,
     price: 8,
     tokenId: 12093012,
-    status: 'Outgoing Offers',
+    status: 'On Sale',
     traits: [
       { trait_type: 'background', value: 'value 13' },
       { trait_type: 'body', value: 'blue' },
@@ -88,7 +88,7 @@ export const CollectionNFTS: INftCardProps[] = [
     img: TEST_IMAGE_URL,
     price: 8,
     tokenId: 12093012,
-    status: 'Outgoing Offers',
+    status: 'On Sale',
     traits: [
       { trait_type: 'background', value: 'value 44' },
       { trait_type: 'body', value: 'blue' },
@@ -114,7 +114,7 @@ export const CollectionNFTS: INftCardProps[] = [
     img: TEST_IMAGE_URL,
     price: 8,
     tokenId: 12093012,
-    status: 'Outgoing Offers',
+    status: 'On Sale',
     traits: [
       { trait_type: 'background', value: 'wine red' },
       { trait_type: 'body', value: 'blue' },
@@ -140,7 +140,7 @@ export const CollectionNFTS: INftCardProps[] = [
     img: TEST_IMAGE_URL,
     price: 8,
     tokenId: 12093012,
-    status: 'Outgoing Offers',
+    status: 'On Sale',
     traits: [
       { trait_type: 'background', value: 'wine red' },
       { trait_type: 'body', value: 'blue' },
@@ -166,7 +166,7 @@ export const CollectionNFTS: INftCardProps[] = [
     img: TEST_IMAGE_URL,
     price: 8,
     tokenId: 12093012,
-    status: 'Outgoing Offers',
+    status: 'On Sale',
     traits: [
       { trait_type: 'background', value: 'wine red' },
       { trait_type: 'body', value: 'blue' },
@@ -192,7 +192,7 @@ export const CollectionNFTS: INftCardProps[] = [
     img: TEST_IMAGE_URL,
     price: 8,
     tokenId: 12093012,
-    status: 'Outgoing Offers',
+    status: 'On Sale',
     traits: [
       { trait_type: 'background', value: 'wine red' },
       { trait_type: 'body', value: 'blue' },
@@ -225,7 +225,10 @@ export const CollectionTraits: ICollectionTraits = {
       trait_type: 'background',
       values: ['wine red', 'value 23', 'value 13', 'value 44'],
     },
-    { trait_type: 'body', values: ['blue', 'value 32', 'value 563', 'value 45'] },
+    {
+      trait_type: 'body',
+      values: ['blue', 'value 32', 'value 563', 'value 45'],
+    },
     {
       trait_type: 'button',
       values: ['none', 'value 275', 'value 35', 'value 46'],
@@ -238,7 +241,10 @@ export const CollectionTraits: ICollectionTraits = {
       trait_type: 'eyes',
       values: ['broken', 'value 25', 'value 36', 'value 47'],
     },
-    { trait_type: 'mouth', values: ['zip', 'value 254', 'value 364', 'value 4'] },
+    {
+      trait_type: 'mouth',
+      values: ['zip', 'value 254', 'value 364', 'value 4'],
+    },
     { trait_type: 'face', values: ['none', 'value 23', 'value 33', 'value 4'] },
     {
       trait_type: 'headgear',

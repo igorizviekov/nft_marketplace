@@ -7,8 +7,6 @@ $z-indexes: (
 
 :root {
   // Colours
-  --primary: #ffffff;
-  --secondary: #fff7ea;
   --error: #c24747;
 
   --background: #1D1D1D;
@@ -28,7 +26,7 @@ $z-indexes: (
 --border-color-hover-alt: 1px solid var(--green);
 --box-shadow-hover: 0px 0px 5px 2px var(--accent);
 --box-shadow-error: 0px 0px 5px 1px var(--error);
---box-shadow-header: 0px 0px 20px 5px var(--background);
+--box-shadow-header: 0px 0px 20px 10px var(--background);
 --text-color-hover: var(--green);
 --text-color-hover-dark: var(--accent);
 --text-color-hover-alt: var(--yellow);
@@ -41,6 +39,7 @@ $z-indexes: (
 --spacing-md-lg: 32px;
 --spacing-lg: 40px;
 --spacing-xl: 60px;
+--spacing-xl-xxl: 100px;
 --spacing-xxl: 150px;
 
 // section

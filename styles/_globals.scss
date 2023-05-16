@@ -14,6 +14,30 @@ body {
   color: white;
 
   scroll-behavior: smooth;
+
+  /* width */
+  &::-webkit-scrollbar {
+    width: 10px;
+    box-shadow: var(--box-shadow-hover);
+
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: var(--background);
+    border-radius: var(--border-radius-md);
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #39ea2215;
+    border-radius: var(--border-radius-sm);
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--yellow);
+  }
 }
 
 .nft-gradient {

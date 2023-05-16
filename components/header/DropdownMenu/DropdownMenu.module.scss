@@ -2,6 +2,10 @@
   position: relative;
 }
 
+.button{
+  display: flex;
+  gap: var(--spacing-md);
+}
 .container {
   position: absolute;
 

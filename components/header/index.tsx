@@ -60,11 +60,13 @@ export const Header = () => {
     <nav className={styles.header}>
       <Link href="/">
         <div className={styles.network}>
-          <div className={styles.logo}>
-            <BaseImage imageUrl={PhoenixLogo} />
-          </div>
-          <div className={styles.logoText}>
-            <BaseImage imageUrl={LogoText} className={styles.text} />
+          <div className='flex-row-start'>
+            <div className={styles.logo}>
+              <BaseImage imageUrl={PhoenixLogo} />
+            </div>
+            <div className={styles.logoText}>
+              <BaseImage imageUrl={LogoText} className={styles.text} />
+            </div>
           </div>
         </div>
       </Link>

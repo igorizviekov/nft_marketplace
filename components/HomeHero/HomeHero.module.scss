@@ -19,6 +19,29 @@
     justify-content: space-between;
 
     padding: var(--spacing-lg) 0;
+
+    .logo {
+      cursor: pointer;
+      width: 75px;
+      height: 75px;
+      transition: ease-in-out;
+    }
+
+    .logoText {
+      width: 150px;
+      height: 75px;
+
+      .text {
+        object-fit: contain;
+      }
+    }
+
+    .network {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 435px;
+    }
   }
 
   .imageContainer {

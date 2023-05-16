@@ -11,6 +11,8 @@ import styles from './DropdownMenu.module.scss';
 import { IDropdownMenu } from './DropdownMenu.types';
 import DropdownMenuItem from './DropdownMenuItem/DropdownMenuItem';
 import { toast } from 'react-toastify';
+import Icon from '../../ui/Icon/Icon';
+import { BsChevronDown } from 'react-icons/bs';
 const DropdownMenu = ({}: IDropdownMenu) => {
   const [isMenuOpen, setMenuOpen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -19,8 +21,8 @@ const DropdownMenu = ({}: IDropdownMenu) => {
     (state) => state.wallet
   );
 
-  const walletStart = activeWallet && activeWallet.slice(0, 6);
-  const walletEnds = activeWallet && activeWallet.slice(37, 42);
+  const walletStart = activeWallet && activeWallet.slice(0, 4);
+  const walletEnds = activeWallet && activeWallet.slice(38, 42);
 
   //@TODO REPLACE WALLET STATE FOR STORE STATE WHEN MULTIPLE WALLETS ARE CONNECTED
   const [wallets, setWallets] = useState<string[]>([]);
@@ -32,64 +34,69 @@ const DropdownMenu = ({}: IDropdownMenu) => {
   );
 
   return (
-    <div className={styles.menu}>
+    <>
       {isWalletConnected && (
-        <Button
-          isPrimary={false}
-          label={walletStart + '...' + walletEnds}
-          onClick={() => setMenuOpen(!isMenuOpen)}
-        />
-      )}
-      {isMenuOpen && (
-        <div className={styles.container} ref={ref}>
-          <DropdownMenuItem
+        <div className={styles.menu}>
+          <Button
+            isPrimary={false}
             label={walletStart + '...' + walletEnds}
-            icon={<GiEgyptianProfile />}
-            isNotLink
-          />
-          <DropdownMenuItem
-            label={'My Items'}
-            icon={<FaFolderOpen />}
-            href={'/profile'}
-            onClick={() => setMenuOpen(false)}
-          />
-          <DropdownMenuItem
-            label={'Settings'}
-            icon={<IoMdSettings />}
-            href={'/edit'}
-            onClick={() => setMenuOpen(false)}
-          />
-          <DropdownMenuItem
-            label={'Create NFT'}
-            icon={<AiOutlinePlus />}
-            href={'/create-nft'}
-          />
-          <DropdownMenuItem
-            label={'Balance: 0.00'}
-            icon={<FaEthereum />}
-            isNotLink
-          />
-          <DropdownMenuItem
-            label={'Manage Wallets'}
-            icon={<IoIosWallet />}
-            href={'/wallets'}
-          />
-          <DropdownMenuItem
-            label={`Connect a different wallet${
-              wallets.length > 0 ? "'s" : ''
-            }`}
-            icon={<TbRefresh />}
-            href={'/connect-wallet'}
-          />
-          <DropdownMenuItem
-            label={`Disconnect wallet${wallets.length > 0 ? "'s" : ''}`}
-            icon={<AiOutlinePoweroff />}
-            isNotLink
-            onClick={() => toast.warn('Wallet disconnected')}
-          />
+            onClick={() => setMenuOpen(!isMenuOpen)}
+            className={styles.button}
+          >
+            <Icon icon={<BsChevronDown />} />
+          </Button>
+          {isMenuOpen && (
+            <div className={styles.container} ref={ref}>
+              <DropdownMenuItem
+                label={walletStart + '...' + walletEnds}
+                icon={<GiEgyptianProfile />}
+                isNotLink
+              />
+              <DropdownMenuItem
+                label={'My Items'}
+                icon={<FaFolderOpen />}
+                href={'/profile'}
+                onClick={() => setMenuOpen(false)}
+              />
+              <DropdownMenuItem
+                label={'Settings'}
+                icon={<IoMdSettings />}
+                href={'/edit'}
+                onClick={() => setMenuOpen(false)}
+              />
+              <DropdownMenuItem
+                label={'Create NFT'}
+                icon={<AiOutlinePlus />}
+                href={'/create-nft'}
+              />
+              <DropdownMenuItem
+                label={'Balance: 0.00'}
+                icon={<FaEthereum />}
+                isNotLink
+              />
+              <DropdownMenuItem
+                label={'Manage Wallets'}
+                icon={<IoIosWallet />}
+                href={'/wallets'}
+              />
+              <DropdownMenuItem
+                label={`Connect a different wallet${
+                  wallets.length > 0 ? "'s" : ''
+                }`}
+                icon={<TbRefresh />}
+                href={'/connect-wallet'}
+              />
+              <DropdownMenuItem
+                label={`Disconnect wallet${wallets.length > 0 ? "'s" : ''}`}
+                icon={<AiOutlinePoweroff />}
+                isNotLink
+                onClick={() => toast.warn('Wallet disconnected')}
+              />
+            </div>
+          )}
         </div>
       )}
-    </div>
+    </>
   );
 };
 

@@ -1,5 +1,7 @@
 .primary {
 
+  white-space: nowrap;
+  min-width: 210px;
   padding: var(--spacing-md) var(--spacing-lg);
   border-radius: 100px;
   border: var(--border-color-green);
@@ -20,6 +22,7 @@
 .secondary {
 
   padding: var(--spacing-md) var(--spacing-lg);
+  min-width: 210px;
 
   border-radius: 100px;
 

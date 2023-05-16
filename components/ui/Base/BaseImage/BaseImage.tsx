@@ -11,7 +11,11 @@ const BaseImage = ({ imageUrl, description, className }: IBaseImageProps) => {
       <Image
         src={imageUrl ? imageUrl : TEST_IMAGE_URL}
         alt={'test image'}
+        sizes="(max-width: 768px) 100vw,
+        (max-width: 1200px) 50vw,
+        33vw"
         fill
+        priority={false}
         className={classNames(styles.image, className)}
       />
       {description && (

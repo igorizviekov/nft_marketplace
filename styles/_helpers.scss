@@ -1,12 +1,11 @@
 .page {
-  margin: var(--spacing-xl) auto var(--spacing-xxl) auto;
+  margin: var(--spacing-xl-xxl) auto var(--spacing-xxl) auto;
   display: flex;
   flex-direction: column;
   gap: 150px;
 
   @include respond-to(mob-landscape) {
     max-width: 1680px;
-    padding: var(--spacing-lg) var(--spacing-md);
   }
 }
 

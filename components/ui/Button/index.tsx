@@ -31,7 +31,7 @@ export const Button = ({
       className
     )}
   >
-    {Children && children}
-    <h3>{label}</h3>
+    {label && <h3>{label}</h3>}
+    {children}
   </button>
 );

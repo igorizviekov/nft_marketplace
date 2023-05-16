@@ -10,7 +10,7 @@ export const MockNFTS: INftCardProps[] = [
     img: TEST_IMAGE_URL,
     price: 8,
     tokenId: 12093012,
-    status: 'My NTFs',
+    status: 'On Sale',
     traits: [
       { trait_type: 'background', value: 'value 44' },
       { trait_type: 'body', value: 'blue' },
@@ -36,7 +36,7 @@ export const MockNFTS: INftCardProps[] = [
     img: TEST_IMAGE_URL,
     price: 11,
     tokenId: 12093012,
-    status: 'My NTFs',
+    status: 'Make Offer',
     traits: [
       { trait_type: 'background', value: 'value 44' },
       { trait_type: 'body', value: 'blue' },
@@ -62,7 +62,7 @@ export const MockNFTS: INftCardProps[] = [
     img: TEST_IMAGE_URL,
     price: 7,
     tokenId: 12093012,
-    status: 'Created',
+    status: 'Bid',
     traits: [
       { trait_type: 'background', value: 'value 44' },
       { trait_type: 'body', value: 'blue' },
@@ -88,7 +88,7 @@ export const MockNFTS: INftCardProps[] = [
     img: TEST_IMAGE_URL,
     price: 6,
     tokenId: 12093012,
-    status: 'Created',
+    status: 'On Sale',
     traits: [
       { trait_type: 'background', value: 'value 44' },
       { trait_type: 'body', value: 'blue' },
@@ -167,7 +167,7 @@ export const MockNFTS: INftCardProps[] = [
     img: TEST_IMAGE_URL,
     price: 32,
     tokenId: 12093012,
-    status: 'Liked',
+    status: 'On Sale',
     traits: [
       { trait_type: 'background', value: 'value 44' },
       { trait_type: 'body', value: 'blue' },
@@ -193,7 +193,7 @@ export const MockNFTS: INftCardProps[] = [
     img: TEST_IMAGE_URL,
     price: 12,
     tokenId: 12093012,
-    status: 'Liked',
+    status: 'Make Offer',
     traits: [
       { trait_type: 'background', value: 'value 44' },
       { trait_type: 'body', value: 'blue' },
@@ -219,7 +219,7 @@ export const MockNFTS: INftCardProps[] = [
     img: TEST_IMAGE_URL,
     price: 33,
     tokenId: 12093012,
-    status: 'Activity',
+    status: 'Bid',
     traits: [
       { trait_type: 'background', value: 'value 44' },
       { trait_type: 'body', value: 'blue' },
