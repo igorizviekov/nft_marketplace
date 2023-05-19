@@ -19,6 +19,7 @@ import { useRouter } from 'next/router';
 import { useFetchSingleCollection } from '../../service/useFetchSingleCollection';
 import { Spinner } from '../../components/spinner';
 import BaseLink from '../../components/ui/Base/BaseLink/BaseLink';
+import { Searchbar } from '../../components/Searchbar/Searchbar';
 
 const SingleCollectionPage = () => {
   const router = useRouter();
@@ -94,40 +95,52 @@ const SingleCollectionPage = () => {
           <div className={styles.nftContainer}>
             <MultipleFilter values={CollectionTraits} />
             <div className={styles.results}>
-              <FiltersBar />
-              <div className={'flex-row-start'}>
-                {CollectionNFTS &&
-                  CollectionNFTS.map((nft, index) => {
-                    if (hasTrait(nft)) {
-                      return (
-                        <NftCard
-                          key={nft.tokenId + index}
-                          name={nft.name}
-                          seller={nft.seller}
-                          owner={nft.owner}
-                          description={nft.description}
-                          img={nft.img}
-                          price={nft.price}
-                          tokenId={0}
-                          traits={nft.traits}
-                        />
-                      );
-                    } else if (filters.length === 0) {
-                      return (
-                        <NftCard
-                          key={nft.tokenId + index}
-                          name={nft.name}
-                          seller={nft.seller}
-                          owner={nft.owner}
-                          description={nft.description}
-                          img={nft.img}
-                          price={nft.price}
-                          tokenId={0}
-                          traits={nft.traits}
-                        />
-                      );
+              <div className={'flex-col-start'}>
+                <div className="flex-row-start">
+                  <Searchbar
+                    onHandleSearch={function (value: string): void {
+                      throw new Error('Function not implemented.');
+                    }}
+                    onClearSearch={() =>
+                      console.log('clear collection search ')
                     }
-                  })}
+                  />
+                  <FiltersBar />
+                </div>
+                <div className="flex-row-start">
+                  {CollectionNFTS &&
+                    CollectionNFTS.map((nft, index) => {
+                      if (hasTrait(nft)) {
+                        return (
+                          <NftCard
+                            key={nft.tokenId + index}
+                            name={nft.name}
+                            seller={nft.seller}
+                            owner={nft.owner}
+                            description={nft.description}
+                            img={nft.img}
+                            price={nft.price}
+                            tokenId={0}
+                            traits={nft.traits}
+                          />
+                        );
+                      } else if (filters.length === 0) {
+                        return (
+                          <NftCard
+                            key={nft.tokenId + index}
+                            name={nft.name}
+                            seller={nft.seller}
+                            owner={nft.owner}
+                            description={nft.description}
+                            img={nft.img}
+                            price={nft.price}
+                            tokenId={0}
+                            traits={nft.traits}
+                          />
+                        );
+                      }
+                    })}
+                </div>
               </div>
             </div>
           </div>
