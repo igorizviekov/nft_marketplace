@@ -13,6 +13,7 @@ const nextConfig = {
       'media.istockphoto.com',
       'img.freepik.com',
       'i.imgur.com',
+      'imgur.com',
     ],
   },
 };

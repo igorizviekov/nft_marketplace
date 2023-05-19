@@ -17,10 +17,13 @@ import { useStoreState } from '../../store';
 import { Spinner } from '../../components/spinner';
 import BaseLink from '../../components/ui/Base/BaseLink/BaseLink';
 import { NoNFTCard } from '../../components/ui/NFTCard/NoNFTCard';
+import { useFetchNFTs } from '../../service/useFetchNFTS';
+import useFetchNFTLogs from '../../service/useFetchNFTLogs';
 
 const ProfilePage = () => {
   const router = useRouter();
   const { profile } = useStoreState((state) => state.profile);
+  const { activeWallet } = useStoreState((state) => state.wallet);
   const [selectedTab, setSelectedTab] = useState<number>(0);
   const [isOwnProfile, setIsOwnProfile] = useState<boolean>(true);
   const options = ['My NFTs', 'Listed', 'Created', 'Liked', 'Activity'];
@@ -43,6 +46,7 @@ const ProfilePage = () => {
     }
   });
   useFetchProfile();
+  useFetchNFTLogs(activeWallet);
   return (
     <BasePage>
       {profile ? (
