@@ -20,6 +20,8 @@ import { useFetchSingleCollection } from '../../service/useFetchSingleCollection
 import { Spinner } from '../../components/spinner';
 import BaseLink from '../../components/ui/Base/BaseLink/BaseLink';
 import { Searchbar } from '../../components/Searchbar/Searchbar';
+import Traits from '../../components/Traits/Traits';
+import { Trait } from '../../store/model/nft-mint/nft-mint.types';
 
 const SingleCollectionPage = () => {
   const router = useRouter();
@@ -93,7 +95,7 @@ const SingleCollectionPage = () => {
           </div>
 
           <div className={styles.nftContainer}>
-            <MultipleFilter values={CollectionTraits} />
+            <MultipleFilter values={CollectionTraits} hasPrice={true} />
             <div className={styles.results}>
               <div className={'flex-col-start'}>
                 <div className="flex-row-start">

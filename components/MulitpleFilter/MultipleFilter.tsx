@@ -8,11 +8,37 @@ import { BsChevronDown } from 'react-icons/bs';
 import { useStoreActions, useStoreState } from '../../store';
 import classNames from 'classnames';
 import { ITraits } from '../ui/NFTCard/NFTCard.types';
-export const MultipleFilter = ({ values }: IMultipleFilterProps) => {
+import Traits from '../Traits/Traits';
+import { Trait } from '../../store/model/nft-mint/nft-mint.types';
+export const MultipleFilter = ({ values, hasPrice }: IMultipleFilterProps) => {
   const { addFilter } = useStoreActions((actions) => actions.filter);
   const { filters } = useStoreState((state) => state.filter);
 
-  const itemsTest = values?.traits.map((trait) => ({
+  const priceFilter = [
+    {
+      title: (
+        <div className={styles.title}>
+          <h3>{'Price'}</h3>
+          <Icon icon={<BsChevronDown />} />
+        </div>
+      ),
+      content: (
+        <Traits
+          traits={[]}
+          addTrait={function (trait: Trait): void {
+            throw new Error('Function not implemented.');
+          }}
+          setFormError={() => console.log('asd')}
+          traitError={false}
+          leftLabel="Max price"
+          leftPlaceholder="Max"
+          rightLabel="Min price"
+          rightPlaceholder="Min"
+        />
+      ),
+    },
+  ];
+  const items = values?.traits.map((trait) => ({
     title: (
       <div className={styles.title}>
         <h3>{trait.trait_type}</h3>
@@ -42,11 +68,17 @@ export const MultipleFilter = ({ values }: IMultipleFilterProps) => {
     ),
   }));
 
+  const newItems: Array<{ title: JSX.Element; content: JSX.Element }> = [
+    ...priceFilter,
+    ...items,
+  ];
   return (
-    <>
-      {itemsTest && (
-        <Accordion items={itemsTest} duration={200} multiple={false} />
+    <div className={styles.wrapper}>
+      {hasPrice && items ? (
+        <Accordion items={newItems} duration={200} multiple={false} />
+      ) : (
+        <Accordion items={items} duration={200} multiple={false} />
       )}
-    </>
+    </div>
   );
 };

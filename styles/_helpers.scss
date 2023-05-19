@@ -79,9 +79,8 @@
 
   flex-wrap: wrap;
 
-  padding: var(--spacing-md);
-
-  gap: var(--spacing-md);
+  padding: var(--spacing-xs);
+  gap: var(--spacing-sm);
 }
 
 .flex-row-start {
@@ -135,6 +134,7 @@
 
   @include respond-to(mob-landscape) {
     padding: 0;
+    gap: var(--spacing-sm);
   }
 
 }
@@ -143,7 +143,7 @@
   width: auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: flex-start;
 
   gap: var(--spacing-md);

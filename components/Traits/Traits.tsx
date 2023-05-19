@@ -7,7 +7,15 @@ import { BsPlusCircleFill } from 'react-icons/bs';
 import classNames from 'classnames';
 import { useStoreState } from '../../store';
 
-const Traits = ({ addTrait, traitError, setFormError }: ITraitProps) => {
+const Traits = ({
+  addTrait,
+  traitError,
+  setFormError,
+  leftLabel,
+  rightLabel,
+  leftPlaceholder,
+  rightPlaceholder,
+}: ITraitProps) => {
   const { traits } = useStoreState((state) => state.nftMint);
   const [error, setError] = useState<string>('');
   const [formInput, setFormInput] = useState<ITraitForm>({
@@ -37,35 +45,42 @@ const Traits = ({ addTrait, traitError, setFormError }: ITraitProps) => {
   }, [traits, formInput]);
 
   return (
-    <div className={styles.container}>
-      <Input
-        inputType={'text'}
-        title={'Trait (Optional)'}
-        placeholder={'Add Trait Type'}
-        value={formInput.traitType}
-        handleChange={(e) =>
-          setFormInput({
-            ...formInput,
-            traitType: (e.target as HTMLInputElement).value,
-          })
-        }
-        error={error}
-        id={''}
-      />
-      <div className={styles.value}>
-        <Input
-          inputType={'text'}
-          title={'Value (Optional)'}
-          placeholder={'Add Trait Value'}
-          value={formInput.value}
-          handleChange={(e) =>
-            setFormInput({
-              ...formInput,
-              value: (e.target as HTMLInputElement).value,
-            })
-          }
-          id={''}
-        />
+    <div className={classNames(styles.container, 'flex-col-center')}>
+      <div className={styles.upperContainer}>
+        <div className={classNames(styles.trait)}>
+          <Input
+            inputType={'text'}
+            title={leftLabel}
+            placeholder={leftPlaceholder}
+            value={formInput.traitType}
+            handleChange={(e) =>
+              setFormInput({
+                ...formInput,
+                traitType: (e.target as HTMLInputElement).value,
+              })
+            }
+            error={error}
+            id={''}
+          />
+        </div>
+        <div className={styles.value}>
+          <Input
+            inputType={'text'}
+            title={rightLabel}
+            placeholder={rightPlaceholder}
+            value={formInput.value}
+            handleChange={(e) =>
+              setFormInput({
+                ...formInput,
+                value: (e.target as HTMLInputElement).value,
+              })
+            }
+            id={''}
+          />
+        </div>
+      </div>
+      <div className="flex-row-center">
+        <p>Add price</p>
         <Icon
           onClick={() =>
             addTrait({

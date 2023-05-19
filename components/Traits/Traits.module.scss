@@ -7,8 +7,16 @@
   padding-right: 10px;
 }
 
+.upperContainer {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: var(--spacing-sm);
+}
+
 .value {
   display: flex;
+  width: 100%;
+  min-width: 185px;
   align-items: center;
   gap: var(--spacing-sm);
 
@@ -26,35 +34,13 @@
 }
 
 .trait {
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--spacing-sm);
-
-  text-align: start;
-
-  border: var(--border-color);
-  border-radius: var(--border-radius-sm);
-  padding: var(--spacing-sm) var(--spacing-md);
-
-  .icon {
-    margin: 0;
-  }
-
-  transition: 0.2s ease-in-out;
-
-  &:hover {
-    border: var(--border-color-hover-alt);
-    box-shadow: var(--box-shadow-hover);
-    color: var(--text-color-hover);
-  }
+  width: 100%;
+  min-width: 185px;
 
 }
 
 .error {
-  color: var(--error) !important;
-  box-shadow: var(--box-shadow-error) !important;
+  color: var(--gray) !important;
   pointer-events: none !important;
   transition: 0.2s ease-in-out;
 

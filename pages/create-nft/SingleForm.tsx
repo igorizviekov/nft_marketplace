@@ -157,6 +157,10 @@ const SingleForm = () => {
         addTrait={addTrait}
         setFormError={setTraitsError}
         traitError={traitsError}
+        leftLabel="Trait (Optional)"
+        rightLabel="Value (Optional)"
+        leftPlaceholder="Add Trait Type"
+        rightPlaceholder="Add Trait Value"
       />
       <TraitsList traits={traits} deleteTrait={deleteTrait} />
       <Input

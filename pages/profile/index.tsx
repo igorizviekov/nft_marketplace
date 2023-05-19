@@ -55,7 +55,7 @@ const ProfilePage = () => {
             <div className={styles.imageContainer}>
               <BaseImage />
             </div>
-            <div className={classNames(styles.textContainer, 'flex-col-start')}>
+            <div className={classNames(styles.textContainer)}>
               <div className={styles.icons}>
                 <h1 className={styles.name}>{profile.name}</h1>
                 {profile.discord && (

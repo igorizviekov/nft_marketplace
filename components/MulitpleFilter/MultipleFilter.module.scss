@@ -1,5 +1,17 @@
+.wrapper {
+  > div {
+    width: 100%;
+    flex-grow: 1;
+  }
+
+  button {
+    width: 100%;
+    flex-grow: 1;
+  }
+}
+
 .title {
-  width: 300px;
+  width: 370px;
   height: 40px;
   margin: 2px 0;
   display: flex;
@@ -34,7 +46,7 @@
   cursor: pointer;
   transition: 0.2s ease-in-out;
 
-  &:hover{
+  &:hover {
     color: var(--text-color-hover);
     border: var(--border-color-hover);
     box-shadow: var(--box-shadow-hover);
