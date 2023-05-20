@@ -1,6 +1,5 @@
 import React from 'react';
 import BasePage from '../../components/ui/Base/BasePage/BasePage';
-import CollectionBanner from '../../components/CollectionBanner/CollectionBanner';
 import { useStoreState } from '../../store';
 import { useFetchCollections } from '../../service/useFetchCollections';
 import BaseTable from '../../components/BaseTable/BaseTable';
