@@ -19,43 +19,57 @@ const Royalties = ({
   });
   return (
     <div className={styles.container}>
-      <Input
-        inputType={'text'}
-        title={'Royalties'}
-        placeholder={'Add Royalties Address'}
-        value={formInput.walletAddress}
-        handleChange={(e) =>
-          setFormInput({
-            ...formInput,
-            walletAddress: (e.target as HTMLInputElement).value,
-          })
-        }
-        id={''}
-        error={isWalletValid(formInput.walletAddress, royalties, setFormError)}
-      />
-      <div className={styles.percentage}>
+      <div className={styles.upperContainer}>
         <Input
-          inputType={'percentage'}
-          title={'Percentage'}
-          placeholder={'Add Percentage'}
-          value={formInput.percentage}
+          inputType={'text'}
+          title={'Royalties'}
+          placeholder={'Add Royalties Address'}
+          value={formInput.walletAddress}
           handleChange={(e) =>
             setFormInput({
               ...formInput,
-              percentage: (e.target as HTMLInputElement).value,
+              walletAddress: (e.target as HTMLInputElement).value,
             })
           }
-          error={validatePercentage(Number(formInput.percentage), setFormError)}
           id={''}
+          error={isWalletValid(
+            formInput.walletAddress,
+            royalties,
+            setFormError
+          )}
         />
+        <div className={styles.percentage}>
+          <Input
+            inputType={'percentage'}
+            title={'Percentage'}
+            placeholder={'Add Percentage'}
+            value={formInput.percentage}
+            handleChange={(e) =>
+              setFormInput({
+                ...formInput,
+                percentage: (e.target as HTMLInputElement).value,
+              })
+            }
+            error={validatePercentage(
+              Number(formInput.percentage),
+              setFormError
+            )}
+            id={''}
+          />
+        </div>
+      </div>
+      <div
+        className={classNames(styles.addButton, royaltiesError && styles.error)}
+        onClick={() =>
+          addRoyalty({
+            walletAddress: formInput.walletAddress,
+            percentage: Number(formInput.percentage),
+          })
+        }
+      >
+        <p>Add Royalty</p>
         <Icon
-          onClick={() =>
-            addRoyalty({
-              walletAddress: formInput.walletAddress,
-              percentage: Number(formInput.percentage),
-            })
-          }
-          className={classNames(styles.icon, royaltiesError && styles.error)}
+          className={styles.icon}
           icon={<BsPlusCircleFill style={{ width: '30px', height: '30px' }} />}
         />
       </div>

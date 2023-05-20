@@ -46,7 +46,7 @@ const Traits = ({
   }, [traits, formInput]);
 
   return (
-    <div className={classNames(styles.container, 'flex-col-center')}>
+    <div className={styles.container}>
       <div className={styles.upperContainer}>
         <div className={classNames(styles.trait)}>
           <Input
