@@ -1,15 +1,18 @@
 .container {
-  width: auto;
+  width: 100%;
   display: flex;
-
-  gap: var(--spacing-sm);
+  align-items: center;
 
   padding-right: 10px;
 }
 
 .upperContainer {
+  width: 100%;
+
   display: flex;
+  justify-content: space-between;
   flex-wrap: nowrap;
+
   gap: var(--spacing-sm);
 }
 
@@ -21,20 +24,28 @@
 
 }
 
-.icon {
-  margin-top: var(--spacing-xs);
-  border-radius: 50px;
+.addButton {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+
+  border: var(--border-color);
+  border-radius: 100px;
+  padding: var(--spacing-sm) var(--spacing-md);
+
   cursor: pointer;
 
+  transition: 0.2s ease-in-out;
+
   &:hover {
-    color: var(--text-color-hover);
+    border: var(--border-color-hover);
     box-shadow: var(--box-shadow-hover);
+    color: var(--text-color-hover);
   }
 }
 
 .trait {
   width: 100%;
-
 }
 
 .error {

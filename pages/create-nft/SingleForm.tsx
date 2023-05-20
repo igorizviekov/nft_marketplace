@@ -155,6 +155,7 @@ const SingleForm = () => {
       <div style={{ gap: '22px', display: 'flex', flexDirection: 'column' }}>
         <h1>{'Attributes (Optional)'}</h1>
         <Traits
+          isTrait
           traits={traits}
           addTrait={addTrait}
           setFormError={setTraitsError}

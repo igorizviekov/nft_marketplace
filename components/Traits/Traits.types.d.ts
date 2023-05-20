@@ -5,6 +5,7 @@ export interface ITraitProps {
   leftPlaceholder: string;
   rightPlaceholder: string;
   traits: Traits[];
+  isTrait: boolean;
   addTrait: (trait: Trait) => void;
   setFormError: (hasError: boolean) => void;
   traitError: boolean;

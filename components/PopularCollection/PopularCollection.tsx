@@ -14,10 +14,18 @@ const PopularCollection = ({
   index,
 }: IPopularCollectionProps) => {
   const router = useRouter();
+
+  const collectionRoute = name.split(' ').join('-').toLowerCase();
+
+  localStorage.setItem('collection-id', id);
   return (
     <div
       className={styles.container}
-      onClick={() => router.push(`/collections/${id}`)}
+      onClick={() =>
+        router.push({
+          pathname: `/collections/${collectionRoute}`,
+        })
+      }
     >
       <h3 className={styles.index}>{index + 1}</h3>
       <div className={styles.image}>

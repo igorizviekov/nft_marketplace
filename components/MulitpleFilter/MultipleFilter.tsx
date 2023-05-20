@@ -30,6 +30,7 @@ export const MultipleFilter = ({ values, hasPrice }: IMultipleFilterProps) => {
           }}
           setFormError={() => console.log('asd')}
           traitError={false}
+          isTrait={false}
           leftLabel="Max price"
           leftPlaceholder="Max"
           rightLabel="Min price"

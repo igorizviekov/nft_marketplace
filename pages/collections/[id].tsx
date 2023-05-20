@@ -20,6 +20,7 @@ import { useFetchSingleCollection } from '../../service/useFetchSingleCollection
 import { Spinner } from '../../components/spinner';
 import BaseLink from '../../components/ui/Base/BaseLink/BaseLink';
 import { Searchbar } from '../../components/Searchbar/Searchbar';
+import { useLocalStore } from 'easy-peasy';
 
 const SingleCollectionPage = () => {
   const router = useRouter();
@@ -37,7 +38,9 @@ const SingleCollectionPage = () => {
     });
     return hasFilter;
   }
-  useFetchSingleCollection(query.id);
+
+  const collectionId = localStorage.getItem('collection-id');
+  collectionId && useFetchSingleCollection(collectionId);
   return (
     <BasePage>
       {collectionData && !isLoading ? (

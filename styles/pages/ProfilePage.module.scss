@@ -17,13 +17,6 @@
 
 .textContainer {
   width: 100%;
-
-  @include respond-to(tablet) {
-    width: 50%;
-    padding: var(--spacing-md);
-
-  }
-
 }
 
 .icons {
@@ -75,7 +68,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 
   gap: var(--spacing-lg);
 

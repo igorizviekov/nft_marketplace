@@ -15,6 +15,7 @@ const Traits = ({
   rightLabel,
   leftPlaceholder,
   rightPlaceholder,
+  isTrait,
 }: ITraitProps) => {
   const { traits } = useStoreState((state) => state.nftMint);
   const [error, setError] = useState<string>('');
@@ -79,19 +80,24 @@ const Traits = ({
           />
         </div>
       </div>
-      <div className="flex-row-center">
-        <p>Add price</p>
-        <Icon
-          onClick={() =>
-            addTrait({
-              traitType: formInput.traitType,
-              value: formInput.value,
-            })
-          }
-          className={classNames(styles.icon, traitError && styles.error)}
-          icon={<BsPlusCircleFill style={{ width: '30px', height: '30px' }} />}
-        />
-      </div>
+      {isTrait && (
+        <div
+          className={classNames(styles.addButton, traitError && styles.error)}
+        >
+          <p>Add Trait</p>
+          <Icon
+            onClick={() =>
+              addTrait({
+                traitType: formInput.traitType,
+                value: formInput.value,
+              })
+            }
+            icon={
+              <BsPlusCircleFill style={{ width: '30px', height: '30px' }} />
+            }
+          />
+        </div>
+      )}
     </div>
   );
 };
