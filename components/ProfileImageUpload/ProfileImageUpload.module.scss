@@ -10,7 +10,7 @@
   justify-content: center;
   gap: var(--spacing-md);
 
-  border: 2px dashed white;
+  border: var(--border-color-dashed);
   border-radius: var(--border-radius-sm);
 
   cursor: pointer;

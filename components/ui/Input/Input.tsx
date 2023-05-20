@@ -6,7 +6,7 @@ import styles from './Input.module.scss';
 import classNames from 'classnames';
 import Icon from '../Icon/Icon';
 type InputProps = {
-  inputType: 'text' | 'textarea' | 'number' | 'percentage';
+  inputType: 'text' | 'textarea' | 'number' | 'percentage' | 'search';
   title: string;
   placeholder: string;
   id: string;
@@ -65,13 +65,22 @@ const Input = ({
           onChange={handleChange}
           value={value}
         />
+      ) : inputType === 'percentage' ? (
+        <input
+          type="number"
+          id={id}
+          min="0"
+          className={styles.text}
+          placeholder={placeholder}
+          onChange={handleChange}
+          value={value}
+        />
       ) : (
-        inputType === 'percentage' && (
+        inputType === 'search' && (
           <input
-            type="number"
+            type="text"
             id={id}
-            min="0"
-            className={styles.text}
+            className={classNames(styles.search)}
             placeholder={placeholder}
             onChange={handleChange}
             value={value}

@@ -5,9 +5,14 @@ import { IBaseImageProps } from './BaseImage.types';
 import classNames from 'classnames';
 export const TEST_IMAGE_URL =
   'https://d7hftxdivxxvm.cloudfront.net/?height=800&quality=80&resize_to=fit&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2FUh4mcnLwpIp3GqAkpfXRZA%2Fnormalized.jpg&width=800';
-const BaseImage = ({ imageUrl, description, className }: IBaseImageProps) => {
+const BaseImage = ({
+  imageUrl,
+  description,
+  className,
+  isHero,
+}: IBaseImageProps) => {
   return (
-    <div className={styles.container}>
+    <div className={classNames(styles.container, isHero && styles.hero)}>
       <Image
         src={imageUrl ? imageUrl : TEST_IMAGE_URL}
         alt={'test image'}

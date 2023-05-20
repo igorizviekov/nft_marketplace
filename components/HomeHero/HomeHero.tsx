@@ -30,7 +30,7 @@ const HomeHero = ({ title, copy, callToAction, href }: IHomeHeroProps) => {
         />
       </div>
       <div className={styles.imageContainer}>
-        <BaseImage />
+        <BaseImage isHero />
       </div>
     </div>
   );

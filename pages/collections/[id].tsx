@@ -20,8 +20,6 @@ import { useFetchSingleCollection } from '../../service/useFetchSingleCollection
 import { Spinner } from '../../components/spinner';
 import BaseLink from '../../components/ui/Base/BaseLink/BaseLink';
 import { Searchbar } from '../../components/Searchbar/Searchbar';
-import Traits from '../../components/Traits/Traits';
-import { Trait } from '../../store/model/nft-mint/nft-mint.types';
 
 const SingleCollectionPage = () => {
   const router = useRouter();

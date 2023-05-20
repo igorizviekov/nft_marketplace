@@ -1,3 +1,5 @@
+@use '../../styles/mixins' as *;
+
 .header {
   width: 100%;
   position: sticky;
@@ -10,8 +12,6 @@
 
   padding: var(--spacing-sm) var(--spacing-lg);
   background-color: var(--background);
-
-  box-shadow: var(--box-shadow-header);
 
   .logo {
     cursor: pointer;
@@ -34,5 +34,18 @@
     align-items: center;
     justify-content: space-between;
     width: 435px;
+  }
+
+  .searchBar {
+    width: 100%;
+
+    @include respond-to(mob-landscape) {
+      width: 400px;
+    }
+
+    @include respond-to(desktop) {
+      width: 600px;
+
+    }
   }
 }

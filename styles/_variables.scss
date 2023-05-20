@@ -17,12 +17,12 @@ $z-indexes: (
   --yellow: #DEF334;
   --green: #39EA22;
   --white: #ffffff;
-  --gray: rgb(120, 120, 120);
-
-
-  //Hover
-  --background-hover: var(--background-dark-green
+  --gray: rgb(120, 120, 120
   );
+
+
+//Hover
+--background-hover: var(--background-dark-green);
 --border-color-hover: 1px solid var(--accent);
 --border-color-hover-alt: 1px solid var(--green);
 --box-shadow-hover: 0px 0px 5px 2px var(--accent);
@@ -62,7 +62,9 @@ $z-indexes: (
 --border-radius-xl: 40px;
 
 //border color
---border-color: 1px solid white;
+--border-color: 1px solid var(--gray);
+--border-color-dashed: 2px dashed var(--gray);
+--border-color-dashed-hover: 2px dashed var(--accent);
 --border-color--accent: 1px solid var(--accent);
 --border-color-dark: 1px solid var(--background-dark-green);
 --border-color-yellow: 1px solid var(--yellow);

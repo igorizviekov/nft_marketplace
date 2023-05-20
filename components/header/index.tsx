@@ -60,7 +60,7 @@ export const Header = () => {
     <nav className={styles.header}>
       <Link href="/">
         <div className={styles.network}>
-          <div className='flex-row-start'>
+          <div className="flex-row-start">
             <div className={styles.logo}>
               <BaseImage imageUrl={PhoenixLogo} />
             </div>
@@ -70,10 +70,12 @@ export const Header = () => {
           </div>
         </div>
       </Link>
-      <Searchbar
-        onHandleSearch={() => console.log('should serach')}
-        onClearSearch={() => console.log('clear search')}
-      />
+      <div className={styles.searchBar}>
+        <Searchbar
+          onHandleSearch={() => console.log('should serach')}
+          onClearSearch={() => console.log('clear search')}
+        />
+      </div>
       <div className={styles.network}>
         {blockchains && (
           <NetworkDropdown isLoading={isLoading} networks={blockchains} />

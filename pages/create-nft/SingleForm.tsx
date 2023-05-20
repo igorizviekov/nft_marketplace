@@ -83,7 +83,7 @@ const SingleForm = () => {
   }, [nftGeneralInfo]);
 
   return (
-    <div className={classNames('flex-col-center', styles.form)}>
+    <div className={classNames(styles.form)}>
       <ProfileImageUpload
         file={nftGeneralInfo.image}
         onDropAccepted={(arr) => {
@@ -152,17 +152,20 @@ const SingleForm = () => {
           }}
         />
       )}
-      <Traits
-        traits={traits}
-        addTrait={addTrait}
-        setFormError={setTraitsError}
-        traitError={traitsError}
-        leftLabel="Trait (Optional)"
-        rightLabel="Value (Optional)"
-        leftPlaceholder="Add Trait Type"
-        rightPlaceholder="Add Trait Value"
-      />
-      <TraitsList traits={traits} deleteTrait={deleteTrait} />
+      <div style={{ gap: '22px', display: 'flex', flexDirection: 'column' }}>
+        <h1>{'Attributes (Optional)'}</h1>
+        <Traits
+          traits={traits}
+          addTrait={addTrait}
+          setFormError={setTraitsError}
+          traitError={traitsError}
+          leftLabel="Trait (Optional)"
+          rightLabel="Value (Optional)"
+          leftPlaceholder="Add Trait Type"
+          rightPlaceholder="Add Trait Value"
+        />
+        <TraitsList traits={traits} deleteTrait={deleteTrait} />
+      </div>
       <Input
         inputType="number"
         title="Price"

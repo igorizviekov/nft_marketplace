@@ -48,7 +48,7 @@ const LaunchpadDrops = ({
   });
 
   return (
-    <div className={classNames('flex-col-center', styles.container)}>
+    <div className={classNames(styles.container)}>
       <div className={styles.image}>
         <Icon icon={icon} />
         <BaseImage imageUrl={image} />

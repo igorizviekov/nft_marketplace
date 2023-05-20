@@ -16,7 +16,7 @@ import { useFetchCollections } from '../service/useFetchCollections';
 import { useStoreState } from '../store';
 import { useFetchNFTs } from '../service/useFetchNFTS';
 export default function Home() {
-  const [selected, setSelected] = useState<number>(0);
+  const [selected, setSelected] = useState<number | null>(null);
   const { isCollectionsLoading, collections } = useStoreState(
     (state) => state.app
   );
@@ -109,6 +109,7 @@ export default function Home() {
 
       <div>
         <h1>New Launches</h1>
+        <br />
         <HorizontalScroll>
           {LaunchpadDropsMocks &&
             LaunchpadDropsMocks.map((drop, index) => (
@@ -128,9 +129,10 @@ export default function Home() {
 
       <div>
         <h1>Trending by Category</h1>
+        <br />
         <Filter
           options={filterOptions}
-          selected={selected}
+          selected={selected && selected}
           onSelect={setSelected}
         />
         <HorizontalScroll>

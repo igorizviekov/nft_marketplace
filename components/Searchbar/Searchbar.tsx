@@ -31,7 +31,7 @@ export const Searchbar = ({
       <Input
         title={''}
         placeholder={'Search an NFT Collection or Creator'}
-        inputType={'text'}
+        inputType={'search'}
         id={'search'}
         handleChange={(e) =>
           setDebouncedSearch((e.target as HTMLInputElement).value)
