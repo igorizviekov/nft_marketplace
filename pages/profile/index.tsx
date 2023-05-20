@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import BaseImage from '../../components/ui/Base/BaseImage/BaseImage';
 import styles from '../../styles/pages/ProfilePage.module.scss';
@@ -23,7 +23,9 @@ import useFetchNFTLogs from '../../service/useFetchNFTLogs';
 const ProfilePage = () => {
   const router = useRouter();
   const { profile } = useStoreState((state) => state.profile);
-  const { activeWallet } = useStoreState((state) => state.wallet);
+  const { activeWallet, isWalletConnected } = useStoreState(
+    (state) => state.wallet
+  );
   const [selectedTab, setSelectedTab] = useState<number>(0);
   const [isOwnProfile, setIsOwnProfile] = useState<boolean>(true);
   const options = ['My NFTs', 'Listed', 'Created', 'Liked', 'Activity'];
@@ -45,11 +47,18 @@ const ProfilePage = () => {
       );
     }
   });
-  useFetchProfile();
-  useFetchNFTLogs(activeWallet);
+
+  useEffect(() => {
+    if (!isWalletConnected) router.push('/');
+    else {
+      useFetchProfile();
+      useFetchNFTLogs(activeWallet);
+    }
+  }, []);
+
   return (
     <BasePage>
-      {profile ? (
+      {profile && isWalletConnected ? (
         <>
           <div className={styles.hero}>
             <div className={styles.imageContainer}>
@@ -96,16 +105,6 @@ const ProfilePage = () => {
                 <DescriptionSticker
                   title={'Following'}
                   data={'12 123'}
-                  type={'PRIMARY'}
-                />
-                <DescriptionSticker
-                  title={'For Sale'}
-                  data={'123'}
-                  type={'PRIMARY'}
-                />
-                <DescriptionSticker
-                  title={'Owned'}
-                  data={'12'}
                   type={'PRIMARY'}
                 />
                 <DescriptionSticker

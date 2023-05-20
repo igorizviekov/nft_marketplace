@@ -28,7 +28,9 @@ export async function useAuth() {
           wallet: activeWallet,
           blockchain_id: blockchains[0].id,
         })
-        .then((response) => console.log(response.data, 'user sign up data'))
+        .then((response) =>
+          localStorage.setItem('token', response.data.data.accessToken)
+        )
         .catch((error) => console.log(error));
     }
   }, [isWalletConnected, status, activeWallet]);

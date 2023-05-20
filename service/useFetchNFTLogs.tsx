@@ -4,7 +4,9 @@ const useFetchNFTLogs = (wallet: string) => {
     .get(
       `https://nft-api-production-3c8d.up.railway.app/nft-logs/users/${wallet}`
     )
-    .then((response) => console.log(response, wallet))
+    .then((response) => {
+      return response;
+    })
     .catch((error) => console.log(error));
 };
 

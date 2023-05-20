@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import BaseImage from '../../components/ui/Base/BaseImage/BaseImage';
 import BasePage from '../../components/ui/Base/BasePage/BasePage';
 import { Button } from '../../components/ui/Button';
@@ -8,10 +8,14 @@ import styles from '../../styles/pages/EditProfilePage.module.scss';
 import ProfileImageUpload from '../../components/ProfileImageUpload/ProfileImageUpload';
 import { toast } from 'react-toastify';
 import useUpdateProfile from '../../service/useUpdateProfile';
+import { useRouter } from 'next/router';
+import { Spinner } from '../../components/spinner';
 const EditProfile = () => {
   const [file, setFile] = useState<File | null>(null);
   const { updateProfile } = useStoreActions((actions) => actions.profile);
   const { profile } = useStoreState((state) => state.profile);
+  const { isWalletConnected } = useStoreState((state) => state.wallet);
+  const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<Element>) => {
     updateProfile({
@@ -19,9 +23,13 @@ const EditProfile = () => {
       [e.target.id]: (e.target as HTMLInputElement).value,
     });
   };
+
+  useEffect(() => {
+    if (!isWalletConnected) router.push('/');
+  }, []);
   return (
     <BasePage>
-      <div className={styles.page}>
+      {isWalletConnected ? <div className={styles.page}>
         <div className={styles.image}>
           {/* {profile.image && <BaseImage />} */}
           <ProfileImageUpload
@@ -128,7 +136,7 @@ const EditProfile = () => {
             onClick={() => useUpdateProfile(profile)}
           />
         </div>
-      </div>
+      </div> : <Spinner/>}
     </BasePage>
   );
 };
