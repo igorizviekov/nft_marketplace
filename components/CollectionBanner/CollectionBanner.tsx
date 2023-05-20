@@ -18,6 +18,9 @@ const CollectionBanner = ({
 }: ICollectionBannerProps) => {
   const { currency } = useStoreState((state) => state.wallet);
   const router = useRouter();
+
+  const collectionRoute = name.split(' ').join('-').toLowerCase();
+
   return (
     <>
       {index === 1 && (
@@ -30,7 +33,18 @@ const CollectionBanner = ({
           <p className={styles.supply}>Total Supply</p>
         </div>
       )}
-      <div className={styles.container} onClick={() => router.push(`/collections/${uid}`)}>
+      <div
+        className={styles.container}
+        onClick={() =>
+          router.push(
+            {
+              pathname: `/collections/${collectionRoute}`,
+              query: { uid: uid },
+            },
+            `/collections/${collectionRoute}`
+          )
+        }
+      >
         <div className={styles.collectionName}>
           {index && <p>{index}</p>}
           <div className={styles.image}>

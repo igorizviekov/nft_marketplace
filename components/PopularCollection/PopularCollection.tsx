@@ -17,14 +17,17 @@ const PopularCollection = ({
 
   const collectionRoute = name.split(' ').join('-').toLowerCase();
 
-  localStorage.setItem('collection-id', id);
   return (
     <div
       className={styles.container}
       onClick={() =>
-        router.push({
-          pathname: `/collections/${collectionRoute}`,
-        })
+        router.push(
+          {
+            pathname: `/collections/${collectionRoute}`,
+            query: { uid: id },
+          },
+          `/collections/${collectionRoute}`
+        )
       }
     >
       <h3 className={styles.index}>{index + 1}</h3>

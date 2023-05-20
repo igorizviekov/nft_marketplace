@@ -6,6 +6,7 @@ export const useFetchSingleCollection = (id: string | string[] | undefined) => {
   const { setCollectionData, setIsLoading } = useStoreActions(
     (actions) => actions.singleCollection
   );
+
   useEffect(() => {
     if (id) {
       setIsLoading(true);
