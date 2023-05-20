@@ -8,6 +8,7 @@ export const useFetchCollections = () => {
     (actions) => actions.app
   );
   const { collections } = useStoreState((state) => state.app);
+
   useEffect(() => {
     if (collections.length === 0) {
       axios

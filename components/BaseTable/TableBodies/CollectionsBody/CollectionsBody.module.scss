@@ -1,0 +1,29 @@
+.image {
+  width: 40px;
+  height: 40px;
+}
+
+.index {
+  width: 15px;
+}
+
+.mainData {
+  padding-left: var(--spacing-md);
+  display: flex;
+  align-items: center;
+
+  gap: var(--spacing-md);
+}
+
+.body {
+  text-align: end;
+  cursor: pointer;
+
+  tr {
+    td {
+      padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-sm) 0;
+      transition: 0.1s ease-in-out;
+
+    }
+  }
+}
