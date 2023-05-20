@@ -10,7 +10,6 @@ import { NftCard } from '../../components/ui/NFTCard/NFTCard';
 import BasePage from '../../components/ui/Base/BasePage/BasePage';
 import DescriptionSticker from '../../components/DescriptionSticker/DescriptionSticker';
 import { FiEdit } from 'react-icons/fi';
-import ActivityBanner from '../../components/ActivityBanner/ActivityBanner';
 import { useRouter } from 'next/router';
 import useFetchProfile from '../../service/useFetchProfile';
 import { useStoreState } from '../../store';
