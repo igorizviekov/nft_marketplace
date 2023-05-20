@@ -3,8 +3,8 @@ import styles from './ActivityBanner.module.scss';
 import { IActivityBannerProps } from './ActivityBanner.types';
 import BaseImage from '../ui/Base/BaseImage/BaseImage';
 import { useStoreState } from '../../store';
-import { formatAddress, formatDate } from './utils';
-import TimeTooltip from './TimeTooltip';
+import { formatAddress, formatDate } from '../BaseTable/TableBodies/ActivityBody/utils';
+import TimeTooltip from '../BaseTable/TableBodies/ActivityBody/TimeTooltip';
 const ActivityBanner = ({
   img,
   name,

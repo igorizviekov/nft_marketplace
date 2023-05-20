@@ -1,6 +1,6 @@
 import React from 'react';
-import styles from './ActivityBanner.module.scss';
-import { ITooltipProps } from './ActivityBanner.types';
+import styles from './ActivityBody.module.scss';
+import { ITooltipProps } from '../../../ActivityBanner/ActivityBanner.types';
 import { formatTooltipDate } from './utils';
 const TimeTooltip = ({ time }: ITooltipProps) => {
   return (

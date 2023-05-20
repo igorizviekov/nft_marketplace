@@ -18,10 +18,12 @@ import { Spinner } from '../../components/spinner';
 import BaseLink from '../../components/ui/Base/BaseLink/BaseLink';
 import { NoNFTCard } from '../../components/ui/NFTCard/NoNFTCard';
 import useFetchNFTLogs from '../../service/useFetchNFTLogs';
+import BaseTable from '../../components/BaseTable/BaseTable';
+import ActivityBody from '../../components/BaseTable/TableBodies/ActivityBody/ActivityBody';
 
 const ProfilePage = () => {
   const router = useRouter();
-  const { profile } = useStoreState((state) => state.profile);
+  const { profile, nftLogs } = useStoreState((state) => state.profile);
   const { activeWallet, isWalletConnected } = useStoreState(
     (state) => state.wallet
   );
@@ -49,6 +51,8 @@ const ProfilePage = () => {
 
   useFetchProfile();
   useFetchNFTLogs(activeWallet);
+
+  console.log(nftLogs, 'logs');
   return (
     <BasePage>
       {profile && isWalletConnected ? (
@@ -121,14 +125,16 @@ const ProfilePage = () => {
             />
             <div className={styles.nftRow}>
               {options[selectedTab] === 'Activity' ? (
-                <ActivityBanner
-                  img={''}
-                  name={'Rusty Robot Country Club #1010'}
-                  transactionType={'Listing'}
-                  seller={'0xa3de3788307a25f76815edde4776e7c1d25a3684'}
-                  buyer={'0xa3de3788307a25f76815edde4776e7c1d25a3684'}
-                  time={new Date('2023-05-06T17:30:01')}
-                  total={13}
+                <BaseTable
+                  body={<ActivityBody activities={nftLogs} />}
+                  header={[
+                    'NFT Data',
+                    'Transation Type',
+                    'Seller',
+                    'Buyer',
+                    'Time',
+                    'Amount',
+                  ]}
                 />
               ) : !foundNFTS.every((nft) => nft === undefined) ? (
                 foundNFTS
