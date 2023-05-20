@@ -23,35 +23,32 @@ const EditProfile = () => {
       [e.target.id]: (e.target as HTMLInputElement).value,
     });
   };
-
-  useEffect(() => {
-    if (!isWalletConnected) router.push('/');
-  }, []);
   return (
     <BasePage>
-      {isWalletConnected ? <div className={styles.page}>
-        <div className={styles.image}>
-          {/* {profile.image && <BaseImage />} */}
-          <ProfileImageUpload
-            file={file}
-            onUploadAbort={() => setFile(null)}
-            onDropAccepted={(arr) => setFile(arr?.[0])}
-            title={'Upload an Image'}
-            subTitle={'or Select and NFT'}
-          />
-        </div>
+      {isWalletConnected ? (
+        <div className={styles.page}>
+          <div className={styles.image}>
+            {/* {profile.image && <BaseImage />} */}
+            <ProfileImageUpload
+              file={file}
+              onUploadAbort={() => setFile(null)}
+              onDropAccepted={(arr) => setFile(arr?.[0])}
+              title={'Upload an Image'}
+              subTitle={'or Select and NFT'}
+            />
+          </div>
 
-        <div className={styles.form}>
-          <h1>Profile Settings</h1>
-          <Input
-            title={'Display Name'}
-            inputType={'text'}
-            placeholder={'Enter you display name...'}
-            handleChange={handleChange}
-            value={profile.name}
-            id={'name'}
-          />
-          {/* <Input
+          <div className={styles.form}>
+            <h1>Profile Settings</h1>
+            <Input
+              title={'Display Name'}
+              inputType={'text'}
+              placeholder={'Enter you display name...'}
+              handleChange={handleChange}
+              value={profile.name}
+              id={'name'}
+            />
+            {/* <Input
             title={'Description'}
             inputType={'textarea'}
             placeholder={'And now, your description...'}
@@ -59,40 +56,40 @@ const EditProfile = () => {
             value={profile.description}
             id={'description'}
           /> */}
-          <Input
-            title={'Email'}
-            inputType={'text'}
-            placeholder={'An email...'}
-            value={profile.email}
-            handleChange={handleChange}
-            id={'email'}
-          />
-          <Input
-            title={'Location'}
-            inputType={'text'}
-            placeholder={'Your location if you want to...'}
-            value={profile.location}
-            handleChange={handleChange}
-            id={'location'}
-          />
-          <Input
-            title={'Website'}
-            inputType={'text'}
-            placeholder={'If you got a website...'}
-            value={profile.website}
-            handleChange={handleChange}
-            id={'website'}
-          />
-          <h1 className={styles.social}>Social Settings</h1>
-          <Input
-            title={'Discord'}
-            inputType={'text'}
-            placeholder={'Your discord ID...'}
-            value={profile.discord}
-            handleChange={handleChange}
-            id={'discord'}
-          />
-          {/* <Input
+            <Input
+              title={'Email'}
+              inputType={'text'}
+              placeholder={'An email...'}
+              value={profile.email}
+              handleChange={handleChange}
+              id={'email'}
+            />
+            <Input
+              title={'Location'}
+              inputType={'text'}
+              placeholder={'Your location if you want to...'}
+              value={profile.location}
+              handleChange={handleChange}
+              id={'location'}
+            />
+            <Input
+              title={'Website'}
+              inputType={'text'}
+              placeholder={'If you got a website...'}
+              value={profile.website}
+              handleChange={handleChange}
+              id={'website'}
+            />
+            <h1 className={styles.social}>Social Settings</h1>
+            <Input
+              title={'Discord'}
+              inputType={'text'}
+              placeholder={'Your discord ID...'}
+              value={profile.discord}
+              handleChange={handleChange}
+              id={'discord'}
+            />
+            {/* <Input
             title={'Twitter'}
             inputType={'text'}
             placeholder={'Your twitter profile URL...'}
@@ -111,7 +108,7 @@ const EditProfile = () => {
             id={''}
           /> */}
 
-          {/* <h1 className={styles.social}>App Settings</h1>
+            {/* <h1 className={styles.social}>App Settings</h1>
           <Input
             inputType={'text'}
             title={'Time and Date'}
@@ -130,13 +127,16 @@ const EditProfile = () => {
             placeholder={'Dropdowns'}
             id={''}
           /> */}
-          <Button
-            isPrimary={false}
-            label={'Save Settings'}
-            onClick={() => useUpdateProfile(profile)}
-          />
+            <Button
+              isPrimary={false}
+              label={'Save Settings'}
+              onClick={() => useUpdateProfile(profile)}
+            />
+          </div>
         </div>
-      </div> : <Spinner/>}
+      ) : (
+        <Spinner />
+      )}
     </BasePage>
   );
 };

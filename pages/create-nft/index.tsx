@@ -20,10 +20,6 @@ const CreateNFT: NextPage = () => {
 
   const isRehydrated = useStoreRehydrated();
 
-  useEffect(() => {
-    if (!isWalletConnected) router.push('/');
-  }, []);
-
   return isLoading || !isRehydrated || !isWalletConnected ? (
     <Spinner />
   ) : (

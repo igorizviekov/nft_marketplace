@@ -8,10 +8,9 @@ const useFetchProfile = () => {
   const id = '5e48f78f-5311-41be-b4a8-5e4d2203d1c6';
   const { updateProfile } = useStoreActions((actions) => actions.profile);
 
-  
   useEffect(() => {
     const token = localStorage.getItem('token');
-    
+
     axios
       .get(`https://nft-api-production-3c8d.up.railway.app/users/${id}`)
       .then((response) => {

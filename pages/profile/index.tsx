@@ -17,7 +17,6 @@ import { useStoreState } from '../../store';
 import { Spinner } from '../../components/spinner';
 import BaseLink from '../../components/ui/Base/BaseLink/BaseLink';
 import { NoNFTCard } from '../../components/ui/NFTCard/NoNFTCard';
-import { useFetchNFTs } from '../../service/useFetchNFTS';
 import useFetchNFTLogs from '../../service/useFetchNFTLogs';
 
 const ProfilePage = () => {
@@ -48,14 +47,8 @@ const ProfilePage = () => {
     }
   });
 
-  useEffect(() => {
-    if (!isWalletConnected) router.push('/');
-    else {
-      useFetchProfile();
-      useFetchNFTLogs(activeWallet);
-    }
-  }, []);
-
+  useFetchProfile();
+  useFetchNFTLogs(activeWallet);
   return (
     <BasePage>
       {profile && isWalletConnected ? (
