@@ -4,7 +4,6 @@ import { IBaseLinkProps } from './BaseLink.types';
 import Link from 'next/link';
 import classNames from 'classnames';
 const BaseLink = ({ href, children, active, isExternal }: IBaseLinkProps) => {
-  console.log(href);
   return (
     <Link
       href={isExternal ? `https://${href}` : href}

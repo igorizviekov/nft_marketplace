@@ -6,7 +6,7 @@ const useUpdateProfile = (profile: IProfile) => {
   const token = localStorage.getItem('token');
   axios
     .patch(
-      `https://nft-api-production-3c8d.up.railway.app/users/${id}`,
+      `https://nft-api-production-4aa1.up.railway.app/users/${id}`,
       {
         ...profile,
       },

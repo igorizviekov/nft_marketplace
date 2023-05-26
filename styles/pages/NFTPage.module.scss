@@ -42,34 +42,3 @@
   column-gap: var(--spacing-md);
   row-gap: var(--spacing-md);
 }
-
-.icons {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-md);
-
-  .name {
-    margin-right: var(--spacing-sm);
-  }
-
-  .icon {
-    width: 22px;
-    height: 22px;
-  }
-}
-
-.nftContainer {
-  display: flex;
-  gap: var(--spacing-md);
-}
-
-.filterContainer{
-  width: 350px;
-}
-.results {
-  width: 100%;
-
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-md);
-}

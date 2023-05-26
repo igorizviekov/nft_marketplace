@@ -15,7 +15,7 @@ const useFetchProfile = () => {
     const token = localStorage.getItem('token');
 
     axios
-      .get(`https://nft-api-production-3c8d.up.railway.app/users/${id}`)
+      .get(`https://nft-api-production-4aa1.up.railway.app/users/${id}`)
       .then((response) => {
         updateProfile({ ...response.data.data });
       })
@@ -23,7 +23,7 @@ const useFetchProfile = () => {
 
     axios
       .get(
-        `https://nft-api-production-3c8d.up.railway.app/wallets/user/${id}`,
+        `https://nft-api-production-4aa1.up.railway.app/wallets/user/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -35,7 +35,7 @@ const useFetchProfile = () => {
 
     axios
       .get(
-        `https://nft-api-production-3c8d.up.railway.app/nft-logs/users/${wallet}`
+        `https://nft-api-production-4aa1.up.railway.app/nft-logs/users/${wallet}`
       )
       .then((response) => {
         updateNFTLogs(response.data.data);

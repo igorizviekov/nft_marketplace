@@ -16,7 +16,7 @@ const PopularCollection = ({
   const router = useRouter();
 
   const collectionRoute = name.split(' ').join('-').toLowerCase();
-
+  
   return (
     <div
       className={styles.container}

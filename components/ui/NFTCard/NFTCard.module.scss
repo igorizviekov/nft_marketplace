@@ -10,11 +10,12 @@
     box-shadow: var(--box-shadow-hover);
   }
 
+  flex-grow: 1;
   cursor: pointer;
 }
 
 .notFound {
-  width: 300px;
+  width: 100%;
   height: 450px;
 
   display: flex;

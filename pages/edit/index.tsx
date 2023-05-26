@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import BaseImage from '../../components/ui/Base/BaseImage/BaseImage';
 import BasePage from '../../components/ui/Base/BasePage/BasePage';
 import { Button } from '../../components/ui/Button';
 import Input from '../../components/ui/Input';
 import { useStoreActions, useStoreState } from '../../store';
 import styles from '../../styles/pages/EditProfilePage.module.scss';
 import ProfileImageUpload from '../../components/ProfileImageUpload/ProfileImageUpload';
-import { toast } from 'react-toastify';
 import useUpdateProfile from '../../service/useUpdateProfile';
 import { useRouter } from 'next/router';
 import { Spinner } from '../../components/spinner';

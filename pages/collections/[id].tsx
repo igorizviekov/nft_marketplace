@@ -95,7 +95,9 @@ const SingleCollectionPage = () => {
           </div>
 
           <div className={styles.nftContainer}>
-            <MultipleFilter values={CollectionTraits} hasPrice={true} />
+            <div className={styles.filterContainer}>
+              <MultipleFilter values={CollectionTraits} hasPrice={true} />
+            </div>
             <div className={styles.results}>
               <div className={'flex-col-start'}>
                 <div className="flex-row-start">

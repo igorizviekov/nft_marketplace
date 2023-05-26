@@ -10,7 +10,7 @@ export async function useFetchAppData() {
   useEffect(() => {
     if (blockchains.length === 0) {
       axios
-        .get('https://nft-api-production-3c8d.up.railway.app/blockchain')
+        .get('https://nft-api-production-4aa1.up.railway.app/blockchain')
         .then((response) => {
           response.data.data.map((blockchain: IBlockchain) => {
             setBlockchains(blockchain);

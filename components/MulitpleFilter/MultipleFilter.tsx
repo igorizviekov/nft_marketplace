@@ -42,7 +42,9 @@ export const MultipleFilter = ({ values, hasPrice }: IMultipleFilterProps) => {
   const items = values?.traits.map((trait) => ({
     title: (
       <div className={styles.title}>
-        <h3>{trait.trait_type}</h3>
+        <h3>
+          {trait.trait_type.charAt(0).toUpperCase() + trait.trait_type.slice(1)}
+        </h3>
         <Icon icon={<BsChevronDown />} />
       </div>
     ),
@@ -61,7 +63,7 @@ export const MultipleFilter = ({ values, hasPrice }: IMultipleFilterProps) => {
                 addFilter({ trait_type: trait.trait_type, value: value })
               }
             >
-              <p>{value}</p>
+              <p>{value.charAt(0).toUpperCase() + value.slice(1)}</p>
             </div>
           );
         })}

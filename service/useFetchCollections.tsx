@@ -12,7 +12,7 @@ export const useFetchCollections = () => {
   useEffect(() => {
     if (collections.length === 0) {
       axios
-        .get('https://nft-api-production-3c8d.up.railway.app/collection')
+        .get('https://nft-api-production-4aa1.up.railway.app/collection')
         .then((response) => {
           response.data.data.map((collection: ICollection) => {
             setCollections(collection);

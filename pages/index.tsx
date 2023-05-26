@@ -81,7 +81,7 @@ export default function Home() {
         copy={
           "Attention all traders! Phoenix Mint is now live and ready for you to start trading NFTs. Don't miss out on this opportunity to own unique digital assets for a fraction of the cost. Start trading today at unbeatable prices! #NFT #PhoenixMint #CryptoTrading"
         }
-        callToAction={'Call me to action!'}
+        callToAction={'Call to action!'}
       />
       <div>
         <h1>Popular Collections</h1>

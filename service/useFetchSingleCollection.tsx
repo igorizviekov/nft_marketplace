@@ -11,7 +11,7 @@ export const useFetchSingleCollection = (id: string | string[] | undefined) => {
     if (id) {
       setIsLoading(true);
       axios
-        .get(`https://nft-api-production-3c8d.up.railway.app/collection/${id}`)
+        .get(`https://nft-api-production-4aa1.up.railway.app/collection/${id}`)
         .then((response) => {
           setCollectionData(response.data.data);
           setIsLoading(false);

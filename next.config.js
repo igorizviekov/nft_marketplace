@@ -14,6 +14,7 @@ const nextConfig = {
       'img.freepik.com',
       'i.imgur.com',
       'imgur.com',
+      'cryptoslate.com'
     ],
   },
 };

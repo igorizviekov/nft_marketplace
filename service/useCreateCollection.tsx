@@ -16,7 +16,7 @@ export async function useCreateCollection({
   isCollectionCreated(false);
   axios
     .post(
-      'https://nft-api-production-3c8d.up.railway.app/collection',
+      'https://nft-api-production-4aa1.up.railway.app/collection',
       {
         //@TODO upload image to ipfs
         name: generalInformation.name,
