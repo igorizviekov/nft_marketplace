@@ -1,6 +1,6 @@
 export interface IFilterProps {
   options: INFTCategories[];
-  selected: number;
+  selected: number | null;
   onSelect: Dispatch<SetStateAction<number>>;
 }
 

@@ -1,7 +1,7 @@
 import { action } from 'easy-peasy';
-import { ICollectionModel } from './collection.types';
+import { ICreateCollectionModel } from './collection.types';
 
-export const CollectionsModel: ICollectionModel = {
+export const CreateCollectionModel: ICreateCollectionModel = {
   royalties: [],
   generalInformation: {
     file: null,
@@ -11,14 +11,23 @@ export const CollectionsModel: ICollectionModel = {
   },
   networkInformation: {
     symbol: '',
-    network: 'ETH',
-    mainCategory: 'Art',
-    subCategory: 'Art',
+    network: {
+      currency_symbol: '',
+      id: '',
+      chain_id: 0,
+      rpc_url: '',
+    },
+    categoryPrimary: 'Art',
+    categorySecondary: 'Art',
   },
   gralInfoFormError: true,
   networkInformationError: true,
   royaltiesError: false,
 
+  isCreatingCollection: false,
+  isCollectionCreated: action((state, payload) => {
+    state.isCreatingCollection = payload;
+  }),
   /**
    * Royalties Actions
    */
@@ -59,8 +68,8 @@ export const CollectionsModel: ICollectionModel = {
     state.networkInformation = {
       symbol: payload.symbol,
       network: payload.network,
-      mainCategory: payload.mainCategory,
-      subCategory: payload.subCategory,
+      categoryPrimary: payload.categoryPrimary,
+      categorySecondary: payload.categorySecondary,
     };
   }),
   setNetworkInformationError: action((state, payload) => {

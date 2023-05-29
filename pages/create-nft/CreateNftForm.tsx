@@ -9,7 +9,6 @@ export type TypeOfMint = 'Single Upload' | 'Bulk Upload';
 
 const CreateSingleForm = () => {
   const options: TypeOfMint[] = ['Single Upload', 'Bulk Upload'];
-  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
   const [selected, setSelected] = useState<number>(0);
 

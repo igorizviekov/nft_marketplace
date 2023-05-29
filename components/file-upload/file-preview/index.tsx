@@ -1,7 +1,6 @@
 import styles from './file-preview.module.scss';
 import { IFilePreviewProps } from './file-preview.types';
 import { Button } from '../../ui/Button';
-import { toast } from 'react-toastify';
 import Icon from '../../ui/Icon/Icon';
 import { TiDelete } from 'react-icons/ti';
 

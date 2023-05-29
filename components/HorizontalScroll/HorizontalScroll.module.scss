@@ -4,16 +4,16 @@
 
   .leftArrow {
     position: absolute;
-    left: -15px;
+    left: -50px;
     z-index: 1;
     top: 38%;
 
-    background-color: var(--background-dark-green);
-    border: var(--border-color);
-    padding: var(--spacing-sm);
+    // background-color: var(--background-dark-green);
+    // border: var(--border-color);
+    // padding: var(--spacing-sm);
 
-    border-radius: 50px;
-    box-shadow: var(--box-shadow);
+    // border-radius: 50px;
+    // box-shadow: var(--box-shadow);
 
     svg {
       fill: var(--white);
@@ -22,8 +22,6 @@
     transition: 0.2 ease-in-out;
 
     &:hover {
-      border: var(--border-color-hover);
-      box-shadow: var(--box-shadow-hover);
       svg {
         fill: var(--text-color-hover)
       }
@@ -32,25 +30,23 @@
 
   .rightArrow {
     position: absolute;
-    right: -15px;
+    right: -50px;
     z-index: 1;
     top: 38%;
 
-    background-color: var(--background-dark-green);
-    border: var(--border-color);
+    // background-color: var(--background-dark-green);
+    // border: var(--border-color);
 
-    padding: var(--spacing-sm);
+    // padding: var(--spacing-sm);
 
-    border-radius: 50px;
-    box-shadow: var(--box-shadow);
+    // border-radius: 50px;
+    // box-shadow: var(--box-shadow);
 
     svg {
       fill: var(--white);
     }
 
     &:hover {
-      border: var(--border-color-hover);
-      box-shadow: var(--box-shadow-hover);
       svg {
         fill: var(--text-color-hover)
       }

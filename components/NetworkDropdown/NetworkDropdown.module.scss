@@ -1,9 +1,10 @@
 .icon {
   border-radius: 50px;
 
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
 
+  transform: scale(1.5);
   transition: 0.2s ease-in-out;
 
   path {
@@ -20,39 +21,55 @@
   width: auto;
   display: flex;
   align-items: center;
+  justify-content: center;
 
   gap: var(--spacing-md);
 }
 
 .container {
 
+  position: relative;
+
   width: auto;
   display: flex;
   align-items: center;
-  width: 153px;
+  justify-content: center;
 
   gap: var(--spacing-md);
-  border: var(--border-color);
   border-radius: 100px;
-  padding: var(--spacing-sm) var(--spacing-md);
 
   transition: 0.2s ease-in-out;
   cursor: pointer;
 
-  &:hover {
-    background-color: var(--background-hover);
-    border: var(--border-color-hover);
-    color: var(--text-color-hover);
-    box-shadow: var(--box-shadow-hover);
 
-    .icon {
-      box-shadow: var(--box-shadow-hover);
+}
 
-      path {
-        fill: var(--green);
+.menuItems {
+  position: absolute;
+
+  width: 150px;
+  z-index: 1;
+  right: 0;
+  top: 60px;
+
+  background-color: var(--background);
+
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  border: var(--border-color);
+
+
+  .networkItem {
+    padding: var(--spacing-md);
+
+    &:hover {
+      .icon {
+        box-shadow: var(--box-shadow-hover);
+  
+        path {
+          fill: var(--green);
+        }
       }
     }
   }
-
-
 }

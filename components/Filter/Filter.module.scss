@@ -1,8 +1,8 @@
 .option {
   margin: var(--spacing-sm) 0;
-  padding: var(--spacing-sm);
-  border-radius: var(--border-radius-sm);
-  border: var(--border-color);
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: 100px;
+  border: 1px solid rgba(255, 255, 255, 0.329);
 
   cursor: pointer;
 
@@ -21,7 +21,7 @@
   cursor: pointer;
 }
 
-.filter{
+.filter {
   display: flex;
   align-items: flex-start;
   gap: var(--spacing-md);

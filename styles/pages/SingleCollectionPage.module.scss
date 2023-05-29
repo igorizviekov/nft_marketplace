@@ -16,19 +16,12 @@
 .textContainer {
   width: 100%;
 
-  @include respond-to(tablet) {
-    width: 50%;
-    padding: var(--spacing-md);
-
-  }
-
 }
 
 .hero {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
 
   gap: var(--spacing-lg);
 
@@ -67,9 +60,12 @@
 
 .nftContainer {
   display: flex;
-  gap: var(--spacing-sm);
+  gap: var(--spacing-md);
 }
 
+.filterContainer{
+  width: 350px;
+}
 .results {
   width: 100%;
 

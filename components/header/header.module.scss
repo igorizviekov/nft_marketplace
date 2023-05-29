@@ -1,5 +1,10 @@
+@use '../../styles/mixins' as *;
+
 .header {
   width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 5;
 
   display: flex;
   align-items: center;
@@ -15,9 +20,32 @@
     transition: ease-in-out;
   }
 
+  .logoText {
+    width: 150px;
+    height: 50px;
+
+    .text {
+      object-fit: contain;
+    }
+  }
+
   .network {
     display: flex;
     align-items: center;
-    gap: var(--spacing-md);
+    justify-content: space-between;
+    width: 435px;
+  }
+
+  .searchBar {
+    width: 100%;
+
+    @include respond-to(mob-landscape) {
+      width: 400px;
+    }
+
+    @include respond-to(desktop) {
+      width: 600px;
+
+    }
   }
 }

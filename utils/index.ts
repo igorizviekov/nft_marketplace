@@ -25,9 +25,13 @@ interface IConnectWallet {
 export const connectWallet = async (
   mode: ConnectWallet
 ): Promise<IConnectWallet> => {
-  const accounts = await window.ethereum.request({
-    method: mode === 'silent' ? 'eth_accounts' : 'eth_requestAccounts',
-  });
+  const accounts = await window.ethereum
+    .request({
+      method: mode === 'silent' ? 'eth_accounts' : 'eth_requestAccounts',
+    })
+    .then((result: Response) => {
+      return result;
+    });
 
   if (accounts.length) {
     return {

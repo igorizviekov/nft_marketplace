@@ -10,6 +10,30 @@
     box-shadow: var(--box-shadow-hover);
   }
 
+  flex-grow: 1;
+  cursor: pointer;
+}
+
+.notFound {
+  width: 100%;
+  height: 450px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  background-color: var(--background-dark-green);
+  border-radius: var(--border-radius-md);
+  border: var(--border-color--accent);
+
+  transition: 0.2s ease-in-out;
+
+  &:hover {
+    box-shadow: var(--box-shadow-hover);
+    color: var(--green);
+  }
+
   cursor: pointer;
 }
 

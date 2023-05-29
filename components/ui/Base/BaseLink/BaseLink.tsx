@@ -3,11 +3,11 @@ import styles from './BaseLink.module.scss';
 import { IBaseLinkProps } from './BaseLink.types';
 import Link from 'next/link';
 import classNames from 'classnames';
-const BaseLink = ({ href, children, active }: IBaseLinkProps) => {
+const BaseLink = ({ href, children, active, isExternal }: IBaseLinkProps) => {
   return (
     <Link
-      href={href}
-      target='#blank'
+      href={isExternal ? `https://${href}` : href}
+      target="_blank"
       className={classNames(styles.link, active === children && styles.active)}
     >
       <h3>{children}</h3>

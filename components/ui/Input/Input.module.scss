@@ -7,7 +7,7 @@
   display: flex;
   flex-direction: column;
 
-  border-radius: var(--border-radius-sm);
+  border-radius: 100px;
 
 
   .currency {
@@ -21,7 +21,7 @@
     top: 22px;
     right: 20px;
 
-    svg{
+    svg {
       transition: 0.2s ease-in-out;
     }
 
@@ -51,7 +51,6 @@
   }
 
   &:hover {
-    color: var(--text-color-hover);
 
     .icon {
       svg {
@@ -65,7 +64,16 @@
 
 
       &::placeholder {
-        color: var(--text-color-hover);
+        transition: 0.2s ease-in-out;
+      }
+    }
+
+    .search {
+      border: var(--border-color-hover);
+      box-shadow: var(--box-shadow-hover);
+
+
+      &::placeholder {
         transition: 0.2s ease-in-out;
       }
     }
@@ -76,14 +84,17 @@
 
 
       &::placeholder {
-        color: var(--text-color-hover);
         transition: 0.2s ease-in-out;
       }
     }
   }
 
   &:focus-within {
-    color: var(--green);
+
+    .title {
+      color: var(--green);
+
+    }
 
     .icon {
       svg {
@@ -97,7 +108,18 @@
 
 
       &::placeholder {
-        color: var(--green);
+        // color: var(--green);
+        transition: 0.2s ease-in-out;
+      }
+    }
+
+    .search {
+      border: var(--border-color-green);
+      box-shadow: var(--box-shadow-hover);
+
+
+      &::placeholder {
+        // color: var(--green);
         transition: 0.2s ease-in-out;
       }
     }
@@ -108,7 +130,7 @@
 
 
       &::placeholder {
-        color: var(--green);
+        // color: var(--green);
         transition: 0.2s ease-in-out;
       }
     }
@@ -125,6 +147,22 @@
 
   border: var(--border-color);
   border-radius: var(--spacing-sm);
+
+  transition: 0.2s ease-in-out;
+
+  outline: none;
+}
+
+.search{
+  height: var(--spacing-xl);
+  width: 100%;
+  background-color: transparent;
+
+  margin-top: var(--spacing-sm);
+  padding: var(--spacing-md);
+
+  border: var(--border-color);
+  border-radius: 100px;
 
   transition: 0.2s ease-in-out;
 
@@ -151,6 +189,7 @@
 
 .error {
   transition: 0.2s ease-in-out;
+  width: 100%;
 
   input {
     border: var(--border-color-error) !important;

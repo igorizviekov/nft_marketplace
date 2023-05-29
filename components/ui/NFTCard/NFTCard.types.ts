@@ -1,4 +1,4 @@
-import { StaticImageData } from "next/image";
+import { StaticImageData } from 'next/image';
 
 export interface INftCardProps {
   name: string;
@@ -17,11 +17,4 @@ export interface ITraits {
   trait_type: string;
   value: string;
 }
-type NFTStatus =
-  | 'On Sale'
-  | 'Created'
-  | 'My NTFs'
-  | 'Liked'
-  | 'Activity'
-  | 'Outgoing Offers'
-  | 'Incoming Offers';
+type NFTStatus = 'On Sale' | 'Bid' | 'Make Offer';

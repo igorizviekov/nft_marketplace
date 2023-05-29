@@ -2,11 +2,12 @@ import { INFTCategories } from '../Filter/Filter.types';
 
 export interface ILaunchpadDropsProps {
   image: string;
-  network: Network;
+  network: string;
   name: string;
-  launchDate: Date;
   isCategory: boolean;
-  category: INFTCategories;
+  primaryCategory: INFTCategories;
+  secondaryCategory: INFTCategories;
+  launchDate?: Date;
 }
 
 export type Network = 'ETH' | 'MATIC' | 'SMR';

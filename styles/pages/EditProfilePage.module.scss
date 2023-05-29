@@ -3,6 +3,7 @@
 .page {
   gap: var(--spacing-xxl);
   display: flex;
+  width: 100%;
 }
 
 .image {
@@ -29,6 +30,8 @@
 
   display: flex;
   flex-direction: column;
+
+  flex-grow: 1;
 
   gap: var(--spacing-md);
   max-width: 600px;

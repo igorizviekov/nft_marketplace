@@ -1,7 +1,11 @@
 import { Action } from 'easy-peasy';
 import { INetwork } from '../../../components/NetworkDropdown/NetworkDropdown.types';
 import { INFTCategories } from '../../../components/Filter/Filter.types';
-export interface ICollectionModel {
+import { IBlockchain } from '../app/app.types';
+export interface ICreateCollectionModel {
+  isCreatingCollection: boolean;
+  isCollectionCreated: Action<ICreateCollectionModel, boolean>;
+
   generalInformation: GeneralInformation;
   gralInfoFormError: boolean;
 
@@ -11,22 +15,22 @@ export interface ICollectionModel {
   royalties: Royalty[];
   royaltiesError: boolean;
 
-  addRoyalty: Action<ICollectionModel, Royalty>;
-  deleteRoyalty: Action<ICollectionModel, Royalty>;
-  setRoyaltiesError: Action<ICollectionModel, boolean>;
+  addRoyalty: Action<ICreateCollectionModel, Royalty>;
+  deleteRoyalty: Action<ICreateCollectionModel, Royalty>;
+  setRoyaltiesError: Action<ICreateCollectionModel, boolean>;
 
-  editGeneralInformation: Action<ICollectionModel, GeneralInformation>;
-  setGralInfoFormError: Action<ICollectionModel, boolean>;
+  editGeneralInformation: Action<ICreateCollectionModel, GeneralInformation>;
+  setGralInfoFormError: Action<ICreateCollectionModel, boolean>;
 
-  setNetworkInformation: Action<ICollectionModel, NetworkInformation>;
-  setNetworkInformationError: Action<ICollectionModel, boolean>;
+  setNetworkInformation: Action<ICreateCollectionModel, NetworkInformation>;
+  setNetworkInformationError: Action<ICreateCollectionModel, boolean>;
 }
 
 export interface NetworkInformation {
   symbol: string;
-  network: INetwork;
-  mainCategory: INFTCategories;
-  subCategory: INFTCategories;
+  network: IBlockchain;
+  categoryPrimary: INFTCategories;
+  categorySecondary: INFTCategories;
 }
 export interface Royalty {
   walletAddress: string;

@@ -3,21 +3,21 @@ import Input from '../ui/Input';
 import { Dropdown } from '../ui/dropdown';
 import { IModalSteps } from './AddCollectionModal.types';
 import { INFTCategories } from '../Filter/Filter.types';
-import { INetwork } from '../NetworkDropdown/NetworkDropdown.types';
 import { Button } from '../ui/Button';
 import { useStoreActions, useStoreState } from '../../store';
 import { validateSymbol } from './utils';
 
 const NetworkInformation = ({ handleSteps }: IModalSteps) => {
-  const [mainCategory, setMainCategory] = useState<number>(-1);
-  const [subcategory, setSubCategory] = useState<number>(-1);
+  const [categoryPrimary, setCategoryPrimary] = useState<number>(-1);
+  const [categorySecondary, setCategorySecondary] = useState<number>(-1);
   const [chain, setChain] = useState<number>(-1);
   const { setNetworkInformation, setNetworkInformationError } = useStoreActions(
-    (actions) => actions.collection
+    (actions) => actions.createCollection
   );
   const { networkInformation, networkInformationError } = useStoreState(
-    (state) => state.collection
+    (state) => state.createCollection
   );
+  const { blockchains } = useStoreState((state) => state.app);
 
   const categories: INFTCategories[] = [
     'Art',
@@ -28,21 +28,28 @@ const NetworkInformation = ({ handleSteps }: IModalSteps) => {
     'Sports',
     'Virtual Worlds',
   ];
-  const networks: INetwork[] = ['ETH', 'POLYGON', 'SMR'];
+
+  const options = blockchains.map((blockchain) => blockchain.currency_symbol);
 
   const handleClick = () => {
+    setNetworkInformation({
+      ...networkInformation,
+      network: blockchains[chain],
+      categoryPrimary: categories[categoryPrimary],
+      categorySecondary: categories[categorySecondary],
+    });
     handleSteps();
   };
 
   const handleError = () => {
-    if (chain === -1 || subcategory === -1 || mainCategory === -1)
+    if (chain === -1 || categorySecondary === -1 || categoryPrimary === -1)
       setNetworkInformationError(true);
     else setNetworkInformationError(false);
   };
 
   useEffect(() => {
     handleError();
-  }, [chain, subcategory, mainCategory]);
+  }, [chain, categorySecondary, categoryPrimary]);
   return (
     <>
       <h1>Network Information</h1>
@@ -64,7 +71,7 @@ const NetworkInformation = ({ handleSteps }: IModalSteps) => {
         heading={'Network'}
         required
         placeholder={'Select a network'}
-        options={networks}
+        options={options}
         checked={chain}
         onChange={setChain}
         openModal={function (): void {
@@ -76,19 +83,19 @@ const NetworkInformation = ({ handleSteps }: IModalSteps) => {
         required
         placeholder={'Select a category'}
         options={categories}
-        checked={mainCategory}
-        onChange={setMainCategory}
+        checked={categoryPrimary}
+        onChange={setCategoryPrimary}
         openModal={function (): void {
           throw new Error('Function not implemented.');
         }}
       />
       <Dropdown
-        heading={'Subcategory'}
+        heading={'categorySecondary'}
         required
         placeholder={'Select a sub category'}
         options={categories}
-        checked={subcategory}
-        onChange={setSubCategory}
+        checked={categorySecondary}
+        onChange={setCategorySecondary}
         openModal={function (): void {
           throw new Error('Function not implemented.');
         }}

@@ -1,27 +1,37 @@
 import React from 'react';
 import BasePage from '../../components/ui/Base/BasePage/BasePage';
-import { AllCollections } from '../../mocks/CollectionsPage.mock';
-import CollectionBanner from '../../components/CollectionBanner/CollectionBanner';
+import { useStoreState } from '../../store';
+import { useFetchCollections } from '../../service/useFetchCollections';
+import BaseTable from '../../components/BaseTable/BaseTable';
+import CollectionsBody from '../../components/BaseTable/TableBodies/CollectionsBody/CollectionsBody';
+import { Spinner } from '../../components/spinner';
 
 const CollectionsPage = () => {
+  const { collections, isCollectionsLoading } = useStoreState(
+    (state) => state.app
+  );
+
+  const header: string[] = [
+    'Collection',
+    'Floor',
+    'Volume',
+    'Sales',
+    'Owners',
+    'Supply',
+  ];
+
+  useFetchCollections();
+
   return (
     <BasePage>
-      <div>
-        <h1>Collections</h1>
-        {AllCollections &&
-          AllCollections.map((collection, index) => (
-            <CollectionBanner
-              uid={0}
-              index={index + 1}
-              name={collection.name}
-              floor={collection.floor}
-              volume={collection.volume}
-              sales={collection.sales}
-              owners={collection.owners}
-              supply={collection.supply}
-            />
-          ))}
-      </div>
+      {collections && !isCollectionsLoading ? (
+        <BaseTable
+          header={header}
+          body={<CollectionsBody collections={collections} />}
+        />
+      ) : (
+        <Spinner />
+      )}
     </BasePage>
   );
 };

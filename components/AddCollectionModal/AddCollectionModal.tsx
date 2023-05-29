@@ -7,17 +7,19 @@ import NetworkInformation from './NetworkInformation';
 import RoyaltiesInformation from './RoyaltiesInformation';
 import Icon from '../ui/Icon/Icon';
 import { BsFillArrowLeftCircleFill } from 'react-icons/bs';
+import ConfirmationInformation from './ConfirmationInformation';
+import { useStoreActions } from '../../store';
 
 const AddCollectionModal = ({ handleModalClose }: IAddCollectionModalProps) => {
-  const steps: Steps[] = ['General', 'Network', 'Royalties'];
+  const steps: Steps[] = ['General', 'Network', 'Royalties', 'Confirmation'];
 
   const [selected, setSelected] = useState<number>(0);
 
   function handleSteps() {
-    if (steps[selected] === 'Royalties') console.log('Save everything');
+    if (steps[selected] === 'Confirmation') console.log('Save everything');
     else setSelected(selected + 1);
   }
-  
+  const {} = useStoreActions((actions) => actions.createCollection);
   return (
     <Modal onClose={handleModalClose}>
       <div className={styles.column}>
@@ -42,8 +44,9 @@ const AddCollectionModal = ({ handleModalClose }: IAddCollectionModalProps) => {
         {steps[selected] === 'Royalties' && (
           <RoyaltiesInformation handleSteps={handleSteps} />
         )}
-
-        <p>Contract address will go here as info for the user?</p>
+        {steps[selected] === 'Confirmation' && (
+          <ConfirmationInformation handleModalClose={handleModalClose} />
+        )}
       </div>
     </Modal>
   );

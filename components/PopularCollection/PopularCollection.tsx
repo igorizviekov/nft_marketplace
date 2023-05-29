@@ -3,16 +3,33 @@ import { IPopularCollectionProps } from './PopularCollection.types';
 import styles from './PopularCollection.module.scss';
 import BaseImage from '../ui/Base/BaseImage/BaseImage';
 import { parseVolume } from './utils';
+import { useRouter } from 'next/router';
 
 const PopularCollection = ({
+  id,
   image,
   name,
   floorPrice,
   volume,
   index,
 }: IPopularCollectionProps) => {
+  const router = useRouter();
+
+  const collectionRoute = name.split(' ').join('-').toLowerCase();
+  
   return (
-    <div className={styles.container}>
+    <div
+      className={styles.container}
+      onClick={() =>
+        router.push(
+          {
+            pathname: `/collections/${collectionRoute}`,
+            query: { uid: id },
+          },
+          `/collections/${collectionRoute}`
+        )
+      }
+    >
       <h3 className={styles.index}>{index + 1}</h3>
       <div className={styles.image}>
         <BaseImage imageUrl={image} />
@@ -24,8 +41,8 @@ const PopularCollection = ({
           <p className={styles.growth}>0%</p>
         </div>
         <div className={styles.bottom}>
-          <h3>{floorPrice} Floor</h3>
-          <h3>Vol. {parseVolume(volume)}</h3>
+          {floorPrice ? <h3>{floorPrice} Floor</h3> : <h3>0 Floor</h3>}
+          {volume ? <h3>Vol. {parseVolume(volume)}</h3> : <h3>Vol. 0</h3>}
         </div>
       </div>
     </div>

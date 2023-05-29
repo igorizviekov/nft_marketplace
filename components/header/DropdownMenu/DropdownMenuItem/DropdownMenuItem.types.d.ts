@@ -4,4 +4,5 @@ export interface IDropdownMenuItem {
   href?: string;
   isNotLink?: boolean;
   onClick?: () => void;
+  className?: string;
 }

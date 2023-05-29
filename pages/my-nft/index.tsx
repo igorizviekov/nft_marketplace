@@ -10,7 +10,6 @@ import { toast } from 'react-toastify';
 import nftGuy from '../../assets/icons/my-nfts.json';
 import Lottie from 'lottie-react';
 import { useStoreState } from '../../store';
-import { IStoreModel } from '../../store/model/model.types';
 import { Button } from '../../components/ui/Button';
 import { useRouter } from 'next/router';
 import Web3Modal from 'web3modal';
@@ -21,7 +20,6 @@ const MyNFTs: NextPage = () => {
   const [isError, setIsError] = useState<boolean | string>(false);
 
   const { activeWallet } = useStoreState((state) => state.wallet);
-  const { name } = useStoreState((state) => state.user);
   const isRehydrated = useStoreRehydrated();
   const router = useRouter();
 
@@ -116,7 +114,7 @@ const MyNFTs: NextPage = () => {
     );
 
   const nickname =
-    (isRehydrated && name) ||
+    isRehydrated ||
     `${activeWallet?.slice(0, 3)}...${activeWallet?.slice(
       activeWallet?.length - 5
     )}`;

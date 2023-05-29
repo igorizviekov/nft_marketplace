@@ -1,5 +1,7 @@
 .primary {
 
+  white-space: nowrap;
+  min-width: 210px;
   padding: var(--spacing-md) var(--spacing-lg);
   border-radius: 100px;
   border: var(--border-color-green);
@@ -14,12 +16,14 @@
     border: var(--border-color-hover);
     color: var(--text-color-hover);
     box-shadow: var(--box-shadow-hover);
+
   }
 }
 
 .secondary {
 
   padding: var(--spacing-md) var(--spacing-lg);
+  min-width: 210px;
 
   border-radius: 100px;
 
@@ -33,6 +37,10 @@
     color: var(--text-color-hover);
     background-color: var(--background-hover);
     box-shadow: var(--box-shadow-hover);
+
+    path {
+      fill: var(--green);
+    }
   }
 }
 

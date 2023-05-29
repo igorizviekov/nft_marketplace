@@ -7,13 +7,17 @@ import { toast } from 'react-toastify';
 import { Button } from '../ui/Button';
 import DropdownMenu from './DropdownMenu/DropdownMenu';
 import PhoenixLogo from '../../assets/icons/phoenix_logo.svg';
+import LogoText from '../../assets/icons/text-logo.png';
 import BaseImage from '../ui/Base/BaseImage/BaseImage';
 import { Searchbar } from '../Searchbar/Searchbar';
 import { useFetchAppData } from '../../service/useFetchAppData';
 import NetworkDropdown from '../NetworkDropdown/NetworkDropdown';
+import { useAuth } from '../../service/useAuth';
 
 export const Header = () => {
-  const { isWalletConnected } = useStoreState((state) => state.wallet);
+  const { isWalletConnected, activeWallet } = useStoreState(
+    (state) => state.wallet
+  );
   const { setIsWalletConnected, setActiveWallet } = useStoreActions(
     (actions) => actions.wallet
   );
@@ -33,8 +37,8 @@ export const Header = () => {
     setActiveWallet(account);
   };
 
+  useAuth();
   useFetchAppData();
-
   useEffect(() => {
     connectCryptoWallet('silent');
   }, []);
@@ -51,17 +55,27 @@ export const Header = () => {
       <DropdownMenu />
     </>
   );
+
   return (
     <nav className={styles.header}>
       <Link href="/">
-        <div className={styles.logo}>
-          <BaseImage imageUrl={PhoenixLogo} />
+        <div className={styles.network}>
+          <div className="flex-row-start">
+            <div className={styles.logo}>
+              <BaseImage imageUrl={PhoenixLogo} />
+            </div>
+            <div className={styles.logoText}>
+              <BaseImage imageUrl={LogoText} className={styles.text} />
+            </div>
+          </div>
         </div>
       </Link>
-      <Searchbar
-        onHandleSearch={() => console.log('should serach')}
-        onClearSearch={() => console.log('clear search')}
-      />
+      <div className={styles.searchBar}>
+        <Searchbar
+          onHandleSearch={() => console.log('should serach')}
+          onClearSearch={() => console.log('clear search')}
+        />
+      </div>
       <div className={styles.network}>
         {blockchains && (
           <NetworkDropdown isLoading={isLoading} networks={blockchains} />

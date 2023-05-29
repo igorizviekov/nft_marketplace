@@ -7,7 +7,6 @@ $border: 1px;
   position: relative;
 
   &:hover {
-    color: var(--text-color-hover);
 
     .header {
       border: var(--border-color-hover);
@@ -23,7 +22,6 @@ $border: 1px;
   }
 
   &:focus-within {
-    color: var(--green);
 
     .header {
       border: var(--border-color-green);
@@ -44,7 +42,7 @@ $border: 1px;
 
   .heading {
     display: block;
-    
+
     background-color: var(--background);
     padding: var(--spacing-xs);
     position: absolute;
@@ -66,7 +64,7 @@ $border: 1px;
     padding: var(--spacing-md);
 
     border-radius: var(--border-radius-sm);
-    border: $border solid white;
+    border: var(--border-color);
 
     cursor: pointer;
   }
@@ -98,7 +96,6 @@ $border: 1px;
       border-radius: var(--border-radius-sm);
 
       &:hover {
-        color: var(--yellow);
         background-color: var(--background-hover);
       }
     }

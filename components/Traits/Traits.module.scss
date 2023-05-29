@@ -1,60 +1,57 @@
 .container {
-  width: auto;
+  width: 100%;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: var(--spacing-md);
+
+}
+
+.upperContainer {
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
 
   gap: var(--spacing-sm);
-
-  padding-right: 10px;
 }
 
 .value {
   display: flex;
+  width: 100%;
   align-items: center;
   gap: var(--spacing-sm);
 
 }
 
-.icon {
-  margin-top: var(--spacing-xs);
-  border-radius: 50px;
-  cursor: pointer;
-
-  &:hover {
-    color: var(--text-color-hover);
-    box-shadow: var(--box-shadow-hover);
-  }
-}
-
-.trait {
-
+.addButton {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: var(--spacing-sm);
 
-  text-align: start;
-
   border: var(--border-color);
-  border-radius: var(--border-radius-sm);
+  border-radius: 100px;
   padding: var(--spacing-sm) var(--spacing-md);
 
-  .icon {
-    margin: 0;
-  }
+  cursor: pointer;
 
   transition: 0.2s ease-in-out;
 
   &:hover {
-    border: var(--border-color-hover-alt);
+    border: var(--border-color-hover);
     box-shadow: var(--box-shadow-hover);
     color: var(--text-color-hover);
   }
+}
 
+.trait {
+  width: 100%;
 }
 
 .error {
-  color: var(--error) !important;
-  box-shadow: var(--box-shadow-error) !important;
+  color: var(--gray) !important;
   pointer-events: none !important;
   transition: 0.2s ease-in-out;
 

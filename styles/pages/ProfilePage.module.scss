@@ -17,12 +17,11 @@
 
 .textContainer {
   width: 100%;
+  height: auto;
 
-  @include respond-to(tablet) {
-    width: 50%;
-    padding: var(--spacing-md);
-
-  }
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
 
 }
 
@@ -58,18 +57,14 @@
       &::after {
         content: "Edit Profile";
         position: absolute;
-
+        font-size: 16px;
         width: 50px;
         opacity: 1;
 
         white-space: nowrap;
 
         right: -60px;
-        top: 0;
-
-        font-size: 12px;
-
-
+        top: -1px;
       }
     }
   }
@@ -79,11 +74,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 
   gap: var(--spacing-lg);
-
-  margin-bottom: var(--spacing-lg);
 
   @include respond-to(tablet) {
     align-items: flex-start;
@@ -93,7 +86,6 @@
 
 .stickersContainer {
   display: grid;
-  width: 100%;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
 
@@ -104,7 +96,7 @@
 .nftRow {
 
   display: flex;
-
+  flex-wrap: wrap;
   margin-top: var(--spacing-md);
   gap: var(--spacing-md);
 }

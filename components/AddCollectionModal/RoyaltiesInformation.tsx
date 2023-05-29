@@ -5,9 +5,11 @@ import { IModalSteps } from './AddCollectionModal.types';
 import { Button } from '../ui/Button';
 import RoyaltiesList from '../Royalties/RoyaltiesList';
 const RoyaltiesInformation = ({ handleSteps }: IModalSteps) => {
-  const { royalties, royaltiesError } = useStoreState((state) => state.collection);
+  const { royalties, royaltiesError } = useStoreState(
+    (state) => state.createCollection
+  );
   const { deleteRoyalty, addRoyalty, setRoyaltiesError } = useStoreActions(
-    (actions) => actions.collection
+    (actions) => actions.createCollection
   );
 
   function handleClick() {

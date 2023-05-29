@@ -1,9 +1,11 @@
 import { Royalty } from '../create-collection/collection.types';
-import { Action } from 'easy-peasy';
+import { Action, ActionOn } from 'easy-peasy';
 export interface INFTMintModel {
   nftGeneralInfo: INFTGeneralInfo;
-
   formError: boolean;
+  
+  isLoading: boolean;
+  setIsLoading: Action<INFTMintModel, boolean>;
 
   royalties: Royalty[];
   royaltiesError: boolean;

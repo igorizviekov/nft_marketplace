@@ -13,7 +13,11 @@ import { useStoreActions, useStoreState } from '../../store';
 
 const CollectionForm = () => {
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
-  const OPTIONS = ['Collection 1', 'Collection 2', 'Collection 3'];
+  const { collections } = useStoreState((state) => state.profile);
+
+  const OPTIONS = collections.map((collection) => {
+    return collection.name;
+  });
 
   const [selected, setSelected] = useState<number>(0);
 

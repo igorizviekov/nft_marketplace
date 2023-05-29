@@ -12,8 +12,13 @@ import HorizontalScroll from '../components/HorizontalScroll/HorizontalScroll';
 import { Button } from '../components/ui/Button';
 import { useRouter } from 'next/router';
 import NoCollectionCard from '../components/CollectionCard/NoCollectionCard';
+import { useFetchCollections } from '../service/useFetchCollections';
+import { useStoreState } from '../store';
+import { useFetchNFTs } from '../service/useFetchNFTS';
 export default function Home() {
-  const [selected, setSelected] = useState<number>(0);
+  const [selected, setSelected] = useState<number | null>(null);
+  const { isCollectionsLoading, collections, selectedBlockchain } =
+    useStoreState((state) => state.app);
   const filterOptions: INFTCategories[] = [
     'Collectibles',
     'PFPS',
@@ -25,35 +30,47 @@ export default function Home() {
   ];
   const router = useRouter();
 
-  const foundLaunches =
-    LaunchpadDropsMocks &&
-    LaunchpadDropsMocks.map((drop, index) => {
-      if (drop.category.includes(filterOptions[selected])) {
+  const foundCollections =
+    collections &&
+    collections.map((collection, index) => {
+      if (
+        (selected &&
+          collection.categoryPrimary.includes(
+            filterOptions[selected].toLowerCase()
+          )) ||
+        (selected &&
+          collection.categorySecondary.includes(
+            filterOptions[selected].toLowerCase()
+          ))
+      ) {
         return (
           <LaunchpadDrops
             key={index}
-            image={drop.image}
-            network={drop.network}
-            name={drop.name}
-            launchDate={drop.launchDate}
+            image={collection.image}
+            network={collection.blockchain_id}
+            name={collection.name}
             isCategory={true}
-            category={drop.category}
+            primaryCategory={collection.categoryPrimary as INFTCategories}
+            secondaryCategory={collection.categorySecondary as INFTCategories}
           />
         );
       } else if (selected === null) {
         return (
           <LaunchpadDrops
             key={index}
-            image={drop.image}
-            network={drop.network}
-            name={drop.name}
-            launchDate={drop.launchDate}
+            image={collection.image}
+            network={collection.blockchain_id}
+            name={collection.name}
             isCategory={true}
-            category={drop.category}
+            primaryCategory={collection.categoryPrimary as INFTCategories}
+            secondaryCategory={collection.categorySecondary as INFTCategories}
           />
         );
       }
     });
+
+  useFetchCollections();
+
   return (
     <BasePage>
       <HomeHero
@@ -61,18 +78,18 @@ export default function Home() {
         copy={
           "Attention all traders! Phoenix Mint is now live and ready for you to start trading NFTs. Don't miss out on this opportunity to own unique digital assets for a fraction of the cost. Start trading today at unbeatable prices! #NFT #PhoenixMint #CryptoTrading"
         }
-        callToAction={'Call me to action!'}
+        callToAction={'Call to action!'}
       />
       <div>
         <h1>Popular Collections</h1>
         <div className={'grid-container'}>
-          {PopularCollectionsMock &&
-            PopularCollectionsMock.map((collection, index) => (
+          {collections &&
+            !isCollectionsLoading &&
+            collections.map((collection, index) => (
               <PopularCollection
+                id={collection.id}
                 image={collection.image}
                 name={collection.name}
-                floorPrice={collection.floorPrice}
-                volume={collection.volume}
                 key={index}
                 index={index}
               />
@@ -89,6 +106,7 @@ export default function Home() {
 
       <div>
         <h1>New Launches</h1>
+        <br />
         <HorizontalScroll>
           {LaunchpadDropsMocks &&
             LaunchpadDropsMocks.map((drop, index) => (
@@ -99,7 +117,8 @@ export default function Home() {
                 name={drop.name}
                 launchDate={drop.launchDate}
                 isCategory={false}
-                category={drop.category}
+                primaryCategory={drop.primaryCategory}
+                secondaryCategory={drop.secondaryCategory}
               />
             ))}
         </HorizontalScroll>
@@ -107,15 +126,15 @@ export default function Home() {
 
       <div>
         <h1>Trending by Category</h1>
+        <br />
         <Filter
           options={filterOptions}
-          selected={selected}
+          selected={selected && selected}
           onSelect={setSelected}
         />
-
         <HorizontalScroll>
-          {!foundLaunches.every((found) => found === undefined) ? (
-            foundLaunches
+          {!foundCollections.every((found) => found === undefined) ? (
+            foundCollections
           ) : (
             <NoCollectionCard />
           )}

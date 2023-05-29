@@ -4,47 +4,58 @@ import styles from './CollectionCard.module.scss';
 import BaseImage from '../ui/Base/BaseImage/BaseImage';
 import classNames from 'classnames';
 import Icon from '../ui/Icon/Icon';
-import { FaArrowRight, FaBitcoin, FaEthereum } from 'react-icons/fa';
-import { SiPrometheus } from 'react-icons/si';
+import { FaArrowRight, FaEthereum } from 'react-icons/fa';
 import { useDateCountdown } from './utils';
 import { toast } from 'react-toastify';
+import { useStoreState } from '../../store';
+import Shimmer from '../../assets/icons/network-icons/Shimmer';
+import Ethereum from '../../assets/icons/network-icons/Ethereum';
+import Polygon from '../../assets/icons/network-icons/Polygon';
+import BinanceSC from '../../assets/icons/network-icons/BinanceSC';
 const LaunchpadDrops = ({
   image,
   network,
   name,
   launchDate,
   isCategory,
-  category,
+  primaryCategory,
+  secondaryCategory,
 }: ILaunchpadDropsProps) => {
+  const { blockchains } = useStoreState((state) => state.app);
   const [countdown, setCoundown] = useState<string>('');
-
+  const foundNetwork = blockchains.find(
+    (blockchain) => blockchain.id === network
+  );
   const icon =
-    network === 'ETH' ? (
-      <FaEthereum style={{ color: '#1d1d1d', width: '30px', height: '30px' }} />
-    ) : network === 'SMR' ? (
-      <FaBitcoin style={{ color: '#1d1d1d', width: '30px', height: '30px' }} />
+    foundNetwork?.currency_symbol === 'ETH' ? (
+      <Ethereum className={styles.network} />
+    ) : foundNetwork?.currency_symbol === 'SMR' ? (
+      <Shimmer className={styles.network} />
+    ) : foundNetwork?.currency_symbol === 'MATIC' ? (
+      <Polygon className={styles.network} />
     ) : (
-      <SiPrometheus
-        style={{ color: '#1d1d1d', width: '30px', height: '30px' }}
-      />
+      foundNetwork?.currency_symbol === 'BSC' && (
+        <BinanceSC className={styles.network} />
+      )
     );
 
   useEffect(() => {
-    setCoundown(useDateCountdown(launchDate));
-
-    const interval = setInterval(() => {
+    if (launchDate) {
       setCoundown(useDateCountdown(launchDate));
-    }, 1000);
 
-    return () => {
-      clearInterval(interval);
-    };
+      const interval = setInterval(() => {
+        setCoundown(useDateCountdown(launchDate));
+      }, 1000);
+      return () => {
+        clearInterval(interval);
+      };
+    }
   });
 
   return (
-    <div className={classNames('flex-col-center', styles.container)}>
+    <div className={classNames(styles.container)}>
       <div className={styles.image}>
-        <Icon icon={icon} className={styles.network} />
+        {icon && <Icon icon={icon} />}
         <BaseImage imageUrl={image} />
       </div>
       <h2>{name}</h2>
@@ -62,7 +73,12 @@ const LaunchpadDrops = ({
         ) : (
           <p>{countdown}</p>
         ))}
-      {isCategory && <p>{category}</p>}
+      {isCategory && (
+        <div>
+          <p>{primaryCategory}</p>
+          <p>{secondaryCategory}</p>
+        </div>
+      )}
     </div>
   );
 };

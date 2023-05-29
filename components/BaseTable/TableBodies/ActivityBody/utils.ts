@@ -1,8 +1,12 @@
 export function formatAddress(address: string): string {
-  const addressStart = address.slice(0, 4);
-  const addressEnd = address.slice(39, 42);
+  if (address && address.length > 40) {
+    const addressStart = address.slice(0, 4);
+    const addressEnd = address.slice(39, 42);
 
-  return addressStart + '...' + addressEnd;
+    return addressStart + '...' + addressEnd;
+  } else {
+    return address;
+  }
 }
 
 export const formatDate = (date: Date): string => {

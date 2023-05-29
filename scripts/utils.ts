@@ -3,20 +3,8 @@ import { ethers } from 'ethers';
 import { fetchContract } from '../utils';
 import { useRouter } from 'next/router';
 import { create as ipfsClient } from 'ipfs-http-client';
-import { IFormInput } from '../pages/create-nft';
-
-export const isFormValid = (
-  name: string,
-  price: number,
-  description: string,
-  file: File | null
-): boolean => {
-  if (file === null) return false;
-  if (!name.length) return false;
-  if (!description.length) return false;
-  if (price < 0) return false;
-  return true;
-};
+import { INFTGeneralInfo } from '../store/model/nft-mint/nft-mint.types';
+import { toast } from 'react-toastify';
 
 /**
  *
@@ -54,16 +42,11 @@ export const createSale = async (uploadedFileUrl: string, nftPrice: number) => {
 };
 
 export const covertImageToNFT = async (
-  file: File,
-  name: string,
-  price: number,
-  description: string,
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
-  setIsModalVisible: React.Dispatch<React.SetStateAction<string | boolean>>,
-  userName?: string,
-  userAvatar?: string
+  nftGeneralInfo: INFTGeneralInfo,
+  setIsLoading: (loaded: boolean) => void
 ) => {
   try {
+    const { name, price, description, image } = nftGeneralInfo;
     /**
      * Authenticate to Infura
      *
@@ -93,7 +76,7 @@ export const covertImageToNFT = async (
     /**
      * Upload file to Infura
      */
-    const addedImage = await client.add({ content: file });
+    const addedImage = await client.add({ content: image });
 
     /**
      * Upload NFT data to Infura
@@ -104,8 +87,6 @@ export const covertImageToNFT = async (
       description,
       // url of Infura project plus id of uploaded image
       image: `https://${process.env.NEXT_PUBLIC_INFURA_PROJECT_NAME}.infura-ipfs.io/ipfs/${addedImage.path}`,
-      nickname: userName,
-      avatar: userAvatar,
     });
     /**
      * Upload file to Infura
@@ -122,33 +103,22 @@ export const covertImageToNFT = async (
   } catch (err) {
     console.log('Failed to upload NFT to ipfs', err);
     setIsLoading(false);
-    setIsModalVisible(true);
   }
 };
 
 export const submitNewNFT = async (
-  formInput: IFormInput,
-  setIsError: React.Dispatch<React.SetStateAction<string | boolean>>,
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
-  file: File | null
+  nftGeneralInfo: INFTGeneralInfo,
+  setIsLoading: (loaded: boolean) => void
 ) => {
-  const { name, price, description } = formInput;
-
-  if (!isFormValid(name, Number(price), description, file)) {
-    setIsError('Please provide all necessary data to continue');
-  }
-  try {
-    setIsLoading(true);
-    await covertImageToNFT(
-      file as File,
-      name,
-      Number(price),
-      description,
-      setIsLoading,
-      setIsError
-    );
-  } catch {
-    setIsError('Error occurred when submitting a new NFT. Please try again');
-    setIsLoading(false);
-  }
+  //@TODO CLEAR NFT MINT STATE UPON SUCCESS
+  setIsLoading(true);
+  covertImageToNFT(nftGeneralInfo, setIsLoading)
+    .then((response) => {
+      console.log(response);
+      toast.success('NFT Created successfully');
+    })
+    .catch((error) => console.error(error))
+    .finally(() => {
+      setIsLoading(false);
+    });
 };

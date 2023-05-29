@@ -4,7 +4,7 @@ import { useStoreActions } from '../../store';
 export function validateName(name: string): string {
   const [message, setMessage] = useState<string>('');
   const { setGralInfoFormError } = useStoreActions(
-    (actions) => actions.collection
+    (actions) => actions.createCollection
   );
 
   useEffect(() => {
@@ -20,7 +20,7 @@ export function validateName(name: string): string {
 export function validateDescription(description: string): string {
   const [message, setMessage] = useState<string>('');
   const { setGralInfoFormError } = useStoreActions(
-    (actions) => actions.collection
+    (actions) => actions.createCollection
   );
 
   useEffect(() => {
@@ -35,7 +35,7 @@ export function validateDescription(description: string): string {
 export function validateWebsite(website?: string): string {
   const [message, setMessage] = useState<string>('');
   const { setGralInfoFormError } = useStoreActions(
-    (actions) => actions.collection
+    (actions) => actions.createCollection
   );
   const websiteRegex =
     /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-zA-Z0-9]+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,63}(:[0-9]{1,5})?(\/.*)?$/;
@@ -56,7 +56,7 @@ export function validateWebsite(website?: string): string {
 export function validateSymbol(symbol: string): string {
   const symbolRegex = /^[A-Z0-9]{2,10}$/;
   const setFormError = useStoreActions(
-    (actions) => actions.collection.setNetworkInformationError
+    (actions) => actions.createCollection.setNetworkInformationError
   );
   const [message, setMessage] = useState<string>('');
 

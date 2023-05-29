@@ -7,7 +7,16 @@ import { BsPlusCircleFill } from 'react-icons/bs';
 import classNames from 'classnames';
 import { useStoreState } from '../../store';
 
-const Traits = ({ addTrait, traitError, setFormError }: ITraitProps) => {
+const Traits = ({
+  addTrait,
+  traitError,
+  setFormError,
+  leftLabel,
+  rightLabel,
+  leftPlaceholder,
+  rightPlaceholder,
+  isTrait,
+}: ITraitProps) => {
   const { traits } = useStoreState((state) => state.nftMint);
   const [error, setError] = useState<string>('');
   const [formInput, setFormInput] = useState<ITraitForm>({
@@ -38,45 +47,57 @@ const Traits = ({ addTrait, traitError, setFormError }: ITraitProps) => {
 
   return (
     <div className={styles.container}>
-      <Input
-        inputType={'text'}
-        title={'Trait (Optional)'}
-        placeholder={'Add Trait Type'}
-        value={formInput.traitType}
-        handleChange={(e) =>
-          setFormInput({
-            ...formInput,
-            traitType: (e.target as HTMLInputElement).value,
-          })
-        }
-        error={error}
-        id={''}
-      />
-      <div className={styles.value}>
-        <Input
-          inputType={'text'}
-          title={'Value (Optional)'}
-          placeholder={'Add Trait Value'}
-          value={formInput.value}
-          handleChange={(e) =>
-            setFormInput({
-              ...formInput,
-              value: (e.target as HTMLInputElement).value,
-            })
-          }
-          id={''}
-        />
-        <Icon
-          onClick={() =>
-            addTrait({
-              traitType: formInput.traitType,
-              value: formInput.value,
-            })
-          }
-          className={classNames(styles.icon, traitError && styles.error)}
-          icon={<BsPlusCircleFill style={{ width: '30px', height: '30px' }} />}
-        />
+      <div className={styles.upperContainer}>
+        <div className={classNames(styles.trait)}>
+          <Input
+            inputType={'text'}
+            title={leftLabel}
+            placeholder={leftPlaceholder}
+            value={formInput.traitType}
+            handleChange={(e) =>
+              setFormInput({
+                ...formInput,
+                traitType: (e.target as HTMLInputElement).value,
+              })
+            }
+            error={error}
+            id={''}
+          />
+        </div>
+        <div className={styles.value}>
+          <Input
+            inputType={'text'}
+            title={rightLabel}
+            placeholder={rightPlaceholder}
+            value={formInput.value}
+            handleChange={(e) =>
+              setFormInput({
+                ...formInput,
+                value: (e.target as HTMLInputElement).value,
+              })
+            }
+            id={''}
+          />
+        </div>
       </div>
+      {isTrait && (
+        <div
+          className={classNames(styles.addButton, traitError && styles.error)}
+        >
+          <p>Add Trait</p>
+          <Icon
+            onClick={() =>
+              addTrait({
+                traitType: formInput.traitType,
+                value: formInput.value,
+              })
+            }
+            icon={
+              <BsPlusCircleFill style={{ width: '30px', height: '30px' }} />
+            }
+          />
+        </div>
+      )}
     </div>
   );
 };
