@@ -9,6 +9,9 @@ import { useDateCountdown } from './utils';
 import { toast } from 'react-toastify';
 import { useStoreState } from '../../store';
 import Shimmer from '../../assets/icons/network-icons/Shimmer';
+import Ethereum from '../../assets/icons/network-icons/Ethereum';
+import Polygon from '../../assets/icons/network-icons/Polygon';
+import BinanceSC from '../../assets/icons/network-icons/BinanceSC';
 const LaunchpadDrops = ({
   image,
   network,
@@ -27,11 +30,15 @@ const LaunchpadDrops = ({
   );
   const icon =
     foundNetwork?.currency_symbol === 'ETH' ? (
-      <FaEthereum className={styles.network} />
+      <Ethereum className={styles.network} />
     ) : foundNetwork?.currency_symbol === 'SMR' ? (
       <Shimmer className={styles.network} />
+    ) : foundNetwork?.currency_symbol === 'MATIC' ? (
+      <Polygon className={styles.network} />
     ) : (
-      <Shimmer className={styles.network} />
+      foundNetwork?.currency_symbol === 'BSC' && (
+        <BinanceSC className={styles.network} />
+      )
     );
 
   useEffect(() => {
@@ -50,7 +57,7 @@ const LaunchpadDrops = ({
   return (
     <div className={classNames(styles.container)}>
       <div className={styles.image}>
-        <Icon icon={icon} />
+        {icon && <Icon icon={icon} />}
         <BaseImage imageUrl={image} />
       </div>
       <h2>{name}</h2>
