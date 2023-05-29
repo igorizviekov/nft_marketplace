@@ -1,6 +1,6 @@
 interface IButtonProps {
   isPrimary: boolean;
-  onClick: () => void;
+  onClick?: () => void;
   label?: string | JSX.Element | JSX.Element[];
   children?: JSX.Element;
   disabled?: boolean;

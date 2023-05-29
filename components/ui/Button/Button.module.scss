@@ -16,6 +16,7 @@
     border: var(--border-color-hover);
     color: var(--text-color-hover);
     box-shadow: var(--box-shadow-hover);
+
   }
 }
 
@@ -36,6 +37,10 @@
     color: var(--text-color-hover);
     background-color: var(--background-hover);
     box-shadow: var(--box-shadow-hover);
+
+    path {
+      fill: var(--green);
+    }
   }
 }
 

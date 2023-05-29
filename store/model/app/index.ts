@@ -2,6 +2,7 @@ import { action } from 'easy-peasy';
 import { IAppModel } from './app.types';
 
 export const AppModel: IAppModel = {
+  selectedBlockchain: undefined,
   blockchains: [],
   isCollectionsLoading: false,
   collections: [],
@@ -14,6 +15,14 @@ export const AppModel: IAppModel = {
     if (!duplicated) {
       state.blockchains.push(payload);
     }
+  }),
+
+  setSelectedBlockchain: action((state, payload) => {
+    const found = state.blockchains.find(
+      (blockchain) => blockchain.id === payload.id
+    );
+
+    state.selectedBlockchain = found;
   }),
 
   setIsLoading: action((state, payload) => {

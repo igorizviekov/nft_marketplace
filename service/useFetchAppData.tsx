@@ -2,10 +2,10 @@ import axios from 'axios';
 import { useStoreActions, useStoreState } from '../store';
 import { useEffect } from 'react';
 import { IBlockchain } from '../store/model/app/app.types';
+import { ContractFunctionVisibility } from 'hardhat/internal/hardhat-network/stack-traces/model';
 export async function useFetchAppData() {
-  const { setBlockchains, setIsLoading } = useStoreActions(
-    (actions) => actions.app
-  );
+  const { setBlockchains, setIsLoading, setSelectedBlockchain } =
+    useStoreActions((actions) => actions.app);
   const { blockchains } = useStoreState((state) => state.app);
   useEffect(() => {
     if (blockchains.length === 0) {
@@ -16,6 +16,7 @@ export async function useFetchAppData() {
             setBlockchains(blockchain);
             setIsLoading(false);
           });
+          setSelectedBlockchain(response.data.data[0]);
         })
         .catch((error) => console.error(error));
     }

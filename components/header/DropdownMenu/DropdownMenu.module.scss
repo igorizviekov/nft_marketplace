@@ -11,11 +11,11 @@
 
   z-index: 1;
   right: 0;
-  top: 58px;
+  top: 60px;
   
   background-color: var(--background);
 
   padding: var(--spacing-md);
   border-radius: var(--border-radius-sm);
-  border: 1px solid rgba(255, 255, 255, 0.295);
+  border: var(--border-color)
 }

@@ -29,24 +29,23 @@ const DropdownMenu = ({}: IDropdownMenu) => {
 
   useOutsideAlerter(
     ref,
-    () => setMenuOpen(!isMenuOpen),
+    () => setMenuOpen(false),
     () => setMenuOpen(true)
   );
 
   return (
     <>
       {isWalletConnected && (
-        <div className={styles.menu}>
+        <div className={styles.menu} ref={ref}>
           <Button
             isPrimary={false}
             label={walletStart + '...' + walletEnds}
-            onClick={() => setMenuOpen(!isMenuOpen)}
             className={styles.button}
           >
             <Icon icon={<BsChevronDown />} />
           </Button>
           {isMenuOpen && (
-            <div className={styles.container} ref={ref}>
+            <div className={styles.container}>
               <DropdownMenuItem
                 label={walletStart + '...' + walletEnds}
                 icon={<GiEgyptianProfile />}
@@ -56,13 +55,11 @@ const DropdownMenu = ({}: IDropdownMenu) => {
                 label={'My Items'}
                 icon={<FaFolderOpen />}
                 href={'/profile'}
-                onClick={() => setMenuOpen(false)}
               />
               <DropdownMenuItem
                 label={'Settings'}
                 icon={<IoMdSettings />}
                 href={'/edit'}
-                onClick={() => setMenuOpen(false)}
               />
               <DropdownMenuItem
                 label={'Create NFT'}

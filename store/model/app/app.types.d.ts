@@ -1,11 +1,13 @@
 import { Action } from 'easy-peasy';
 
 export interface IAppModel {
+  selectedBlockchain: IBlockchain | undefined;
   blockchains: IBlockchain[];
   isLoading: boolean;
   collections: ICollection[];
   isCollectionsLoading: boolean;
 
+  setSelectedBlockchain: Action<IAppModel, IBlockchain>;
   setBlockchains: Action<IAppModel, IBlockchain>;
   setCollections: Action<IAppModel, ICollection>;
   setIsLoading: Action<IAppModel, boolean>;

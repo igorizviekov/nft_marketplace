@@ -1,11 +1,12 @@
 @use '../../../../styles/mixins' as *;
 
 .dropdownItem {
-  width: 175px;
+  width: auto;
 
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
+  align-items: center;
+  white-space: nowrap;
   gap: var(--spacing-sm);
 
   padding: var(--spacing-xs);
@@ -17,13 +18,11 @@
   cursor: pointer;
 
   @include respond-to(tablet) {
-    width: 200px;
     padding: var(--spacing-sm);
 
   }
 
   @include respond-to(desktop) {
-    width: 300px;
     padding: var(--spacing-md);
 
   }
@@ -33,6 +32,5 @@
     box-shadow: var(--box-shadow-hover);
     background-color: var(--background-hover);
     color: var(--text-color-hover);
-    padding-left: var(--spacing-sm-md);
   }
 }
