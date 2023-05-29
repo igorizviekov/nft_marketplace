@@ -2,7 +2,8 @@ import axios from 'axios';
 import { IProfile } from '../store/model/profile/profile.types';
 
 const useUpdateProfile = (profile: IProfile) => {
-  const id = '5e48f78f-5311-41be-b4a8-5e4d2203d1c6';
+  //@TODO replace id once the method on the api changed
+  const id = 'ee1d1fce-5715-4b91-8668-b6adeb76659d';
   const token = localStorage.getItem('token');
   axios
     .patch(

@@ -5,8 +5,12 @@ import { useAuth } from './useAuth';
 
 const useFetchProfile = () => {
   useAuth();
-  const id = '5e48f78f-5311-41be-b4a8-5e4d2203d1c6';
-  const wallet = '0xA3de3788307a25F76815EddE4776e7C1d25A3684';
+
+  //@TODO replace id once the method on the api changed
+  const id = 'ee1d1fce-5715-4b91-8668-b6adeb76659d';
+
+  const { activeWallet } = useStoreState((state) => state.wallet);
+
   const { updateProfile, updateNFTLogs } = useStoreActions(
     (actions) => actions.profile
   );
@@ -35,7 +39,7 @@ const useFetchProfile = () => {
 
     axios
       .get(
-        `https://nft-api-production-4aa1.up.railway.app/nft-logs/users/${wallet}`
+        `https://nft-api-production-4aa1.up.railway.app/nft-logs/users/${activeWallet}`
       )
       .then((response) => {
         updateNFTLogs(response.data.data);

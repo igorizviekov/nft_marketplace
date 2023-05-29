@@ -23,7 +23,6 @@ export async function useAuth() {
     }
 
     if (status === 401 && activeWallet) {
-      console.log(blockchains);
       axios
         .post('https://nft-api-production-4aa1.up.railway.app/users/signup', {
           wallet: activeWallet,
