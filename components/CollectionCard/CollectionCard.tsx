@@ -21,10 +21,8 @@ const LaunchpadDrops = ({
   primaryCategory,
   secondaryCategory,
 }: ILaunchpadDropsProps) => {
-  const [countdown, setCoundown] = useState<string>('');
-
   const { blockchains } = useStoreState((state) => state.app);
-
+  const [countdown, setCoundown] = useState<string>('');
   const foundNetwork = blockchains.find(
     (blockchain) => blockchain.id === network
   );

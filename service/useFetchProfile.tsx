@@ -11,7 +11,7 @@ const useFetchProfile = () => {
 
   const { activeWallet } = useStoreState((state) => state.wallet);
 
-  const { updateProfile, updateNFTLogs } = useStoreActions(
+  const { updateProfile, updateNFTLogs, updateCollections } = useStoreActions(
     (actions) => actions.profile
   );
 
@@ -21,7 +21,23 @@ const useFetchProfile = () => {
     axios
       .get(`https://nft-api-production-4aa1.up.railway.app/users/${id}`)
       .then((response) => {
-        updateProfile({ ...response.data.data });
+        updateProfile({
+          ...response.data.data,
+        });
+      })
+      .catch((error) => console.error(error));
+
+    axios
+      .get(
+        `https://nft-api-production-4aa1.up.railway.app/collection/user/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        updateCollections(response.data.data);
       })
       .catch((error) => console.error(error));
 

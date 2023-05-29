@@ -1,10 +1,14 @@
 import { Action } from 'easy-peasy';
 import { INFTLog } from '../../../components/BaseTable/TableBodies/ActivityBody/ActivityBody.types';
+import { ICollection } from '../app/app.types';
 
 export interface IProfileModel {
   profile: IProfile;
   nftLogs: INFTLog[];
+  collections: ICollection[];
 
+  updateCollections: Action<IProfileModel, ICollection[]>;
+  
   updateProfile: Action<IProfileModel, IProfile>;
   updateNFTLogs: Action<IProfileModel, INFTLog>;
 }

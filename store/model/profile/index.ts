@@ -13,8 +13,12 @@ export const ProfileModel: IProfileModel = {
     // twitter: '',
     // instagram: '',
   },
+  collections: [],
   nftLogs: [],
 
+  updateCollections: action((state, payload) => {
+    state.collections = payload;
+  }),
   updateProfile: action((state, payload) => {
     state.profile = { ...payload };
   }),

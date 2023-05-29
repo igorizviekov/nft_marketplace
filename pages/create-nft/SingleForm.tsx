@@ -47,11 +47,15 @@ const SingleForm = () => {
     setIsLoading,
   } = useStoreActions((actions) => actions.nftMint);
 
+  const { collections } = useStoreState((state) => state.profile);
+
   const { isCollectionCreated } = useStoreActions(
     (actions) => actions.createCollection
   );
 
-  const OPTIONS = ['Collection 1', 'Collection 2', 'Collection 3'];
+  const OPTIONS = collections.map((collection) => {
+    return collection.name;
+  });
   const [selected, setSelected] = useState<number>(-1);
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
 

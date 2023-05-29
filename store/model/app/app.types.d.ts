@@ -25,6 +25,7 @@ export interface ICollection {
   id: string;
   name: string;
   creator_id: string;
+  symbol: string;
   categoryPrimary: string;
   categorySecondary: string;
   blockchain_id: string;
