@@ -8,7 +8,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import '../styles/style.scss';
 import { Analytics } from '@vercel/analytics/react';
 import React from 'react';
-import Head from 'next/head';
 
 export default function App({ Component, pageProps }: AppProps) {
   type Props = StoreProvider['props'] & { children: React.ReactNode };
@@ -17,13 +16,6 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <React.Fragment>
-      <Head>
-        <title>Phoenix Mint</title>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
-          rel="stylesheet"
-        ></link>
-      </Head>
       <ThemeProvider attribute="class" defaultTheme="system">
         <StoreProviderCasted store={store}>
           <Header />

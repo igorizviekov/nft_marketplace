@@ -11,7 +11,12 @@ export const CreateCollectionModel: ICreateCollectionModel = {
   },
   networkInformation: {
     symbol: '',
-    network: 'ETH',
+    network: {
+      currency_symbol: '',
+      id: '',
+      chain_id: 0,
+      rpc_url: '',
+    },
     categoryPrimary: 'Art',
     categorySecondary: 'Art',
   },
