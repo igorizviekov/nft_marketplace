@@ -3,7 +3,6 @@ import Input from '../ui/Input';
 import { Dropdown } from '../ui/dropdown';
 import { IModalSteps } from './AddCollectionModal.types';
 import { INFTCategories } from '../Filter/Filter.types';
-import { INetwork } from '../NetworkDropdown/NetworkDropdown.types';
 import { Button } from '../ui/Button';
 import { useStoreActions, useStoreState } from '../../store';
 import { validateSymbol } from './utils';
@@ -18,6 +17,7 @@ const NetworkInformation = ({ handleSteps }: IModalSteps) => {
   const { networkInformation, networkInformationError } = useStoreState(
     (state) => state.createCollection
   );
+  const { blockchains } = useStoreState((state) => state.app);
 
   const categories: INFTCategories[] = [
     'Art',
@@ -28,11 +28,13 @@ const NetworkInformation = ({ handleSteps }: IModalSteps) => {
     'Sports',
     'Virtual Worlds',
   ];
-  const networks: INetwork[] = ['ETH', 'POLYGON', 'SMR'];
+
+  const options = blockchains.map((blockchain) => blockchain.currency_symbol);
 
   const handleClick = () => {
     setNetworkInformation({
       ...networkInformation,
+      network: blockchains[chain],
       categoryPrimary: categories[categoryPrimary],
       categorySecondary: categories[categorySecondary],
     });
@@ -69,7 +71,7 @@ const NetworkInformation = ({ handleSteps }: IModalSteps) => {
         heading={'Network'}
         required
         placeholder={'Select a network'}
-        options={networks}
+        options={options}
         checked={chain}
         onChange={setChain}
         openModal={function (): void {

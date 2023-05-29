@@ -17,9 +17,8 @@ import { useStoreState } from '../store';
 import { useFetchNFTs } from '../service/useFetchNFTS';
 export default function Home() {
   const [selected, setSelected] = useState<number | null>(null);
-  const { isCollectionsLoading, collections } = useStoreState(
-    (state) => state.app
-  );
+  const { isCollectionsLoading, collections, selectedBlockchain } =
+    useStoreState((state) => state.app);
   const filterOptions: INFTCategories[] = [
     'Collectibles',
     'PFPS',
@@ -70,10 +69,13 @@ export default function Home() {
       }
     });
 
-  // const nfts = useFetchNFTs();
   useFetchCollections();
 
-  // console.log(nfts);
+  collections.map((collection) => {
+    if (collection.blockchain_id === selectedBlockchain?.id) {
+      console.log(collection);
+    }
+  });
   return (
     <BasePage>
       <HomeHero

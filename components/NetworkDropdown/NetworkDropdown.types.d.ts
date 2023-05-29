@@ -4,5 +4,3 @@ export interface INetworkProps {
   networks: IBlockchain[];
   isLoading: boolean;
 }
-
-export type INetwork = 'ETH' | 'POLYGON' | 'SMR';

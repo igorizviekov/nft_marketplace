@@ -22,7 +22,7 @@ export async function useCreateCollection({
         name: generalInformation.name,
         image:
           'https://d7hftxdivxxvm.cloudfront.net/?height=800&quality=80&resize_to=fit&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2FUh4mcnLwpIp3GqAkpfXRZA%2Fnormalized.jpg&width=800',
-        blockchain_id: 'f09b46f6-5287-4a4a-b36a-c3fac11d963e',
+        blockchain_id: networkInformation.network.id,
         description: generalInformation.description,
         symbol: networkInformation.symbol,
         categoryPrimary: networkInformation.categoryPrimary.toLowerCase(),

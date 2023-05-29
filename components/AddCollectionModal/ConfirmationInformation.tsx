@@ -16,6 +16,7 @@ const ConfirmationInformation = ({ handleModalClose }: IConfirmationModal) => {
   const { isCollectionCreated } = useStoreActions(
     (actions) => actions.createCollection
   );
+
   return (
     <>
       {isCreatingCollection ? (
@@ -34,7 +35,7 @@ const ConfirmationInformation = ({ handleModalClose }: IConfirmationModal) => {
           <div>
             <h2 className={styles.title}>Network information</h2>
             <p>Symbol: {networkInformation.symbol}</p>
-            <p>Network: {networkInformation.network}</p>
+            <p>Network: {networkInformation.network.currency_symbol}</p>
             <p>Primary Category: {networkInformation.categoryPrimary}</p>
             <p>Secondary Category: {networkInformation.categorySecondary}</p>
           </div>

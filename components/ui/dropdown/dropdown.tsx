@@ -2,7 +2,7 @@ import styles from './dropdown.module.scss';
 import { useState } from 'react';
 import { IDropdownProps } from './dropdown.types';
 import Icon from '../Icon/Icon';
-import { BsArrowDown } from 'react-icons/bs';
+import { BsChevronDown } from 'react-icons/bs';
 import { ADD_COLLECTION } from '../../../pages/create-nft/SingleForm';
 
 export function Dropdown({
@@ -61,7 +61,7 @@ export function Dropdown({
       {headingElement}
       <div className={styles.header}>
         <p>{checked !== -1 ? options[checked] : placeholder}</p>
-        <Icon icon={<BsArrowDown />} />
+        <Icon icon={<BsChevronDown />} />
       </div>
       {expanded && <OptionList />}
     </div>

@@ -7,19 +7,16 @@ export const useFetchCollections = () => {
   const { setCollections, setIsCollectionLoading } = useStoreActions(
     (actions) => actions.app
   );
-  const { collections } = useStoreState((state) => state.app);
 
   useEffect(() => {
-    if (collections.length === 0) {
-      axios
-        .get('https://nft-api-production-4aa1.up.railway.app/collection')
-        .then((response) => {
-          response.data.data.map((collection: ICollection) => {
-            setCollections(collection);
-            setIsCollectionLoading(false);
-          });
-        })
-        .catch((error) => console.error(error));
-    }
+    axios
+      .get('https://nft-api-production-4aa1.up.railway.app/collection')
+      .then((response) => {
+        response.data.data.map((collection: ICollection) => {
+          setCollections(collection);
+          setIsCollectionLoading(false);
+        });
+      })
+      .catch((error) => console.error(error));
   }, []);
 };

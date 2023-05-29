@@ -1,6 +1,7 @@
 import { Action } from 'easy-peasy';
 import { INetwork } from '../../../components/NetworkDropdown/NetworkDropdown.types';
 import { INFTCategories } from '../../../components/Filter/Filter.types';
+import { IBlockchain } from '../app/app.types';
 export interface ICreateCollectionModel {
   isCreatingCollection: boolean;
   isCollectionCreated: Action<ICreateCollectionModel, boolean>;
@@ -27,7 +28,7 @@ export interface ICreateCollectionModel {
 
 export interface NetworkInformation {
   symbol: string;
-  network: INetwork;
+  network: IBlockchain;
   categoryPrimary: INFTCategories;
   categorySecondary: INFTCategories;
 }
