@@ -71,11 +71,6 @@ export default function Home() {
 
   useFetchCollections();
 
-  collections.map((collection) => {
-    if (collection.blockchain_id === selectedBlockchain?.id) {
-      console.log(collection);
-    }
-  });
   return (
     <BasePage>
       <HomeHero
