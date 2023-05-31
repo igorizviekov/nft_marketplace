@@ -13,6 +13,7 @@ const NFTPage = () => {
     name: 'Name',
     description: 'description',
     website: 'wenste.com',
+    collection: 'name',
   };
   return (
     <BasePage>
