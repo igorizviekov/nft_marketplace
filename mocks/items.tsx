@@ -1,7 +1,7 @@
 import { BsChevronDown } from 'react-icons/bs';
-import styles from '../../styles/pages/NFTPage.module.scss';
-import Icon from '../../components/ui/Icon/Icon';
-import DescriptionSticker from '../../components/DescriptionSticker/DescriptionSticker';
+import styles from '../styles/pages/NFTPage.module.scss';
+import Icon from '../components/ui/Icon/Icon';
+import DescriptionSticker from '../components/DescriptionSticker/DescriptionSticker';
 
 export const nftData = {
   address: '0xA3de3788307a25F76815EddE4776e7C1d25A3684',
