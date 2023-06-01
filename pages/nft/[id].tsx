@@ -8,8 +8,8 @@ import BaseTable from '../../components/BaseTable/BaseTable';
 import ActivityBody from '../../components/BaseTable/TableBodies/ActivityBody/ActivityBody';
 import { Accordion } from 'react-accordion-ts';
 import 'react-accordion-ts/src/panel.css';
-import { collectionDescription } from './items';
-import { nftData } from './items';
+import { collectionDescription } from '../../mocks/items';
+import { nftData } from '../../mocks/items';
 import { useStoreState } from '../../store';
 import { INFTLog } from '../../store/model/profile/profile.types';
 
