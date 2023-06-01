@@ -51,7 +51,6 @@ const ProfilePage = () => {
   useFetchProfile();
   useFetchNFTLogs(activeWallet);
 
-  console.log(nftLogs, 'logs');
   return (
     <BasePage>
       {profile && isWalletConnected ? (
