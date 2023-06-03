@@ -124,7 +124,7 @@ const SingleCollectionPage = () => {
                             description={nft.description}
                             img={nft.img}
                             price={nft.price}
-                            tokenId={0}
+                            tokenId={'0'}
                             traits={nft.traits}
                           />
                         );
@@ -138,7 +138,7 @@ const SingleCollectionPage = () => {
                             description={nft.description}
                             img={nft.img}
                             price={nft.price}
-                            tokenId={0}
+                            tokenId={'0'}
                             traits={nft.traits}
                           />
                         );

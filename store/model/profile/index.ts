@@ -15,6 +15,7 @@ export const ProfileModel: IProfileModel = {
   },
   collections: [],
   nftLogs: [],
+  ownedNfts: [],
 
   updateCollections: action((state, payload) => {
     state.collections = payload;
@@ -32,5 +33,8 @@ export const ProfileModel: IProfileModel = {
           date: new Date(log.date),
         });
     });
+  }),
+  setOwnedNFTS: action((state, payload) => {
+    state.ownedNfts = payload;
   }),
 };

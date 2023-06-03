@@ -9,7 +9,7 @@ export const CollectionNFTS: INftCardProps[] = [
     description: 'Description of the NFT',
     img: TEST_IMAGE_URL,
     price: 8,
-    tokenId: 12093012,
+    tokenId: '12093012',
     status: 'On Sale',
     traits: [
       { trait_type: 'background', value: 'value 23' },
@@ -35,7 +35,7 @@ export const CollectionNFTS: INftCardProps[] = [
     description: 'Description of the NFT',
     img: TEST_IMAGE_URL,
     price: 8,
-    tokenId: 12093012,
+    tokenId: '12093012',
     status: 'On Sale',
     traits: [
       { trait_type: 'background', value: 'value 13' },
@@ -61,7 +61,7 @@ export const CollectionNFTS: INftCardProps[] = [
     description: 'Description of the NFT',
     img: TEST_IMAGE_URL,
     price: 8,
-    tokenId: 12093012,
+    tokenId: '12093012',
     status: 'On Sale',
     traits: [
       { trait_type: 'background', value: 'value 13' },
@@ -87,7 +87,7 @@ export const CollectionNFTS: INftCardProps[] = [
     description: 'Description of the NFT',
     img: TEST_IMAGE_URL,
     price: 8,
-    tokenId: 12093012,
+    tokenId: '12093012',
     status: 'On Sale',
     traits: [
       { trait_type: 'background', value: 'value 44' },
@@ -113,7 +113,7 @@ export const CollectionNFTS: INftCardProps[] = [
     description: 'Description of the NFT',
     img: TEST_IMAGE_URL,
     price: 8,
-    tokenId: 12093012,
+    tokenId: '12093012',
     status: 'On Sale',
     traits: [
       { trait_type: 'background', value: 'wine red' },
@@ -139,7 +139,7 @@ export const CollectionNFTS: INftCardProps[] = [
     description: 'Description of the NFT',
     img: TEST_IMAGE_URL,
     price: 8,
-    tokenId: 12093012,
+    tokenId: '12093012',
     status: 'On Sale',
     traits: [
       { trait_type: 'background', value: 'wine red' },
@@ -165,7 +165,7 @@ export const CollectionNFTS: INftCardProps[] = [
     description: 'Description of the NFT',
     img: TEST_IMAGE_URL,
     price: 8,
-    tokenId: 12093012,
+    tokenId: '12093012',
     status: 'On Sale',
     traits: [
       { trait_type: 'background', value: 'wine red' },
@@ -191,7 +191,7 @@ export const CollectionNFTS: INftCardProps[] = [
     description: 'Description of the NFT',
     img: TEST_IMAGE_URL,
     price: 8,
-    tokenId: 12093012,
+    tokenId: '12093012',
     status: 'On Sale',
     traits: [
       { trait_type: 'background', value: 'wine red' },

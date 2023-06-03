@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import Icon from '../Icon/Icon';
 import { FaArrowRight, FaEthereum } from 'react-icons/fa';
 import { INftCardProps } from './NFTCard.types';
+import { useRouter } from 'next/router';
 
 export const NftCard = ({
   name,
@@ -14,11 +15,13 @@ export const NftCard = ({
   price,
   seller,
   tokenId,
+  collectionName,
   description,
   nickname,
+  address,
 }: INftCardProps) => {
   const { currency } = useStoreState((state: IStoreModel) => state.wallet);
-
+  const router = useRouter();
   return (
     <div className={styles.card}>
       <div className={styles.image}>
@@ -41,15 +44,18 @@ export const NftCard = ({
             className={styles.collectionName}
             onClick={() => toast.warn('OpenCollection')}
           >
-            {'Collection Name'}
+            {collectionName}
           </p>
         </div>
         <div className={styles.bottom}>
           <div className={styles.price}>
             <Icon icon={<FaEthereum />} />
-            <h2>{Number(price).toFixed(2)}</h2>
+            <h2>{Number(price)}</h2>
           </div>
-          <div className={styles.arrow}>
+          <div
+            className={styles.arrow}
+            onClick={() => router.push(`/nft/${address}`)}
+          >
             <p>View</p>
             <Icon
               icon={<FaArrowRight style={{ width: '14px', height: '14px' }} />}

@@ -1,6 +1,5 @@
 import BasePage from '../components/ui/Base/BasePage/BasePage';
 import PopularCollection from '../components/PopularCollection/PopularCollection';
-import { PopularCollectionsMock } from '../mocks/PopularCollections.mock';
 import styles from '../styles/pages/HomePage.module.scss';
 import { LaunchpadDropsMocks } from '../mocks/LaunchpadDrops.mock';
 import LaunchpadDrops from '../components/CollectionCard/CollectionCard';
@@ -14,7 +13,6 @@ import { useRouter } from 'next/router';
 import NoCollectionCard from '../components/CollectionCard/NoCollectionCard';
 import { useFetchCollections } from '../service/useFetchCollections';
 import { useStoreState } from '../store';
-import { useFetchNFTs } from '../service/useFetchNFTS';
 export default function Home() {
   const [selected, setSelected] = useState<number | null>(null);
   const { isCollectionsLoading, collections, selectedBlockchain } =

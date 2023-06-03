@@ -9,7 +9,7 @@ export const MockNFTS: INftCardProps[] = [
     description: 'Description of the NFT',
     img: TEST_IMAGE_URL,
     price: 8,
-    tokenId: 12093012,
+    tokenId: '12093012',
     status: 'On Sale',
     traits: [
       { trait_type: 'background', value: 'value 44' },
@@ -35,7 +35,7 @@ export const MockNFTS: INftCardProps[] = [
     description: 'Description of the NFT',
     img: TEST_IMAGE_URL,
     price: 11,
-    tokenId: 12093012,
+    tokenId: '12093012',
     status: 'Make Offer',
     traits: [
       { trait_type: 'background', value: 'value 44' },
@@ -61,7 +61,7 @@ export const MockNFTS: INftCardProps[] = [
     description: 'Description of the NFT',
     img: TEST_IMAGE_URL,
     price: 7,
-    tokenId: 12093012,
+    tokenId: '12093012',
     status: 'Bid',
     traits: [
       { trait_type: 'background', value: 'value 44' },
@@ -87,7 +87,7 @@ export const MockNFTS: INftCardProps[] = [
     description: 'Description of the NFT',
     img: TEST_IMAGE_URL,
     price: 6,
-    tokenId: 12093012,
+    tokenId: '12093012',
     status: 'On Sale',
     traits: [
       { trait_type: 'background', value: 'value 44' },
@@ -114,7 +114,7 @@ export const MockNFTS: INftCardProps[] = [
     description: 'Description of the NFT',
     img: TEST_IMAGE_URL,
     price: 5,
-    tokenId: 12093012,
+    tokenId: '12093012',
     status: 'On Sale',
     traits: [
       { trait_type: 'background', value: 'value 44' },
@@ -140,7 +140,7 @@ export const MockNFTS: INftCardProps[] = [
     description: 'Description of the NFT',
     img: TEST_IMAGE_URL,
     price: 65,
-    tokenId: 12093012,
+    tokenId: '12093012',
     status: 'On Sale',
     traits: [
       { trait_type: 'background', value: 'value 44' },
@@ -166,7 +166,7 @@ export const MockNFTS: INftCardProps[] = [
     description: 'Description of the NFT',
     img: TEST_IMAGE_URL,
     price: 32,
-    tokenId: 12093012,
+    tokenId: '12093012',
     status: 'On Sale',
     traits: [
       { trait_type: 'background', value: 'value 44' },
@@ -192,7 +192,7 @@ export const MockNFTS: INftCardProps[] = [
     description: 'Description of the NFT',
     img: TEST_IMAGE_URL,
     price: 12,
-    tokenId: 12093012,
+    tokenId: '12093012',
     status: 'Make Offer',
     traits: [
       { trait_type: 'background', value: 'value 44' },
@@ -218,7 +218,7 @@ export const MockNFTS: INftCardProps[] = [
     description: 'Description of the NFT',
     img: TEST_IMAGE_URL,
     price: 33,
-    tokenId: 12093012,
+    tokenId: '12093012',
     status: 'Bid',
     traits: [
       { trait_type: 'background', value: 'value 44' },
