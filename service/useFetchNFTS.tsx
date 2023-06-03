@@ -1,47 +1,31 @@
-import { ethers } from "ethers";
-import { INftCardProps } from "../components/ui/NFTCard/NFTCard.types";
-import { fetchContract } from "../utils";
-import axios from "axios";
+import axios from 'axios';
+import { useEffect } from 'react';
+import { useStoreActions, useStoreState } from '../store';
+// Alchemy URL
 
-export const useFetchNFTs = async () => {
-  const provider = new ethers.providers.JsonRpcProvider(
-    process.env.NEXT_PUBLIC_ALCHEMY_API_URL
-  );
-  const contract = fetchContract(provider);
-  /**
-   * List of all available NFTs on marketplace.
-   * Filtered by "not sold"
-   */
-  const data = await contract.getActiveCocktails();
+// Make the request and print the formatted response:
+export const useFetchNFTS = (address: string) => {
+  const baseURL = `https://eth-mainnet.g.alchemy.com/v2/Tu8fHYlmkdbQDj9kii-48kis2aqdW2st`;
+  const url = `${baseURL}/getNFTs/?owner=${address}`;
 
-  /**
-   * Map data to the format, which will used on frontend
-   */
-  const items = await Promise.all(
-    data.map(async ({ tokenId, seller, owner, price }: INftCardProps) => {
-      const formattedPrice = ethers.utils.formatUnits(
-        price.toString(),
-        'ether'
-      );
-      const tokenURI: string = await contract.tokenURI(tokenId);
+  const { ownedNfts } = useStoreState((state) => state.profile);
+  const { setOwnedNFTS } = useStoreActions((actions) => actions.profile);
 
-      // get NFT metadata and image
-      const {
-        data: { image, name, description, nickname, avatar },
-      } = await axios.get(tokenURI);
+  useEffect(() => {
+    //Fetch nfts on Ethereum
+    axios
+      .get(url)
+      .then((response) => setOwnedNFTS(response['data']['ownedNfts']))
+      .catch((error) => console.log('error', error));
 
-      return {
-        price: formattedPrice,
-        tokenId: Number(tokenId),
-        img: image,
-        seller,
-        owner,
-        name,
-        description,
-        nickname,
-        avatar,
-      };
-    })
-  );
-  return items;
+    //Fetch nfts on shimmer
+    axios
+      .get(
+        `https://explorer.evm.testnet.shimmer.network/api?module=account&action=tokenlist&address=${address}`
+      )
+      .then((response) =>
+        setOwnedNFTS([...ownedNfts, ...response['data']['result']])
+      )
+      .catch((error) => console.log(error));
+  }, [address]);
 };

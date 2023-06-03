@@ -61,7 +61,7 @@ export const sortNfts = (type: ActiveSelectOption, nfts: INftCardProps[]) => {
       return nfts.sort((a, b) => Number(b.price) - Number(a.price));
       break;
     case 'Recently added':
-      return nfts.sort((a, b) => b.tokenId - a.tokenId);
+      return nfts.sort((a, b) => Number(b.tokenId) - Number(a.tokenId));
       break;
     default:
       return nfts;

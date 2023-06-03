@@ -49,6 +49,7 @@
   justify-content: space-between;
 
   padding: var(--spacing-sm);
+  margin: var(--spacing-xs) 0;
 
   background-color: var(--background-light);
   border-radius: var(--border-radius-xs);
@@ -80,7 +81,7 @@
   cursor: pointer;
   transition: 0.2s ease-in-out;
 
-  .sticker{
-    width: auto ;
+  .sticker {
+    width: auto;
   }
 }

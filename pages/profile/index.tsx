@@ -19,10 +19,14 @@ import { NoNFTCard } from '../../components/ui/NFTCard/NoNFTCard';
 import useFetchNFTLogs from '../../service/useFetchNFTLogs';
 import BaseTable from '../../components/BaseTable/BaseTable';
 import ActivityBody from '../../components/BaseTable/TableBodies/ActivityBody/ActivityBody';
+import { useFetchNFTS } from '../../service/useFetchNFTS';
+import axios from 'axios';
 
 const ProfilePage = () => {
   const router = useRouter();
-  const { profile, nftLogs } = useStoreState((state) => state.profile);
+  const { profile, nftLogs, ownedNfts } = useStoreState(
+    (state) => state.profile
+  );
   const { activeWallet, isWalletConnected } = useStoreState(
     (state) => state.wallet
   );
@@ -30,25 +34,29 @@ const ProfilePage = () => {
   const [isOwnProfile, setIsOwnProfile] = useState<boolean>(true);
   const options = ['My NFTs', 'Listed', 'Created', 'Liked', 'Activity'];
 
-  const foundNFTS = MockNFTS.map((nft, index) => {
-    if (nft.status === options[selectedTab]) {
+  console.log(ownedNfts, 'owned');
+  const foundNFTS =
+    ownedNfts &&
+    ownedNfts.map((nft, index) => {
       return (
         <NftCard
-          key={index + nft.tokenId}
-          name={nft.name}
-          seller={nft.seller}
-          owner={nft.owner}
+          key={index + nft.contract.address}
+          name={nft.title}
+          seller={nft.contract.address}
+          owner={nft.contract.address}
           description={nft.description}
-          img={nft.img}
-          price={nft.price}
-          tokenId={nft.tokenId}
-          traits={nft.traits}
+          collectionName={nft.contractMetadata.openSea.collectionName}
+          img={nft.contractMetadata.openSea.imageUrl}
+          price={nft.contractMetadata.openSea.floorPrice}
+          tokenId={nft.id.tokenId}
+          traits={nft.metadata.attributes}
+          address={nft.id.tokenId}
         />
       );
-    }
-  });
+    });
 
   useFetchProfile();
+  useFetchNFTS(activeWallet);
   useFetchNFTLogs(activeWallet);
 
   return (

@@ -7,8 +7,10 @@ export interface INftCardProps {
   description: string;
   img: StaticImageData | string;
   price: number;
-  tokenId: number;
+  tokenId: string;
   traits: ITraits[];
+  address?: string;
+  collectionName?: string;
   nickname?: string;
   avatar?: string;
   status?: NFTStatus;

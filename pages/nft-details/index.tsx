@@ -74,7 +74,7 @@ const NFTDetails = () => {
           owner: owner as string,
           seller: seller as string,
           description: description as string,
-          tokenId: Number(tokenId),
+          tokenId: tokenId as string,
           price: Number(price),
           nickname: nickname as string,
           traits: nickname as any,
