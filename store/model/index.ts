@@ -7,6 +7,7 @@ import { NFTMintModel } from './nft-mint';
 import { BulkUploadModel } from './bulk-upload';
 import { AppModel } from './app';
 import { SingleCollectionModel } from './single-collection';
+import { NFTViewModel } from './nft-view';
 export const model: IStoreModel = {
   app: AppModel,
   wallet: WalletModel,
@@ -16,4 +17,5 @@ export const model: IStoreModel = {
   nftMint: NFTMintModel,
   bulkUpload: BulkUploadModel,
   singleCollection: SingleCollectionModel,
+  nftView: NFTViewModel,
 };
