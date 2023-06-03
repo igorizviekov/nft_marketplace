@@ -1,4 +1,4 @@
-import { useStoreState } from 'easy-peasy';
+import { useStoreActions, useStoreState } from '../../../store';
 import Image from 'next/image';
 import { IStoreModel } from '../../../store/model/model.types';
 import styles from './NFTCard.module.scss';
@@ -17,11 +17,29 @@ export const NftCard = ({
   tokenId,
   collectionName,
   description,
-  nickname,
   address,
+  traits,
 }: INftCardProps) => {
-  const { currency } = useStoreState((state: IStoreModel) => state.wallet);
+  const { currency } = useStoreState((state) => state.wallet);
+  const { nft } = useStoreState((state) => state.nftView);
+  const { setNFT } = useStoreActions((actions) => actions.nftView);
   const router = useRouter();
+
+  const handleClick = () => {
+    setNFT({
+      name: name,
+      owner: owner,
+      img: img,
+      description: description,
+      tokenId: tokenId,
+      collectionName: collectionName,
+      price: price,
+      seller: seller,
+      traits: traits,
+    });
+
+    router.push(`/nft/${address}`);
+  };
   return (
     <div className={styles.card}>
       <div className={styles.image}>
@@ -52,10 +70,7 @@ export const NftCard = ({
             <Icon icon={<FaEthereum />} />
             <h2>{Number(price)}</h2>
           </div>
-          <div
-            className={styles.arrow}
-            onClick={() => router.push(`/nft/${address}`)}
-          >
+          <div className={styles.arrow} onClick={handleClick}>
             <p>View</p>
             <Icon
               icon={<FaArrowRight style={{ width: '14px', height: '14px' }} />}
