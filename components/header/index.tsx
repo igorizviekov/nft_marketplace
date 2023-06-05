@@ -13,6 +13,7 @@ import { Searchbar } from '../Searchbar/Searchbar';
 import { useFetchAppData } from '../../service/useFetchAppData';
 import NetworkDropdown from '../NetworkDropdown/NetworkDropdown';
 import { useAuth } from '../../service/useAuth';
+import { useStoreRehydrated } from 'easy-peasy';
 
 export const Header = () => {
   const { isWalletConnected, activeWallet } = useStoreState(
@@ -22,6 +23,8 @@ export const Header = () => {
     (actions) => actions.wallet
   );
   const { blockchains, isLoading } = useStoreState((state) => state.app);
+
+  const isRehydrated = useStoreRehydrated();
 
   const connectCryptoWallet = async (mode: ConnectWallet) => {
     if (!window.ethereum) {
@@ -57,31 +60,35 @@ export const Header = () => {
   );
 
   return (
-    <nav className={styles.header}>
-      <Link href="/">
-        <div className={styles.network}>
-          <div className="flex-row-start">
-            <div className={styles.logo}>
-              <BaseImage imageUrl={PhoenixLogo} />
+    <>
+      {isRehydrated && (
+        <nav className={styles.header}>
+          <Link href="/">
+            <div className={styles.network}>
+              <div className="flex-row-start">
+                <div className={styles.logo}>
+                  <BaseImage imageUrl={PhoenixLogo} />
+                </div>
+                <div className={styles.logoText}>
+                  <BaseImage imageUrl={LogoText} className={styles.text} />
+                </div>
+              </div>
             </div>
-            <div className={styles.logoText}>
-              <BaseImage imageUrl={LogoText} className={styles.text} />
-            </div>
+          </Link>
+          <div className={styles.searchBar}>
+            <Searchbar
+              onHandleSearch={() => console.log('should serach')}
+              onClearSearch={() => console.log('clear search')}
+            />
           </div>
-        </div>
-      </Link>
-      <div className={styles.searchBar}>
-        <Searchbar
-          onHandleSearch={() => console.log('should serach')}
-          onClearSearch={() => console.log('clear search')}
-        />
-      </div>
-      <div className={styles.network}>
-        {blockchains && (
-          <NetworkDropdown isLoading={isLoading} networks={blockchains} />
-        )}
-        {actionBtn}
-      </div>
-    </nav>
+          <div className={styles.network}>
+            {blockchains && (
+              <NetworkDropdown isLoading={isLoading} networks={blockchains} />
+            )}
+            {actionBtn}
+          </div>
+        </nav>
+      )}
+    </>
   );
 };

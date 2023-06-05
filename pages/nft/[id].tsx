@@ -15,6 +15,7 @@ import { BsChevronDown } from 'react-icons/bs';
 import DescriptionSticker from '../../components/DescriptionSticker/DescriptionSticker';
 import { refactorAttributeDate } from '../../utils/NFTViewUtils';
 import { formatAddress } from '../../components/BaseTable/TableBodies/ActivityBody/utils';
+import { useStoreRehydrated } from 'easy-peasy';
 
 const NFTPage = () => {
   const mockNFTLogs: INFTLog[] = [
@@ -70,6 +71,7 @@ const NFTPage = () => {
     },
   ];
 
+  const isRehydrated = useStoreRehydrated();
   const { nft } = useStoreState((state) => state.nftView);
 
   const collectionDescription = [
@@ -145,40 +147,44 @@ const NFTPage = () => {
   ];
   return (
     <BasePage>
-      <div className={styles.hero}>
-        <div className={styles.image}>
-          <BaseImage imageUrl={nft?.contractMetadata.openSea.imageUrl} />
-        </div>
-        <div className={classNames(styles.textContainer, 'flex-col-start')}>
-          <h1>{nft?.title}</h1>
-          <BaseLink href={''}>
-            <p>{nft?.description}</p>
-          </BaseLink>
-          <div className={styles.price}>
-            <h2>{nft?.contractMetadata.openSea.floorPrice}</h2>
-          </div>
+      {isRehydrated && (
+        <>
+          <div className={styles.hero}>
+            <div className={styles.image}>
+              <BaseImage imageUrl={nft?.contractMetadata.openSea.imageUrl} />
+            </div>
+            <div className={classNames(styles.textContainer, 'flex-col-start')}>
+              <h1>{nft?.title}</h1>
+              <BaseLink href={''}>
+                <p>{nft?.description}</p>
+              </BaseLink>
+              <div className={styles.price}>
+                <h2>{nft?.contractMetadata.openSea.floorPrice}</h2>
+              </div>
 
-          <div className={styles.wrapper}>
-            <Accordion
-              items={collectionDescription}
-              open={2}
-              duration={200}
-              multiple={true}
-            />
+              <div className={styles.wrapper}>
+                <Accordion
+                  items={collectionDescription}
+                  open={2}
+                  duration={200}
+                  multiple={true}
+                />
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <BaseTable
-        body={<ActivityBody activities={mockNFTLogs} />}
-        header={[
-          'NFT Details',
-          'Transaction',
-          'Seller',
-          'Buyer',
-          'Date',
-          'Total',
-        ]}
-      />
+          <BaseTable
+            body={<ActivityBody activities={mockNFTLogs} />}
+            header={[
+              'NFT Details',
+              'Transaction',
+              'Seller',
+              'Buyer',
+              'Date',
+              'Total',
+            ]}
+          />
+        </>
+      )}
     </BasePage>
   );
 };
