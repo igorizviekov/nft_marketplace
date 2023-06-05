@@ -13,6 +13,8 @@ import { INFTLog } from '../../store/model/profile/profile.types';
 import Icon from '../../components/ui/Icon/Icon';
 import { BsChevronDown } from 'react-icons/bs';
 import DescriptionSticker from '../../components/DescriptionSticker/DescriptionSticker';
+import { refactorAttributeDate } from '../../utils/NFTViewUtils';
+import { formatAddress } from '../../components/BaseTable/TableBodies/ActivityBody/utils';
 
 const NFTPage = () => {
   const mockNFTLogs: INFTLog[] = [
@@ -69,24 +71,18 @@ const NFTPage = () => {
   ];
 
   const { nft } = useStoreState((state) => state.nftView);
-  console.log(nft);
 
   const collectionDescription = [
     {
       title: (
         <div className={styles.title}>
-          <h2>{'About Rusty Robots Country Club'}</h2>
+          <h2>{`About ${nft?.contractMetadata.openSea.collectionName}`}</h2>
           <Icon icon={<BsChevronDown />} />
         </div>
       ),
       content: (
         <div className={styles.filter}>
-          <p>
-            Attention all traders! Phoenix Mint is now live and ready for you to
-            start trading NFTs. Don't miss out on this opportunity to own unique
-            digital assets for a fraction of the cost. Start trading today at
-            unbeatable prices! #NFT #PhoenixMint #CryptoTrading
-          </p>
+          <p>{nft?.contractMetadata.openSea.description}</p>
         </div>
       ),
     },
@@ -100,11 +96,11 @@ const NFTPage = () => {
       content: (
         <div className={styles.filter}>
           {nft &&
-            nft.traits.map((attribute, index) => (
+            nft.metadata.attributes.map((attribute, index) => (
               <DescriptionSticker
                 key={index}
                 title={attribute.trait_type}
-                data={attribute.value}
+                data={refactorAttributeDate(attribute)}
                 type={'PRIMARY'}
                 givenClassName={styles.sticker}
               />
@@ -122,18 +118,26 @@ const NFTPage = () => {
       content: (
         <div className={styles.filter}>
           <div>
-            <p>Contract Address</p>
-            <p>Token ID</p>
+            {nft?.contract.address && (
+              <>
+                <p>Contract Address</p>
+                <p>Token ID</p>
+              </>
+            )}
             <p>Token Standard</p>
             <p>Owner</p>
             <p>Royalty</p>
           </div>
           <div>
-            <p>0x633...144</p>
-            <p>13633 </p>
-            <p>ERC721</p>
-            <p>0x4bb...db7</p>
-            <p>2.5%</p>
+            {nft?.contract.address && (
+              <>
+                <p>{formatAddress(nft?.contract.address)}</p>
+                <p>{formatAddress(nft?.id.tokenId)}</p>
+              </>
+            )}
+            <p>{nft?.id.tokenMetadata.tokenType}</p>
+            <p>{nft?.owner ? nft.owner : 'no-owner'}</p>
+            <p>{nft?.royalty ? nft.royalty : '0'}</p>
           </div>
         </div>
       ),
@@ -143,15 +147,15 @@ const NFTPage = () => {
     <BasePage>
       <div className={styles.hero}>
         <div className={styles.image}>
-          <BaseImage imageUrl={nft.img} />
+          <BaseImage imageUrl={nft?.contractMetadata.openSea.imageUrl} />
         </div>
         <div className={classNames(styles.textContainer, 'flex-col-start')}>
-          <h1>{nft.name}</h1>
+          <h1>{nft?.title}</h1>
           <BaseLink href={''}>
-            <p>{nft.collectionName}</p>
+            <p>{nft?.description}</p>
           </BaseLink>
           <div className={styles.price}>
-            <h2>{nft.price}</h2>
+            <h2>{nft?.contractMetadata.openSea.floorPrice}</h2>
           </div>
 
           <div className={styles.wrapper}>
