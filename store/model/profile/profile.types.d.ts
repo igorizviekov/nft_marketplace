@@ -44,7 +44,6 @@ export interface INFT {
   description: string;
   metadata: {
     attributes: ITraits[];
-    image_url: string;
   };
   timeLastUpdated: string;
   contract: {
@@ -59,5 +58,7 @@ export interface INFT {
     };
     tokenType: string;
   };
-  id: { tokenId: string };
+  id: { tokenId: string; tokenMetadata: { tokenType: string } };
+  royalty?: string;
+  owner?: string;
 }

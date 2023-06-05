@@ -1,7 +1,8 @@
 import { INftCardProps } from '../../../components/ui/NFTCard/NFTCard.types';
 import { Action } from 'easy-peasy';
+import { INFT } from '../profile/profile.types';
 export interface INFTViewModel {
-  nft: INftCardProps;
+  nft: INFT | undefined;
 
-  setNFT: Action<INFTViewModel, INftCardProps>;
+  setNFT: Action<INFTViewModel, INFT>;
 }

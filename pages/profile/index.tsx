@@ -38,27 +38,12 @@ const ProfilePage = () => {
   const foundNFTS =
     ownedNfts &&
     ownedNfts.map((nft, index) => {
-      return (
-        <NftCard
-          key={index + nft.contract.address}
-          name={nft.title}
-          seller={nft.contract.address}
-          owner={nft.contract.address}
-          description={nft.description}
-          collectionName={nft.contractMetadata.openSea.collectionName}
-          img={nft.contractMetadata.openSea.imageUrl}
-          price={nft.contractMetadata.openSea.floorPrice}
-          tokenId={nft.id.tokenId}
-          traits={nft.metadata.attributes}
-          address={nft.id.tokenId}
-        />
-      );
+      return <NftCard nft={nft} key={index + nft.contract.address} />;
     });
 
   useFetchProfile();
   useFetchNFTS(activeWallet);
   useFetchNFTLogs(activeWallet);
-
   return (
     <BasePage>
       {profile && isWalletConnected ? (

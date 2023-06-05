@@ -1,22 +1,11 @@
 import { StaticImageData } from 'next/image';
+import { INFT } from '../../../store/model/profile/profile.types';
 
 export interface INftCardProps {
-  name: string;
-  seller: string;
-  owner: string;
-  description: string;
-  img: StaticImageData | string;
-  price: number;
-  tokenId: string;
-  traits: ITraits[];
-  address?: string;
-  collectionName?: string;
-  nickname?: string;
-  avatar?: string;
-  status?: NFTStatus;
+  nft: INFT | undefined;
 }
 export interface ITraits {
+  display_type: string;
   trait_type: string;
   value: string;
 }
-type NFTStatus = 'On Sale' | 'Bid' | 'Make Offer';
