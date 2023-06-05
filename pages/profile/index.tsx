@@ -5,7 +5,6 @@ import styles from '../../styles/pages/ProfilePage.module.scss';
 import Icon from '../../components/ui/Icon/Icon';
 import { FaDiscord, FaInstagram, FaTwitter } from 'react-icons/fa';
 import { Tabs } from '../../components/ui/Tabs/Tabs';
-import { MockNFTS } from '../../mocks/CreatorPage.mock';
 import { NftCard } from '../../components/ui/NFTCard/NFTCard';
 import BasePage from '../../components/ui/Base/BasePage/BasePage';
 import DescriptionSticker from '../../components/DescriptionSticker/DescriptionSticker';
@@ -21,6 +20,7 @@ import BaseTable from '../../components/BaseTable/BaseTable';
 import ActivityBody from '../../components/BaseTable/TableBodies/ActivityBody/ActivityBody';
 import { useFetchNFTS } from '../../service/useFetchNFTS';
 import axios from 'axios';
+import { useStoreRehydrated } from 'easy-peasy';
 
 const ProfilePage = () => {
   const router = useRouter();
@@ -30,6 +30,9 @@ const ProfilePage = () => {
   const { activeWallet, isWalletConnected } = useStoreState(
     (state) => state.wallet
   );
+
+  const isRehydrated = useStoreRehydrated();
+
   const [selectedTab, setSelectedTab] = useState<number>(0);
   const [isOwnProfile, setIsOwnProfile] = useState<boolean>(true);
   const options = ['My NFTs', 'Listed', 'Created', 'Liked', 'Activity'];
@@ -46,7 +49,7 @@ const ProfilePage = () => {
   useFetchNFTLogs(activeWallet);
   return (
     <BasePage>
-      {profile && isWalletConnected ? (
+      {profile && isWalletConnected && isRehydrated ? (
         <>
           <div className={styles.hero}>
             <div className={styles.imageContainer}>

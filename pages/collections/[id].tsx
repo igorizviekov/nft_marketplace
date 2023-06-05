@@ -20,6 +20,7 @@ import { useFetchSingleCollection } from '../../service/useFetchSingleCollection
 import { Spinner } from '../../components/spinner';
 import BaseLink from '../../components/ui/Base/BaseLink/BaseLink';
 import { Searchbar } from '../../components/Searchbar/Searchbar';
+import { INFT } from '../../store/model/profile/profile.types';
 
 const SingleCollectionPage = () => {
   const router = useRouter();
@@ -29,8 +30,8 @@ const SingleCollectionPage = () => {
   const { collectionData, isLoading } = useStoreState(
     (state) => state.singleCollection
   );
-  function hasTrait(nft: INftCardProps): boolean {
-    const hasFilter = nft.traits?.some((trait) => {
+  function hasTrait(nft: INFT): boolean {
+    const hasFilter = nft.metadata.attributes?.some((trait) => {
       return filters.some(
         (filter) =>
           filter.value === trait.value && filter.trait_type === trait.trait_type
@@ -116,31 +117,11 @@ const SingleCollectionPage = () => {
                     CollectionNFTS.map((nft, index) => {
                       if (hasTrait(nft)) {
                         return (
-                          <NftCard
-                            key={nft.tokenId + index}
-                            name={nft.name}
-                            seller={nft.seller}
-                            owner={nft.owner}
-                            description={nft.description}
-                            img={nft.img}
-                            price={nft.price}
-                            tokenId={'0'}
-                            traits={nft.traits}
-                          />
+                          <NftCard nft={nft} key={index + nft.id.tokenId} />
                         );
                       } else if (filters.length === 0) {
                         return (
-                          <NftCard
-                            key={nft.tokenId + index}
-                            name={nft.name}
-                            seller={nft.seller}
-                            owner={nft.owner}
-                            description={nft.description}
-                            img={nft.img}
-                            price={nft.price}
-                            tokenId={'0'}
-                            traits={nft.traits}
-                          />
+                          <NftCard nft={nft} key={index + nft.id.tokenId} />
                         );
                       }
                     })}
