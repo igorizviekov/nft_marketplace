@@ -17,6 +17,8 @@ const nextConfig = {
       'cryptoslate.com',
       'metadata.ens.domains',
       'i.seadn.io',
+      'res.cloudinary.com',
+      'nft-cdn.alchemy.com',
     ],
   },
 };

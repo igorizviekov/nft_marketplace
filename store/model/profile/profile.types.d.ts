@@ -49,6 +49,14 @@ export interface INFT {
   contract: {
     address: string;
   };
+  media: [
+    {
+      bytes: number;
+      format: string;
+      gateway: string;
+      thumbnail: string;
+    }
+  ];
   contractMetadata: {
     openSea: {
       collectionName: string;

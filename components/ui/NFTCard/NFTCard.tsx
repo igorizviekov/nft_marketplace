@@ -16,19 +16,19 @@ export const NftCard = ({ nft }: INftCardProps) => {
   const handleClick = () => {
     if (nft) setNFT(nft);
 
-    router.push(`/nft/${nft?.id.tokenId}`);
+    router.push(`/nft/${nft?.contract.address}`);
   };
   return (
     <div className={styles.card}>
       <div className={styles.image}>
-        {nft && (
+        {nft?.media[0].gateway && (
           <Image
-            src={nft.contractMetadata.openSea.imageUrl}
+            src={nft?.media[0].gateway}
             alt="nft"
             fill
             sizes="(max-width: 768px) 100vw,
-              (max-width: 1200px) 50vw,
-              33vw"
+            (max-width: 1200px) 50vw,
+            33vw"
             style={{
               objectFit: 'cover',
             }}
@@ -37,18 +37,22 @@ export const NftCard = ({ nft }: INftCardProps) => {
       </div>
       <div className={styles.text}>
         <div className={styles.name}>
-          <h2>{nft?.title}</h2>
+          <h2>
+            {nft?.title
+              ? nft.title
+              : `${nft?.contract.openSea?.collectionName} #${nft?.tokenId}`}
+          </h2>
           <p
             className={styles.collectionName}
             onClick={() => toast.warn('OpenCollection')}
           >
-            {nft?.contractMetadata.openSea.collectionName}
+            {nft?.contract.openSea?.collectionName}
           </p>
         </div>
         <div className={styles.bottom}>
           <div className={styles.price}>
             <Icon icon={<FaEthereum />} />
-            <h2>{nft?.contractMetadata.openSea.floorPrice}</h2>
+            <h2>{nft?.contract.openSea?.floorPrice}</h2>
           </div>
           <div className={styles.arrow} onClick={handleClick}>
             <p>View</p>

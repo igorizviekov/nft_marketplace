@@ -21,17 +21,19 @@ import { Spinner } from '../../components/spinner';
 import BaseLink from '../../components/ui/Base/BaseLink/BaseLink';
 import { Searchbar } from '../../components/Searchbar/Searchbar';
 import { INFT } from '../../store/model/profile/profile.types';
+import { useFetchAlchemyCollection } from '../../service/useFetchAlchemyCollection';
+import { Nft } from 'alchemy-sdk';
 
 const SingleCollectionPage = () => {
   const router = useRouter();
   const { query } = router;
 
   const { filters } = useStoreState((state) => state.filter);
-  const { collectionData, isLoading } = useStoreState(
+  const { collectionData, isLoading, collectionNFTS } = useStoreState(
     (state) => state.singleCollection
   );
-  function hasTrait(nft: INFT): boolean {
-    const hasFilter = nft.metadata.attributes?.some((trait) => {
+  function hasTrait(nft: Nft): boolean | undefined {
+    const hasFilter = nft.rawMetadata?.attributes?.some((trait) => {
       return filters.some(
         (filter) =>
           filter.value === trait.value && filter.trait_type === trait.trait_type
@@ -41,6 +43,8 @@ const SingleCollectionPage = () => {
   }
 
   useFetchSingleCollection(query.uid);
+
+  useFetchAlchemyCollection();
   return (
     <BasePage>
       {collectionData && !isLoading ? (
@@ -113,16 +117,12 @@ const SingleCollectionPage = () => {
                   <FiltersBar />
                 </div>
                 <div className="flex-row-start">
-                  {CollectionNFTS &&
-                    CollectionNFTS.map((nft, index) => {
+                  {collectionNFTS &&
+                    collectionNFTS.map((nft, index) => {
                       if (hasTrait(nft)) {
-                        return (
-                          <NftCard nft={nft} key={index + nft.id.tokenId} />
-                        );
+                        return <NftCard nft={nft} key={index + nft.tokenId} />;
                       } else if (filters.length === 0) {
-                        return (
-                          <NftCard nft={nft} key={index + nft.id.tokenId} />
-                        );
+                        return <NftCard nft={nft} key={index + nft.tokenId} />;
                       }
                     })}
                 </div>

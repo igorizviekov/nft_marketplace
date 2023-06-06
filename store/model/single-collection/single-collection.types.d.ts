@@ -1,9 +1,13 @@
 import { Action } from 'easy-peasy';
+import { INFT } from '../profile/profile.types';
+import { Nft } from 'alchemy-sdk';
 
 export interface ISingleCollectionModel {
   collectionData: ISingleCollection | undefined;
+  collectionNFTS: Nft[] | undefined;
   isLoading: boolean;
 
+  setCollectionNFTS: Action<ISingleCollectionModel, Nft[]>;
   setCollectionData: Action<ISingleCollectionModel, ISingleCollection>;
   setIsLoading: Action<ISingleCollectionModel, boolean>;
 }
