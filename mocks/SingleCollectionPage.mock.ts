@@ -22,6 +22,14 @@ export const CollectionNFTS: INFT[] = [
       },
       tokenType: '',
     },
+    media: [
+      {
+        bytes: 0,
+        format: '',
+        gateway: '',
+        thumbnail: '',
+      },
+    ],
     id: { tokenId: 'asdasdsa', tokenMetadata: { tokenType: '' } },
     royalty: '',
     owner: '',
