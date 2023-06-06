@@ -78,13 +78,13 @@ const NFTPage = () => {
     {
       title: (
         <div className={styles.title}>
-          <h2>{`About ${nft?.contractMetadata.openSea.collectionName}`}</h2>
+          <h2>{`About ${nft?.contract.openSea?.collectionName}`}</h2>
           <Icon icon={<BsChevronDown />} />
         </div>
       ),
       content: (
         <div className={styles.filter}>
-          <p>{nft?.contractMetadata.openSea.description}</p>
+          <p>{nft?.contract.openSea?.description}</p>
         </div>
       ),
     },
@@ -98,7 +98,7 @@ const NFTPage = () => {
       content: (
         <div className={styles.filter}>
           {nft &&
-            nft.metadata.attributes.map((attribute, index) => (
+            nft.rawMetadata?.attributes?.map((attribute, index) => (
               <DescriptionSticker
                 key={index}
                 title={attribute.trait_type}
@@ -134,12 +134,16 @@ const NFTPage = () => {
             {nft?.contract.address && (
               <>
                 <p>{formatAddress(nft?.contract.address)}</p>
-                <p>{formatAddress(nft?.id.tokenId)}</p>
+                <p>{formatAddress(nft?.tokenId)}</p>
               </>
             )}
-            <p>{nft?.id.tokenMetadata.tokenType}</p>
-            <p>{nft?.owner ? nft.owner : 'no-owner'}</p>
-            <p>{nft?.royalty ? nft.royalty : '0'}</p>
+            <p>{nft?.tokenType}</p>
+            <p>
+              {nft?.contract.contractDeployer
+                ? nft.contract.contractDeployer
+                : 'no-owner'}
+            </p>
+            <p>{nft?.description ? nft.description : '0'}</p>
           </div>
         </div>
       ),
@@ -151,15 +155,15 @@ const NFTPage = () => {
         <>
           <div className={styles.hero}>
             <div className={styles.image}>
-              <BaseImage imageUrl={nft?.contractMetadata.openSea.imageUrl} />
+              <BaseImage imageUrl={nft?.media[0].gateway} />
             </div>
             <div className={classNames(styles.textContainer, 'flex-col-start')}>
-              <h1>{nft?.title}</h1>
+              <h1>{`${nft?.contract.openSea?.collectionName} #${nft?.tokenId}`}</h1>
               <BaseLink href={''}>
                 <p>{nft?.description}</p>
               </BaseLink>
               <div className={styles.price}>
-                <h2>{nft?.contractMetadata.openSea.floorPrice}</h2>
+                <h2>{nft?.contract.openSea?.floorPrice}</h2>
               </div>
 
               <div className={styles.wrapper}>

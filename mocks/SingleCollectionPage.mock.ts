@@ -11,7 +11,7 @@ export const CollectionNFTS: INFT[] = [
     },
     timeLastUpdated: 'string',
     contract: {
-      address: '',
+      address: 'asdad',
     },
     contractMetadata: {
       openSea: {
@@ -22,7 +22,7 @@ export const CollectionNFTS: INFT[] = [
       },
       tokenType: '',
     },
-    id: { tokenId: '', tokenMetadata: { tokenType: '' } },
+    id: { tokenId: 'asdasdsa', tokenMetadata: { tokenType: '' } },
     royalty: '',
     owner: '',
   },
