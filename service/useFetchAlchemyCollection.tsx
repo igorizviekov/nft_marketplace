@@ -13,7 +13,7 @@ export const useFetchAlchemyCollection = async () => {
     const address = '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D';
 
     const config = {
-      apiKey: 'Tu8fHYlmkdbQDj9kii-48kis2aqdW2st',
+      apiKey: process.env.NEXT_PUBLIC_ALCHEMY_API_KEY,
       network: Network.ETH_MAINNET,
     };
     const alchemy = new Alchemy(config);
