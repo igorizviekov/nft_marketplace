@@ -9,7 +9,7 @@ export const useFetchNFTS = async (address: string) => {
   const { setOwnedNFTS } = useStoreActions((actions) => actions.profile);
 
   const config = {
-    apiKey: 'Tu8fHYlmkdbQDj9kii-48kis2aqdW2st',
+    apiKey: process.env.NEXT_PUBLIC_ALCHEMY_API_KEY,
     network: Network.ETH_MAINNET,
   };
   const alchemy = new Alchemy(config);
@@ -30,7 +30,7 @@ export const useFetchNFTS = async (address: string) => {
     //Fetch nfts on shimmer
     axios
       .get(
-        `https://explorer.evm.testnet.shimmer.network/api?module=account&action=tokenlist&address=${address}`
+        `${process.env.NEXT_PUBLIC_SHIMMER_NFT_URL}${address}`
       )
       .then((response) =>
         setOwnedNFTS([...ownedNfts, ...response['data']['result']])

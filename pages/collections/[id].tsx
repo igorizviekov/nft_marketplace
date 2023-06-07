@@ -13,13 +13,11 @@ import {
   CollectionTraits,
 } from '../../mocks/SingleCollectionPage.mock';
 import { useStoreState } from '../../store';
-import { INftCardProps } from '../../components/ui/NFTCard/NFTCard.types';
 import { useRouter } from 'next/router';
 import { useFetchSingleCollection } from '../../service/useFetchSingleCollection';
 import { Spinner } from '../../components/spinner';
 import BaseLink from '../../components/ui/Base/BaseLink/BaseLink';
 import { Searchbar } from '../../components/Searchbar/Searchbar';
-import { INFT } from '../../store/model/profile/profile.types';
 import { useFetchAlchemyCollection } from '../../service/useFetchAlchemyCollection';
 import { Nft } from 'alchemy-sdk';
 
