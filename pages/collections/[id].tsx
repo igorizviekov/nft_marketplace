@@ -10,7 +10,6 @@ import { MultipleFilter } from '../../components/MulitpleFilter/MultipleFilter';
 import FiltersBar from '../../components/FiltersBar/FiltersBar';
 import { NftCard } from '../../components/ui/NFTCard/NFTCard';
 import {
-  CollectionNFTS,
   CollectionTraits,
 } from '../../mocks/SingleCollectionPage.mock';
 import { useStoreState } from '../../store';

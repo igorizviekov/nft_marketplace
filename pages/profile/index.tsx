@@ -37,7 +37,6 @@ const ProfilePage = () => {
   const [isOwnProfile, setIsOwnProfile] = useState<boolean>(true);
   const options = ['My NFTs', 'Listed', 'Created', 'Liked', 'Activity'];
 
-  console.log(ownedNfts, 'owned');
   const foundNFTS =
     ownedNfts &&
     ownedNfts.map((nft, index) => {
@@ -47,6 +46,7 @@ const ProfilePage = () => {
   useFetchProfile();
   useFetchNFTS(activeWallet);
   useFetchNFTLogs(activeWallet);
+
   return (
     <BasePage>
       {profile && isWalletConnected && isRehydrated ? (

@@ -2,40 +2,6 @@ import { TEST_IMAGE_URL } from '../components/ui/Base/BaseImage/BaseImage';
 import { INftCardProps } from '../components/ui/NFTCard/NFTCard.types';
 import { INFT } from '../store/model/profile/profile.types';
 
-export const CollectionNFTS: INFT[] = [
-  {
-    title: 'string',
-    description: 'string',
-    metadata: {
-      attributes: [],
-    },
-    timeLastUpdated: 'string',
-    contract: {
-      address: 'asdad',
-    },
-    contractMetadata: {
-      openSea: {
-        collectionName: 'string',
-        description: 'string',
-        floorPrice: 0,
-        imageUrl: '',
-      },
-      tokenType: '',
-    },
-    media: [
-      {
-        bytes: 0,
-        format: '',
-        gateway: '',
-        thumbnail: '',
-      },
-    ],
-    id: { tokenId: 'asdasdsa', tokenMetadata: { tokenType: '' } },
-    royalty: '',
-    owner: '',
-  },
-];
-
 export interface ICollectionTraits {
   traits: ICollectionTrait[];
 }

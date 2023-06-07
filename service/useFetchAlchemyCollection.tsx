@@ -18,19 +18,9 @@ export const useFetchAlchemyCollection = async () => {
     };
     const alchemy = new Alchemy(config);
 
-    const omitMetadata = false;
+    const { nfts } = await alchemy.nft.getNftsForContract(address);
 
-    const { nfts } = await alchemy.nft.getNftsForContract(address, {
-      omitMetadata: omitMetadata,
-    });
-
-    let i = 1;
-
-    setCollectionNFTS(nfts)
-    for (let nft of nfts) {
-      console.log(`${i}. ${JSON.stringify(nft, null, 2)}`);
-      i++;
-    }
+    setCollectionNFTS(nfts);
   } catch (error) {
     console.error(error);
   }
