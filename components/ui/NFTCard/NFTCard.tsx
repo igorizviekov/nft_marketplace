@@ -23,7 +23,7 @@ export const NftCard = ({ nft }: INftCardProps) => {
       <div className={styles.image}>
         {nft?.media[0].gateway && (
           <Image
-            src={nft?.media[0].gateway}
+            src={nft?.media[0].thumbnail as string}
             alt="nft"
             fill
             sizes="(max-width: 768px) 100vw,

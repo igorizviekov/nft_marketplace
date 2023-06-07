@@ -1,22 +1,31 @@
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useStoreActions, useStoreState } from '../store';
-// Alchemy URL
+import { Alchemy, Network } from 'alchemy-sdk';
 
 // Make the request and print the formatted response:
-export const useFetchNFTS = (address: string) => {
-  const baseURL = `https://eth-mainnet.g.alchemy.com/v2/Tu8fHYlmkdbQDj9kii-48kis2aqdW2st`;
-  const url = `${baseURL}/getNFTs/?owner=${address}`;
-
+export const useFetchNFTS = async (address: string) => {
   const { ownedNfts } = useStoreState((state) => state.profile);
   const { setOwnedNFTS } = useStoreActions((actions) => actions.profile);
 
+  const config = {
+    apiKey: 'Tu8fHYlmkdbQDj9kii-48kis2aqdW2st',
+    network: Network.ETH_MAINNET,
+  };
+  const alchemy = new Alchemy(config);
   useEffect(() => {
-    //Fetch nfts on Ethereum
-    axios
-      .get(url)
-      .then((response) => setOwnedNFTS(response['data']['ownedNfts']))
-      .catch((error) => console.log('error', error));
+    const fetchNFTS = async () => {
+      const nfts = await alchemy.nft.getNftsForOwner(address);
+
+      console.log(nfts.ownedNfts, 'nftsss');
+      setOwnedNFTS(nfts.ownedNfts)
+    };
+
+    try {
+      fetchNFTS();
+    } catch (error) {
+      console.error(error);
+    }
 
     //Fetch nfts on shimmer
     axios

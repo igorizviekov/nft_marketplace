@@ -2,11 +2,12 @@ import { Action } from 'easy-peasy';
 import { INFTLog } from '../../../components/BaseTable/TableBodies/ActivityBody/ActivityBody.types';
 import { ICollection } from '../app/app.types';
 import { ITraits } from '../../../components/ui/NFTCard/NFTCard.types';
+import { Nft, OwnedNft } from 'alchemy-sdk';
 
 export interface IProfileModel {
   profile: IProfile;
   nftLogs: INFTLog[];
-  ownedNfts: INFT[];
+  ownedNfts: OwnedNft[];
   collections: ICollection[];
 
   updateCollections: Action<IProfileModel, ICollection[]>;
@@ -14,7 +15,7 @@ export interface IProfileModel {
   updateProfile: Action<IProfileModel, IProfile>;
   updateNFTLogs: Action<IProfileModel, INFTLog>;
 
-  setOwnedNFTS: Action<IProfileModel, INFT[]>;
+  setOwnedNFTS: Action<IProfileModel, OwnedNft[]>;
 }
 
 export interface IProfile {
@@ -39,7 +40,7 @@ export interface INFTLog {
   date: Date;
   token_value: number;
 }
-export interface INFT {
+export interface INFT extends Nft {
   title: string;
   description: string;
   metadata: {
