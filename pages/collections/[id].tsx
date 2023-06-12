@@ -40,8 +40,8 @@ const SingleCollectionPage = () => {
   }
 
   useFetchSingleCollection(query.uid);
-
   useFetchAlchemyCollection();
+
   return (
     <BasePage>
       {collectionData && !isLoading ? (

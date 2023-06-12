@@ -22,7 +22,10 @@ export const SingleCollectionModel: ISingleCollectionModel = {
   }),
 
   setCollectionNFTS: action((state, payload) => {
-    if (state.collectionNFTS?.length === undefined) {
+    if (
+      state.collectionNFTS?.length === 0 ||
+      state.collectionNFTS === undefined
+    ) {
       state.collectionNFTS = payload;
     }
   }),
