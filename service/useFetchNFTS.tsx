@@ -4,7 +4,7 @@ import { useStoreActions, useStoreState } from '../store';
 import { Alchemy, Network } from 'alchemy-sdk';
 
 // Make the request and print the formatted response:
-export const useFetchNFTS = async (address: string) => {
+export const useFetchNFTS = (address: string) => {
   const { ownedNfts } = useStoreState((state) => state.profile);
   const { setOwnedNFTS } = useStoreActions((actions) => actions.profile);
 
@@ -16,9 +16,7 @@ export const useFetchNFTS = async (address: string) => {
   useEffect(() => {
     const fetchNFTS = async () => {
       const nfts = await alchemy.nft.getNftsForOwner(address);
-
-      console.log(nfts.ownedNfts, 'nftsss');
-      setOwnedNFTS(nfts.ownedNfts)
+      setOwnedNFTS(nfts.ownedNfts);
     };
 
     try {
@@ -29,9 +27,7 @@ export const useFetchNFTS = async (address: string) => {
 
     //Fetch nfts on shimmer
     axios
-      .get(
-        `${process.env.NEXT_PUBLIC_SHIMMER_NFT_URL}${address}`
-      )
+      .get(`${process.env.NEXT_PUBLIC_SHIMMER_NFT_URL}${address}`)
       .then((response) =>
         setOwnedNFTS([...ownedNfts, ...response['data']['result']])
       )
