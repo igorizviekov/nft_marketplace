@@ -8,12 +8,14 @@ import ProfileImageUpload from '../../components/ProfileImageUpload/ProfileImage
 import useUpdateProfile from '../../service/useUpdateProfile';
 import { useRouter } from 'next/router';
 import { Spinner } from '../../components/spinner';
+import { useStoreRehydrated } from 'easy-peasy';
 const EditProfile = () => {
   const [file, setFile] = useState<File | null>(null);
   const { updateProfile } = useStoreActions((actions) => actions.profile);
   const { profile } = useStoreState((state) => state.profile);
   const { isWalletConnected } = useStoreState((state) => state.wallet);
   const router = useRouter();
+  const isRehydrated = useStoreRehydrated();
 
   const handleChange = (e: React.ChangeEvent<Element>) => {
     updateProfile({
@@ -23,7 +25,7 @@ const EditProfile = () => {
   };
   return (
     <BasePage>
-      {isWalletConnected ? (
+      {isWalletConnected && isRehydrated ? (
         <div className={styles.page}>
           <div className={styles.image}>
             {/* {profile.image && <BaseImage />} */}
@@ -128,7 +130,7 @@ const EditProfile = () => {
             <Button
               isPrimary={false}
               label={'Save Settings'}
-              onClick={() => useUpdateProfile(profile)}
+              onClick={() => useUpdateProfile(profile, file)}
             />
           </div>
         </div>

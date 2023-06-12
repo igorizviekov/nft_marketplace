@@ -3,7 +3,7 @@ import { INFTLog, IProfileModel } from './profile.types';
 
 export const ProfileModel: IProfileModel = {
   profile: {
-    // image: '',
+    image: '',
     name: '',
     // description: '',
     email: '',

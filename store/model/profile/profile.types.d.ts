@@ -19,13 +19,13 @@ export interface IProfileModel {
 }
 
 export interface IProfile {
+  image?: string;
   name?: string;
   email?: string;
   location?: string;
   website?: string;
   discord?: string;
   // description?: string;
-  // image?: string;
   // twitter?: string;
   // instagram?: string;
 }
