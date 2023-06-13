@@ -1,0 +1,75 @@
+.icon {
+  border-radius: 50px;
+
+  width: 15px;
+  height: 15px;
+
+  transform: scale(1.5);
+  transition: 0.2s ease-in-out;
+
+  path {
+    transition: 0.2s ease-in-out;
+
+    fill: var(--accent);
+  }
+
+
+
+}
+
+.selected {
+  width: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: var(--spacing-md);
+}
+
+.container {
+
+  position: relative;
+
+  width: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: var(--spacing-md);
+  border-radius: 100px;
+
+  transition: 0.2s ease-in-out;
+  cursor: pointer;
+
+
+}
+
+.menuItems {
+  position: absolute;
+
+  width: 150px;
+  z-index: 1;
+  right: 0;
+  top: 60px;
+
+  background-color: var(--background);
+
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  border: var(--border-color);
+
+
+  .networkItem {
+    padding: var(--spacing-md);
+
+    &:hover {
+      .icon {
+        box-shadow: var(--box-shadow-hover);
+  
+        path {
+          fill: var(--green);
+        }
+      }
+    }
+  }
+}

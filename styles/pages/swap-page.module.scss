@@ -1,0 +1,138 @@
+.container {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  width: 80vw;
+  margin: 2rem;
+  height: 5px;
+  background-color: grey;
+
+  .progress0 {
+    position: absolute;
+    width: 0%;
+    height: 5px;
+
+    background-color: green;
+    transition: 1s;
+  }
+
+  .progress33 {
+    position: absolute;
+    width: 33%;
+    height: 5px;
+
+    background-color: green;
+  }
+
+  .progress67 {
+    position: absolute;
+    width: 67%;
+    height: 5px;
+
+    background-color: green;
+    transition: 1s;
+
+  }
+
+  .progress100 {
+    position: absolute;
+    width: 100%;
+    height: 5px;
+
+    background-color: green;
+
+  }
+
+  .walletAddress {
+    position: absolute;
+    left: 0;
+
+    width: 20px;
+    height: 20px;
+
+    background-color: green;
+    border-radius: 50%;
+
+    .text {
+      position: absolute;
+      bottom: -20px;
+      left: -75px;
+
+      width: 150px;
+    }
+  }
+
+  .enterNFTS {
+    position: absolute;
+    left: 33%;
+
+    width: 20px;
+    height: 20px;
+
+    background-color: green;
+    border-radius: 50%;
+
+    .text {
+      position: absolute;
+      bottom: -20px;
+      left: -75px;
+
+      width: 200px;
+    }
+
+  }
+
+  .confirmSwap {
+    position: absolute;
+    left: 67%;
+
+    width: 20px;
+    height: 20px;
+
+    background-color: green;
+    border-radius: 50%;
+
+    .text {
+      position: absolute;
+      bottom: -20px;
+      left: -75px;
+
+      width: 200px;
+    }
+
+  }
+
+  .confirmedSwap {
+    position: absolute;
+    right: 0;
+
+    width: 20px;
+    height: 20px;
+
+    background-color: green;
+    border-radius: 50%;
+
+    .text {
+      position: absolute;
+      bottom: -20px;
+      left: -75px;
+      width: 150px;
+    }
+
+  }
+}
+
+.swapSubPage {
+  display: flex;
+  flex-direction: column;
+
+  padding-top: 12rem;
+  gap: 2rem;
+
+  justify-content: center;
+  align-items: center;
+
+  height: 70vh;
+
+}

@@ -1,30 +1,52 @@
 .file-preview {
-  @apply bg-white  shadow-md sm:flex-col sm:py-12 sm:px-2;
   width: 100%;
-  min-height: 50vh;
-  box-sizing: border-box;
+  height: 100%;
+
+  position: relative;
+  padding: var(--spacing-md);
+
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  gap: 40px;
   align-items: center;
-  border-radius: 4px;
+  gap: 40px;
+
+  border: var(--border-color-dashed);
+  border-radius: var(--border-radius-sm);
+
+  cursor: pointer;
+
+  &:hover {
+    border: var(--border-color-dashed-hover);
+  }
+
   &__thumb {
-    max-height: 100%;
-    max-width: 300px;
-    border-radius: 10px;
+    max-height: 320px;
+    max-width: 320px;
   }
 
   &__controls {
-    height: 100%;
-    display: flex;
-    flex-flow: column;
-    gap: 15px;
-    justify-content: space-around;
+    width: 100%;
 
-    &__file-name {
-      max-width: 160px;
-      text-overflow: ellipsis;
-      overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    gap: 15px;
+  }
+
+  .icon {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+
+    color: var(--green);
+
+    transition: 0.2s ease-in-out;
+
+    &:hover {
+      color: var(--yellow);
     }
+
   }
 }

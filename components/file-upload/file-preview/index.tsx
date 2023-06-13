@@ -1,6 +1,8 @@
 import styles from './file-preview.module.scss';
 import { IFilePreviewProps } from './file-preview.types';
 import { Button } from '../../ui/Button';
+import Icon from '../../ui/Icon/Icon';
+import { TiDelete } from 'react-icons/ti';
 
 export const FilePreview = ({
   file,
@@ -10,7 +12,12 @@ export const FilePreview = ({
   const thumb = URL.createObjectURL(file);
 
   return (
-    <div className={[styles['file-preview'], 'dark:bg-nft-black-3'].join(' ')}>
+    <div className={[styles['file-preview']].join(' ')}>
+      <Icon
+        icon={<TiDelete style={{ width: '40px', height: '40px' }} />}
+        className={styles.icon}
+        onClick={onDelete}
+      />
       <img
         src={thumb}
         alt={file.name}
@@ -19,13 +26,7 @@ export const FilePreview = ({
         className={styles['file-preview__thumb']}
       />
       <div className={styles['file-preview__controls']}>
-        <div className={styles['file-preview__controls__file-name']}>
-          <p className="font-poppins  text-nft-black-1 font-semibold text-lg mb-1">
-            {file.name}
-          </p>
-        </div>
-        <Button label="Replace" onClick={onReplace} isPrimary />
-        <Button label="Delete" onClick={onDelete} isPrimary={false} />
+        <Button label="Replace" onClick={onReplace} isPrimary={false} />
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import { NextPage } from 'next';
 import { fetchContract } from '../../utils';
-import { INftCardProps, NftCard } from '../../components/ui/nft-card';
+import { NftCard } from '../../components/ui/NFTCard/NFTCard';
+import { INftCardProps } from '../../components/ui/NFTCard/NFTCard.types';
 import { useEffect, useState } from 'react';
 import { useStoreRehydrated } from 'easy-peasy';
 import { ethers } from 'ethers';
@@ -8,8 +9,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import nftGuy from '../../assets/icons/my-nfts.json';
 import Lottie from 'lottie-react';
-import { useStoreState } from 'easy-peasy';
-import { IStoreModel } from '../../store/model/model.types';
+import { useStoreState } from '../../store';
 import { Button } from '../../components/ui/Button';
 import { useRouter } from 'next/router';
 import Web3Modal from 'web3modal';
@@ -19,8 +19,7 @@ const MyNFTs: NextPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isError, setIsError] = useState<boolean | string>(false);
 
-  const { activeWallet } = useStoreState((state: IStoreModel) => state.wallet);
-  const userState = useStoreState((state: IStoreModel) => state.user);
+  const { activeWallet } = useStoreState((state) => state.wallet);
   const isRehydrated = useStoreRehydrated();
   const router = useRouter();
 
@@ -38,49 +37,49 @@ const MyNFTs: NextPage = () => {
     /**
      * Map data to the format, which will used on frontend
      */
-    const items = await Promise.all(
-      data.map(async ({ tokenId, seller, owner, price }: INftCardProps) => {
-        const formattedPrice = ethers.utils.formatUnits(
-          price.toString(),
-          'ether'
-        );
-        const tokenURI: string = await contract.tokenURI(tokenId);
+    // const items = await Promise.all(
+    //   data.map(async ({ tokenId, seller, owner, price }: INftCardProps) => {
+    //     const formattedPrice = ethers.utils.formatUnits(
+    //       price.toString(),
+    //       'ether'
+    //     );
+    //     const tokenURI: string = await contract.tokenURI(tokenId);
 
-        // get NFT metadata and image
-        const {
-          data: { image, name, description },
-        } = await axios.get(tokenURI);
+    //     // get NFT metadata and image
+    //     const {
+    //       data: { image, name, description },
+    //     } = await axios.get(tokenURI);
 
-        return {
-          price: formattedPrice,
-          tokenId: Number(tokenId),
-          img: image,
-          seller,
-          owner,
-          name,
-          description,
-        };
-      })
-    );
-    return items;
+    //     return {
+    //       price: formattedPrice,
+    //       tokenId: Number(tokenId),
+    //       img: image,
+    //       seller,
+    //       owner,
+    //       name,
+    //       description,
+    //     };
+    //   })
+    // );
+    // return items;
   };
 
-  useEffect(() => {
-    fetchMyNFTs()
-      .then((items) => {
-        if (items?.length) {
-          setNfts(items);
-        }
-        setIsLoading(false);
-      })
-      .catch((e) => {
-        console.log('failed to fetch NFT', e);
-        setIsError(
-          'Failed to fetch. Please ensure your wallet is connected to the Polygon network.'
-        );
-        setIsLoading(false);
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetchMyNFTs()
+  //     .then((items) => {
+  //       if (items?.length) {
+  //         setNfts(items);
+  //       }
+  //       setIsLoading(false);
+  //     })
+  //     .catch((e) => {
+  //       console.log('failed to fetch NFT', e);
+  //       setIsError(
+  //         'Failed to fetch. Please ensure your wallet is connected to the Polygon network.'
+  //       );
+  //       setIsLoading(false);
+  //     });
+  // }, []);
 
   useEffect(() => {
     if (isError) {
@@ -101,22 +100,21 @@ const MyNFTs: NextPage = () => {
             onClick={() => {
               router.push('/');
             }}
-            classStyles="w-100"
           />
         </div>
       </>
     ) : (
       <div className="sm:px-4 p-12 w-full minmd:w-4/5 flexCenter flex-col">
         <div className="mt-3 w-full flex flex-wrap">
-          {nfts.map((nft) => (
-            <NftCard key={nft.tokenId} {...nft} />
-          ))}
+          {/* {nfts.map((nft) => (
+            // <NftCard key={nft.tokenId} {...nft} />
+          ))} */}
         </div>
       </div>
     );
 
   const nickname =
-    (isRehydrated && userState?.name) ||
+    isRehydrated ||
     `${activeWallet?.slice(0, 3)}...${activeWallet?.slice(
       activeWallet?.length - 5
     )}`;

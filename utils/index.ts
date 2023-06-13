@@ -1,9 +1,8 @@
 import { ethers } from 'ethers';
 import { JsonRpcProvider, JsonRpcSigner } from '@ethersproject/providers';
 import { MarketAddress, MarketAddressABI } from '../context/constants';
-import { INftCardProps } from '../components/ui/nft-card';
-import { ITopCreator } from '../components/top-sellers/top-sellers.types';
-import { ActiveSelectOption } from '../components/search-filter/search-filter.types';
+import { INftCardProps } from '../components/ui/NFTCard/NFTCard.types';
+import { ActiveSelectOption } from '../components/SortBy/SortBy.types';
 
 export const randomId = (length: number): string => {
   let res = '';
@@ -26,9 +25,13 @@ interface IConnectWallet {
 export const connectWallet = async (
   mode: ConnectWallet
 ): Promise<IConnectWallet> => {
-  const accounts = await window.ethereum.request({
-    method: mode === 'silent' ? 'eth_accounts' : 'eth_requestAccounts',
-  });
+  const accounts = await window.ethereum
+    .request({
+      method: mode === 'silent' ? 'eth_accounts' : 'eth_requestAccounts',
+    })
+    .then((result: Response) => {
+      return result;
+    });
 
   if (accounts.length) {
     return {
@@ -49,40 +52,16 @@ export const connectWallet = async (
 export const fetchContract = (signer: JsonRpcSigner | JsonRpcProvider) =>
   new ethers.Contract(MarketAddress, MarketAddressABI, signer);
 
-export const getTopCreators = (nfts: INftCardProps[]) =>
-  nfts
-    .reduce((creators, currentNFT) => {
-      const index = (creators as ITopCreator[]).findIndex(
-        (creator) => creator.seller === currentNFT.seller
-      );
-      if (index > -1) {
-        (creators as ITopCreator[])[index].sum += Number(currentNFT.price);
-        if (currentNFT.avatar) {
-          (creators as ITopCreator[])[index].avatar = currentNFT?.avatar;
-        }
-      } else {
-        (creators as ITopCreator[]).push({
-          seller: currentNFT.seller,
-          sum: Number(currentNFT.price),
-          avatar: currentNFT?.avatar,
-          nickname: currentNFT?.nickname,
-        });
-      }
-      return creators;
-    }, [])
-    .sort((a, b) => (b as ITopCreator).sum - (a as ITopCreator).sum)
-    .slice(0, 10);
-
 export const sortNfts = (type: ActiveSelectOption, nfts: INftCardProps[]) => {
   switch (type) {
     case 'Price (low to high)':
-      return nfts.sort((a, b) => Number(a.price) - Number(b.price));
+      // return nfts.sort((a, b) => Number(a.price) - Number(b.price));
       break;
     case 'Price (high to low)':
-      return nfts.sort((a, b) => Number(b.price) - Number(a.price));
+      // return nfts.sort((a, b) => Number(b.price) - Number(a.price));
       break;
     case 'Recently added':
-      return nfts.sort((a, b) => b.tokenId - a.tokenId);
+      // return nfts.sort((a, b) => Number(b.tokenId) - Number(a.tokenId));
       break;
     default:
       return nfts;

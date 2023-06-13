@@ -1,27 +1,51 @@
+@use '../../styles/mixins' as *;
+
 .header {
-  @apply w-full fixed  p-4 flex-row shadow-toBottom bg-white z-50;
-  &__link {
-    @apply flex flex-1 flex-row justify-start relative;
-    &__logo {
-      @apply cursor-pointer animate-fadeIn;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background-color: var(--background);
+
+  .logo {
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    transition: ease-in-out;
+  }
+
+  .logoText {
+    width: 150px;
+    height: 50px;
+
+    .text {
+      object-fit: contain;
     }
   }
-  &__theme {
-    @apply flex flex-initial flex-row justify-center  animate-fadeIn;
-    &__toggle {
-      @apply flex items-center mr-2;
-      &__label {
-        @apply w-9 h-5 bg-black rounded-2xl p-1 relative cursor-pointer;
-        &__ball {
-          @apply w-4 h-4 absolute bg-white rounded-full;
-        }
-      }
-    }
+
+  .network {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 435px;
   }
-  &__menu-items {
-    @apply sm:hidden flex gap-12;
-    &__list {
-      @apply list-none flex-row;
+
+  .searchBar {
+    width: 100%;
+
+    @include respond-to(mob-landscape) {
+      width: 400px;
+    }
+
+    @include respond-to(desktop) {
+      width: 600px;
+
     }
   }
 }

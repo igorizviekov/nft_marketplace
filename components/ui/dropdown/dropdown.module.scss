@@ -1,0 +1,122 @@
+$border: 1px;
+
+.dropdown {
+  width: 100%;
+
+  margin-top: var(--spacing-md);
+  position: relative;
+
+  &:hover {
+
+    .header {
+      border: var(--border-color-hover);
+      transition: 0.2s ease-in-out;
+
+      .placeholder {
+        color: var(--accent);
+        transition: 0.2s ease-in-out;
+
+      }
+    }
+
+  }
+
+  &:focus-within {
+
+    .header {
+      border: var(--border-color-green);
+
+      .placeholder {
+        color: var(--accent);
+        transition: 0.2s ease-in-out;
+      }
+    }
+
+    .options {
+      top: none;
+      border-left: var(--border-color-green);
+      border-right: var(--border-color-green);
+      border-bottom: var(--border-color-green);
+    }
+  }
+
+  .heading {
+    display: block;
+
+    background-color: var(--background);
+    padding: var(--spacing-xs);
+    position: absolute;
+    left: var(--spacing-sm);
+    top: -18px;
+    transition: 0.2s ease-in-out;
+
+  }
+
+  .header {
+    height: var(--spacing-xl);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: 0.2s ease-in-out;
+
+    background-color: var(--background);
+    padding: var(--spacing-md);
+
+    border-radius: var(--border-radius-sm);
+    border: var(--border-color);
+
+    cursor: pointer;
+  }
+
+  .placeholder {
+    color: rgb(154, 154, 154);
+  }
+
+  .options {
+    position: absolute;
+    width: 100%;
+    padding: 0;
+    z-index: 2;
+    background-color: var(--background);
+
+    border: 1px solid white;
+    border-top: none;
+    border-bottom-left-radius: var(--border-radius-sm);
+    border-bottom-right-radius: var(--border-radius-sm);
+    margin-top: 0;
+
+    cursor: pointer;
+
+    .item {
+      padding: 0.75rem 1rem;
+      display: block;
+      transition: 0.2s ease-in-out;
+
+      border-radius: var(--border-radius-sm);
+
+      &:hover {
+        background-color: var(--background-hover);
+      }
+    }
+  }
+
+  .open {
+    .header {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+
+      span {
+        color: white;
+      }
+
+      &__arrow {
+        transform: rotate(0.5turn);
+      }
+
+      &:after {
+        background: var(--background);
+      }
+    }
+  }
+}

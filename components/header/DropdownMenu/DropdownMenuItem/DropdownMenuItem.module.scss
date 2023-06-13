@@ -1,0 +1,36 @@
+@use '../../../../styles/mixins' as *;
+
+.dropdownItem {
+  width: auto;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  white-space: nowrap;
+  gap: var(--spacing-sm);
+
+  padding: var(--spacing-xs);
+  margin: 1px;
+
+  border: 1px solid transparent;
+  border-radius: var(--border-radius-sm);
+  transition: 0.2s ease-in-out;
+  cursor: pointer;
+
+  @include respond-to(tablet) {
+    padding: var(--spacing-sm);
+
+  }
+
+  @include respond-to(desktop) {
+    padding: var(--spacing-md);
+
+  }
+
+  &:hover {
+    border: var(--border-color-hover);
+    box-shadow: var(--box-shadow-hover);
+    background-color: var(--background-hover);
+    color: var(--text-color-hover);
+  }
+}

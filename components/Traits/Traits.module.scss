@@ -1,0 +1,89 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: var(--spacing-md);
+
+}
+
+.upperContainer {
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+
+  gap: var(--spacing-sm);
+}
+
+.value {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: var(--spacing-sm);
+
+}
+
+.addButton {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+
+  border: var(--border-color);
+  border-radius: 100px;
+  padding: var(--spacing-sm) var(--spacing-md);
+
+  cursor: pointer;
+
+  transition: 0.2s ease-in-out;
+
+  &:hover {
+    border: var(--border-color-hover);
+    box-shadow: var(--box-shadow-hover);
+    color: var(--text-color-hover);
+  }
+}
+
+.trait {
+  width: 100%;
+}
+
+.error {
+  color: var(--gray) !important;
+  pointer-events: none !important;
+  transition: 0.2s ease-in-out;
+
+}
+
+.traitsContainer {
+  max-height: 50vh;
+  width: 100%;
+
+  padding-right: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+
+
+  scroll-behavior: smooth;
+  overflow-y: auto;
+
+  /* width */
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    border-radius: var(--border-radius-sm);
+    background: var(--accent);
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: var(--green);
+    border-radius: var(--border-radius-sm);
+  }
+}

@@ -1,11 +1,22 @@
 import { IStoreModel } from './model.types';
-import { UIModel } from './ui';
-import { UserModel } from './user';
 import { WalletModel } from './wallet';
+import { ProfileModel } from './profile';
+import { FilterModel } from './filter';
+import { CreateCollectionModel } from './create-collection';
+import { NFTMintModel } from './nft-mint';
+import { BulkUploadModel } from './bulk-upload';
+import { AppModel } from './app';
+import { SingleCollectionModel } from './single-collection';
+import { NFTViewModel } from './nft-view';
 import { persist } from 'easy-peasy';
-
 export const model: IStoreModel = {
-  ui: UIModel,
-  wallet: WalletModel,
-  user: persist(UserModel),
+  app: AppModel,
+  wallet: persist(WalletModel),
+  profile: persist(ProfileModel),
+  filter: FilterModel,
+  createCollection: CreateCollectionModel,
+  nftMint: NFTMintModel,
+  bulkUpload: BulkUploadModel,
+  singleCollection: SingleCollectionModel,
+  nftView: persist(NFTViewModel),
 };

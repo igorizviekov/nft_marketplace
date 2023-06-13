@@ -1,11 +1,12 @@
-import Lottie from 'lottie-react';
 import React from 'react';
-import spinner from '../../assets/icons/create-nft-icon.json';
-
-export const Spinner = ({ styles }: { styles: string }) => {
-  return (
-    <div className={styles}>
-      <Lottie animationData={spinner} loop={true} style={{ height: 200 }} />
+import Image from 'next/image';
+import PhoenixMint from '../../assets/icons/phoenix_logo.svg';
+import BaseImage from '../ui/Base/BaseImage/BaseImage';
+import styles from './Spinner.module.scss';
+export const Spinner = () => (
+  <div className={styles.container}>
+    <div className={styles.imageContainer}>
+      <BaseImage imageUrl={PhoenixMint} />
     </div>
-  );
-};
+  </div>
+);

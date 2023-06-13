@@ -1,0 +1,10 @@
+.filterContainer {
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.button {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}

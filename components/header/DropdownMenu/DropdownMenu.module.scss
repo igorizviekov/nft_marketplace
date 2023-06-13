@@ -1,0 +1,21 @@
+.menu {
+  position: relative;
+}
+
+.button{
+  display: flex;
+  gap: var(--spacing-md);
+}
+.container {
+  position: absolute;
+
+  z-index: 1;
+  right: 0;
+  top: 60px;
+  
+  background-color: var(--background);
+
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-sm);
+  border: var(--border-color)
+}

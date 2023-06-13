@@ -1,0 +1,28 @@
+.option {
+  margin: var(--spacing-sm) 0;
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: 100px;
+  border: 1px solid rgba(255, 255, 255, 0.329);
+
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: var(--box-shadow-hover);
+    color: var(--text-color-hover);
+    border: var(--border-color-hover);
+  }
+}
+
+.selected {
+  box-shadow: var(--box-shadow-hover);
+  border: var(--border-color-hover);
+  color: var(--green);
+
+  cursor: pointer;
+}
+
+.filter {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+}

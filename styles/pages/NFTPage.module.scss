@@ -1,0 +1,87 @@
+@use '../mixins' as *;
+
+.image {
+
+  width: 100vw;
+  height: 100vw;
+
+  @include respond-to(mob-landscape) {
+    width: 50%;
+    max-width: 500px;
+    min-width: 450px;
+    height: 495px;
+  }
+}
+
+.textContainer {
+  width: 100%;
+
+}
+
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: var(--spacing-lg);
+
+  margin-bottom: var(--spacing-lg);
+
+  @include respond-to(tablet) {
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+}
+
+.wrapper {
+  width: 100%;
+
+  button {
+    width: 100%;
+  }
+}
+
+.title {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: var(--spacing-sm);
+  margin: var(--spacing-xs) 0;
+
+  background-color: var(--background-light);
+  border-radius: var(--border-radius-xs);
+
+  transition: 0.2s ease-in-out;
+
+  &:hover {
+    color: var(--text-color-hover);
+  }
+}
+
+.filter {
+  height: auto;
+  width: 100%;
+
+  padding: var(--spacing-sm);
+  margin: var(--spacing-xs) 0;
+
+  border: var(--border-color);
+  border-radius: var(--border-radius-xs);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  gap: var(--spacing-sm);
+
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+
+  .sticker {
+    width: auto;
+  }
+}

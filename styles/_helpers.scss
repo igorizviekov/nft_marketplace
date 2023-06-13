@@ -1,0 +1,150 @@
+.page {
+  margin: var(--spacing-xl-xxl) var(--spacing-sm) var(--spacing-xxl) var(--spacing-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 150px;
+
+  @include respond-to(mob-landscape) {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1680px;
+  }
+}
+
+.container {
+  padding-left: var(--container-offset);
+  padding-right: var(--container-offset);
+  max-width: 100%;
+}
+
+.section {
+  width: 100%;
+  min-height: 50vh;
+  padding: var(--spacing-sm);
+
+
+  @include respond-to(mob-landscape) {
+    padding: var(--section-padding);
+  }
+}
+
+.grid-container {
+  display: grid;
+  margin-top: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+
+  grid-template-columns: repeat(1, 1fr);
+
+  column-gap: var(--spacing-lg);
+  row-gap: var(--spacing-md-lg);
+
+
+  @include respond-to(mob-landscape) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include respond-to(tablet) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.hero-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  flex-wrap: wrap;
+
+  padding: var(--spacing-md) 0;
+
+  gap: var(--spacing-md);
+
+  @include respond-to(tablet) {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    flex-wrap: wrap;
+  }
+
+}
+
+.flex-row-center {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  flex-wrap: wrap;
+
+  padding: var(--spacing-xs);
+  gap: var(--spacing-sm);
+}
+
+.flex-row-start {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+
+  flex-wrap: wrap;
+
+  gap: var(--spacing-md);
+}
+
+.flex-row-between {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  flex-wrap: wrap;
+  padding: var(--spacing-md) 0;
+  gap: var(--spacing-md);
+}
+
+.flex-row-scroll {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  flex-wrap: nowrap;
+
+  padding: var(--spacing-md) 0;
+  gap: var(--spacing-md);
+
+  overflow-x: scroll;
+
+}
+
+
+
+.flex-col-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  gap: var(--spacing-lg);
+
+  padding: var(--spacing-sm);
+
+  @include respond-to(mob-landscape) {
+    padding: 0;
+    gap: var(--spacing-sm);
+  }
+
+}
+
+.flex-col-start {
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  gap: var(--spacing-md);
+}

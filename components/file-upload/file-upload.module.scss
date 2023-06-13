@@ -8,7 +8,8 @@
   align-items: center;
   justify-content: center;
   border-radius: 10px;
-  @apply bg-white shadow-md sm:flex-col;
+  background-color: var(--background);
+  @apply shadow-md sm:flex-col;
 
   &__info {
     display: flex;

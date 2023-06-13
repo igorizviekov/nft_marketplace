@@ -3,7 +3,7 @@ import { ethers } from 'ethers';
 import { NextPage } from 'next';
 import { useState, useEffect } from 'react';
 import { Spinner } from '../../components/spinner';
-import { INftCardProps, NftCard } from '../../components/ui/nft-card';
+import { INftCardProps } from '../../components/ui/NFTCard/NFTCard.types';
 import { fetchContract } from '../../utils';
 import Web3Modal from 'web3modal';
 import { toast } from 'react-toastify';
@@ -35,49 +35,49 @@ const ListedNFTs: NextPage = () => {
     /**
      * Map data to the format, which will used on frontend
      */
-    const items = await Promise.all(
-      data.map(async ({ tokenId, seller, owner, price }: INftCardProps) => {
-        const formattedPrice = ethers.utils.formatUnits(
-          price.toString(),
-          'ether'
-        );
-        const tokenURI: string = await contract.tokenURI(tokenId);
+  //   const items = await Promise.all(
+  //     data.map(async ({ nft }: INftCardProps) => {
+  //       const formattedPrice = ethers.utils.formatUnits(
+  //         nft?.contractMetadata.openSea.floorPrice.toString(),
+  //         'ether'
+  //       );
+  //       const tokenURI: string = await contract.tokenURI(tokenId);
 
-        // get NFT metadata and image
-        const {
-          data: { image, name, description },
-        } = await axios.get(tokenURI);
+  //       // get NFT metadata and image
+  //       const {
+  //         data: { image, name, description },
+  //       } = await axios.get(tokenURI);
 
-        return {
-          price: formattedPrice,
-          tokenId: Number(tokenId),
-          img: image,
-          seller,
-          owner,
-          name,
-          description,
-        };
-      })
-    );
-    return items;
+  //       return {
+  //         price: formattedPrice,
+  //         tokenId: Number(tokenId),
+  //         img: image,
+  //         seller,
+  //         owner,
+  //         name,
+  //         description,
+  //       };
+  //     })
+  //   );
+  //   return items;
   };
 
-  useEffect(() => {
-    fetchListedNFTs()
-      .then((items) => {
-        if (items?.length) {
-          setNfts(items);
-        }
-        setIsLoading(false);
-      })
-      .catch((e) => {
-        console.log('failed to fetch NFT', e);
-        setIsError(
-          'Failed to fetch. Please ensure your wallet is connected to the Polygon network.'
-        );
-        setIsLoading(false);
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetchListedNFTs()
+  //     .then((items) => {
+  //       if (items?.length) {
+  //         setNfts(items);
+  //       }
+  //       setIsLoading(false);
+  //     })
+  //     .catch((e) => {
+  //       console.log('failed to fetch NFT', e);
+  //       setIsError(
+  //         'Failed to fetch. Please ensure your wallet is connected to the Polygon network.'
+  //       );
+  //       setIsLoading(false);
+  //     });
+  // }, []);
 
   useEffect(() => {
     if (isError) {
@@ -85,7 +85,7 @@ const ListedNFTs: NextPage = () => {
     }
   }, [isError]);
 
-  let content = <Spinner styles="min-h-screen flexCenter animate-fadeIn" />;
+  let content = <Spinner />;
 
   if (!isLoading && nfts.length === 0) {
     content = (
@@ -106,9 +106,7 @@ const ListedNFTs: NextPage = () => {
               Your NFTs Listed for Sale
             </h2>
             <div className="mt-3 w-full flex flex-wrap justify-start md:justify-center">
-              {nfts.map((nft) => (
-                <NftCard key={nft.tokenId} {...nft} />
-              ))}
+              {/* //@TODO Add NFTS */}
             </div>
           </div>
         </div>
