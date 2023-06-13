@@ -10,27 +10,27 @@ import { MultipleFilter } from '../../components/MulitpleFilter/MultipleFilter';
 import FiltersBar from '../../components/FiltersBar/FiltersBar';
 import { NftCard } from '../../components/ui/NFTCard/NFTCard';
 import {
-  CollectionNFTS,
   CollectionTraits,
 } from '../../mocks/SingleCollectionPage.mock';
 import { useStoreState } from '../../store';
-import { INftCardProps } from '../../components/ui/NFTCard/NFTCard.types';
 import { useRouter } from 'next/router';
 import { useFetchSingleCollection } from '../../service/useFetchSingleCollection';
 import { Spinner } from '../../components/spinner';
 import BaseLink from '../../components/ui/Base/BaseLink/BaseLink';
 import { Searchbar } from '../../components/Searchbar/Searchbar';
+import { useFetchAlchemyCollection } from '../../service/useFetchAlchemyCollection';
+import { Nft } from 'alchemy-sdk';
 
 const SingleCollectionPage = () => {
   const router = useRouter();
   const { query } = router;
 
   const { filters } = useStoreState((state) => state.filter);
-  const { collectionData, isLoading } = useStoreState(
+  const { collectionData, isLoading, collectionNFTS } = useStoreState(
     (state) => state.singleCollection
   );
-  function hasTrait(nft: INftCardProps): boolean {
-    const hasFilter = nft.traits?.some((trait) => {
+  function hasTrait(nft: Nft): boolean | undefined {
+    const hasFilter = nft.rawMetadata?.attributes?.some((trait) => {
       return filters.some(
         (filter) =>
           filter.value === trait.value && filter.trait_type === trait.trait_type
@@ -40,6 +40,8 @@ const SingleCollectionPage = () => {
   }
 
   useFetchSingleCollection(query.uid);
+  useFetchAlchemyCollection();
+
   return (
     <BasePage>
       {collectionData && !isLoading ? (
@@ -112,36 +114,12 @@ const SingleCollectionPage = () => {
                   <FiltersBar />
                 </div>
                 <div className="flex-row-start">
-                  {CollectionNFTS &&
-                    CollectionNFTS.map((nft, index) => {
+                  {collectionNFTS &&
+                    collectionNFTS.map((nft, index) => {
                       if (hasTrait(nft)) {
-                        return (
-                          <NftCard
-                            key={nft.tokenId + index}
-                            name={nft.name}
-                            seller={nft.seller}
-                            owner={nft.owner}
-                            description={nft.description}
-                            img={nft.img}
-                            price={nft.price}
-                            tokenId={0}
-                            traits={nft.traits}
-                          />
-                        );
+                        return <NftCard nft={nft} key={index + nft.tokenId} />;
                       } else if (filters.length === 0) {
-                        return (
-                          <NftCard
-                            key={nft.tokenId + index}
-                            name={nft.name}
-                            seller={nft.seller}
-                            owner={nft.owner}
-                            description={nft.description}
-                            img={nft.img}
-                            price={nft.price}
-                            tokenId={0}
-                            traits={nft.traits}
-                          />
-                        );
+                        return <NftCard nft={nft} key={index + nft.tokenId} />;
                       }
                     })}
                 </div>

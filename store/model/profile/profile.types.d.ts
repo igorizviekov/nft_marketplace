@@ -1,26 +1,31 @@
 import { Action } from 'easy-peasy';
 import { INFTLog } from '../../../components/BaseTable/TableBodies/ActivityBody/ActivityBody.types';
 import { ICollection } from '../app/app.types';
+import { ITraits } from '../../../components/ui/NFTCard/NFTCard.types';
+import { Nft, OwnedNft } from 'alchemy-sdk';
 
 export interface IProfileModel {
   profile: IProfile;
   nftLogs: INFTLog[];
+  ownedNfts: OwnedNft[];
   collections: ICollection[];
 
   updateCollections: Action<IProfileModel, ICollection[]>;
-  
+
   updateProfile: Action<IProfileModel, IProfile>;
   updateNFTLogs: Action<IProfileModel, INFTLog>;
+
+  setOwnedNFTS: Action<IProfileModel, OwnedNft[]>;
 }
 
 export interface IProfile {
+  image?: string;
   name?: string;
   email?: string;
   location?: string;
   website?: string;
   discord?: string;
   // description?: string;
-  // image?: string;
   // twitter?: string;
   // instagram?: string;
 }
@@ -34,4 +39,35 @@ export interface INFTLog {
   buyer_address: string;
   date: Date;
   token_value: number;
+}
+export interface INFT extends Nft {
+  title: string;
+  description: string;
+  metadata: {
+    attributes: ITraits[];
+  };
+  timeLastUpdated: string;
+  contract: {
+    address: string;
+  };
+  media: [
+    {
+      bytes: number;
+      format: string;
+      gateway: string;
+      thumbnail: string;
+    }
+  ];
+  contractMetadata: {
+    openSea: {
+      collectionName: string;
+      description: string;
+      floorPrice: number;
+      imageUrl: string;
+    };
+    tokenType: string;
+  };
+  id: { tokenId: string; tokenMetadata: { tokenType: string } };
+  royalty?: string;
+  owner?: string;
 }

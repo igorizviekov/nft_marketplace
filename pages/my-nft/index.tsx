@@ -37,49 +37,49 @@ const MyNFTs: NextPage = () => {
     /**
      * Map data to the format, which will used on frontend
      */
-    const items = await Promise.all(
-      data.map(async ({ tokenId, seller, owner, price }: INftCardProps) => {
-        const formattedPrice = ethers.utils.formatUnits(
-          price.toString(),
-          'ether'
-        );
-        const tokenURI: string = await contract.tokenURI(tokenId);
+    // const items = await Promise.all(
+    //   data.map(async ({ tokenId, seller, owner, price }: INftCardProps) => {
+    //     const formattedPrice = ethers.utils.formatUnits(
+    //       price.toString(),
+    //       'ether'
+    //     );
+    //     const tokenURI: string = await contract.tokenURI(tokenId);
 
-        // get NFT metadata and image
-        const {
-          data: { image, name, description },
-        } = await axios.get(tokenURI);
+    //     // get NFT metadata and image
+    //     const {
+    //       data: { image, name, description },
+    //     } = await axios.get(tokenURI);
 
-        return {
-          price: formattedPrice,
-          tokenId: Number(tokenId),
-          img: image,
-          seller,
-          owner,
-          name,
-          description,
-        };
-      })
-    );
-    return items;
+    //     return {
+    //       price: formattedPrice,
+    //       tokenId: Number(tokenId),
+    //       img: image,
+    //       seller,
+    //       owner,
+    //       name,
+    //       description,
+    //     };
+    //   })
+    // );
+    // return items;
   };
 
-  useEffect(() => {
-    fetchMyNFTs()
-      .then((items) => {
-        if (items?.length) {
-          setNfts(items);
-        }
-        setIsLoading(false);
-      })
-      .catch((e) => {
-        console.log('failed to fetch NFT', e);
-        setIsError(
-          'Failed to fetch. Please ensure your wallet is connected to the Polygon network.'
-        );
-        setIsLoading(false);
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetchMyNFTs()
+  //     .then((items) => {
+  //       if (items?.length) {
+  //         setNfts(items);
+  //       }
+  //       setIsLoading(false);
+  //     })
+  //     .catch((e) => {
+  //       console.log('failed to fetch NFT', e);
+  //       setIsError(
+  //         'Failed to fetch. Please ensure your wallet is connected to the Polygon network.'
+  //       );
+  //       setIsLoading(false);
+  //     });
+  // }, []);
 
   useEffect(() => {
     if (isError) {
@@ -106,9 +106,9 @@ const MyNFTs: NextPage = () => {
     ) : (
       <div className="sm:px-4 p-12 w-full minmd:w-4/5 flexCenter flex-col">
         <div className="mt-3 w-full flex flex-wrap">
-          {nfts.map((nft) => (
-            <NftCard key={nft.tokenId} {...nft} />
-          ))}
+          {/* {nfts.map((nft) => (
+            // <NftCard key={nft.tokenId} {...nft} />
+          ))} */}
         </div>
       </div>
     );

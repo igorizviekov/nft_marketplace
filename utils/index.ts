@@ -55,13 +55,13 @@ export const fetchContract = (signer: JsonRpcSigner | JsonRpcProvider) =>
 export const sortNfts = (type: ActiveSelectOption, nfts: INftCardProps[]) => {
   switch (type) {
     case 'Price (low to high)':
-      return nfts.sort((a, b) => Number(a.price) - Number(b.price));
+      // return nfts.sort((a, b) => Number(a.price) - Number(b.price));
       break;
     case 'Price (high to low)':
-      return nfts.sort((a, b) => Number(b.price) - Number(a.price));
+      // return nfts.sort((a, b) => Number(b.price) - Number(a.price));
       break;
     case 'Recently added':
-      return nfts.sort((a, b) => b.tokenId - a.tokenId);
+      // return nfts.sort((a, b) => Number(b.tokenId) - Number(a.tokenId));
       break;
     default:
       return nfts;

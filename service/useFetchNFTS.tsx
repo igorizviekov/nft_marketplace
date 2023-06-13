@@ -1,47 +1,36 @@
-import { ethers } from "ethers";
-import { INftCardProps } from "../components/ui/NFTCard/NFTCard.types";
-import { fetchContract } from "../utils";
-import axios from "axios";
+import axios from 'axios';
+import { useEffect } from 'react';
+import { useStoreActions, useStoreState } from '../store';
+import { Alchemy, Network } from 'alchemy-sdk';
 
-export const useFetchNFTs = async () => {
-  const provider = new ethers.providers.JsonRpcProvider(
-    process.env.NEXT_PUBLIC_ALCHEMY_API_URL
-  );
-  const contract = fetchContract(provider);
-  /**
-   * List of all available NFTs on marketplace.
-   * Filtered by "not sold"
-   */
-  const data = await contract.getActiveCocktails();
+// Make the request and print the formatted response:
+export const useFetchNFTS = (address: string) => {
+  const { ownedNfts } = useStoreState((state) => state.profile);
+  const { setOwnedNFTS } = useStoreActions((actions) => actions.profile);
 
-  /**
-   * Map data to the format, which will used on frontend
-   */
-  const items = await Promise.all(
-    data.map(async ({ tokenId, seller, owner, price }: INftCardProps) => {
-      const formattedPrice = ethers.utils.formatUnits(
-        price.toString(),
-        'ether'
-      );
-      const tokenURI: string = await contract.tokenURI(tokenId);
+  const config = {
+    apiKey: process.env.NEXT_PUBLIC_ALCHEMY_API_KEY,
+    network: Network.ETH_MAINNET,
+  };
+  const alchemy = new Alchemy(config);
+  useEffect(() => {
+    const fetchNFTS = async () => {
+      const nfts = await alchemy.nft.getNftsForOwner(address);
+      setOwnedNFTS(nfts.ownedNfts);
+    };
 
-      // get NFT metadata and image
-      const {
-        data: { image, name, description, nickname, avatar },
-      } = await axios.get(tokenURI);
+    try {
+      fetchNFTS();
+    } catch (error) {
+      console.error(error);
+    }
 
-      return {
-        price: formattedPrice,
-        tokenId: Number(tokenId),
-        img: image,
-        seller,
-        owner,
-        name,
-        description,
-        nickname,
-        avatar,
-      };
-    })
-  );
-  return items;
+    //Fetch nfts on shimmer
+    axios
+      .get(`${process.env.NEXT_PUBLIC_SHIMMER_NFT_URL}${address}`)
+      .then((response) =>
+        setOwnedNFTS([...ownedNfts, ...response['data']['result']])
+      )
+      .catch((error) => console.log(error));
+  }, [address]);
 };

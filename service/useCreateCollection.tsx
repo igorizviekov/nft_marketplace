@@ -3,6 +3,7 @@ import { GeneralInformation } from '../store/model/create-collection/collection.
 import { NetworkInformation } from '../store/model/create-collection/collection.types';
 import { Royalty } from '../store/model/create-collection/collection.types';
 import { toast } from 'react-toastify';
+import { useIPFSImageUpload } from './useIPFSImageUpload';
 
 export async function useCreateCollection({
   generalInformation,
@@ -13,6 +14,10 @@ export async function useCreateCollection({
 }: ICreateCollection) {
   const token = localStorage.getItem('token');
   //is creating collection
+
+  const ipfsImagePath =
+    generalInformation.file &&
+    (await useIPFSImageUpload(generalInformation.file));
   isCollectionCreated(false);
   axios
     .post(
@@ -20,8 +25,7 @@ export async function useCreateCollection({
       {
         //@TODO upload image to ipfs
         name: generalInformation.name,
-        image:
-          'https://d7hftxdivxxvm.cloudfront.net/?height=800&quality=80&resize_to=fit&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2FUh4mcnLwpIp3GqAkpfXRZA%2Fnormalized.jpg&width=800',
+        image: ipfsImagePath,
         blockchain_id: networkInformation.network.id,
         description: generalInformation.description,
         symbol: networkInformation.symbol,

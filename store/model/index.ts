@@ -7,13 +7,16 @@ import { NFTMintModel } from './nft-mint';
 import { BulkUploadModel } from './bulk-upload';
 import { AppModel } from './app';
 import { SingleCollectionModel } from './single-collection';
+import { NFTViewModel } from './nft-view';
+import { persist } from 'easy-peasy';
 export const model: IStoreModel = {
   app: AppModel,
-  wallet: WalletModel,
-  profile: ProfileModel,
+  wallet: persist(WalletModel),
+  profile: persist(ProfileModel),
   filter: FilterModel,
   createCollection: CreateCollectionModel,
   nftMint: NFTMintModel,
   bulkUpload: BulkUploadModel,
   singleCollection: SingleCollectionModel,
+  nftView: persist(NFTViewModel),
 };

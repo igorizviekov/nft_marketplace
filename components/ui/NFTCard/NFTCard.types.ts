@@ -1,20 +1,12 @@
 import { StaticImageData } from 'next/image';
+import { INFT } from '../../../store/model/profile/profile.types';
+import { Nft } from 'alchemy-sdk';
 
 export interface INftCardProps {
-  name: string;
-  seller: string;
-  owner: string;
-  description: string;
-  img: StaticImageData | string;
-  price: number;
-  tokenId: number;
-  traits: ITraits[];
-  nickname?: string;
-  avatar?: string;
-  status?: NFTStatus;
+  nft: Nft | undefined;
 }
 export interface ITraits {
+  display_type: string;
   trait_type: string;
   value: string;
 }
-type NFTStatus = 'On Sale' | 'Bid' | 'Make Offer';
