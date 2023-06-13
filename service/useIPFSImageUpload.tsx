@@ -1,7 +1,9 @@
 import React from 'react';
 import { create as ipfsClient } from 'ipfs-http-client';
 
-export const useIPFSImageUpload = async (image: File) => {
+export const useIPFSImageUpload = async (
+  image: File
+): Promise<string | undefined> => {
   const auth =
     'Basic ' +
     Buffer.from(
@@ -23,6 +25,8 @@ export const useIPFSImageUpload = async (image: File) => {
     const addedImage = await client.add({ content: image });
     //@TODO Add image url to profile on api
     console.log(`https://ipfs.io/ipfs/${addedImage.path}`);
+
+    return `https://ipfs.io/ipfs/${addedImage.path}`;
   } catch (error) {
     console.error(error);
   }

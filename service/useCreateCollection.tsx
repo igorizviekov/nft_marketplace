@@ -3,6 +3,7 @@ import { GeneralInformation } from '../store/model/create-collection/collection.
 import { NetworkInformation } from '../store/model/create-collection/collection.types';
 import { Royalty } from '../store/model/create-collection/collection.types';
 import { toast } from 'react-toastify';
+import { useIPFSImageUpload } from './useIPFSImageUpload';
 
 export async function useCreateCollection({
   generalInformation,
@@ -27,8 +28,8 @@ export async function useCreateCollection({
       {
         image: ipfsImagePath,
         name: generalInformation.name,
-        description: generalInformation.description,
         blockchain_id: networkInformation.network.id,
+        description: generalInformation.description,
         symbol: networkInformation.symbol,
         categoryPrimary: networkInformation.categoryPrimary,
         categorySecondary: networkInformation.categorySecondary,

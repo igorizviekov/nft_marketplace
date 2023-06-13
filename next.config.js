@@ -7,6 +7,7 @@ const nextConfig = {
   images: {
     domains: [
       'ipfs.infura.io',
+      'ipfs.io',
       `${process.env.NEXT_PUBLIC_INFURA_PROJECT_NAME}.infura-ipfs.io`,
       'lh3.googleusercontent.com',
       'd7hftxdivxxvm.cloudfront.net',
