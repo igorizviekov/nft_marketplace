@@ -13,24 +13,25 @@ export async function useCreateCollection({
   handleModalClose,
 }: ICreateCollection) {
   const token = localStorage.getItem('token');
-  //is creating collection
 
   const ipfsImagePath =
     generalInformation.file &&
     (await useIPFSImageUpload(generalInformation.file));
   isCollectionCreated(false);
+
+  console.log(networkInformation.categoryPrimary)
+  console.log(networkInformation.categorySecondary)
   axios
     .post(
       'https://nft-api-production-4aa1.up.railway.app/collection',
       {
-        //@TODO upload image to ipfs
-        name: generalInformation.name,
         image: ipfsImagePath,
-        blockchain_id: networkInformation.network.id,
+        name: generalInformation.name,
         description: generalInformation.description,
+        blockchain_id: networkInformation.network.id,
         symbol: networkInformation.symbol,
-        categoryPrimary: networkInformation.categoryPrimary.toLowerCase(),
-        categorySecondary: networkInformation.categorySecondary.toLowerCase(),
+        categoryPrimary: networkInformation.categoryPrimary,
+        categorySecondary: networkInformation.categorySecondary,
 
         //@todo add royalties once the db schema is changed
       },
