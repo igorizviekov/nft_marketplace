@@ -35,13 +35,9 @@ export default function Home() {
     collections.map((collection, index) => {
       if (
         (selected &&
-          collection.categoryPrimary.includes(
-            filterOptions[selected].toLowerCase()
-          )) ||
+          collection.categoryPrimary.includes(filterOptions[selected])) ||
         (selected &&
-          collection.categorySecondary.includes(
-            filterOptions[selected].toLowerCase()
-          ))
+          collection.categorySecondary.includes(filterOptions[selected]))
       ) {
         return (
           <LaunchpadDrops
