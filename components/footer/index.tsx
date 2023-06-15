@@ -26,6 +26,7 @@ export const Footer = () => {
         <BaseLink href={''}>About us</BaseLink>
         <BaseLink href={''}>Copyright</BaseLink>
         <BaseLink href={''}>Terms & Privacy</BaseLink>
+        <BaseLink href={'/sandbox'}>Smart Contracts</BaseLink>
       </div>
     </footer>
   );
