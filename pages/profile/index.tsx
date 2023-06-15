@@ -46,14 +46,13 @@ const ProfilePage = () => {
   useFetchProfile();
   useFetchNFTS(activeWallet);
   useFetchNFTLogs(activeWallet);
-
   return (
     <BasePage>
       {profile && isWalletConnected && isRehydrated ? (
         <>
           <div className={styles.hero}>
             <div className={styles.imageContainer}>
-              <BaseImage />
+              <BaseImage imageUrl={profile.image} />
             </div>
             <div className={classNames(styles.textContainer)}>
               <div className={styles.icons}>
@@ -65,7 +64,7 @@ const ProfilePage = () => {
                     <Icon icon={<FaDiscord style={{ width: '20px' }} />} />
                   </BaseLink>
                 )}
-                {/* {profile.twitter && (
+                {profile.twitter && (
                   <BaseLink href={'https://twitter.com'}>
                     <Icon icon={<FaTwitter style={{ width: '20px' }} />} />
                   </BaseLink>
@@ -74,7 +73,7 @@ const ProfilePage = () => {
                   <BaseLink href={'https://instagram.com'}>
                     <Icon icon={<FaInstagram style={{ width: '20px' }} />} />
                   </BaseLink>
-                )} */}
+                )}
                 {isOwnProfile && (
                   <Icon
                     icon={<FiEdit style={{ width: '22px', height: '22px' }} />}
@@ -83,7 +82,7 @@ const ProfilePage = () => {
                   />
                 )}
               </div>
-              {/* <p>{profile.description}</p> */}
+              {profile.description && <p>{profile.description}</p>}
               <BaseLink href={`http://${profile.website}`}>
                 {profile.website}
               </BaseLink>

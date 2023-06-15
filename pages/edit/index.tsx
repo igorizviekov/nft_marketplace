@@ -9,6 +9,7 @@ import useUpdateProfile from '../../service/useUpdateProfile';
 import { useRouter } from 'next/router';
 import { Spinner } from '../../components/spinner';
 import { useStoreRehydrated } from 'easy-peasy';
+import BaseImage from '../../components/ui/Base/BaseImage/BaseImage';
 const EditProfile = () => {
   const [file, setFile] = useState<File | null>(null);
   const { updateProfile } = useStoreActions((actions) => actions.profile);
@@ -23,19 +24,23 @@ const EditProfile = () => {
       [e.target.id]: (e.target as HTMLInputElement).value,
     });
   };
+
   return (
     <BasePage>
       {isWalletConnected && isRehydrated ? (
         <div className={styles.page}>
           <div className={styles.image}>
-            {/* {profile.image && <BaseImage />} */}
-            <ProfileImageUpload
-              file={file}
-              onUploadAbort={() => setFile(null)}
-              onDropAccepted={(arr) => setFile(arr?.[0])}
-              title={'Upload an Image'}
-              subTitle={'or Select and NFT'}
-            />
+            {profile.image ? (
+              <BaseImage imageUrl={profile.image} />
+            ) : (
+              <ProfileImageUpload
+                file={file}
+                onUploadAbort={() => setFile(null)}
+                onDropAccepted={(arr) => setFile(arr?.[0])}
+                title={'Upload an Image'}
+                subTitle={'or Select and NFT'}
+              />
+            )}
           </div>
 
           <div className={styles.form}>
@@ -48,14 +53,14 @@ const EditProfile = () => {
               value={profile.name}
               id={'name'}
             />
-            {/* <Input
-            title={'Description'}
-            inputType={'textarea'}
-            placeholder={'And now, your description...'}
-            handleChange={handleChange}
-            value={profile.description}
-            id={'description'}
-          /> */}
+            <Input
+              title={'Description'}
+              inputType={'textarea'}
+              placeholder={'And now, your description...'}
+              handleChange={handleChange}
+              value={profile.description}
+              id={'description'}
+            />
             <Input
               title={'Email'}
               inputType={'text'}
@@ -89,24 +94,22 @@ const EditProfile = () => {
               handleChange={handleChange}
               id={'discord'}
             />
-            {/* <Input
-            title={'Twitter'}
-            inputType={'text'}
-            placeholder={'Your twitter profile URL...'}
-            handleChange={(e) =>
-              setTwitter((e.target as HTMLInputElement).value)
-            }
-            id={''}
-          />
-          <Input
-            title={'Instagram'}
-            inputType={'text'}
-            placeholder={'And your instagram profile URL...'}
-            handleChange={(e) =>
-              setInstagram((e.target as HTMLInputElement).value)
-            }
-            id={''}
-          /> */}
+            <Input
+              title={'Twitter'}
+              inputType={'text'}
+              value={profile.twitter}
+              placeholder={'Your twitter profile URL...'}
+              handleChange={handleChange}
+              id={'twitter'}
+            />
+            <Input
+              title={'Instagram'}
+              inputType={'text'}
+              value={profile.instagram}
+              placeholder={'And your instagram profile URL...'}
+              handleChange={handleChange}
+              id={'instagram'}
+            />
 
             {/* <h1 className={styles.social}>App Settings</h1>
           <Input

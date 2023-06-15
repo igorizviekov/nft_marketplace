@@ -17,6 +17,7 @@ export async function useCreateCollection({
   const ipfsImagePath =
     generalInformation.file &&
     (await useIPFSImageUpload(generalInformation.file));
+    
   isCollectionCreated(false);
 
   console.log(networkInformation.categoryPrimary)

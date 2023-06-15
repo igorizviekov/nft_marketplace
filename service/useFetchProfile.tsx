@@ -2,12 +2,13 @@ import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useStoreActions, useStoreState } from '../store';
 import { useAuth } from './useAuth';
+import { local } from 'web3modal';
 
 const useFetchProfile = () => {
   useAuth();
 
   //@TODO replace id once the method on the api changed
-  const id = 'ee1d1fce-5715-4b91-8668-b6adeb76659d';
+  const id = localStorage.getItem('usersUID');
 
   const { activeWallet } = useStoreState((state) => state.wallet);
 
