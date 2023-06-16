@@ -15,8 +15,9 @@ import {
 } from './constants/constants';
 import axios from 'axios';
 import Web3Modal from 'web3modal';
+import { Header } from '../../components';
 
-const CollectionForm = () => {
+const ContractSandbox = () => {
   const provider = useMemo(
     () =>
       new ethers.providers.JsonRpcProvider(
@@ -89,14 +90,13 @@ const CollectionForm = () => {
         const tokenURI = await collectionContract.tokenURI(tokenId);
         const price = await collectionContract.getPrice(tokenId);
         const owner = await collectionContract.ownerOf(tokenId);
-        const response = await axios.get(tokenURI);
-
-        const metadata = response.data;
+        const { data } = await axios.get(tokenURI);
         return {
           uri: tokenURI,
-          metadata: metadata,
+          metadata: data,
           price: ethers.utils.formatUnits(price.toString(), 'ether'),
           owner: owner,
+          id: Number(tokenId),
         };
       });
 
@@ -249,129 +249,151 @@ const CollectionForm = () => {
   }, []);
 
   return (
-    <div className={classNames('flex-col-center', styles.form)}>
-      <Button
-        isPrimary
-        label="createCollection"
-        disabled={false}
-        onClick={() => createCollection(mockCollectionURI)}
-      />
-      <Button
-        isPrimary
-        label="Get public collection"
-        disabled={false}
-        onClick={() => getCollectionById(1)}
-      />
-      <Button
-        isPrimary
-        label="getCollection"
-        disabled={false}
-        onClick={() => {
-          const collectionId = window.prompt('Please enter the collection ID:');
-          if (collectionId !== null) {
-            const id = Number(collectionId);
-            // Call your contract function
-            if (!isNaN(id)) {
-              getCollectionById(id);
-            } else {
-              toast.error('Invalid collection ID. Please try again.');
+    <div className="w-full ml-auto overflow-auto ">
+      <h1 className="mb-4 text-4xl font-extrabold tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white flex left-0 sticky">
+        Collections
+      </h1>
+      <div className="flex gap-2 mb-5">
+        <Button
+          isPrimary
+          label="createCollection"
+          disabled={false}
+          onClick={() => createCollection(mockCollectionURI)}
+        />
+        <Button
+          isPrimary
+          label="Get public collection"
+          disabled={false}
+          onClick={() => getCollectionById(1)}
+        />
+        <Button
+          isPrimary
+          label="getCollection"
+          disabled={false}
+          onClick={() => {
+            const collectionId = window.prompt(
+              'Please enter the collection ID:'
+            );
+            if (collectionId !== null) {
+              const id = Number(collectionId);
+              // Call your contract function
+              if (!isNaN(id)) {
+                getCollectionById(id);
+              } else {
+                toast.error('Invalid collection ID. Please try again.');
+              }
             }
-          }
-        }}
-      />
-      <Button
-        isPrimary
-        label="getCollectionOfToken"
-        disabled={false}
-        onClick={() => {
-          const tokenId = window.prompt('Please enter the Token ID:');
-          if (tokenId !== null) {
-            const id = Number(tokenId);
-            // Call your contract function
-            if (!isNaN(id)) {
-              getCollectionOfToken(id);
-            } else {
-              toast.error('Invalid token ID. Please try again.');
+          }}
+        />
+        <Button
+          isPrimary
+          label="getCollectionOfToken"
+          disabled={false}
+          onClick={() => {
+            const tokenId = window.prompt('Please enter the Token ID:');
+            if (tokenId !== null) {
+              const id = Number(tokenId);
+              // Call your contract function
+              if (!isNaN(id)) {
+                getCollectionOfToken(id);
+              } else {
+                toast.error('Invalid token ID. Please try again.');
+              }
             }
-          }
-        }}
-      />
-      <Button
-        isPrimary
-        label="getNFTsInCollection"
-        disabled={false}
-        onClick={() => {
-          const collectionId = window.prompt('Please enter the collection ID:');
-          if (collectionId !== null) {
-            const id = Number(collectionId);
-            // Call your contract function
-            if (!isNaN(id)) {
-              getNFTsInCollection(id, 0, 100);
-            } else {
-              toast.error('Invalid collection ID. Please try again.');
+          }}
+        />
+        <Button
+          isPrimary
+          label="getNFTsInCollection"
+          disabled={false}
+          onClick={() => {
+            const collectionId = window.prompt(
+              'Please enter the collection ID:'
+            );
+            if (collectionId !== null) {
+              const id = Number(collectionId);
+              // Call your contract function
+              if (!isNaN(id)) {
+                getNFTsInCollection(id, 0, 100);
+              } else {
+                toast.error('Invalid collection ID. Please try again.');
+              }
             }
-          }
-        }}
-      />
-      <Button
-        isPrimary
-        label="getPrice"
-        disabled={false}
-        onClick={() => {
-          const collectionId = window.prompt('Please enter the token ID:');
-          if (collectionId !== null) {
-            const id = Number(collectionId);
-            // Call your contract function
-            if (!isNaN(id)) {
-              getPrice(id);
-            } else {
-              toast.error('Invalid token ID. Please try again.');
+          }}
+        />
+        <Button
+          isPrimary
+          label="getPrice"
+          disabled={false}
+          onClick={() => {
+            const collectionId = window.prompt('Please enter the token ID:');
+            if (collectionId !== null) {
+              const id = Number(collectionId);
+              // Call your contract function
+              if (!isNaN(id)) {
+                getPrice(id);
+              } else {
+                toast.error('Invalid token ID. Please try again.');
+              }
             }
-          }
-        }}
-      />
-      <Button
-        isPrimary
-        label="setPrice"
-        disabled={false}
-        onClick={() => {
-          const collectionId = window.prompt('Please enter the token ID:');
-          if (collectionId !== null) {
-            const id = Number(collectionId);
-            // Call your contract function
-            if (!isNaN(id)) {
-              setPrice(id, 5);
-            } else {
-              toast.error('Invalid token ID. Please try again.');
+          }}
+        />
+        <Button
+          isPrimary
+          label="setPrice"
+          disabled={false}
+          onClick={() => {
+            const collectionId = window.prompt('Please enter the token ID:');
+            if (collectionId !== null) {
+              const id = Number(collectionId);
+              // Call your contract function
+              if (!isNaN(id)) {
+                setPrice(id, 5);
+              } else {
+                toast.error('Invalid token ID. Please try again.');
+              }
             }
-          }
-        }}
-      />
-      <Button
-        isPrimary
-        label="Mint NFT"
-        disabled={false}
-        onClick={() => {
-          const collectionId = window.prompt('Please enter the collection ID:');
-          if (collectionId !== null) {
-            const id = Number(collectionId);
-            // Call your contract function
-            if (!isNaN(id)) {
-              mintNFT(id);
-            } else {
-              toast.error('Invalid collection ID. Please try again.');
+          }}
+        />
+        <Button
+          isPrimary
+          label="Mint NFT"
+          disabled={false}
+          onClick={() => {
+            const collectionId = window.prompt(
+              'Please enter the collection ID:'
+            );
+            if (collectionId !== null) {
+              const id = Number(collectionId);
+              // Call your contract function
+              if (!isNaN(id)) {
+                mintNFT(id);
+              } else {
+                toast.error('Invalid collection ID. Please try again.');
+              }
             }
-          }
-        }}
-      />
-      <Button
-        isPrimary
-        label="setMarketplace"
-        disabled={false}
-        onClick={setMarketplace}
-      />
+          }}
+        />
+        <Button
+          isPrimary
+          label="setMarketplace"
+          disabled={false}
+          onClick={setMarketplace}
+        />
+      </div>
+      <h1 className="mb-4 text-4xl font-extrabold tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white flex left-0 sticky">
+        Marketplace
+      </h1>
+      <div className="flex gap-2 mb-5">
+        <Button
+          isPrimary
+          label="hellow"
+          disabled={false}
+          onClick={() => null}
+        />
+      </div>
     </div>
   );
 };
 
-export default CollectionForm;
+export default ContractSandbox;
