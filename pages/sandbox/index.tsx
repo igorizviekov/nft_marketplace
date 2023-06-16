@@ -26,7 +26,7 @@ const ContractSandbox = () => {
     []
   );
 
-  const getErrMessage = (err) => err?.reason || 'Error...';
+  const getErrMessage = (err: any) => err?.reason || 'Error...';
 
   const collectionContract = useMemo(() => {
     return new ethers.Contract(collectionsAddress, CollectionsABI, provider);
@@ -151,7 +151,7 @@ const ContractSandbox = () => {
       console.log({ receipt });
 
       const TokenMintedEvent = receipt.events?.find(
-        (e) => e.event === 'TokenMinted'
+        (e: any) => e.event === 'TokenMinted'
       );
       console.log({ TokenMintedEvent });
       if (TokenMintedEvent) {
@@ -185,7 +185,7 @@ const ContractSandbox = () => {
       // console.log({ ID: Number(receipt.args.id) });
 
       const CollectionCreatedEvent = receipt.events?.find(
-        (e) => e.event === 'CollectionCreated'
+        (e: any) => e.event === 'CollectionCreated'
       );
       console.log({ CollectionCreatedEvent });
       const collectionId = Number(CollectionCreatedEvent?.args?.[0]);
@@ -215,7 +215,9 @@ const ContractSandbox = () => {
       const receipt = await tx.wait();
       console.log({ receipt });
 
-      const PriceSetEvent = receipt.events?.find((e) => e.event === 'PriceSet');
+      const PriceSetEvent = receipt.events?.find(
+        (e: any) => e.event === 'PriceSet'
+      );
       console.log({ PriceSetEvent });
     } catch (err) {
       console.log({ err });
