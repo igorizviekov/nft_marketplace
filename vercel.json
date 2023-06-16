@@ -1,0 +1,5 @@
+{
+  "build": {
+    "ignore": "echo $VERCEL_GIT_COMMIT_REF | grep -qvE '^(main|dev)$'"
+  }
+}
