@@ -182,11 +182,14 @@ const ContractSandbox = () => {
       const tx = await contract.createCollection(uri);
       const receipt = await tx.wait();
       console.log({ receipt });
+      // console.log({ ID: Number(receipt.args.id) });
 
       const CollectionCreatedEvent = receipt.events?.find(
         (e) => e.event === 'CollectionCreated'
       );
       console.log({ CollectionCreatedEvent });
+      const collectionId = Number(CollectionCreatedEvent?.args?.[0]);
+      console.log({ collectionId });
     } catch (err) {
       console.log({ err });
       const message = getErrMessage(err);
