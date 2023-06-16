@@ -1,7 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Button } from '../../components/ui/Button';
-import styles from '../../styles/pages/CreateNFTPage.module.scss';
-import classNames from 'classnames';
 import { toast } from 'react-toastify';
 
 import { BigNumber, ethers } from 'ethers';
@@ -12,7 +10,7 @@ import {
   MarketplaceABI,
   mockTokenURI,
   mockCollectionURI,
-} from './constants/constants';
+} from '../../mocks/constants/constants';
 import axios from 'axios';
 import Web3Modal from 'web3modal';
 import { Header } from '../../components';
