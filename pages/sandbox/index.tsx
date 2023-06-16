@@ -253,7 +253,7 @@ const ContractSandbox = () => {
 
   return (
     <div className="w-full ml-auto overflow-auto ">
-      <h1 className="mb-4 text-4xl font-extrabold tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white flex left-0 sticky">
+      <h1 className="mb-4 text-4xl font-extrabold tracking-tight md:text-5xl lg:text-6xl text-white flex left-0 sticky">
         Collections
       </h1>
       <div className="flex gap-2 mb-5">
@@ -384,7 +384,7 @@ const ContractSandbox = () => {
           onClick={setMarketplace}
         />
       </div>
-      <h1 className="mb-4 text-4xl font-extrabold tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white flex left-0 sticky">
+      <h1 className="mb-4 text-4xl font-extrabold tracking-tight  md:text-5xl lg:text-6xl text-white flex left-0 sticky">
         Marketplace
       </h1>
       <div className="flex gap-2 mb-5">
