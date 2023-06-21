@@ -15,8 +15,6 @@ import axios from 'axios';
 import Web3Modal from 'web3modal';
 
 const ContractSandbox = () => {
-  const [requests, setRequests] = useState([]);
-
   const provider = useMemo(
     () =>
       new ethers.providers.JsonRpcProvider(
@@ -84,10 +82,10 @@ const ContractSandbox = () => {
         startIndex,
         pageSize
       );
-
       const tokenDataPromises = tokenIds.map(async (tokenId: BigNumber) => {
         const tokenURI = await collectionContract.tokenURI(tokenId);
         const price = await collectionContract.getPrice(tokenId);
+
         const owner = await collectionContract.ownerOf(tokenId);
         const { data } = await axios.get(tokenURI);
         return {
@@ -166,7 +164,7 @@ const ContractSandbox = () => {
       );
       console.log({ TokenMintedEvent });
       if (TokenMintedEvent) {
-        const newTokenId = TokenMintedEvent.args?.tokenId;
+        const newTokenId = Number(TokenMintedEvent.args?.tokenId);
         console.log('New token ID:', newTokenId);
       } else {
         console.error('TokenMinted event not found in receipt');
@@ -379,8 +377,25 @@ const ContractSandbox = () => {
             value: price,
           }
         );
-        await transaction.wait();
-        console.log({ transaction });
+        const receipt = await transaction.wait();
+        const TokenBoughtEvent = receipt.events?.find(
+          (e: any) => e.event === 'NFTBought'
+        );
+        const TokenMintRequestEvent = receipt.events?.find(
+          (e: any) => e.event === 'TokenMintRequest'
+        );
+        console.log({ receipt });
+        console.log({ TokenBoughtEvent });
+        if (TokenMintRequestEvent) {
+          console.log({
+            TokenMintRequestEvent: {
+              requestId: Number(TokenMintRequestEvent.args[0]),
+              buyer: TokenMintRequestEvent.args[1],
+              tokenURI: TokenMintRequestEvent.args[2],
+              price: ethers.utils.formatEther(TokenMintRequestEvent.args[3]),
+            },
+          });
+        }
       }
     } catch (err) {
       console.log({ err });
@@ -403,6 +418,79 @@ const ContractSandbox = () => {
     console.log('Transaction mined');
   }
 
+  const totalReceived = async () => {
+    try {
+      const totalBalance = await marketplaceContract['totalReleased()']();
+      console.log({ total: ethers.utils.formatEther(totalBalance) });
+    } catch (err) {
+      console.log({ err });
+      const message = getErrMessage(err);
+      toast.error(message);
+    }
+  };
+
+  const released = async () => {
+    try {
+      const web3Modal = new Web3Modal();
+      const connection = await web3Modal.connect();
+      const provider = new ethers.providers.Web3Provider(connection);
+      const signer = provider.getSigner();
+      const contract = new ethers.Contract(
+        marketplaceAddress,
+        MarketplaceABI,
+        signer
+      );
+
+      const yourAddress = await signer.getAddress();
+      const tx = await contract['released(address)'](yourAddress);
+
+      console.log({ amount: ethers.utils.formatEther(tx) });
+    } catch (err) {
+      console.log({ err });
+      const message = getErrMessage(err);
+      toast.error(message);
+    }
+  };
+
+  const release = async () => {
+    try {
+      const web3Modal = new Web3Modal();
+      const connection = await web3Modal.connect();
+      const provider = new ethers.providers.Web3Provider(connection);
+      const signer = provider.getSigner();
+      const contract = new ethers.Contract(
+        marketplaceAddress,
+        MarketplaceABI,
+        signer
+      );
+
+      const yourAddress = await signer.getAddress();
+      const tx = await contract['release(address)'](yourAddress);
+      const receipt = await tx.wait();
+      const formatReceipt = (receipt: any) => {
+        const formattedReceipt = receipt.events
+          .map((e: any) => {
+            if (e.event === 'PaymentReleased') {
+              return {
+                payee: e.args[0],
+                amount: ethers.utils.formatEther(e.args[1]), // Convert from wei to ether for better readability
+              };
+            }
+          })
+          .filter((item: any) => item); // Filters out any undefined items (in case there are other events)
+
+        return formattedReceipt;
+      };
+
+      const formattedReceipt = formatReceipt(receipt);
+      console.log({ receipt: formattedReceipt });
+    } catch (err) {
+      console.log({ err });
+      const message = getErrMessage(err);
+      toast.error(message);
+    }
+  };
+
   useEffect(() => {
     console.log({ collectionContract });
     console.log({ marketplaceContract });
@@ -414,15 +502,7 @@ const ContractSandbox = () => {
       console.log(`NFT bought: ${tokenId}`);
       console.log({ event });
     });
-    marketplaceContract.on(
-      'TokenMintRequest',
-      (mintRequestId, buyer, tokenURI, price, event) => {
-        console.log(
-          `Mint request: ${mintRequestId} by ${buyer} for ${tokenURI} at ${price}`
-        );
-        console.log({ event });
-      }
-    );
+
     marketplaceContract.on('NFTDelisted', (tokenId, event) => {
       console.log('NFT delisted with token ID: ', tokenId.toString());
       console.log('Event: ', event);
@@ -434,7 +514,6 @@ const ContractSandbox = () => {
     return () => {
       marketplaceContract.removeAllListeners('NFTBought');
       marketplaceContract.removeAllListeners('NFTListed');
-      marketplaceContract.removeAllListeners('TokenMintRequest');
       marketplaceContract.removeAllListeners('NFTDelisted');
     };
   }, []);
@@ -666,6 +745,25 @@ const ContractSandbox = () => {
             const reqId = Number(prompt('Enter request ID:'));
             approveMintRequest(reqId);
           }}
+        />
+
+        <Button
+          isPrimary
+          label="total released amount"
+          disabled={false}
+          onClick={totalReceived}
+        />
+        <Button
+          isPrimary
+          label="your released amount"
+          disabled={false}
+          onClick={released}
+        />
+        <Button
+          isPrimary
+          label="release funds"
+          disabled={false}
+          onClick={release}
         />
       </div>
     </div>
