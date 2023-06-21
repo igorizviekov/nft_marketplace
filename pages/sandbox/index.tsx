@@ -494,7 +494,6 @@ const ContractSandbox = () => {
   useEffect(() => {
     console.log({ collectionContract });
     console.log({ marketplaceContract });
-    // approveMarketplaceForAll();
   }, []);
 
   useEffect(() => {
@@ -674,6 +673,12 @@ const ContractSandbox = () => {
         Marketplace
       </h1>
       <div className="flex gap-2 mb-5">
+        <Button
+          isPrimary
+          label="approveMarketplace"
+          disabled={false}
+          onClick={approveMarketplaceForAll}
+        />
         <Button
           isPrimary
           label="isTokenListed"
