@@ -2,9 +2,9 @@ import collections from './ERC721Collections.json';
 import marketplace from './NFTMarketplace.json';
 
 // id of a contract after its been deployed
-export const collectionsAddress = '0xd038A2EE73b64F30d65802Ad188F27921656f28F';
+export const collectionsAddress = '0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9';
 
-export const marketplaceAddress = '0x666432Ccb747B2220875cE185f487Ed53677faC9';
+export const marketplaceAddress = '0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9';
 
 export const CollectionsABI = collections.abi;
 export const MarketplaceABI = marketplace.abi;

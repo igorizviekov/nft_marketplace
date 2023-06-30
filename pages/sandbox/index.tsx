@@ -517,6 +517,25 @@ const ContractSandbox = () => {
     };
   }, []);
 
+  const getMintRequestDetails = async () => {
+    const requestId = window.prompt('Please enter the mint request ID:');
+    try {
+      const result = await marketplaceContract.getMintRequestDetails(requestId);
+      const mintRequest = {
+        collectionId: Number(result[0]),
+        tokenURI: result[1],
+        price: ethers.utils.formatUnits(result[2].toString(), 'ether'),
+        buyer: result[3],
+        approved: result[4],
+      };
+      console.log({ mintRequest });
+    } catch (err) {
+      console.log({ err });
+      const message = getErrMessage(err);
+      toast.error(message);
+    }
+  };
+
   return (
     <div className="w-full ml-auto overflow-auto ">
       <h1 className="mb-4 text-4xl font-extrabold tracking-tight md:text-5xl lg:text-6xl text-white flex left-0 sticky">
@@ -678,6 +697,12 @@ const ContractSandbox = () => {
           label="approveMarketplace"
           disabled={false}
           onClick={approveMarketplaceForAll}
+        />
+        <Button
+          isPrimary
+          label="getMintRequestDetails"
+          disabled={false}
+          onClick={getMintRequestDetails}
         />
         <Button
           isPrimary
