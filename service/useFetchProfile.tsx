@@ -7,9 +7,6 @@ import { local } from 'web3modal';
 const useFetchProfile = () => {
   useAuth();
 
-  //@TODO replace id once the method on the api changed
-  const id = localStorage.getItem('usersUID');
-
   const { activeWallet } = useStoreState((state) => state.wallet);
 
   const { updateProfile, updateNFTLogs, updateCollections } = useStoreActions(
@@ -18,6 +15,8 @@ const useFetchProfile = () => {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
+    //@TODO replace id once the method on the api changed
+    const id = localStorage.getItem('usersUID');
 
     axios
       .get(`https://nft-api-production-4aa1.up.railway.app/users/${id}`)
@@ -61,7 +60,7 @@ const useFetchProfile = () => {
       .then((response) => {
         updateNFTLogs(response.data.data);
       });
-  }, [id]);
+  }, []);
 };
 
 export default useFetchProfile;

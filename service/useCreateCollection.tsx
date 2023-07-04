@@ -17,11 +17,8 @@ export async function useCreateCollection({
   const ipfsImagePath =
     generalInformation.file &&
     (await useIPFSImageUpload(generalInformation.file));
-    
-  isCollectionCreated(false);
 
-  console.log(networkInformation.categoryPrimary)
-  console.log(networkInformation.categorySecondary)
+  isCollectionCreated(false);
   axios
     .post(
       'https://nft-api-production-4aa1.up.railway.app/collection',
