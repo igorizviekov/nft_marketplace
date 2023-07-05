@@ -2,12 +2,10 @@ import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useStoreActions, useStoreState } from '../store';
 import { useAuth } from './useAuth';
+import { local } from 'web3modal';
 
 const useFetchProfile = () => {
   useAuth();
-
-  //@TODO replace id once the method on the api changed
-  const id = 'ee1d1fce-5715-4b91-8668-b6adeb76659d';
 
   const { activeWallet } = useStoreState((state) => state.wallet);
 
@@ -17,6 +15,8 @@ const useFetchProfile = () => {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
+    //@TODO replace id once the method on the api changed
+    const id = localStorage.getItem('usersUID');
 
     axios
       .get(`https://nft-api-production-4aa1.up.railway.app/users/${id}`)
@@ -60,7 +60,7 @@ const useFetchProfile = () => {
       .then((response) => {
         updateNFTLogs(response.data.data);
       });
-  }, [id]);
+  }, []);
 };
 
 export default useFetchProfile;

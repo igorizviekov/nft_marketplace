@@ -25,9 +25,9 @@ export interface IProfile {
   location?: string;
   website?: string;
   discord?: string;
-  // description?: string;
-  // twitter?: string;
-  // instagram?: string;
+  description?: string;
+  twitter?: string;
+  instagram?: string;
 }
 
 export interface INFTLog {

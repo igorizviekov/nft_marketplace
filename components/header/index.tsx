@@ -40,8 +40,8 @@ export const Header = () => {
     setActiveWallet(account);
   };
 
-  useAuth();
   useFetchAppData();
+  useAuth();
   useEffect(() => {
     connectCryptoWallet('silent');
   }, []);

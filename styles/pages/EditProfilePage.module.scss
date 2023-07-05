@@ -11,7 +11,7 @@
   height: 100vw;
 
   position: sticky;
-  top: var(--spacing-lg);
+  top: var(--spacing-xxl);
 
   @include respond-to(mob-landscape) {
     width: 50%;

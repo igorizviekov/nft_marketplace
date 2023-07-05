@@ -18,6 +18,7 @@ export async function useAuth() {
         })
         .then((response) => {
           localStorage.setItem('token', response.data.data.accessToken);
+          localStorage.setItem('usersUID', response.data.data.usersUID);
         })
         .catch((error) => setStatus(error.response.status));
     }
@@ -28,10 +29,14 @@ export async function useAuth() {
           wallet: activeWallet,
           blockchain_id: blockchains[0].id,
         })
-        .then((response) =>
-          localStorage.setItem('token', response.data.data.accessToken)
-        )
+        .then((response) => {
+          setStatus(response.status);
+        })
         .catch((error) => console.log(error));
+    }
+
+    if (!isWalletConnected) {
+      localStorage.clear();
     }
   }, [isWalletConnected, status, activeWallet]);
 }
