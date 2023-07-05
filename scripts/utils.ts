@@ -5,6 +5,8 @@ import { useRouter } from 'next/router';
 import { create as ipfsClient } from 'ipfs-http-client';
 import { INFTGeneralInfo } from '../store/model/nft-mint/nft-mint.types';
 import { toast } from 'react-toastify';
+import useMintNFT from '../service/useMintNFT';
+import { marketplaceAddress } from '../mocks/constants.mock';
 
 /**
  *
@@ -113,8 +115,9 @@ export const submitNewNFT = async (
   //@TODO CLEAR NFT MINT STATE UPON SUCCESS
   setIsLoading(true);
   covertImageToNFT(nftGeneralInfo, setIsLoading)
-    .then((response) => {
+    .then(async (response) => {
       console.log(response);
+      await useMintNFT(1);
       toast.success('NFT Created successfully');
     })
     .catch((error) => console.error(error))
