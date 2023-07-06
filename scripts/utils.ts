@@ -7,6 +7,7 @@ import { INFTGeneralInfo } from '../store/model/nft-mint/nft-mint.types';
 import { toast } from 'react-toastify';
 import useMintNFT from '../service/useMintNFT';
 import { marketplaceAddress } from '../mocks/constants.mock';
+import { useMemo } from 'react';
 
 /**
  *
@@ -110,14 +111,15 @@ export const covertImageToNFT = async (
 
 export const submitNewNFT = async (
   nftGeneralInfo: INFTGeneralInfo,
-  setIsLoading: (loaded: boolean) => void
+  setIsLoading: (loaded: boolean) => void,
+  collectionContract: any
 ) => {
   //@TODO CLEAR NFT MINT STATE UPON SUCCESS
   setIsLoading(true);
   covertImageToNFT(nftGeneralInfo, setIsLoading)
     .then(async (response) => {
       console.log(response);
-      await useMintNFT(1);
+      await useMintNFT(1, collectionContract);
       toast.success('NFT Created successfully');
     })
     .catch((error) => console.error(error))

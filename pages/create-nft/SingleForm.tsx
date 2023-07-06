@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import Input from '../../components/ui/Input';
 import { Button } from '../../components/ui/Button';
 import { Dropdown } from '../../components/ui/dropdown';
@@ -17,6 +17,8 @@ import Traits from '../../components/Traits/Traits';
 import TraitsList from '../../components/Traits/TraitsList';
 import ProfileImageUpload from '../../components/ProfileImageUpload/ProfileImageUpload';
 import { submitNewNFT } from '../../scripts/utils';
+import { ethers } from 'ethers';
+import { CollectionsABI, collectionsAddress } from '../../mocks/constants.mock';
 export interface IFormInput {
   name: string;
   description: string;
@@ -71,6 +73,18 @@ const SingleForm = () => {
       ...nftGeneralInfo,
       collection: OPTIONS[selected],
     });
+  }, []);
+
+  const provider = useMemo(
+    () =>
+      new ethers.providers.JsonRpcProvider(
+        'https://json-rpc.evm.testnet.shimmer.network'
+      ),
+    []
+  );
+
+  const collectionContract = useMemo(() => {
+    return new ethers.Contract(collectionsAddress, CollectionsABI, provider);
   }, []);
 
   useEffect(() => {
@@ -189,7 +203,9 @@ const SingleForm = () => {
         isPrimary
         label="Create NFT"
         disabled={formError}
-        onClick={() => submitNewNFT(nftGeneralInfo, setIsLoading)}
+        onClick={() =>
+          submitNewNFT(nftGeneralInfo, setIsLoading, collectionContract)
+        }
       />
     </div>
   );

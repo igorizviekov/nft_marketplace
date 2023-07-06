@@ -40,7 +40,7 @@ const ProfilePage = () => {
   const foundNFTS =
     ownedNfts &&
     ownedNfts.map((nft, index) => {
-      return <NftCard nft={nft} key={index + nft.contract.address} />;
+      return <NftCard nft={nft} key={index} />;
     });
 
   useFetchProfile();

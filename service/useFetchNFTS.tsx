@@ -26,11 +26,11 @@ export const useFetchNFTS = (address: string) => {
     }
 
     //Fetch nfts on shimmer
-    axios
-      .get(`${process.env.NEXT_PUBLIC_SHIMMER_NFT_URL}${address}`)
-      .then((response) =>
-        setOwnedNFTS([...ownedNfts, ...response['data']['result']])
-      )
-      .catch((error) => console.log(error));
+    // axios
+    //   .get(`${process.env.NEXT_PUBLIC_SHIMMER_NFT_URL}${address}`)
+    //   .then((response) =>
+    //     setOwnedNFTS([...ownedNfts, ...response['data']['result']])
+    //   )
+    //   .catch((error) => console.log(error));
   }, [address]);
 };

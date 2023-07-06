@@ -18,10 +18,12 @@ export const NftCard = ({ nft }: INftCardProps) => {
 
     router.push(`/nft/${nft?.contract.address}`);
   };
+
+  console.log(nft, 'nft');
   return (
     <div className={styles.card}>
       <div className={styles.image}>
-        {nft?.media[0].gateway && (
+        {nft?.media[0]?.gateway && (
           <Image
             src={nft?.media[0].thumbnail as string}
             alt="nft"

@@ -1,4 +1,3 @@
-import React, { useEffect, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { BigNumber, ethers } from 'ethers';
@@ -13,9 +12,16 @@ import {
 import axios from 'axios';
 import Web3Modal from 'web3modal';
 
-const useMintNFT = async (collectionID: number, tokenURI = mockTokenURI) => {
+const useMintNFT = async (
+  collectionID: number,
+  collectionContract: ethers.Contract,
+  tokenURI = mockTokenURI
+) => {
   try {
-    const collection = await getCollectionById(collectionID);
+    const collection = await getCollectionById(
+      collectionID,
+      collectionContract
+    );
 
     if (!collection) return;
 
@@ -58,7 +64,10 @@ const useMintNFT = async (collectionID: number, tokenURI = mockTokenURI) => {
   }
 };
 
-const getCollectionById = async (id: number) => {
+const getCollectionById = async (
+  id: number,
+  collectionContract: ethers.Contract
+) => {
   try {
     const tx = await collectionContract.getCollection(id);
     const { data } = await axios.get(tx[0]);
@@ -76,16 +85,5 @@ const getCollectionById = async (id: number) => {
     toast.error(message);
   }
 };
-
-const provider = useMemo(() => {
-  return new ethers.providers.JsonRpcProvider(
-    'https://json-rpc.evm.testnet.shimmer.network'
-  );
-}, []);
-
-const collectionContract = useMemo(() => {
-  return new ethers.Contract(collectionsAddress, CollectionsABI, provider);
-}, []);
-
 const getErrMessage = (err: any) => err?.reason || 'Error...';
 export default useMintNFT;
