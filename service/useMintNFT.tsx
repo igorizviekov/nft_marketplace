@@ -1,21 +1,15 @@
 import { toast } from 'react-toastify';
 
-import { BigNumber, ethers } from 'ethers';
-import {
-  marketplaceAddress,
-  collectionsAddress,
-  CollectionsABI,
-  MarketplaceABI,
-  mockTokenURI,
-  mockCollectionURI,
-} from '../mocks/constants.mock';
+import { ethers } from 'ethers';
+import { collectionsAddress, CollectionsABI } from '../mocks/constants.mock';
 import axios from 'axios';
 import Web3Modal from 'web3modal';
 
 const useMintNFT = async (
   collectionID: number,
   collectionContract: ethers.Contract,
-  tokenURI = mockTokenURI
+  tokenURI: string | undefined,
+  nftPrice: number
 ) => {
   try {
     const collection = await getCollectionById(
@@ -25,10 +19,7 @@ const useMintNFT = async (
 
     if (!collection) return;
 
-    const nftPrice = 1;
-
     //getcontract
-
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
@@ -54,6 +45,7 @@ const useMintNFT = async (
     if (tokenMintedEvent) {
       const newTokenID = Number(tokenMintedEvent.args?.tokenId);
       console.log('newTokenID', newTokenID);
+      //STORE LOG IN DB
     } else {
       console.error('Token Minted event not found in receipt');
     }

@@ -16,7 +16,7 @@ export async function useFetchAppData() {
             setBlockchains(blockchain);
             setIsLoading(false);
           });
-          setSelectedBlockchain(response.data.data[0]);
+          setSelectedBlockchain(response.data.data[1]);
         })
         .catch((error) => console.error(error));
     }
