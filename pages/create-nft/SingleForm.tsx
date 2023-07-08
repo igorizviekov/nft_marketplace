@@ -16,9 +16,9 @@ import RoyaltiesList from '../../components/Royalties/RoyaltiesList';
 import Traits from '../../components/Traits/Traits';
 import TraitsList from '../../components/Traits/TraitsList';
 import ProfileImageUpload from '../../components/ProfileImageUpload/ProfileImageUpload';
-import { submitNewNFT } from '../../scripts/utils';
 import { ethers } from 'ethers';
 import { CollectionsABI, collectionsAddress } from '../../mocks/constants.mock';
+import useMintNFT from '../../service/useMintNFT';
 export interface IFormInput {
   name: string;
   description: string;
@@ -50,7 +50,7 @@ const SingleForm = () => {
   } = useStoreActions((actions) => actions.nftMint);
 
   const { collections } = useStoreState((state) => state.profile);
-
+  const { activeWallet } = useStoreState((state) => state.wallet);
   const { isCollectionCreated } = useStoreActions(
     (actions) => actions.createCollection
   );
@@ -204,7 +204,15 @@ const SingleForm = () => {
         label="Create NFT"
         disabled={formError}
         onClick={() =>
-          submitNewNFT(nftGeneralInfo, setIsLoading, collectionContract)
+          useMintNFT(
+            nftGeneralInfo,
+            setIsLoading,
+            1,
+            collectionContract,
+            nftGeneralInfo.price,
+            activeWallet,
+            editGeneralInformation,
+          )
         }
       />
     </div>

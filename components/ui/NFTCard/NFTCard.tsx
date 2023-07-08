@@ -21,7 +21,6 @@ export const NftCard = ({ nft }: INftCardProps) => {
     router.push(`/nft/${nft?.contract.address}`);
   };
 
-  console.log(nft);
   return (
     <>
       {selectedBlockchain?.currency_symbol === 'ETH' ? (
@@ -78,7 +77,7 @@ export const NftCard = ({ nft }: INftCardProps) => {
           </div>
           <div className={styles.text}>
             <div className={styles.name}>
-              <h2>{nft.name}</h2>
+              {nft && <h2>{nft.name}</h2>}
               <p
                 className={styles.collectionName}
                 onClick={() => toast.warn('OpenCollection')}
@@ -89,7 +88,7 @@ export const NftCard = ({ nft }: INftCardProps) => {
             <div className={styles.bottom}>
               <div className={styles.price}>
                 <Icon icon={<FaEthereum />} />
-                <h2>{nft.balance}</h2>
+                {nft && <h2>{nft.balance}</h2>}
               </div>
               <div className={styles.arrow} onClick={handleClick}>
                 <p>View</p>
