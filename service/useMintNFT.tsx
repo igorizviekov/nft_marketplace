@@ -34,13 +34,9 @@ const useMintNFT = async (
     //mint
     const tx = await contract.mint(collection.id, tokenURI, price);
     const receipt = await tx.wait();
-    console.log({ receipt });
-
     const tokenMintedEvent = receipt.events?.find(
       (e: any) => e.event === 'TokenMinted'
     );
-
-    console.log({ tokenMintedEvent });
 
     if (tokenMintedEvent) {
       const newTokenID = Number(tokenMintedEvent.args?.tokenId);
