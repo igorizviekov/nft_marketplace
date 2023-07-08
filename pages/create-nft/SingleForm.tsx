@@ -19,6 +19,7 @@ import ProfileImageUpload from '../../components/ProfileImageUpload/ProfileImage
 import { ethers } from 'ethers';
 import { CollectionsABI, collectionsAddress } from '../../mocks/constants.mock';
 import useMintNFT from '../../service/useMintNFT';
+import { Spinner } from '../../components/spinner';
 export interface IFormInput {
   name: string;
   description: string;
@@ -36,6 +37,7 @@ const SingleForm = () => {
     nftGeneralInfo,
     formError,
     traitsError,
+    isLoading,
   } = useStoreState((state) => state.nftMint);
   const {
     addRoyalty,
@@ -198,11 +200,11 @@ const SingleForm = () => {
           nftGeneralInfo.description
         )}
       />
-
+      {isLoading && <Spinner />}
       <Button
         isPrimary
         label="Create NFT"
-        disabled={formError}
+        disabled={formError || isLoading}
         onClick={() =>
           useMintNFT(
             nftGeneralInfo,
@@ -211,7 +213,7 @@ const SingleForm = () => {
             collectionContract,
             nftGeneralInfo.price,
             activeWallet,
-            editGeneralInformation,
+            editGeneralInformation
           )
         }
       />

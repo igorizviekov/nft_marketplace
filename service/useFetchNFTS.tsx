@@ -3,9 +3,7 @@ import { useEffect } from 'react';
 import { useStoreActions, useStoreState } from '../store';
 import { Alchemy, Network } from 'alchemy-sdk';
 
-// Make the request and print the formatted response:
 export const useFetchNFTS = (address: string) => {
-  const { ownedNfts } = useStoreState((state) => state.profile);
   const { setOwnedNFTS } = useStoreActions((actions) => actions.profile);
 
   const { selectedBlockchain } = useStoreState((state) => state.app);
