@@ -117,5 +117,5 @@ const getCollectionById = async (
     toast.error(message);
   }
 };
-const getErrMessage = (err: any) => err?.reason || 'Error...';
+export const getErrMessage = (err: any) => err?.reason || 'Error...';
 export default useMintNFT;

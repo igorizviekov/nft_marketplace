@@ -31,14 +31,6 @@ export const useFetchNFTS = (address: string) => {
         .get(`${process.env.NEXT_PUBLIC_SHIMMER_NFT_URL}${address}`)
         .then((response) => {
           console.log(response, 'shimmer resp');
-
-          axios
-            .get(
-              `${
-                process.env.NEXT_PUBLIC_SHIMMER_NFT_URL
-              }${'0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9'}`
-            )
-            .then((response) => console.log(response, 'collection resp'));
           setOwnedNFTS(response['data']['result']);
         })
         .catch((error) => console.log(error));
