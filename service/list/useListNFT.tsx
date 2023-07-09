@@ -22,7 +22,7 @@ const useListNFT = async (tokenID: number, newPrice: number) => {
 
     console.log('Transaction sent:', tx.hash);
     await tx.wait();
-    console.log('Transaction minted');
+    console.log('Transaction mined');
   } catch (err) {
     console.log({ err });
     const message = getErrMessage(err);
