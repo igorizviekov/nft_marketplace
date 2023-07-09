@@ -9,9 +9,7 @@ import { FaDiscord, FaInstagram, FaTwitter } from 'react-icons/fa';
 import { MultipleFilter } from '../../components/MulitpleFilter/MultipleFilter';
 import FiltersBar from '../../components/FiltersBar/FiltersBar';
 import { NftCard } from '../../components/ui/NFTCard/NFTCard';
-import {
-  CollectionTraits,
-} from '../../mocks/SingleCollectionPage.mock';
+import { CollectionTraits } from '../../mocks/SingleCollectionPage.mock';
 import { useStoreState } from '../../store';
 import { useRouter } from 'next/router';
 import { useFetchSingleCollection } from '../../service/useFetchSingleCollection';
@@ -19,7 +17,7 @@ import { Spinner } from '../../components/spinner';
 import BaseLink from '../../components/ui/Base/BaseLink/BaseLink';
 import { Searchbar } from '../../components/Searchbar/Searchbar';
 import { useFetchAlchemyCollection } from '../../service/useFetchAlchemyCollection';
-import { Nft } from 'alchemy-sdk';
+import { Nft, OwnedNft } from 'alchemy-sdk';
 
 const SingleCollectionPage = () => {
   const router = useRouter();
@@ -29,7 +27,7 @@ const SingleCollectionPage = () => {
   const { collectionData, isLoading, collectionNFTS } = useStoreState(
     (state) => state.singleCollection
   );
-  function hasTrait(nft: Nft): boolean | undefined {
+  function hasTrait(nft: OwnedNft): boolean | undefined {
     const hasFilter = nft.rawMetadata?.attributes?.some((trait) => {
       return filters.some(
         (filter) =>

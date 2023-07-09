@@ -40,34 +40,3 @@ export interface INFTLog {
   date: Date;
   token_value: number;
 }
-export interface INFT extends Nft {
-  title: string;
-  description: string;
-  metadata: {
-    attributes: ITraits[];
-  };
-  timeLastUpdated: string;
-  contract: {
-    address: string;
-  };
-  media: [
-    {
-      bytes: number;
-      format: string;
-      gateway: string;
-      thumbnail: string;
-    }
-  ];
-  contractMetadata: {
-    openSea: {
-      collectionName: string;
-      description: string;
-      floorPrice: number;
-      imageUrl: string;
-    };
-    tokenType: string;
-  };
-  id: { tokenId: string; tokenMetadata: { tokenType: string } };
-  royalty?: string;
-  owner?: string;
-}
