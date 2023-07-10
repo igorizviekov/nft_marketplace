@@ -3,11 +3,14 @@ import { INFTLog } from '../../../components/BaseTable/TableBodies/ActivityBody/
 import { ICollection } from '../app/app.types';
 import { ITraits } from '../../../components/ui/NFTCard/NFTCard.types';
 import { Nft, OwnedNft } from 'alchemy-sdk';
+import { IShimmerNFT } from '../../../components/ui/NFTCard/ShimmerNFTCard.types';
 
 export interface IProfileModel {
   profile: IProfile;
   nftLogs: INFTLog[];
   ownedNfts: OwnedNft[];
+  shimmerOwnedNfts: IShimmerNFT[];
+  isOwnedNFTSLoading: boolean;
   collections: ICollection[];
 
   updateCollections: Action<IProfileModel, ICollection[]>;
@@ -16,6 +19,8 @@ export interface IProfileModel {
   updateNFTLogs: Action<IProfileModel, INFTLog>;
 
   setOwnedNFTS: Action<IProfileModel, OwnedNft[]>;
+  setShimmerOwnedNFTS: Action<IProfileModel, IShimmerNFT[]>;
+  setIsOwnedNFTsLoading: Action<IProfileModel, boolean>;
 }
 
 export interface IProfile {

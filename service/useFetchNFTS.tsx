@@ -3,9 +3,11 @@ import { useEffect } from 'react';
 import { useStoreActions, useStoreState } from '../store';
 import { Alchemy, Network, OwnedNft } from 'alchemy-sdk';
 import useGetNFTsInCollection from './collection/useGetNFTsInCollection';
+import { IShimmerNFT } from '../components/ui/NFTCard/ShimmerNFTCard.types';
 
 export const useFetchNFTS = async (address: string) => {
-  const { setOwnedNFTS } = useStoreActions((actions) => actions.profile);
+  const { setOwnedNFTS, setIsOwnedNFTsLoading, setShimmerOwnedNFTS } =
+    useStoreActions((actions) => actions.profile);
   const { activeWallet } = useStoreState((state) => state.wallet);
 
   const { selectedBlockchain } = useStoreState((state) => state.app);
@@ -27,6 +29,8 @@ export const useFetchNFTS = async (address: string) => {
         fetchNFTS();
       } catch (error) {
         console.error(error);
+      } finally {
+        setIsOwnedNFTsLoading(false);
       }
     } else if (selectedBlockchain?.currency_symbol === 'SMR') {
       const fetchNfts = async () => {
@@ -36,13 +40,15 @@ export const useFetchNFTS = async (address: string) => {
         const ownedNfts = nfts?.filter(
           (nft) => nft.owner.toLowerCase() === activeWallet
         );
-        setOwnedNFTS(ownedNfts as OwnedNft[]);
+        setShimmerOwnedNFTS(ownedNfts as IShimmerNFT[]);
       };
 
       try {
         fetchNfts();
       } catch (error) {
         console.error(error);
+      } finally {
+        setIsOwnedNFTsLoading(false);
       }
     }
   }, [address, selectedBlockchain]);

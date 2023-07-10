@@ -16,6 +16,8 @@ export const ProfileModel: IProfileModel = {
   collections: [],
   nftLogs: [],
   ownedNfts: [],
+  shimmerOwnedNfts: [],
+  isOwnedNFTSLoading: true,
 
   updateCollections: action((state, payload) => {
     state.collections = payload;
@@ -36,5 +38,11 @@ export const ProfileModel: IProfileModel = {
   }),
   setOwnedNFTS: action((state, payload) => {
     state.ownedNfts = payload;
+  }),
+  setIsOwnedNFTsLoading: action((state, payload) => {
+    state.isOwnedNFTSLoading = payload;
+  }),
+  setShimmerOwnedNFTS: action((state, payload) => {
+    state.shimmerOwnedNfts = payload;
   }),
 };

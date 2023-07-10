@@ -1,8 +1,9 @@
 import { INftCardProps } from '../../../components/ui/NFTCard/NFTCard.types';
 import { Action } from 'easy-peasy';
-import { Nft } from 'alchemy-sdk';
+import { OwnedNft } from 'alchemy-sdk';
+import { IShimmerNFT } from '../../../components/ui/NFTCard/ShimmerNFTCard.types';
 export interface INFTViewModel {
-  nft: Nft | undefined;
+  nft: OwnedNft | IShimmerNFT | undefined;
 
-  setNFT: Action<INFTViewModel, Nft>;
+  setNFT: Action<INFTViewModel, OwnedNft | IShimmerNFT>;
 }

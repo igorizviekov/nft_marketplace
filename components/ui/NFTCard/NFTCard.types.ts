@@ -1,6 +1,7 @@
 import { Nft, OwnedNft } from 'alchemy-sdk';
 
 export interface INftCardProps {
+  //@todo swap for ownedNFTs
   nft: INFT | undefined;
 }
 export interface ITraits {

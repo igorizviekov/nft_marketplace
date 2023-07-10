@@ -22,15 +22,18 @@ import { useFetchNFTS } from '../../service/useFetchNFTS';
 import axios from 'axios';
 import { useStoreRehydrated } from 'easy-peasy';
 import useGetNFTsInCollection from '../../service/collection/useGetNFTsInCollection';
+import ShimmerNFTCard from '../../components/ui/NFTCard/ShimmerNFTCard';
 
 const ProfilePage = () => {
   const router = useRouter();
-  const { profile, nftLogs, ownedNfts } = useStoreState(
+  const { profile, nftLogs, ownedNfts, shimmerOwnedNfts } = useStoreState(
     (state) => state.profile
   );
   const { activeWallet, isWalletConnected } = useStoreState(
     (state) => state.wallet
   );
+
+  const { selectedBlockchain } = useStoreState((state) => state.app);
 
   const isRehydrated = useStoreRehydrated();
 
@@ -43,6 +46,17 @@ const ProfilePage = () => {
     ownedNfts.map((nft, index) => {
       return <NftCard nft={nft} key={index} />;
     });
+
+  const foundNfts =
+    selectedBlockchain?.currency_symbol !== 'SMR'
+      ? ownedNfts &&
+        ownedNfts.map((nft, index) => {
+          return <NftCard nft={nft} key={index} />;
+        })
+      : shimmerOwnedNfts &&
+        shimmerOwnedNfts.map((nft, index) => {
+          return <ShimmerNFTCard nft={nft} key={index} />;
+        });
 
   useFetchProfile();
   useFetchNFTS(activeWallet);
@@ -131,8 +145,8 @@ const ProfilePage = () => {
                     'Amount',
                   ]}
                 />
-              ) : !foundNFTS.every((nft) => nft === undefined) ? (
-                foundNFTS
+              ) : !foundNfts.every((nft) => nft === undefined) ? (
+                foundNfts
               ) : (
                 <NoNFTCard />
               )}
