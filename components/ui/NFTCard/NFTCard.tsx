@@ -8,6 +8,7 @@ import { FaArrowRight, FaEthereum } from 'react-icons/fa';
 import { INftCardProps } from './NFTCard.types';
 import { useRouter } from 'next/router';
 import BaseImage from '../Base/BaseImage/BaseImage';
+import Shimmer from '../../../assets/icons/network-icons/Shimmer';
 
 export const NftCard = ({ nft }: INftCardProps) => {
   const { currency } = useStoreState((state) => state.wallet);
@@ -73,11 +74,11 @@ export const NftCard = ({ nft }: INftCardProps) => {
       ) : (
         <div className={styles.card}>
           <div className={styles.image}>
-            <BaseImage />
+            {nft && <BaseImage imageUrl={nft.metadata?.image} />}
           </div>
           <div className={styles.text}>
             <div className={styles.name}>
-              {nft && <h2>{nft.name}</h2>}
+              {nft && <h2>{nft.metadata?.name}</h2>}
               <p
                 className={styles.collectionName}
                 onClick={() => toast.warn('OpenCollection')}
@@ -87,8 +88,8 @@ export const NftCard = ({ nft }: INftCardProps) => {
             </div>
             <div className={styles.bottom}>
               <div className={styles.price}>
-                <Icon icon={<FaEthereum />} />
-                {nft && <h2>{nft.balance}</h2>}
+                <Icon icon={<Shimmer />} />
+                {nft?.metadata && <h2>{nft.metadata.price}</h2>}
               </div>
               <div className={styles.arrow} onClick={handleClick}>
                 <p>View</p>

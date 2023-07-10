@@ -21,6 +21,7 @@ import ActivityBody from '../../components/BaseTable/TableBodies/ActivityBody/Ac
 import { useFetchNFTS } from '../../service/useFetchNFTS';
 import axios from 'axios';
 import { useStoreRehydrated } from 'easy-peasy';
+import useGetNFTsInCollection from '../../service/collection/useGetNFTsInCollection';
 
 const ProfilePage = () => {
   const router = useRouter();
@@ -46,6 +47,7 @@ const ProfilePage = () => {
   useFetchProfile();
   useFetchNFTS(activeWallet);
   useFetchNFTLogs(activeWallet);
+
   return (
     <BasePage>
       {profile && isWalletConnected && isRehydrated ? (

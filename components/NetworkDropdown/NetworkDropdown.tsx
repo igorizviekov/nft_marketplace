@@ -41,6 +41,7 @@ const NetworkDropdown = ({ networks, isLoading }: INetworkProps) => {
     () => setMenuOpen(false),
     () => setMenuOpen(true)
   );
+
   return (
     <>
       {blockchains && (

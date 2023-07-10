@@ -1,10 +1,12 @@
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useStoreActions, useStoreState } from '../store';
-import { Alchemy, Network } from 'alchemy-sdk';
+import { Alchemy, Network, OwnedNft } from 'alchemy-sdk';
+import useGetNFTsInCollection from './collection/useGetNFTsInCollection';
 
-export const useFetchNFTS = (address: string) => {
+export const useFetchNFTS = async (address: string) => {
   const { setOwnedNFTS } = useStoreActions((actions) => actions.profile);
+  const { activeWallet } = useStoreState((state) => state.wallet);
 
   const { selectedBlockchain } = useStoreState((state) => state.app);
 
@@ -27,13 +29,21 @@ export const useFetchNFTS = (address: string) => {
         console.error(error);
       }
     } else if (selectedBlockchain?.currency_symbol === 'SMR') {
-      axios
-        .get(`${process.env.NEXT_PUBLIC_SHIMMER_NFT_URL}${address}`)
-        .then((response) => {
-          console.log(response, 'shimmer resp');
-          setOwnedNFTS(response['data']['result']);
-        })
-        .catch((error) => console.log(error));
+      const fetchNfts = async () => {
+        const nfts = await useGetNFTsInCollection(1, 0, 100);
+        console.log(nfts);
+
+        const ownedNfts = nfts?.filter(
+          (nft) => nft.owner.toLowerCase() === activeWallet
+        );
+        setOwnedNFTS(ownedNfts as OwnedNft[]);
+      };
+
+      try {
+        fetchNfts();
+      } catch (error) {
+        console.error(error);
+      }
     }
   }, [address, selectedBlockchain]);
 };
