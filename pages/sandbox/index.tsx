@@ -71,22 +71,30 @@ const ContractSandbox = () => {
     }
   };
 
-  const getNFTsInCollection = async (
-    collectionId: number,
-    startIndex: number,
-    pageSize: number
-  ) => {
+  const getNFTsInCollection = async () => {
+    const collectionId = window.prompt('Please enter the collection ID:');
+    const isForWallet = window.confirm('isForWallet - filter NFTs by wallet');
+    const startIndex = window.prompt('Please enter the offset:');
+    const pageSize = window.prompt('Please enter the limit:');
     try {
+      const web3Modal = new Web3Modal();
+      const connection = await web3Modal.connect();
+      const provider = new ethers.providers.Web3Provider(connection);
+      const signer = provider.getSigner();
+      const yourAddress = await signer.getAddress();
       const tokenIds = await collectionContract.getNFTsInCollection(
         collectionId,
         startIndex,
         pageSize
       );
+
       const tokenDataPromises = tokenIds.map(async (tokenId: BigNumber) => {
         const tokenURI = await collectionContract.tokenURI(tokenId);
         const price = await collectionContract.getPrice(tokenId);
-
         const owner = await collectionContract.ownerOf(tokenId);
+        if (isForWallet && owner !== yourAddress) {
+          return;
+        }
         const { data } = await axios.get(tokenURI);
         return {
           uri: tokenURI,
@@ -97,7 +105,7 @@ const ContractSandbox = () => {
         };
       });
 
-      const tokensData = await Promise.all(tokenDataPromises);
+      const tokensData = (await Promise.all(tokenDataPromises)).filter(Boolean);
 
       console.log({ nfts: tokensData });
       return tokensData;
@@ -272,9 +280,15 @@ const ContractSandbox = () => {
 
   const getListedTokensInCollection = async () => {
     const collectionId = window.prompt('Please enter the collection ID:');
+    const isForWallet = window.confirm('isForWallet - filter NFTs by wallet');
     const startIndex = window.prompt('Please enter the offset:');
     const pageSize = window.prompt('Please enter the limit:');
     try {
+      const web3Modal = new Web3Modal();
+      const connection = await web3Modal.connect();
+      const provider = new ethers.providers.Web3Provider(connection);
+      const signer = provider.getSigner();
+      const yourAddress = await signer.getAddress();
       const tokenIds = await marketplaceContract.getListedTokensInCollection(
         collectionId,
         startIndex,
@@ -283,8 +297,10 @@ const ContractSandbox = () => {
       const tokenDataPromises = tokenIds.map(async (tokenId: BigNumber) => {
         const tokenURI = await collectionContract.tokenURI(tokenId);
         const price = await collectionContract.getPrice(tokenId);
-
         const owner = await collectionContract.ownerOf(tokenId);
+        if (isForWallet && owner !== yourAddress) {
+          return;
+        }
         const { data } = await axios.get(tokenURI);
         return {
           uri: tokenURI,
@@ -295,7 +311,7 @@ const ContractSandbox = () => {
         };
       });
 
-      const tokensData = await Promise.all(tokenDataPromises);
+      const tokensData = (await Promise.all(tokenDataPromises)).filter(Boolean);
 
       console.log({ nfts: tokensData });
       return tokensData;
@@ -630,20 +646,7 @@ const ContractSandbox = () => {
           isPrimary
           label="getNFTsInCollection"
           disabled={false}
-          onClick={() => {
-            const collectionId = window.prompt(
-              'Please enter the collection ID:'
-            );
-            if (collectionId !== null) {
-              const id = Number(collectionId);
-              // Call your contract function
-              if (!isNaN(id)) {
-                getNFTsInCollection(id, 0, 100);
-              } else {
-                toast.error('Invalid collection ID. Please try again.');
-              }
-            }
-          }}
+          onClick={getNFTsInCollection}
         />
         <Button
           isPrimary
@@ -763,6 +766,7 @@ const ContractSandbox = () => {
           disabled={false}
           onClick={getListedTokensInCollection}
         />
+
         <Button
           isPrimary
           label="listNFT"
