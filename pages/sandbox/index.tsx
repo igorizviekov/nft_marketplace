@@ -270,6 +270,42 @@ const ContractSandbox = () => {
     }
   };
 
+  const getListedTokensInCollection = async () => {
+    const collectionId = window.prompt('Please enter the collection ID:');
+    const startIndex = window.prompt('Please enter the offset:');
+    const pageSize = window.prompt('Please enter the limit:');
+    try {
+      const tokenIds = await marketplaceContract.getListedTokensInCollection(
+        collectionId,
+        startIndex,
+        pageSize
+      );
+      const tokenDataPromises = tokenIds.map(async (tokenId: BigNumber) => {
+        const tokenURI = await collectionContract.tokenURI(tokenId);
+        const price = await collectionContract.getPrice(tokenId);
+
+        const owner = await collectionContract.ownerOf(tokenId);
+        const { data } = await axios.get(tokenURI);
+        return {
+          uri: tokenURI,
+          metadata: data,
+          price: ethers.utils.formatUnits(price.toString(), 'ether'),
+          owner: owner,
+          id: Number(tokenId),
+        };
+      });
+
+      const tokensData = await Promise.all(tokenDataPromises);
+
+      console.log({ nfts: tokensData });
+      return tokensData;
+    } catch (err) {
+      console.log({ err });
+      const message = getErrMessage(err);
+      toast.error(message);
+    }
+  };
+
   const listNFT = async (tokenId: number, newPrice: number) => {
     try {
       // get contract
@@ -720,6 +756,12 @@ const ContractSandbox = () => {
               }
             }
           }}
+        />
+        <Button
+          isPrimary
+          label="getListedTokensInCollection"
+          disabled={false}
+          onClick={getListedTokensInCollection}
         />
         <Button
           isPrimary
