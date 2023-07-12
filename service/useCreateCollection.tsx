@@ -63,6 +63,7 @@ export async function useCreateCollection({
         name: generalInformation.name,
         description: generalInformation.description,
         blockchain_id: networkInformation.network.id,
+        website: generalInformation.website ? generalInformation.website : '',
         symbol: networkInformation.symbol,
         categoryPrimary: networkInformation.categoryPrimary,
         categorySecondary: networkInformation.categorySecondary,
