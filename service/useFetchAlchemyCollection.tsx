@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useStoreActions } from '../store';
-import { Alchemy, Network } from 'alchemy-sdk';
+import { Alchemy, Network, OwnedNft } from 'alchemy-sdk';
 import { useStoreState } from '../store';
 import { useEffect } from 'react';
 import { network } from 'hardhat';
@@ -31,7 +31,7 @@ export const useFetchAlchemyCollection = () => {
 
       const { nfts } = await alchemy.nft.getNftsForContract(address);
       const metada = await alchemy.nft.getContractMetadata(address);
-      setCollectionNFTS(nfts);
+      setCollectionNFTS(nfts as OwnedNft[]);
     };
 
     try {

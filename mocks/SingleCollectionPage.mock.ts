@@ -1,7 +1,3 @@
-import { TEST_IMAGE_URL } from '../components/ui/Base/BaseImage/BaseImage';
-import { INftCardProps } from '../components/ui/NFTCard/NFTCard.types';
-import { INFT } from '../store/model/profile/profile.types';
-
 export interface ICollectionTraits {
   traits: ICollectionTrait[];
 }

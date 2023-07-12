@@ -1,5 +1,5 @@
 .card {
-  min-width: 300px;
+  min-width: 320px;
   max-width: 350px;
   height: 450px;
 
@@ -98,4 +98,26 @@
   object-fit: cover;
   overflow: hidden;
   border-radius: var(--border-radius-md);
+}
+
+.icon {
+  width: 30px;
+  height: 30px;
+
+  border-radius: 50px;
+  transition: 0.2s ease-in-out;
+
+  path {
+    fill: var(--accent);
+
+    transition: 0.2s ease-in-out;
+  }
+
+  &:hover {
+    path {
+      fill: var(--green);
+    }
+
+    box-shadow: var(--box-shadow-hover);
+  }
 }

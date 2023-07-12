@@ -1,36 +1,55 @@
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useStoreActions, useStoreState } from '../store';
-import { Alchemy, Network } from 'alchemy-sdk';
+import { Alchemy, Network, OwnedNft } from 'alchemy-sdk';
+import useGetNFTsInCollection from './collection/useGetNFTsInCollection';
+import { IShimmerNFT } from '../components/ui/NFTCard/ShimmerNFTCard.types';
 
-// Make the request and print the formatted response:
-export const useFetchNFTS = (address: string) => {
-  const { ownedNfts } = useStoreState((state) => state.profile);
-  const { setOwnedNFTS } = useStoreActions((actions) => actions.profile);
+export const useFetchNFTS = async (address: string) => {
+  const { setOwnedNFTS, setIsOwnedNFTsLoading, setShimmerOwnedNFTS } =
+    useStoreActions((actions) => actions.profile);
+  const { activeWallet } = useStoreState((state) => state.wallet);
+
+  const { selectedBlockchain } = useStoreState((state) => state.app);
 
   const config = {
     apiKey: process.env.NEXT_PUBLIC_ALCHEMY_API_KEY,
     network: Network.ETH_MAINNET,
   };
   const alchemy = new Alchemy(config);
+
   useEffect(() => {
-    const fetchNFTS = async () => {
-      const nfts = await alchemy.nft.getNftsForOwner(address);
-      setOwnedNFTS(nfts.ownedNfts);
-    };
+    if (selectedBlockchain?.currency_symbol === 'ETH') {
+      const fetchNFTS = async () => {
+        const nfts = await alchemy.nft.getNftsForOwner(address);
+        setOwnedNFTS(nfts.ownedNfts);
+      };
 
-    try {
-      fetchNFTS();
-    } catch (error) {
-      console.error(error);
+      try {
+        fetchNFTS();
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setIsOwnedNFTsLoading(false);
+      }
+    } else if (selectedBlockchain?.currency_symbol === 'SMR') {
+      const fetchNfts = async () => {
+        const nfts = await useGetNFTsInCollection(1, 0, 100);
+        console.log(nfts);
+
+        const ownedNfts = nfts?.filter(
+          (nft) => nft.owner.toLowerCase() === activeWallet
+        );
+        setShimmerOwnedNFTS(ownedNfts as IShimmerNFT[]);
+      };
+
+      try {
+        fetchNfts();
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setIsOwnedNFTsLoading(false);
+      }
     }
-
-    //Fetch nfts on shimmer
-    axios
-      .get(`${process.env.NEXT_PUBLIC_SHIMMER_NFT_URL}${address}`)
-      .then((response) =>
-        setOwnedNFTS([...ownedNfts, ...response['data']['result']])
-      )
-      .catch((error) => console.log(error));
-  }, [address]);
+  }, [address, selectedBlockchain]);
 };

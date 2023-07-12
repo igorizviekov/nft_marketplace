@@ -16,8 +16,13 @@ import DescriptionSticker from '../../components/DescriptionSticker/DescriptionS
 import { refactorAttributeDate } from '../../utils/NFTViewUtils';
 import { formatAddress } from '../../components/BaseTable/TableBodies/ActivityBody/utils';
 import { useStoreRehydrated } from 'easy-peasy';
+import NFTDetailsHeroSection from '../../components/NFTDetailsHeroSection/NFTDetailsHeroSection';
+import ShimmerNFTDetailsHeroSection from '../../components/NFTDetailsHeroSection/ShimmerNFTDetailsHeroSection';
+import { OwnedNft } from 'alchemy-sdk';
+import { IShimmerNFT } from '../../components/ui/NFTCard/ShimmerNFTCard.types';
 
 const NFTPage = () => {
+  const { selectedBlockchain } = useStoreState((state) => state.app);
   const mockNFTLogs: INFTLog[] = [
     {
       id: '1f7fc062-e508-43c3-be1a-cee1a5eb91d0',
@@ -74,108 +79,15 @@ const NFTPage = () => {
   const isRehydrated = useStoreRehydrated();
   const { nft } = useStoreState((state) => state.nftView);
 
-  const collectionDescription = [
-    {
-      title: (
-        <div className={styles.title}>
-          <h2>{`About ${nft?.contract.openSea?.collectionName}`}</h2>
-          <Icon icon={<BsChevronDown />} />
-        </div>
-      ),
-      content: (
-        <div className={styles.filter}>
-          <p>{nft?.contract.openSea?.description}</p>
-        </div>
-      ),
-    },
-    {
-      title: (
-        <div className={styles.title}>
-          <h2>{'Attributes'}</h2>
-          <Icon icon={<BsChevronDown />} />
-        </div>
-      ),
-      content: (
-        <div className={styles.filter}>
-          {nft &&
-            nft.rawMetadata?.attributes?.map((attribute, index) => (
-              <DescriptionSticker
-                key={index}
-                title={attribute.trait_type}
-                data={refactorAttributeDate(attribute)}
-                type={'PRIMARY'}
-                givenClassName={styles.sticker}
-              />
-            ))}
-        </div>
-      ),
-    },
-    {
-      title: (
-        <div className={styles.title}>
-          <h2>{'Details'}</h2>
-          <Icon icon={<BsChevronDown />} />
-        </div>
-      ),
-      content: (
-        <div className={styles.filter}>
-          <div>
-            {nft?.contract.address && (
-              <>
-                <p>Contract Address</p>
-                <p>Token ID</p>
-              </>
-            )}
-            <p>Token Standard</p>
-            <p>Owner</p>
-            <p>Royalty</p>
-          </div>
-          <div>
-            {nft?.contract.address && (
-              <>
-                <p>{formatAddress(nft?.contract.address)}</p>
-                <p>{formatAddress(nft?.tokenId)}</p>
-              </>
-            )}
-            <p>{nft?.tokenType}</p>
-            <p>
-              {nft?.contract.contractDeployer
-                ? nft.contract.contractDeployer
-                : 'no-owner'}
-            </p>
-            <p>{nft?.description ? nft.description : '0'}</p>
-          </div>
-        </div>
-      ),
-    },
-  ];
   return (
     <BasePage>
       {isRehydrated && (
         <>
-          <div className={styles.hero}>
-            <div className={styles.image}>
-              <BaseImage imageUrl={nft?.media[0].gateway} />
-            </div>
-            <div className={classNames(styles.textContainer, 'flex-col-start')}>
-              <h1>{`${nft?.contract.openSea?.collectionName} #${nft?.tokenId}`}</h1>
-              <BaseLink href={''}>
-                <p>{nft?.description}</p>
-              </BaseLink>
-              <div className={styles.price}>
-                <h2>{nft?.contract.openSea?.floorPrice}</h2>
-              </div>
-
-              <div className={styles.wrapper}>
-                <Accordion
-                  items={collectionDescription}
-                  open={2}
-                  duration={200}
-                  multiple={true}
-                />
-              </div>
-            </div>
-          </div>
+          {selectedBlockchain?.currency_symbol !== 'SMR' ? (
+            <NFTDetailsHeroSection nft={nft as OwnedNft} />
+          ) : (
+            <ShimmerNFTDetailsHeroSection nft={nft as IShimmerNFT} />
+          )}
           <BaseTable
             body={<ActivityBody activities={mockNFTLogs} />}
             header={[
