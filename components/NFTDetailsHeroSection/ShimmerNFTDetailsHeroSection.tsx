@@ -2,21 +2,21 @@ import React from 'react';
 import { formatAddress } from '../BaseTable/TableBodies/ActivityBody/utils';
 import { BsChevronDown } from 'react-icons/bs';
 import Icon from '../ui/Icon/Icon';
-import { refactorAttributeDate } from '../../utils/NFTViewUtils';
-import DescriptionSticker from '../DescriptionSticker/DescriptionSticker';
 import BaseImage from '../ui/Base/BaseImage/BaseImage';
 import BaseLink from '../ui/Base/BaseLink/BaseLink';
 import { Accordion } from 'react-accordion-ts';
 import styles from '../../styles/pages/NFTPage.module.scss';
 import classNames from 'classnames';
 import { IShimmerNFT } from '../ui/NFTCard/ShimmerNFTCard.types';
+import { refactorAttributeDate } from '../../utils/NFTViewUtils';
+import DescriptionSticker from '../DescriptionSticker/DescriptionSticker';
 
 const ShimmerNFTDetailsHeroSection = ({ nft }: { nft: IShimmerNFT }) => {
   const collectionDescription = [
     {
       title: (
         <div className={styles.title}>
-          <h2>{`About ${nft.uri}`}</h2>
+          <h2>{`About`}</h2>
           <Icon icon={<BsChevronDown />} />
         </div>
       ),
@@ -35,8 +35,8 @@ const ShimmerNFTDetailsHeroSection = ({ nft }: { nft: IShimmerNFT }) => {
       ),
       content: (
         <div className={styles.filter}>
-          {/* {nft &&
-            nft.metadata.attributes.map((attribute: any, index: number) => (
+          {nft &&
+            nft.metadata.traits.map((attribute: any, index: number) => (
               <DescriptionSticker
                 key={index}
                 title={attribute.trait_type}
@@ -44,7 +44,7 @@ const ShimmerNFTDetailsHeroSection = ({ nft }: { nft: IShimmerNFT }) => {
                 type={'PRIMARY'}
                 givenClassName={styles.sticker}
               />
-            ))} */}
+            ))}
         </div>
       ),
     },
@@ -58,30 +58,18 @@ const ShimmerNFTDetailsHeroSection = ({ nft }: { nft: IShimmerNFT }) => {
       content: (
         <div className={styles.filter}>
           <div>
-            {nft.metadata.owner && (
-              <>
-                <p>Contract Address</p>
-                <p>Token ID</p>
-              </>
-            )}
+            <p>Contract Address</p>
+            <p>Token ID</p>
             <p>Token Standard</p>
             <p>Owner</p>
-            <p>Royalty</p>
+            {nft.metadata.royalty && <p>Royalty</p>}
           </div>
           <div>
-            {nft.metadata.owner && (
-              <>
-                <p>{formatAddress(nft?.metadata.owner)}</p>
-                <p>{formatAddress(nft.metadata.owner)}</p>
-              </>
-            )}
+            <p>{formatAddress(nft.owner)}</p>
+            <p>{formatAddress(nft.owner)}</p>
             <p>{nft.metadata.name}</p>
-            {/* <p>
-              {nft?.contract.contractDeployer
-                ? nft.contract.contractDeployer
-                : 'no-owner'}
-            </p>
-            <p>{nft?.description ? nft.description : '0'}</p> */}
+            <p>{formatAddress(nft.owner)}</p>
+            <p>{nft.metadata.royalty && nft.metadata.royalty}</p>
           </div>
         </div>
       ),
@@ -93,7 +81,7 @@ const ShimmerNFTDetailsHeroSection = ({ nft }: { nft: IShimmerNFT }) => {
         <BaseImage imageUrl={nft.metadata.image} />
       </div>
       <div className={classNames(styles.textContainer, 'flex-col-start')}>
-        <h1>{`${nft.name}`}</h1>
+        <h1>{`${nft.metadata.name}`}</h1>
         <BaseLink href={''}>
           <p>{nft.metadata.description}</p>
         </BaseLink>

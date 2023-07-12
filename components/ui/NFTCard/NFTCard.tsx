@@ -8,6 +8,7 @@ import { INftCardProps } from './NFTCard.types';
 import { useRouter } from 'next/router';
 import BaseImage from '../Base/BaseImage/BaseImage';
 import Shimmer from '../../../assets/icons/network-icons/Shimmer';
+import Ethereum from '../../../assets/icons/network-icons/Ethereum';
 
 export const NftCard = ({ nft }: INftCardProps) => {
   const { currency } = useStoreState((state) => state.wallet);
@@ -57,7 +58,7 @@ export const NftCard = ({ nft }: INftCardProps) => {
             </div>
             <div className={styles.bottom}>
               <div className={styles.price}>
-                <Icon icon={<FaEthereum />} />
+                <Icon icon={<Ethereum className={styles.icon} />} />
                 <h2>{nft?.contract.openSea?.floorPrice}</h2>
               </div>
               <div className={styles.arrow} onClick={handleClick}>

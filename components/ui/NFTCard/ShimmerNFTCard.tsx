@@ -36,7 +36,7 @@ const ShimmerNFTCard = ({ nft }: IShimmerNFTCardProps) => {
         </div>
         <div className={styles.bottom}>
           <div className={styles.price}>
-            <Icon icon={<Shimmer />} />
+            <Icon icon={<Shimmer className={styles.icon} />} />
             {nft?.metadata && <h2>{nft.metadata.price}</h2>}
           </div>
           <div className={styles.arrow} onClick={handleClick}>

@@ -5,12 +5,13 @@ export interface IShimmerNFTCardProps{
 export interface IShimmerNFT {
   name: string;
   uri: string;
+  owner: string;
   metadata: {
     description: string;
     image: string;
     name: string;
-    attributes: [{ trait_type: string; value: string }];
-    owner: string;
+    traits: [{ trait_type: string; value: string }];
     price: string;
+    royalty?: number;
   };
 }
