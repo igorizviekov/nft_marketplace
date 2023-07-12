@@ -4,7 +4,9 @@ import { NetworkInformation } from '../store/model/create-collection/collection.
 import { Royalty } from '../store/model/create-collection/collection.types';
 import { toast } from 'react-toastify';
 import { useIPFSImageUpload } from './useIPFSImageUpload';
-
+import Web3Modal from 'web3modal';
+import { ethers } from 'ethers';
+import { CollectionsABI, collectionsAddress } from '../mocks/constants.mock';
 export async function useCreateCollection({
   generalInformation,
   networkInformation,
@@ -14,11 +16,45 @@ export async function useCreateCollection({
 }: ICreateCollection) {
   const token = localStorage.getItem('token');
 
+  isCollectionCreated(false);
+
   const ipfsImagePath =
     generalInformation.file &&
     (await useIPFSImageUpload(generalInformation.file));
 
-  isCollectionCreated(false);
+  const web3Modal = new Web3Modal();
+  const connection = await web3Modal.connect();
+  const provider = new ethers.providers.Web3Provider(connection);
+  const signer = provider.getSigner();
+  const contract = new ethers.Contract(
+    collectionsAddress,
+    CollectionsABI,
+    signer
+  );
+
+  const collectionURI = JSON.stringify({
+    name: generalInformation.name,
+    description: generalInformation.description,
+    image: ipfsImagePath,
+    website: generalInformation.website ? generalInformation.website : '',
+    category_primary: networkInformation.categoryPrimary,
+    category_secondary: networkInformation.categorySecondary,
+    symbol: networkInformation.symbol,
+    network: networkInformation.network,
+    royalties: royalties,
+  });
+
+  const tx = await contract.createCollection(collectionURI);
+  const receipt = await tx.wait();
+  console.log({ receipt });
+
+  const CollectionCreatedEvent = receipt.events?.find(
+    (e: any) => e.event === 'CollectionCreated'
+  );
+  const collectionID = Number(CollectionCreatedEvent.args?.[0]);
+
+  console.log({ collectionID });
+
   axios
     .post(
       'https://nft-api-production-4aa1.up.railway.app/collection',
@@ -30,8 +66,7 @@ export async function useCreateCollection({
         symbol: networkInformation.symbol,
         categoryPrimary: networkInformation.categoryPrimary,
         categorySecondary: networkInformation.categorySecondary,
-
-        //@todo add royalties once the db schema is changed
+        tokenId: collectionID,
       },
       {
         headers: {
