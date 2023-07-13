@@ -1,26 +1,17 @@
-import React from 'react';
 import { getErrMessage } from '../useMintNFT';
 import { toast } from 'react-toastify';
 import { BigNumber } from 'ethers';
 import axios from 'axios';
 import { ethers } from 'ethers';
-import Web3Modal from 'web3modal';
-import { CollectionsABI, collectionsAddress } from '../../mocks/constants.mock';
+import { getCollectionContract } from './utilts';
 
 const useGetNFTsInCollection = async (
   collectionID: number,
   startIndex: number,
   pageSize: number
 ) => {
-  const web3Modal = new Web3Modal();
-  const connection = await web3Modal.connect();
-  const provider = new ethers.providers.Web3Provider(connection);
-  const signer = provider.getSigner();
-  const collectionContract = new ethers.Contract(
-    collectionsAddress,
-    CollectionsABI,
-    signer
-  );
+  const collectionContract = await getCollectionContract();
+
   try {
     const tokenIDs = await collectionContract.getNFTsInCollection(
       collectionID,
