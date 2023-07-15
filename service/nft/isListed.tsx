@@ -1,8 +1,10 @@
 import { getErrMessage } from '../useMintNFT';
 import { toast } from 'react-toastify';
-import { marketplaceContract } from '../../scripts/utils';
-
-const isListed = async (tokenID: number) => {
+import { ethers } from 'ethers';
+const isListed = async (
+  tokenID: number,
+  marketplaceContract: ethers.Contract
+) => {
   try {
     const tx = await marketplaceContract.isTokenListed(tokenID);
     return tx;

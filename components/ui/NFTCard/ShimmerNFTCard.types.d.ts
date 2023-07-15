@@ -1,8 +1,9 @@
-export interface IShimmerNFTCardProps{
-  nft: IShimmerNFT
+export interface IShimmerNFTCardProps {
+  nft: IShimmerNFT;
 }
 
 export interface IShimmerNFT {
+  id: number;
   name: string;
   uri: string;
   owner: string;

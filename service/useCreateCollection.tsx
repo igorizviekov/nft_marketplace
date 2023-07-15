@@ -36,7 +36,7 @@ export async function useCreateCollection({
     name: generalInformation.name,
     description: generalInformation.description,
     image: ipfsImagePath,
-    website: generalInformation.website ? generalInformation.website : '',
+    website: generalInformation.website,
     category_primary: networkInformation.categoryPrimary,
     category_secondary: networkInformation.categorySecondary,
     symbol: networkInformation.symbol,
@@ -54,7 +54,6 @@ export async function useCreateCollection({
   const collectionID = Number(CollectionCreatedEvent.args?.[0]);
 
   console.log({ collectionID });
-
   axios
     .post(
       'https://nft-api-production-4aa1.up.railway.app/collection',
@@ -63,7 +62,7 @@ export async function useCreateCollection({
         name: generalInformation.name,
         description: generalInformation.description,
         blockchain_id: networkInformation.network.id,
-        website: generalInformation.website ? generalInformation.website : '',
+        website: generalInformation.website,
         symbol: networkInformation.symbol,
         categoryPrimary: networkInformation.categoryPrimary,
         categorySecondary: networkInformation.categorySecondary,
