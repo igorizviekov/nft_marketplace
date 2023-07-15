@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { IProfile } from '../store/model/profile/profile.types';
 import { useIPFSImageUpload } from './useIPFSImageUpload';
+import { getErrMessage } from './useMintNFT';
 
 const useUpdateProfile = async (profile: IProfile, file: File | null) => {
   //@TODO replace id once the method on the api changed
@@ -13,7 +14,7 @@ const useUpdateProfile = async (profile: IProfile, file: File | null) => {
     .patch(
       `https://nft-api-production-4aa1.up.railway.app/users/${id}`,
       {
-        image: ipfsImagePath,
+        image: ipfsImagePath ? ipfsImagePath : profile.image,
         name: profile.name,
         description: profile.description,
         email: profile.email,
@@ -22,6 +23,7 @@ const useUpdateProfile = async (profile: IProfile, file: File | null) => {
         discord: profile.discord,
         twitter: profile.twitter,
         instagram: profile.instagram,
+        isApprovedMarketplace: true,
       },
       {
         headers: {
@@ -32,7 +34,10 @@ const useUpdateProfile = async (profile: IProfile, file: File | null) => {
     .then((response) => {
       console.log(response);
     })
-    .catch((error) => console.error(error));
+    .catch((error) => {
+      const message = getErrMessage(error);
+      console.log(message);
+    });
 };
 
 export default useUpdateProfile;

@@ -1,6 +1,7 @@
 import React from 'react';
 import { create as ipfsClient } from 'ipfs-http-client';
 
+//@TODO .avi .move .mp4 .gif
 export const useIPFSImageUpload = async (
   image: File
 ): Promise<string | undefined> => {
