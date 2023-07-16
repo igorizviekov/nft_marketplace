@@ -19,6 +19,7 @@ export const useFetchNFTS = async (address: string) => {
   const alchemy = new Alchemy(config);
 
   useEffect(() => {
+    setIsOwnedNFTsLoading(true);
     if (selectedBlockchain?.currency_symbol === 'ETH') {
       const fetchNFTS = async () => {
         const nfts = await alchemy.nft.getNftsForOwner(address);

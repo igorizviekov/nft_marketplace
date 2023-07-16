@@ -18,21 +18,21 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <React.Fragment>
       <Head>
+        <meta name="viewport" content="width=device-width" />
         <title>Phoenix Mint</title>
         <link
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
           rel="stylesheet"
         ></link>
       </Head>
-      <ThemeProvider attribute="class" defaultTheme="system">
-        <StoreProviderCasted store={store}>
-          <Header />
-          <ToastContainer position="top-left" toastClassName="info-alert" />
-          <Component {...pageProps} />
-          <Analytics />
-          <Footer />
-        </StoreProviderCasted>
-      </ThemeProvider>
+
+      <StoreProviderCasted store={store}>
+        <Header />
+        <ToastContainer position="top-left" toastClassName="info-alert" />
+        <Component {...pageProps} />
+        <Analytics />
+        <Footer />
+      </StoreProviderCasted>
     </React.Fragment>
   );
 }

@@ -26,9 +26,8 @@ import ShimmerNFTCard from '../../components/ui/NFTCard/ShimmerNFTCard';
 
 const ProfilePage = () => {
   const router = useRouter();
-  const { profile, nftLogs, ownedNfts, shimmerOwnedNfts } = useStoreState(
-    (state) => state.profile
-  );
+  const { profile, nftLogs, ownedNfts, shimmerOwnedNfts, isOwnedNFTSLoading } =
+    useStoreState((state) => state.profile);
   const { activeWallet, isWalletConnected } = useStoreState(
     (state) => state.wallet
   );
@@ -126,25 +125,29 @@ const ProfilePage = () => {
               selected={selectedTab}
               handleChange={setSelectedTab}
             />
-            <div className={styles.nftRow}>
-              {options[selectedTab] === 'Activity' ? (
-                <BaseTable
-                  body={<ActivityBody activities={nftLogs} />}
-                  header={[
-                    'NFT Data',
-                    'Transation Type',
-                    'Seller',
-                    'Buyer',
-                    'Time',
-                    'Amount',
-                  ]}
-                />
-              ) : !foundNfts.every((nft) => nft === undefined) ? (
-                foundNfts
-              ) : (
-                <NoNFTCard />
-              )}
-            </div>
+            {!isOwnedNFTSLoading ? (
+              <div className={styles.nftRow}>
+                {options[selectedTab] === 'Activity' ? (
+                  <BaseTable
+                    body={<ActivityBody activities={nftLogs} />}
+                    header={[
+                      'NFT Data',
+                      'Transation Type',
+                      'Seller',
+                      'Buyer',
+                      'Time',
+                      'Amount',
+                    ]}
+                  />
+                ) : !foundNfts.every((nft) => nft === undefined) ? (
+                  foundNfts
+                ) : (
+                  <NoNFTCard />
+                )}
+              </div>
+            ) : (
+              <Spinner />
+            )}
           </div>
         </>
       ) : (
