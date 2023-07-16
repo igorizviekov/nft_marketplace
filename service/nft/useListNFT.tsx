@@ -12,10 +12,11 @@ const useListNFT = async (
     const price = ethers.utils.parseUnits(newPrice.toString(), 'ether');
 
     const tx = await marketplaceContract.listNFT(tokenID, price);
+    console.log(tokenID);
 
     console.log('Transaction sent:', tx.hash);
     await tx.wait();
-    console.log('Transaction mined');
+    console.log('Transaction mined', tx);
     setListedNFT(true);
   } catch (err) {
     console.log({ err });

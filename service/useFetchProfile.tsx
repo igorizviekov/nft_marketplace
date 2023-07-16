@@ -15,7 +15,6 @@ const useFetchProfile = () => {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    //@TODO replace id once the method on the api changed
     const id = localStorage.getItem('usersUID');
 
     axios
@@ -50,7 +49,6 @@ const useFetchProfile = () => {
           },
         }
       )
-      .then((response) => console.log(response, 'fetch profile'))
       .catch((error) => console.log(error));
 
     axios

@@ -35,7 +35,6 @@ export const useFetchNFTS = async (address: string) => {
     } else if (selectedBlockchain?.currency_symbol === 'SMR') {
       const fetchNfts = async () => {
         const nfts = await useGetNFTsInCollection(1, 0, 100);
-        console.log(nfts);
 
         const ownedNfts = nfts?.filter(
           (nft) => nft.owner.toLowerCase() === activeWallet

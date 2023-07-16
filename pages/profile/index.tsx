@@ -41,12 +41,6 @@ const ProfilePage = () => {
   const [isOwnProfile, setIsOwnProfile] = useState<boolean>(true);
   const options = ['My NFTs', 'Listed', 'Created', 'Liked', 'Activity'];
 
-  const foundNFTS =
-    ownedNfts &&
-    ownedNfts.map((nft, index) => {
-      return <NftCard nft={nft} key={index} />;
-    });
-
   const foundNfts =
     selectedBlockchain?.currency_symbol !== 'SMR'
       ? ownedNfts &&
