@@ -5,7 +5,7 @@ import { Alchemy, Network, OwnedNft } from 'alchemy-sdk';
 import useGetNFTsInCollection from './collection/useGetNFTsInCollection';
 import { IShimmerNFT } from '../components/ui/NFTCard/ShimmerNFTCard.types';
 
-export const useFetchNFTS = async (address: string) => {
+export const useFetchNFTS = (address: string) => {
   const { setOwnedNFTS, setIsOwnedNFTsLoading, setShimmerOwnedNFTS } =
     useStoreActions((actions) => actions.profile);
   const { activeWallet } = useStoreState((state) => state.wallet);

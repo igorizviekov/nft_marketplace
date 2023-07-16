@@ -4,7 +4,7 @@ import styles from '../styles/pages/HomePage.module.scss';
 import { LaunchpadDropsMocks } from '../mocks/LaunchpadDrops.mock';
 import LaunchpadDrops from '../components/CollectionCard/CollectionCard';
 import Filter from '../components/Filter/Filter';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { INFTCategories } from '../components/Filter/Filter.types';
 import HomeHero from '../components/HomeHero/HomeHero';
 import HorizontalScroll from '../components/HorizontalScroll/HorizontalScroll';
@@ -13,6 +13,10 @@ import { useRouter } from 'next/router';
 import NoCollectionCard from '../components/CollectionCard/NoCollectionCard';
 import { useFetchCollections } from '../service/useFetchCollections';
 import { useStoreState } from '../store';
+import useGetTokensListedInCollection from '../service/collection/useGetTokensListedInCollection';
+import { ethers } from 'ethers';
+import { MarketplaceABI, marketplaceAddress } from '../mocks/constants.mock';
+import useGetNFTsInCollection from '../service/collection/useGetNFTsInCollection';
 export default function Home() {
   const [selected, setSelected] = useState<number | null>(null);
   const { isCollectionsLoading, collections, selectedBlockchain } =
@@ -64,6 +68,18 @@ export default function Home() {
     });
 
   useFetchCollections();
+  // const provider = useMemo(
+  //   () =>
+  //     new ethers.providers.JsonRpcProvider(
+  //       'https://json-rpc.evm.testnet.shimmer.network'
+  //     ),
+  //   []
+  // );
+  // const marketplaceContract = useMemo(() => {
+  //   return new ethers.Contract(marketplaceAddress, MarketplaceABI, provider);
+  // }, []);
+
+  // useGetTokensListedInCollection(1, marketplaceContract);
 
   return (
     <BasePage>
@@ -96,6 +112,26 @@ export default function Home() {
             onClick={() => router.push('collections')}
           />
         </div>
+      </div>
+
+      <div>
+        <h1>Available NFTS</h1>
+        <br />
+        <HorizontalScroll>
+          {LaunchpadDropsMocks &&
+            LaunchpadDropsMocks.map((drop, index) => (
+              <LaunchpadDrops
+                key={index}
+                image={drop.image}
+                network={drop.network}
+                name={drop.name}
+                launchDate={drop.launchDate}
+                isCategory={false}
+                primaryCategory={drop.primaryCategory}
+                secondaryCategory={drop.secondaryCategory}
+              />
+            ))}
+        </HorizontalScroll>
       </div>
 
       <div>
