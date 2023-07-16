@@ -7,4 +7,8 @@ export const NFTViewModel: INFTViewModel = {
   setNFT: action((state, payload) => {
     state.nft = { ...payload };
   }),
+  isListedLoading: true,
+  setIsListedLoading: action((state, payload) => {
+    state.isListedLoading = payload;
+  }),
 };

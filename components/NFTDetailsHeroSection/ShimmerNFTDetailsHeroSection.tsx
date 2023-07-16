@@ -4,7 +4,7 @@ import { Accordion } from 'react-accordion-ts';
 import styles from '../../styles/pages/NFTPage.module.scss';
 import classNames from 'classnames';
 import { IShimmerNFT } from '../ui/NFTCard/ShimmerNFTCard.types';
-import { useStoreState } from '../../store';
+import { useStoreState, useStoreActions } from '../../store';
 import { Button } from '../ui/Button';
 import { collectionDescription } from './constants';
 import useListNFT from '../../service/nft/useListNFT';
@@ -15,6 +15,8 @@ import { MarketplaceABI, marketplaceAddress } from '../../mocks/constants.mock';
 
 const ShimmerNFTDetailsHeroSection = ({ nft }: { nft: IShimmerNFT }) => {
   const { activeWallet } = useStoreState((state) => state.wallet);
+  const { isListedLoading } = useStoreState((state) => state.nftView);
+  const { setIsListedLoading } = useStoreActions((actions) => actions.nftView);
   const isOwner = activeWallet === nft.owner.toLowerCase();
   const [listedNFT, setListedNFT] = useState<boolean>(false);
 
@@ -33,6 +35,7 @@ const ShimmerNFTDetailsHeroSection = ({ nft }: { nft: IShimmerNFT }) => {
     const getIsListed = async () => {
       const tx = await isListed(nft.id, marketplaceContract);
       setListedNFT(tx);
+      setIsListedLoading(false);
     };
 
     try {
@@ -58,13 +61,14 @@ const ShimmerNFTDetailsHeroSection = ({ nft }: { nft: IShimmerNFT }) => {
             </div>
           </div>
           <div>
-            {isOwner && listedNFT ? (
+            {!isListedLoading && isOwner && listedNFT ? (
               <Button
                 isPrimary={true}
                 label={'De list NFT'}
                 onClick={() => useDelistNFT(nft.id, setListedNFT)}
               />
             ) : (
+              isListedLoading &&
               !listedNFT && (
                 <Button
                   isPrimary={true}
