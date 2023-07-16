@@ -9,21 +9,17 @@ import {
 } from '../../mocks/constants.mock';
 import { getErrMessage } from '../useMintNFT';
 import { toast } from 'react-toastify';
+import { getMarketplaceContract } from '../collection/utilts';
+import useApproveMarketplace from '../marketplace/useApproveMarketplace';
 const useBuyNFT = async (
   tokenID: number,
   collectionID: number,
   tokenURI: string
 ) => {
   try {
-    const web3Modal = new Web3Modal();
-    const connection = await web3Modal.connect();
-    const provider = new ethers.providers.Web3Provider(connection);
-    const signer = provider.getSigner();
-    const contract = new ethers.Contract(
-      marketplaceAddress,
-      MarketplaceABI,
-      signer
-    );
+    const contract = await getMarketplaceContract();
+
+    await useApproveMarketplace();
 
     let price;
     if (tokenID) {

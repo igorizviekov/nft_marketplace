@@ -5,12 +5,14 @@ import { MarketplaceABI, marketplaceAddress } from '../../mocks/constants.mock';
 import { getErrMessage } from '../useMintNFT';
 import { toast } from 'react-toastify';
 import { getMarketplaceContract } from '../collection/utilts';
+import useApproveMarketplace from '../marketplace/useApproveMarketplace';
 
 const useDelistNFT = async (
   tokenID: number,
   setListedNFT: (listedNFT: boolean) => void
 ) => {
   try {
+    await useApproveMarketplace();
     const contract = await getMarketplaceContract();
 
     const tx = await contract.delistNFT(tokenID);
