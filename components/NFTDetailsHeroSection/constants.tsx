@@ -7,6 +7,7 @@ import { refactorAttributeDate } from '../../utils/NFTViewUtils';
 import { formatAddress } from '../BaseTable/TableBodies/ActivityBody/utils';
 
 export const collectionDescription = (nft: IShimmerNFT) => {
+  console.log(nft)
   return [
     {
       title: (

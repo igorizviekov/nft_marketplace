@@ -12,7 +12,7 @@ export interface ITraitProps {
 }
 
 export interface ITraitForm {
-  traitType: string;
+  trait_type: string;
   value: string;
 }
 export interface ITraitListProps {

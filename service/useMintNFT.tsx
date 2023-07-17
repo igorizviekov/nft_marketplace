@@ -4,18 +4,20 @@ import { ethers } from 'ethers';
 import { collectionsAddress, CollectionsABI } from '../mocks/constants.mock';
 import axios from 'axios';
 import Web3Modal from 'web3modal';
-import { INFTGeneralInfo } from '../store/model/nft-mint/nft-mint.types';
+import { INFTGeneralInfo, Trait } from '../store/model/nft-mint/nft-mint.types';
 import { useIPFSImageUpload } from './useIPFSImageUpload';
 import useIPFSJSONUpload from './useIPFSJSONUpload';
 
 const useMintNFT = async (
   nftGeneralInfo: INFTGeneralInfo,
+  traits: Trait[],
   setIsLoading: (loaded: boolean) => void,
   collectionID: number,
   collectionContract: ethers.Contract,
   nftPrice: number,
   mintAddress: string,
-  editGeneralInformation: (nftGeneralInfo: INFTGeneralInfo) => void
+  editGeneralInformation: (nftGeneralInfo: INFTGeneralInfo) => void,
+  resetTraits: () => void
 ) => {
   setIsLoading(true);
 
@@ -26,6 +28,7 @@ const useMintNFT = async (
     description: nftGeneralInfo.description,
     price: nftGeneralInfo.price,
     image: uploadedImage,
+    traits: traits,
   });
 
   const tokenURI = await useIPFSJSONUpload(metadata);
@@ -84,6 +87,7 @@ const useMintNFT = async (
         price: 0,
         collection: '',
       });
+      resetTraits();
     } else {
       console.error('Token Minted event not found in receipt');
     }

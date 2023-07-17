@@ -49,12 +49,16 @@ export const NFTMintModel: INFTMintModel = {
   deleteTrait: action((state, payload) => {
     state.traits?.map((trait, index) => {
       if (
-        trait.traitType === payload.traitType &&
+        trait.trait_type === payload.trait_type &&
         trait.value === payload.value
       ) {
         state.traits?.splice(index, 1);
       }
     });
+  }),
+
+  resetTraits: action((state) => {
+    state.traits = [];
   }),
   setTraitsError: action((state, payload) => {
     state.traitsError = payload;
