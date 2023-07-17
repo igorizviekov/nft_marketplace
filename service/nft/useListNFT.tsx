@@ -9,9 +9,7 @@ const useListNFT = async (
   newPrice: number,
   setListedNFT: (isListed: boolean) => void
 ) => {
-  const userID = localStorage.getItem('usersUID');
-  const isApproved = userID && await useIsMarketplaceApproved(userID);
-
+  const isApproved = await useIsMarketplaceApproved();
   if (!isApproved) {
     await useApproveMarketplace();
     await useListNFT(tokenID, newPrice, setListedNFT);

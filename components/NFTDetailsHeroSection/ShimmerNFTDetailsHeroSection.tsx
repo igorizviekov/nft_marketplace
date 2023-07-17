@@ -45,7 +45,6 @@ const ShimmerNFTDetailsHeroSection = ({ nft }: { nft: IShimmerNFT }) => {
     }
   }, [useDelistNFT, useListNFT]);
 
-  console.log(listedNFT);
   return (
     <div className={styles.hero}>
       <div className={styles.image}>
@@ -68,7 +67,7 @@ const ShimmerNFTDetailsHeroSection = ({ nft }: { nft: IShimmerNFT }) => {
                 onClick={() => useDelistNFT(nft.id, setListedNFT)}
               />
             ) : (
-              isListedLoading &&
+              !isListedLoading &&
               !listedNFT && (
                 <Button
                   isPrimary={true}

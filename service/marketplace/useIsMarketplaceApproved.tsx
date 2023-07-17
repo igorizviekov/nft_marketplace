@@ -1,10 +1,22 @@
 import axios from 'axios';
 
-const useIsMarketplaceApproved = (id: string) => {
+const useIsMarketplaceApproved = () => {
+  const userID = localStorage.getItem('usersUID');
+  const token = localStorage.getItem('token');
+
   const isApprovedMarketplace = axios
-    .post(`https://nft-api-production-4aa1.up.railway.app/users/approve/${id}`)
+    .post(
+      `https://nft-api-production-4aa1.up.railway.app/users/approve/${userID}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
     .then((response) => {
-      return response.data.isApprovedMarketplace;
+      console.log(response)
+      return response.data.data.isApprovedMarketplace;
     })
     .catch((error) => console.error(error));
 
