@@ -23,7 +23,6 @@ const useUpdateProfile = async (profile: IProfile, file: File | null) => {
         discord: profile.discord,
         twitter: profile.twitter,
         instagram: profile.instagram,
-        isApprovedMarketplace: true,
       },
       {
         headers: {

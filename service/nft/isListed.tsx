@@ -7,7 +7,6 @@ const isListed = async (
   marketplaceContract: ethers.Contract
 ) => {
   try {
-    await useApproveMarketplace();
     const tx = await marketplaceContract.isTokenListed(tokenID);
     return tx;
   } catch (err) {
