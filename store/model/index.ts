@@ -9,6 +9,7 @@ import { AppModel } from './app';
 import { SingleCollectionModel } from './single-collection';
 import { NFTViewModel } from './nft-view';
 import { persist } from 'easy-peasy';
+import { ListedNFTSModel } from './listed-nfts';
 export const model: IStoreModel = {
   app: AppModel,
   wallet: persist(WalletModel),
@@ -19,4 +20,5 @@ export const model: IStoreModel = {
   bulkUpload: BulkUploadModel,
   singleCollection: SingleCollectionModel,
   nftView: persist(NFTViewModel),
+  listedNFTS: ListedNFTSModel,
 };

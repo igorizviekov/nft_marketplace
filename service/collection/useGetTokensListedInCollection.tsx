@@ -5,10 +5,15 @@ import { BigNumber, ethers } from 'ethers';
 import axios from 'axios';
 import { getErrMessage } from '../useMintNFT';
 import { toast } from 'react-toastify';
+import { useStoreActions } from '../../store';
+import { IShimmerNFT } from '../../components/ui/NFTCard/ShimmerNFTCard.types';
 const useGetTokensListedInCollection = async (
   collectionID: number,
   marketplaceContract: ethers.Contract
 ) => {
+  const { setShimmerListedNFTS } = useStoreActions(
+    (actions) => actions.listedNFTS
+  );
   const isForWallet = true;
   const startIndex = 0;
   const pageSize = 20;
@@ -46,7 +51,7 @@ const useGetTokensListedInCollection = async (
     const tokensData = (await Promise.all(tokenDataPromises)).filter(Boolean);
 
     console.log({ nfts: tokensData });
-    return tokensData;
+    setShimmerListedNFTS(tokensData as IShimmerNFT[]);
   } catch (err) {
     console.log({ err });
     const message = getErrMessage(err);

@@ -16,11 +16,13 @@ import { useStoreState } from '../store';
 import useGetTokensListedInCollection from '../service/collection/useGetTokensListedInCollection';
 import { ethers } from 'ethers';
 import { MarketplaceABI, marketplaceAddress } from '../mocks/constants.mock';
-import useGetNFTsInCollection from '../service/collection/useGetNFTsInCollection';
+import ShimmerNFTCard from '../components/ui/NFTCard/ShimmerNFTCard';
 export default function Home() {
   const [selected, setSelected] = useState<number | null>(null);
   const { isCollectionsLoading, collections, selectedBlockchain } =
     useStoreState((state) => state.app);
+
+  const { shimmerListedNFTS } = useStoreState((state) => state.listedNFTS);
   const filterOptions: INFTCategories[] = [
     'Collectibles',
     'PFPS',
@@ -68,18 +70,18 @@ export default function Home() {
     });
 
   useFetchCollections();
-  // const provider = useMemo(
-  //   () =>
-  //     new ethers.providers.JsonRpcProvider(
-  //       'https://json-rpc.evm.testnet.shimmer.network'
-  //     ),
-  //   []
-  // );
-  // const marketplaceContract = useMemo(() => {
-  //   return new ethers.Contract(marketplaceAddress, MarketplaceABI, provider);
-  // }, []);
+  const provider = useMemo(
+    () =>
+      new ethers.providers.JsonRpcProvider(
+        'https://json-rpc.evm.testnet.shimmer.network'
+      ),
+    []
+  );
+  const marketplaceContract = useMemo(() => {
+    return new ethers.Contract(marketplaceAddress, MarketplaceABI, provider);
+  }, []);
 
-  // useGetTokensListedInCollection(1, marketplaceContract);
+  useGetTokensListedInCollection(1, marketplaceContract);
 
   return (
     <BasePage>
@@ -117,21 +119,12 @@ export default function Home() {
       <div>
         <h1>Available NFTS</h1>
         <br />
-        <HorizontalScroll>
-          {LaunchpadDropsMocks &&
-            LaunchpadDropsMocks.map((drop, index) => (
-              <LaunchpadDrops
-                key={index}
-                image={drop.image}
-                network={drop.network}
-                name={drop.name}
-                launchDate={drop.launchDate}
-                isCategory={false}
-                primaryCategory={drop.primaryCategory}
-                secondaryCategory={drop.secondaryCategory}
-              />
+        <div className={styles.listedNFTScontainer}>
+          {shimmerListedNFTS &&
+            shimmerListedNFTS.map((nft, index) => (
+              <ShimmerNFTCard key={index} nft={nft} />
             ))}
-        </HorizontalScroll>
+        </div>
       </div>
 
       <div>
