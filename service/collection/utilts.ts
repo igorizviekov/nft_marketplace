@@ -6,7 +6,6 @@ import {
   collectionsAddress,
 } from '../../mocks/constants.mock';
 import Web3Modal from 'web3modal';
-import { marketplaceContract } from '../../scripts/utils';
 export const getCollectionContract = async (): Promise<ethers.Contract> => {
   const web3Modal = new Web3Modal();
   const connection = await web3Modal.connect();

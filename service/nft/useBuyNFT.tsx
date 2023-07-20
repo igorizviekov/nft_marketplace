@@ -1,29 +1,23 @@
-import React, { useMemo } from 'react';
-import Web3Modal from 'web3modal';
-import ethers from 'ethers';
-import {
-  CollectionsABI,
-  MarketplaceABI,
-  collectionsAddress,
-  marketplaceAddress,
-} from '../../mocks/constants.mock';
+import { ethers } from 'ethers';
 import { getErrMessage } from '../useMintNFT';
 import { toast } from 'react-toastify';
-import { getMarketplaceContract } from '../collection/utilts';
-import useApproveMarketplace from '../marketplace/useApproveMarketplace';
+import {
+  getCollectionContract,
+  getMarketplaceContract,
+} from '../collection/utilts';
+
 const useBuyNFT = async (
   tokenID: number,
   collectionID: number,
-  tokenURI: string
+  tokenURI: string,
 ) => {
   try {
     const contract = await getMarketplaceContract();
-
-    await useApproveMarketplace();
+    const collectionContract = await getCollectionContract();
 
     let price;
     if (tokenID) {
-      const tokenPrice = (await getPrice(tokenID)) || '';
+      const tokenPrice = (await getPrice(tokenID, collectionContract)) || '';
       price = ethers.utils.parseUnits(tokenPrice.toString(), 'ether');
       const transaction = await contract.buyNFT(tokenID, 0, '', {
         value: price,
@@ -69,7 +63,10 @@ const useBuyNFT = async (
   }
 };
 
-const getPrice = async (tokenId: number) => {
+const getPrice = async (
+  tokenId: number,
+  collectionContract: ethers.Contract
+) => {
   try {
     const tx = await collectionContract.getPrice(tokenId);
     const tokenPrice = ethers.utils.formatEther(tx);
@@ -81,17 +78,4 @@ const getPrice = async (tokenId: number) => {
     toast.error(message);
   }
 };
-
-const collectionContract = useMemo(
-  () => new ethers.Contract(collectionsAddress, CollectionsABI, provider),
-  []
-);
-
-const provider = useMemo(
-  () =>
-    new ethers.providers.JsonRpcProvider(
-      'https://json-rpc.evm.testnet.shimmer.network'
-    ),
-  []
-);
 export default useBuyNFT;

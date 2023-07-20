@@ -9,12 +9,12 @@ import { useStoreActions } from '../../store';
 import { IShimmerNFT } from '../../components/ui/NFTCard/ShimmerNFTCard.types';
 const useGetTokensListedInCollection = async (
   collectionID: number,
-  marketplaceContract: ethers.Contract
+  marketplaceContract: ethers.Contract,
+  isForWallet: boolean,
 ) => {
   const { setShimmerListedNFTS } = useStoreActions(
     (actions) => actions.listedNFTS
   );
-  const isForWallet = true;
   const startIndex = 0;
   const pageSize = 20;
   try {

@@ -17,6 +17,7 @@ import useGetTokensListedInCollection from '../service/collection/useGetTokensLi
 import { ethers } from 'ethers';
 import { MarketplaceABI, marketplaceAddress } from '../mocks/constants.mock';
 import ShimmerNFTCard from '../components/ui/NFTCard/ShimmerNFTCard';
+import ShimmerListedNFTCard from '../components/ui/NFTCard/ListedNFTCard/ShimmerListedNFTCard';
 export default function Home() {
   const [selected, setSelected] = useState<number | null>(null);
   const { isCollectionsLoading, collections, selectedBlockchain } =
@@ -81,7 +82,7 @@ export default function Home() {
     return new ethers.Contract(marketplaceAddress, MarketplaceABI, provider);
   }, []);
 
-  useGetTokensListedInCollection(1, marketplaceContract);
+  useGetTokensListedInCollection(1, marketplaceContract, false);
 
   return (
     <BasePage>
@@ -122,7 +123,7 @@ export default function Home() {
         <div className={styles.listedNFTScontainer}>
           {shimmerListedNFTS &&
             shimmerListedNFTS.map((nft, index) => (
-              <ShimmerNFTCard key={index} nft={nft} />
+              <ShimmerListedNFTCard key={index} nft={nft} />
             ))}
         </div>
       </div>
