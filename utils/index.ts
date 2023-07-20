@@ -1,6 +1,5 @@
 import { ethers } from 'ethers';
 import { JsonRpcProvider, JsonRpcSigner } from '@ethersproject/providers';
-import { MarketAddress, MarketAddressABI } from '../context/constants';
 import { INftCardProps } from '../components/ui/NFTCard/NFTCard.types';
 import { ActiveSelectOption } from '../components/SortBy/SortBy.types';
 
@@ -45,12 +44,6 @@ export const connectWallet = async (
     };
   }
 };
-
-/**
- * Connect to the smart contract
- */
-export const fetchContract = (signer: JsonRpcSigner | JsonRpcProvider) =>
-  new ethers.Contract(MarketAddress, MarketAddressABI, signer);
 
 export const sortNfts = (type: ActiveSelectOption, nfts: INftCardProps[]) => {
   switch (type) {
