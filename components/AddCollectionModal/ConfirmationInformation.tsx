@@ -5,9 +5,11 @@ import { Button } from '../ui/Button';
 import { useCreateCollection } from '../../service/useCreateCollection';
 import styles from './AddCollectionModal.module.scss';
 import { Spinner } from '../spinner';
+import { excludeEmptyKeys } from './utils';
 const ConfirmationInformation = ({ handleModalClose }: IConfirmationModal) => {
   const {
     generalInformation,
+    image,
     royalties,
     networkInformation,
     isCreatingCollection,
@@ -61,6 +63,7 @@ const ConfirmationInformation = ({ handleModalClose }: IConfirmationModal) => {
         disabled={isCreatingCollection}
         onClick={() =>
           useCreateCollection({
+            image,
             generalInformation,
             networkInformation,
             royalties,

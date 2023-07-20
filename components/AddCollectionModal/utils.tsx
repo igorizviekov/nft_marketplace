@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useStoreActions } from '../../store';
+import { INetworkInformationInput } from './AddCollectionModal.types';
+import { NetworkInformation } from '../../store/model/create-collection/collection.types';
 
 export function validateName(name: string): string {
   const [message, setMessage] = useState<string>('');
@@ -73,4 +75,17 @@ export function validateSymbol(symbol: string): string {
   }, [symbol]);
 
   return message;
+}
+
+export function excludeEmptyKeys(obj: any): Object {
+  const newObj: any = {};
+  for (const key in obj) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) {
+      const value = obj[key];
+      if (value !== null && value !== undefined && value !== '') {
+        newObj[key] = value;
+      }
+    }
+  }
+  return newObj;
 }

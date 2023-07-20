@@ -7,7 +7,9 @@ import { useIPFSImageUpload } from './useIPFSImageUpload';
 import Web3Modal from 'web3modal';
 import { ethers } from 'ethers';
 import { CollectionsABI, collectionsAddress } from '../mocks/constants.mock';
+import { excludeEmptyKeys } from '../components/AddCollectionModal/utils';
 export async function useCreateCollection({
+  image,
   generalInformation,
   networkInformation,
   royalties,
@@ -18,9 +20,7 @@ export async function useCreateCollection({
 
   isCollectionCreated(false);
 
-  const ipfsImagePath =
-    generalInformation.file &&
-    (await useIPFSImageUpload(generalInformation.file));
+  const ipfsImagePath = image && (await useIPFSImageUpload(image));
 
   const web3Modal = new Web3Modal();
   const connection = await web3Modal.connect();
@@ -33,36 +33,28 @@ export async function useCreateCollection({
   );
 
   const collectionURI = JSON.stringify({
-    name: generalInformation.name,
-    description: generalInformation.description,
     image: ipfsImagePath,
-    website: generalInformation.website,
-    category_primary: networkInformation.categoryPrimary,
-    category_secondary: networkInformation.categorySecondary,
-    symbol: networkInformation.symbol,
-    network: networkInformation.network,
+    ...generalInformation,
+    ...networkInformation,
     royalties: royalties,
   });
 
   const tx = await contract.createCollection(collectionURI);
   const receipt = await tx.wait();
-  console.log({ receipt });
 
   const CollectionCreatedEvent = receipt.events?.find(
     (e: any) => e.event === 'CollectionCreated'
   );
   const collectionID = Number(CollectionCreatedEvent.args?.[0]);
 
-  console.log({ collectionID });
+  const refactoredGeneralInfo = excludeEmptyKeys(generalInformation);
   axios
     .post(
       'https://nft-api-production-4aa1.up.railway.app/collection',
       {
         image: ipfsImagePath,
-        name: generalInformation.name,
-        description: generalInformation.description,
+        ...refactoredGeneralInfo,
         blockchain_id: networkInformation.network.id,
-        website: generalInformation.website,
         symbol: networkInformation.symbol,
         categoryPrimary: networkInformation.categoryPrimary,
         categorySecondary: networkInformation.categorySecondary,
@@ -85,6 +77,7 @@ export async function useCreateCollection({
 }
 
 interface ICreateCollection {
+  image: File | null;
   generalInformation: GeneralInformation;
   networkInformation: NetworkInformation;
   royalties: Royalty[];

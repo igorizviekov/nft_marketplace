@@ -3,8 +3,8 @@ import { ICreateCollectionModel } from './collection.types';
 
 export const CreateCollectionModel: ICreateCollectionModel = {
   royalties: [],
+  image: null,
   generalInformation: {
-    file: null,
     name: '',
     description: '',
     website: '',
@@ -48,12 +48,12 @@ export const CreateCollectionModel: ICreateCollectionModel = {
   /**
    * General information Actions
    */
+  setImage: action((state, payload) => {
+    state.image = payload;
+  }),
   editGeneralInformation: action((state, payload) => {
     state.generalInformation = {
-      file: payload.file,
-      name: payload.name,
-      description: payload.description,
-      website: payload.website,
+      ...payload,
     };
   }),
   setGralInfoFormError: action((state, payload) => {
@@ -66,10 +66,7 @@ export const CreateCollectionModel: ICreateCollectionModel = {
 
   setNetworkInformation: action((state, payload) => {
     state.networkInformation = {
-      symbol: payload.symbol,
-      network: payload.network,
-      categoryPrimary: payload.categoryPrimary,
-      categorySecondary: payload.categorySecondary,
+      ...payload,
     };
   }),
   setNetworkInformationError: action((state, payload) => {
