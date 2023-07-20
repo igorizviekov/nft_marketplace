@@ -47,6 +47,7 @@ const SingleForm = () => {
     setRoyaltiesError,
     setTraitsError,
     editGeneralInformation,
+    resetTraits,
     setFormError,
     setIsLoading,
   } = useStoreActions((actions) => actions.nftMint);
@@ -208,12 +209,14 @@ const SingleForm = () => {
         onClick={() =>
           useMintNFT(
             nftGeneralInfo,
+            traits,
             setIsLoading,
             1,
             collectionContract,
             nftGeneralInfo.price,
             activeWallet,
-            editGeneralInformation
+            editGeneralInformation,
+            resetTraits
           )
         }
       />

@@ -8,6 +8,7 @@ import { IBulkUploadModel } from './bulk-upload/bulk-upload.types';
 import { IAppModel } from './app/app.types';
 import { ISingleCollectionModel } from './single-collection/single-collection.types';
 import { INFTViewModel } from './nft-view/nft-view.types';
+import { IListedNFTSModel } from './listed-nfts/listed-nfts.types';
 
 export interface IStoreModel {
   app: IAppModel;
@@ -19,4 +20,5 @@ export interface IStoreModel {
   bulkUpload: IBulkUploadModel;
   singleCollection: ISingleCollectionModel;
   nftView: INFTViewModel;
+  listedNFTS: IListedNFTSModel;
 }

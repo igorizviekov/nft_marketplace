@@ -20,14 +20,14 @@ const Traits = ({
   const { traits } = useStoreState((state) => state.nftMint);
   const [error, setError] = useState<string>('');
   const [formInput, setFormInput] = useState<ITraitForm>({
-    traitType: '',
+    trait_type: '',
     value: '',
   });
 
   useEffect(() => {
     const isDuplicate = traits.some(
       (trait) =>
-        trait.traitType === formInput.traitType &&
+        trait.trait_type === formInput.trait_type &&
         trait.value === formInput.value
     );
     if (isDuplicate) {
@@ -35,7 +35,7 @@ const Traits = ({
       setError('Trait is duplicate');
     } else if (
       traits.length === 0 &&
-      (formInput.traitType === '' || formInput.value === '')
+      (formInput.trait_type === '' || formInput.value === '')
     ) {
       setFormError(true);
       setError('');
@@ -53,11 +53,11 @@ const Traits = ({
             inputType={'text'}
             title={leftLabel}
             placeholder={leftPlaceholder}
-            value={formInput.traitType}
+            value={formInput.trait_type}
             handleChange={(e) =>
               setFormInput({
                 ...formInput,
-                traitType: (e.target as HTMLInputElement).value,
+                trait_type: (e.target as HTMLInputElement).value,
               })
             }
             error={error}
@@ -88,7 +88,7 @@ const Traits = ({
           <Icon
             onClick={() =>
               addTrait({
-                traitType: formInput.traitType,
+                trait_type: formInput.trait_type,
                 value: formInput.value,
               })
             }

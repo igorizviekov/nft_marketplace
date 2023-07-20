@@ -3,7 +3,7 @@ import { Action, ActionOn } from 'easy-peasy';
 export interface INFTMintModel {
   nftGeneralInfo: INFTGeneralInfo;
   formError: boolean;
-  
+
   isLoading: boolean;
   setIsLoading: Action<INFTMintModel, boolean>;
 
@@ -23,6 +23,7 @@ export interface INFTMintModel {
   addTrait: Action<INFTMintModel, Trait>;
   deleteTrait: Action<INFTMintModel, Trait>;
   setTraitsError: Action<INFTMintModel, boolean>;
+  resetTraits: Action<INFTMintModel>;
 }
 
 export interface INFTGeneralInfo {
@@ -34,6 +35,6 @@ export interface INFTGeneralInfo {
 }
 
 export interface Trait {
-  traitType: string;
+  trait_type: string;
   value: string;
 }

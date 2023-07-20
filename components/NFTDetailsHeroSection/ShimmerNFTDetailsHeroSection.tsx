@@ -1,97 +1,86 @@
-import React from 'react';
-import { formatAddress } from '../BaseTable/TableBodies/ActivityBody/utils';
-import { BsChevronDown } from 'react-icons/bs';
-import Icon from '../ui/Icon/Icon';
+import React, { useEffect, useMemo, useState } from 'react';
 import BaseImage from '../ui/Base/BaseImage/BaseImage';
-import BaseLink from '../ui/Base/BaseLink/BaseLink';
 import { Accordion } from 'react-accordion-ts';
 import styles from '../../styles/pages/NFTPage.module.scss';
 import classNames from 'classnames';
 import { IShimmerNFT } from '../ui/NFTCard/ShimmerNFTCard.types';
-import { refactorAttributeDate } from '../../utils/NFTViewUtils';
-import DescriptionSticker from '../DescriptionSticker/DescriptionSticker';
+import { useStoreState, useStoreActions } from '../../store';
+import { Button } from '../ui/Button';
+import { collectionDescription } from './constants';
+import useListNFT from '../../service/nft/useListNFT';
+import isListed from '../../service/nft/isListed';
+import useDelistNFT from '../../service/nft/useDelistNFT';
+import { ethers } from 'ethers';
+import { MarketplaceABI, marketplaceAddress } from '../../mocks/constants.mock';
 
 const ShimmerNFTDetailsHeroSection = ({ nft }: { nft: IShimmerNFT }) => {
-  const collectionDescription = [
-    {
-      title: (
-        <div className={styles.title}>
-          <h2>{`About`}</h2>
-          <Icon icon={<BsChevronDown />} />
-        </div>
+  const { activeWallet } = useStoreState((state) => state.wallet);
+  const { isListedLoading } = useStoreState((state) => state.nftView);
+  const { setIsListedLoading } = useStoreActions((actions) => actions.nftView);
+  const isOwner = activeWallet === nft.owner.toLowerCase();
+  const [listedNFT, setListedNFT] = useState<boolean>(false);
+
+  const provider = useMemo(
+    () =>
+      new ethers.providers.JsonRpcProvider(
+        'https://json-rpc.evm.testnet.shimmer.network'
       ),
-      content: (
-        <div className={styles.filter}>
-          <p>{nft?.metadata.description}</p>
-        </div>
-      ),
-    },
-    {
-      title: (
-        <div className={styles.title}>
-          <h2>{'Attributes'}</h2>
-          <Icon icon={<BsChevronDown />} />
-        </div>
-      ),
-      content: (
-        <div className={styles.filter}>
-          {nft &&
-            nft.metadata.traits.map((attribute: any, index: number) => (
-              <DescriptionSticker
-                key={index}
-                title={attribute.trait_type}
-                data={refactorAttributeDate(attribute)}
-                type={'PRIMARY'}
-                givenClassName={styles.sticker}
-              />
-            ))}
-        </div>
-      ),
-    },
-    {
-      title: (
-        <div className={styles.title}>
-          <h2>{'Details'}</h2>
-          <Icon icon={<BsChevronDown />} />
-        </div>
-      ),
-      content: (
-        <div className={styles.filter}>
-          <div>
-            <p>Contract Address</p>
-            <p>Token ID</p>
-            <p>Token Standard</p>
-            <p>Owner</p>
-            {nft.metadata.royalty && <p>Royalty</p>}
-          </div>
-          <div>
-            <p>{formatAddress(nft.owner)}</p>
-            <p>{formatAddress(nft.owner)}</p>
-            <p>{nft.metadata.name}</p>
-            <p>{formatAddress(nft.owner)}</p>
-            <p>{nft.metadata.royalty && nft.metadata.royalty}</p>
-          </div>
-        </div>
-      ),
-    },
-  ];
+    []
+  );
+  const marketplaceContract = useMemo(() => {
+    return new ethers.Contract(marketplaceAddress, MarketplaceABI, provider);
+  }, []);
+
+  useEffect(() => {
+    const getIsListed = async () => {
+      const tx = await isListed(nft.id, marketplaceContract);
+      setListedNFT(tx);
+      setIsListedLoading(false);
+    };
+
+    try {
+      getIsListed();
+    } catch (err) {
+      console.log(err);
+    }
+  }, [useDelistNFT, useListNFT]);
+
   return (
     <div className={styles.hero}>
       <div className={styles.image}>
         <BaseImage imageUrl={nft.metadata.image} />
       </div>
       <div className={classNames(styles.textContainer, 'flex-col-start')}>
-        <h1>{`${nft.metadata.name}`}</h1>
-        <BaseLink href={''}>
-          <p>{nft.metadata.description}</p>
-        </BaseLink>
-        <div className={styles.price}>
-          <h2>{nft.metadata.price}</h2>
+        <div className={styles.top}>
+          <div className={styles.text}>
+            <h1>{`${nft.metadata.name}`}</h1>
+            <p>{nft.metadata.description}</p>
+            <div className={styles.price}>
+              <h2>{nft.metadata.price}</h2>
+            </div>
+          </div>
+          <div>
+            {!isListedLoading && isOwner && listedNFT ? (
+              <Button
+                isPrimary={true}
+                label={'De list NFT'}
+                onClick={() => useDelistNFT(nft.id, setListedNFT)}
+              />
+            ) : (
+              !isListedLoading &&
+              !listedNFT && (
+                <Button
+                  isPrimary={true}
+                  label={'List NFT'}
+                  onClick={() => useListNFT(nft.id, 500, setListedNFT)}
+                />
+              )
+            )}
+          </div>
         </div>
-
         <div className={styles.wrapper}>
           <Accordion
-            items={collectionDescription}
+            items={collectionDescription(nft)}
             open={2}
             duration={200}
             multiple={true}

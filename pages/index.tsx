@@ -4,7 +4,7 @@ import styles from '../styles/pages/HomePage.module.scss';
 import { LaunchpadDropsMocks } from '../mocks/LaunchpadDrops.mock';
 import LaunchpadDrops from '../components/CollectionCard/CollectionCard';
 import Filter from '../components/Filter/Filter';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { INFTCategories } from '../components/Filter/Filter.types';
 import HomeHero from '../components/HomeHero/HomeHero';
 import HorizontalScroll from '../components/HorizontalScroll/HorizontalScroll';
@@ -13,10 +13,17 @@ import { useRouter } from 'next/router';
 import NoCollectionCard from '../components/CollectionCard/NoCollectionCard';
 import { useFetchCollections } from '../service/useFetchCollections';
 import { useStoreState } from '../store';
+import useGetTokensListedInCollection from '../service/collection/useGetTokensListedInCollection';
+import { ethers } from 'ethers';
+import { MarketplaceABI, marketplaceAddress } from '../mocks/constants.mock';
+import ShimmerNFTCard from '../components/ui/NFTCard/ShimmerNFTCard';
+import ShimmerListedNFTCard from '../components/ui/NFTCard/ListedNFTCard/ShimmerListedNFTCard';
 export default function Home() {
   const [selected, setSelected] = useState<number | null>(null);
   const { isCollectionsLoading, collections, selectedBlockchain } =
     useStoreState((state) => state.app);
+
+  const { shimmerListedNFTS } = useStoreState((state) => state.listedNFTS);
   const filterOptions: INFTCategories[] = [
     'Collectibles',
     'PFPS',
@@ -64,6 +71,18 @@ export default function Home() {
     });
 
   useFetchCollections();
+  const provider = useMemo(
+    () =>
+      new ethers.providers.JsonRpcProvider(
+        'https://json-rpc.evm.testnet.shimmer.network'
+      ),
+    []
+  );
+  const marketplaceContract = useMemo(() => {
+    return new ethers.Contract(marketplaceAddress, MarketplaceABI, provider);
+  }, []);
+
+  useGetTokensListedInCollection(1, marketplaceContract, false);
 
   return (
     <BasePage>
@@ -95,6 +114,17 @@ export default function Home() {
             label={'View all collections'}
             onClick={() => router.push('collections')}
           />
+        </div>
+      </div>
+
+      <div>
+        <h1>Available NFTS</h1>
+        <br />
+        <div className={styles.listedNFTScontainer}>
+          {shimmerListedNFTS &&
+            shimmerListedNFTS.map((nft, index) => (
+              <ShimmerListedNFTCard key={index} nft={nft} />
+            ))}
         </div>
       </div>
 

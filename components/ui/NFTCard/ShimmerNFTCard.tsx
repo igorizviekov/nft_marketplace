@@ -16,7 +16,7 @@ const ShimmerNFTCard = ({ nft }: IShimmerNFTCardProps) => {
   const handleClick = () => {
     if (nft) setNFT(nft);
 
-    router.push(`/nft/${nft?.name}`);
+    router.push(`/nft/${nft?.metadata.name}`);
   };
 
   return (

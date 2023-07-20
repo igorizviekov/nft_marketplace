@@ -16,6 +16,18 @@
 .textContainer {
   width: 100%;
 
+  .top {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    .text{
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-sm);
+    }
+  }
+
 }
 
 .hero {
