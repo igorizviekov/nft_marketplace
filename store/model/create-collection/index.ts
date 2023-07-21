@@ -14,7 +14,7 @@ export const CreateCollectionModel: ICreateCollectionModel = {
     network: {
       currency_symbol: '',
       id: '',
-      chain_id: 0,
+      blockchain_id: 0,
       rpc_url: '',
     },
     categoryPrimary: 'Art',
