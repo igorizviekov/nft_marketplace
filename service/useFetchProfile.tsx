@@ -26,7 +26,19 @@ const useFetchProfile = () => {
       })
       .catch((error) => console.error(error));
 
-    useUpdateUserCollections(updateCollections);
+    axios
+      .get(
+        `https://nft-api-production-4aa1.up.railway.app/collection/user/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        updateCollections(response.data.data);
+      })
+      .catch((error) => console.error(error));
 
     axios
       .get(
