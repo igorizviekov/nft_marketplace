@@ -26,7 +26,7 @@ export const FilePreview = ({
         className={styles['file-preview__thumb']}
       />
       <div className={styles['file-preview__controls']}>
-        <Button label="Replace" onClick={onReplace} isPrimary={false} />
+        <Button label="Change Image" onClick={onReplace} isPrimary={false} />
       </div>
     </div>
   );

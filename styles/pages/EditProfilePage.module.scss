@@ -20,11 +20,46 @@
     height: 495px;
   }
 
+  .fileUpload {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    z-index: 0;
+
+    width: 100%;
+    height: 100%;
+
+    transition: 0.2s ease-in-out;
+  }
+
+  .fileAccepted {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    z-index: 0;
+
+    width: 100%;
+    height: 100%;
+
+    transition: 0.2s ease-in-out;
+
+    z-index: 2;
+  }
+
+  &:hover {
+    .fileUpload {
+      z-index: 2;
+    }
+  }
+
 }
 
-.social{
+.social {
   margin-top: var(--spacing-lg);
 }
+
 .form {
   width: 100%;
 
