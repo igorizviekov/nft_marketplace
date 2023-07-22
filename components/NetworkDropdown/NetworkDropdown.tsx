@@ -12,6 +12,7 @@ import { Button } from '../ui/Button';
 import { useStoreActions, useStoreState } from '../../store';
 import DropdownMenuItem from '../header/DropdownMenu/DropdownMenuItem/DropdownMenuItem';
 import { useOutsideAlerter } from '../../hooks/useOutsideAlerter';
+import { useStoreRehydrated } from 'easy-peasy';
 const NetworkDropdown = ({ networks, isLoading }: INetworkProps) => {
   const [isMenuOpen, setMenuOpen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -34,6 +35,7 @@ const NetworkDropdown = ({ networks, isLoading }: INetworkProps) => {
   const { selectedBlockchain, blockchains } = useStoreState(
     (state) => state.app
   );
+  const isRehydrated = useStoreRehydrated();
   const { setSelectedBlockchain } = useStoreActions((actions) => actions.app);
 
   useOutsideAlerter(
@@ -43,8 +45,8 @@ const NetworkDropdown = ({ networks, isLoading }: INetworkProps) => {
   );
 
   return (
-    <>
-      {blockchains && (
+    <div>
+      {isRehydrated && blockchains && (
         <div ref={ref} className={styles.container}>
           <Button isPrimary={false} className={styles.container}>
             <>
@@ -80,7 +82,7 @@ const NetworkDropdown = ({ networks, isLoading }: INetworkProps) => {
           )}
         </div>
       )}
-    </>
+    </div>
   );
 };
 
