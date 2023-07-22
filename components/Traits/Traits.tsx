@@ -86,12 +86,16 @@ const Traits = ({
         >
           <p>Add Trait</p>
           <Icon
-            onClick={() =>
+            onClick={() => {
               addTrait({
                 trait_type: formInput.trait_type,
                 value: formInput.value,
-              })
-            }
+              });
+              setFormInput({
+                trait_type: '',
+                value: '',
+              });
+            }}
             icon={
               <BsPlusCircleFill style={{ width: '30px', height: '30px' }} />
             }

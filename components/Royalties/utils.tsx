@@ -12,6 +12,7 @@ export function isWalletValid(
     (royalty) => royalty.walletAddress === wallet
   );
 
+  console.log(wallet);
   useEffect(() => {
     if (walletRegex.test(wallet)) {
       if (isDuplicate) {
@@ -21,7 +22,7 @@ export function isWalletValid(
         setMessage('');
         setFormError(false);
       }
-    } else if (wallet === '') {
+    } else if (wallet === '' || !Boolean(wallet)) {
       setFormError(true);
       setMessage('');
     } else {
@@ -39,13 +40,13 @@ export function validatePercentage(
 ): string {
   const [message, setMessage] = useState<string>('');
 
-  const isZeroOrLess = percentage <= 0;
+  const isZeroOrLess = percentage < 0;
   const isUndefined = percentage === undefined;
   const isNotANumber = isNaN(percentage);
 
   useEffect(() => {
     if (isZeroOrLess) {
-      setMessage("Can't be zero or less");
+      setMessage("Percentage can't be negative");
       setFormError(true);
     } else if (isUndefined || isNotANumber) {
       setMessage('');
@@ -57,4 +58,19 @@ export function validatePercentage(
   }, [percentage]);
 
   return message;
+}
+
+export function validateRoyalties(
+  percentage: number,
+  wallet: string,
+  royalties: Royalty[],
+  setFormError: (hasError: boolean) => void
+) {
+  const percentageMessage = validatePercentage(percentage, setFormError);
+  const walletMessage = isWalletValid(wallet, royalties, setFormError);
+
+  return {
+    percentageMessage: percentageMessage,
+    walletMessage: walletMessage,
+  };
 }
