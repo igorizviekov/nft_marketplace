@@ -15,8 +15,8 @@ const PopularCollection = ({
 }: IPopularCollectionProps) => {
   const router = useRouter();
 
-  const collectionRoute = name.split(' ').join('-').toLowerCase();
-  
+  const collectionRoute = name && name.split(' ').join('-').toLowerCase();
+
   return (
     <div
       className={styles.container}

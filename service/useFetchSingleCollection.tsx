@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useStoreActions, useStoreState } from '../store';
+import { useStoreActions } from '../store';
 import axios from 'axios';
 
 export const useFetchSingleCollection = (id: string | string[] | undefined) => {

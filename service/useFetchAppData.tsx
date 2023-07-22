@@ -2,7 +2,6 @@ import axios from 'axios';
 import { useStoreActions, useStoreState } from '../store';
 import { useEffect } from 'react';
 import { IBlockchain } from '../store/model/app/app.types';
-import { ContractFunctionVisibility } from 'hardhat/internal/hardhat-network/stack-traces/model';
 export async function useFetchAppData() {
   const { setBlockchains, setIsLoading, setSelectedBlockchain } =
     useStoreActions((actions) => actions.app);
@@ -16,7 +15,7 @@ export async function useFetchAppData() {
             setBlockchains(blockchain);
             setIsLoading(false);
           });
-          setSelectedBlockchain(response.data.data[1]);
+          setSelectedBlockchain(response.data.data[0]);
         })
         .catch((error) => console.error(error));
     }

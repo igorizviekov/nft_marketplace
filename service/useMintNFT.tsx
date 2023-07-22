@@ -7,6 +7,8 @@ import Web3Modal from 'web3modal';
 import { INFTGeneralInfo, Trait } from '../store/model/nft-mint/nft-mint.types';
 import { useIPFSImageUpload } from './useIPFSImageUpload';
 import useIPFSJSONUpload from './useIPFSJSONUpload';
+import { NextRouter, useRouter } from 'next/router';
+import { IShimmerNFT } from '../components/ui/NFTCard/ShimmerNFTCard.types';
 
 const useMintNFT = async (
   nftGeneralInfo: INFTGeneralInfo,
@@ -17,7 +19,9 @@ const useMintNFT = async (
   nftPrice: number,
   mintAddress: string,
   editGeneralInformation: (nftGeneralInfo: INFTGeneralInfo) => void,
-  resetTraits: () => void
+  resetTraits: () => void,
+  router: NextRouter,
+  setNFT: (nft: IShimmerNFT) => void
 ) => {
   setIsLoading(true);
 
@@ -64,7 +68,6 @@ const useMintNFT = async (
       console.log('collection contract', collectionContract);
       console.log('newTokenID', newTokenID);
 
-      //STORE LOG IN DB
       const date = new Date();
       axios
         .post(`${process.env.NEXT_PUBLIC_API_KEY}/nft-logs`, {
@@ -91,6 +94,9 @@ const useMintNFT = async (
     } else {
       console.error('Token Minted event not found in receipt');
     }
+
+    setNFT;
+    router.push(`/nft/${nftGeneralInfo.name}`);
   } catch (error) {
     console.log({ error });
     const message = getErrMessage(error);

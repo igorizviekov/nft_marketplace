@@ -20,6 +20,9 @@ import { ethers } from 'ethers';
 import { CollectionsABI, collectionsAddress } from '../../mocks/constants.mock';
 import useMintNFT from '../../service/useMintNFT';
 import { Spinner } from '../../components/spinner';
+import { useRouter } from 'next/router';
+import useFetchProfile from '../../service/useFetchProfile';
+import useUpdateUserCollections from '../../service/useUpdateUserCollections';
 export interface IFormInput {
   name: string;
   description: string;
@@ -52,11 +55,15 @@ const SingleForm = () => {
     setIsLoading,
   } = useStoreActions((actions) => actions.nftMint);
 
+  const router = useRouter();
   const { collections } = useStoreState((state) => state.profile);
   const { activeWallet } = useStoreState((state) => state.wallet);
+
+  const { setNFT } = useStoreActions((actions) => actions.nftView);
   const { isCollectionCreated } = useStoreActions(
     (actions) => actions.createCollection
   );
+  const { updateCollections } = useStoreActions((actions) => actions.profile);
 
   const OPTIONS = collections.map((collection) => {
     return collection.name;
@@ -77,6 +84,8 @@ const SingleForm = () => {
       collection: OPTIONS[selected],
     });
   }, []);
+
+  useUpdateUserCollections(updateCollections, isModalOpen);
 
   const provider = useMemo(
     () =>
@@ -216,7 +225,9 @@ const SingleForm = () => {
             nftGeneralInfo.price,
             activeWallet,
             editGeneralInformation,
-            resetTraits
+            resetTraits,
+            router,
+            setNFT
           )
         }
       />

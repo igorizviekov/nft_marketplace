@@ -8,6 +8,7 @@ import Web3Modal from 'web3modal';
 import { ethers } from 'ethers';
 import { CollectionsABI, collectionsAddress } from '../mocks/constants.mock';
 import { excludeEmptyKeys } from '../components/AddCollectionModal/utils';
+import { ICollection } from '../store/model/app/app.types';
 export async function useCreateCollection({
   image,
   generalInformation,
@@ -73,7 +74,10 @@ export async function useCreateCollection({
         toast.success('Collection created successfully');
       }
     })
-    .catch((error) => console.error(error));
+    .catch((error) => {
+      console.error(error);
+      isCollectionCreated(true);
+    });
 }
 
 interface ICreateCollection {

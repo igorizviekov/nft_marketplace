@@ -18,10 +18,13 @@ import { ethers } from 'ethers';
 import { MarketplaceABI, marketplaceAddress } from '../mocks/constants.mock';
 import ShimmerNFTCard from '../components/ui/NFTCard/ShimmerNFTCard';
 import ShimmerListedNFTCard from '../components/ui/NFTCard/ListedNFTCard/ShimmerListedNFTCard';
+import { Spinner } from '../components/spinner';
 export default function Home() {
   const [selected, setSelected] = useState<number | null>(null);
   const { isCollectionsLoading, collections, selectedBlockchain } =
     useStoreState((state) => state.app);
+
+  const { isWalletConnected } = useStoreState((state) => state.wallet);
 
   const { shimmerListedNFTS } = useStoreState((state) => state.listedNFTS);
   const filterOptions: INFTCategories[] = [
@@ -70,7 +73,6 @@ export default function Home() {
       }
     });
 
-  useFetchCollections();
   const provider = useMemo(
     () =>
       new ethers.providers.JsonRpcProvider(
@@ -82,7 +84,10 @@ export default function Home() {
     return new ethers.Contract(marketplaceAddress, MarketplaceABI, provider);
   }, []);
 
-  useGetTokensListedInCollection(1, marketplaceContract, false);
+  useFetchCollections();
+
+  isWalletConnected &&
+    useGetTokensListedInCollection(1, marketplaceContract, false);
 
   return (
     <BasePage>
@@ -96,8 +101,7 @@ export default function Home() {
       <div>
         <h1>Popular Collections</h1>
         <div className={'grid-container'}>
-          {collections &&
-            !isCollectionsLoading &&
+          {collections && !isCollectionsLoading ? (
             collections.map((collection, index) => (
               <PopularCollection
                 id={collection.id}
@@ -106,7 +110,10 @@ export default function Home() {
                 key={index}
                 index={index}
               />
-            ))}
+            ))
+          ) : (
+            <Spinner />
+          )}
         </div>
         <div className={styles.button}>
           <Button
@@ -121,14 +128,17 @@ export default function Home() {
         <h1>Available NFTS</h1>
         <br />
         <div className={styles.listedNFTScontainer}>
-          {shimmerListedNFTS &&
+          {shimmerListedNFTS && isWalletConnected ? (
             shimmerListedNFTS.map((nft, index) => (
               <ShimmerListedNFTCard key={index} nft={nft} />
-            ))}
+            ))
+          ) : (
+            <h1>Connect wallet to see available NFTS</h1>
+          )}
         </div>
       </div>
 
-      <div>
+      {/* <div>
         <h1>New Launches</h1>
         <br />
         <HorizontalScroll>
@@ -146,7 +156,7 @@ export default function Home() {
               />
             ))}
         </HorizontalScroll>
-      </div>
+      </div> */}
 
       <div>
         <h1>Trending by Category</h1>
