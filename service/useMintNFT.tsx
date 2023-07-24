@@ -82,7 +82,6 @@ const useMintNFT = async (
         .then((response) => console.log(response, 'nft-logs reponse'))
         .catch((e) => console.error(e.message));
 
-      //CLEAR NFT GENERAL INFORMATION
       editGeneralInformation({
         image: null,
         name: '',
@@ -91,6 +90,22 @@ const useMintNFT = async (
         collection: '',
       });
       resetTraits();
+
+      const newNFT: IShimmerNFT = {
+        id: newTokenID,
+        name: nftGeneralInfo.name,
+        uri: tokenURI,
+        owner: mintAddress,
+        metadata: {
+          name: nftGeneralInfo.name,
+          description: nftGeneralInfo.description,
+          price: nftGeneralInfo.price.toString(),
+          image: uploadedImage,
+          traits: traits,
+        },
+      };
+      setNFT(newNFT);
+      router.push(`/nft/${nftGeneralInfo.name}`);
     } else {
       console.error('Token Minted event not found in receipt');
     }

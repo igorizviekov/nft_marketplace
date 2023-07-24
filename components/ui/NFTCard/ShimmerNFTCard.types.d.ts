@@ -1,3 +1,5 @@
+import { Trait } from '../../../store/model/nft-mint/nft-mint.types';
+
 export interface IShimmerNFTCardProps {
   nft: IShimmerNFT;
 }
@@ -5,13 +7,13 @@ export interface IShimmerNFTCardProps {
 export interface IShimmerNFT {
   id: number;
   name: string;
-  uri: string;
+  uri: string | undefined;
   owner: string;
   metadata: {
     description: string;
-    image: string;
+    image: string | undeifned;
     name: string;
-    traits: [{ trait_type: string; value: string }];
+    traits: Trait[];
     price: string;
     royalty?: number;
   };
