@@ -32,6 +32,7 @@ const ShimmerNFTDetailsHeroSection = ({ nft }: { nft: IShimmerNFT }) => {
   }, []);
 
   useEffect(() => {
+    setIsListedLoading(true);
     const getIsListed = async () => {
       const tx = await isListed(nft.id, marketplaceContract);
       setListedNFT(tx);
@@ -42,6 +43,8 @@ const ShimmerNFTDetailsHeroSection = ({ nft }: { nft: IShimmerNFT }) => {
       getIsListed();
     } catch (err) {
       console.log(err);
+    } finally {
+      setIsListedLoading(false);
     }
   }, [useDelistNFT, useListNFT]);
 
@@ -60,19 +63,24 @@ const ShimmerNFTDetailsHeroSection = ({ nft }: { nft: IShimmerNFT }) => {
             </div>
           </div>
           <div>
-            {!isListedLoading && isOwner && listedNFT ? (
+            {isOwner && listedNFT ? (
               <Button
                 isPrimary={true}
+                disabled={isListedLoading}
                 label={'De list NFT'}
-                onClick={() => useDelistNFT(nft.id, setListedNFT)}
+                onClick={() =>
+                  useDelistNFT(nft.id, setListedNFT, setIsListedLoading)
+                }
               />
             ) : (
-              !isListedLoading &&
               !listedNFT && (
                 <Button
                   isPrimary={true}
+                  disabled={isListedLoading}
                   label={'List NFT'}
-                  onClick={() => useListNFT(nft.id, 500, setListedNFT)}
+                  onClick={() =>
+                    useListNFT(nft.id, 500, setListedNFT, setIsListedLoading)
+                  }
                 />
               )
             )}

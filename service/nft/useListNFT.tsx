@@ -7,12 +7,14 @@ import useApproveMarketplace from '../marketplace/useApproveMarketplace';
 const useListNFT = async (
   tokenID: number,
   newPrice: number,
-  setListedNFT: (isListed: boolean) => void
+  setListedNFT: (isListed: boolean) => void,
+  setIsListedLoading: (isListedLoading: boolean) => void
 ) => {
   const isApproved = await useIsMarketplaceApproved();
+  setIsListedLoading(true)
   if (!isApproved) {
     await useApproveMarketplace();
-    await useListNFT(tokenID, newPrice, setListedNFT);
+    await useListNFT(tokenID, newPrice, setListedNFT, setIsListedLoading);
   } else if (isApproved) {
     try {
       const marketplaceContract = await getMarketplaceContract();
@@ -31,6 +33,8 @@ const useListNFT = async (
       toast.error(message);
     }
   }
+
+  setIsListedLoading(false)
 };
 
 export default useListNFT;
