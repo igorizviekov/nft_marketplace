@@ -27,7 +27,7 @@ const ShimmerListedNFTCard = ({ nft }: IShimmerNFTCardProps) => {
   }, []);
 
   const handleClick = () => {
-    useBuyNFT(nft.id, 1, nft.uri);
+    nft.uri && useBuyNFT(nft.id, 1, nft.uri);
   };
   return (
     <div className={styles.card}>
