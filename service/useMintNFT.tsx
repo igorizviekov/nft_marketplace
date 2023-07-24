@@ -25,6 +25,7 @@ const useMintNFT = async (
 ) => {
   setIsLoading(true);
 
+  console.log(collectionID);
   const uploadedImage = await useIPFSImageUpload(nftGeneralInfo.image);
 
   const metadata = JSON.stringify({
@@ -37,13 +38,6 @@ const useMintNFT = async (
 
   const tokenURI = await useIPFSJSONUpload(metadata);
   try {
-    const collection = await getCollectionById(
-      collectionID,
-      collectionContract
-    );
-
-    if (!collection) return;
-
     //getcontract
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
@@ -57,7 +51,7 @@ const useMintNFT = async (
     const price = ethers.utils.parseUnits(nftPrice.toString(), 'ether');
 
     //mint
-    const tx = await contract.mint(collection.id, tokenURI, price);
+    const tx = await contract.mint(collectionID, tokenURI, price);
     const receipt = await tx.wait();
     const tokenMintedEvent = receipt.events?.find(
       (e: any) => e.event === 'TokenMinted'

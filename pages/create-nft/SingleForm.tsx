@@ -21,7 +21,6 @@ import { CollectionsABI, collectionsAddress } from '../../mocks/constants.mock';
 import useMintNFT from '../../service/useMintNFT';
 import { Spinner } from '../../components/spinner';
 import { useRouter } from 'next/router';
-import useFetchProfile from '../../service/useFetchProfile';
 import useUpdateUserCollections from '../../service/useUpdateUserCollections';
 export interface IFormInput {
   name: string;
@@ -31,7 +30,10 @@ export interface IFormInput {
   collection?: string;
 }
 
-export const ADD_COLLECTION = '+ Add Collection';
+export const ADD_COLLECTION: { name: string; id: number } = {
+  name: '+ Add Collection',
+  id: 0,
+};
 const SingleForm = () => {
   const {
     royalties,
@@ -65,10 +67,10 @@ const SingleForm = () => {
   );
   const { updateCollections } = useStoreActions((actions) => actions.profile);
 
-  const OPTIONS = collections.map((collection) => {
-    return collection.name;
-  });
-  const [selected, setSelected] = useState<number>(-1);
+  const OPTIONS: Array<{ name: string; id: number }> = [
+    { name: 'None', id: 1 },
+  ];
+  const [selected, setSelected] = useState<number>(0);
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
 
   const changeHandler = (e: React.ChangeEvent<Element>) => {
@@ -79,10 +81,14 @@ const SingleForm = () => {
   };
 
   useEffect(() => {
-    editGeneralInformation({
-      ...nftGeneralInfo,
-      collection: OPTIONS[selected],
+    collections.forEach((collection) => {
+      OPTIONS.push({ name: collection.name, id: collection.tokenId });
     });
+    OPTIONS.length > 0 &&
+      editGeneralInformation({
+        ...nftGeneralInfo,
+        collection: OPTIONS[selected].name,
+      });
   }, []);
 
   useUpdateUserCollections(updateCollections, isModalOpen);
@@ -155,14 +161,21 @@ const SingleForm = () => {
           nftGeneralInfo.price
         )}
       />
-      <Dropdown
-        heading="Select a collection (Optional)"
-        options={[...OPTIONS, ADD_COLLECTION]}
-        checked={selected}
-        placeholder="Or create a new one"
-        onChange={setSelected}
-        openModal={() => setModalOpen(true)}
-      />
+      {OPTIONS && (
+        <Dropdown
+          heading="Select a collection (Optional)"
+          options={[
+            ...OPTIONS.map((option) => {
+              return option.name;
+            }),
+            ADD_COLLECTION.name,
+          ]}
+          checked={selected}
+          placeholder="Or create a new one"
+          onChange={setSelected}
+          openModal={() => setModalOpen(true)}
+        />
+      )}
       {selected === -1 && (
         <>
           <Royalties
@@ -220,7 +233,7 @@ const SingleForm = () => {
             nftGeneralInfo,
             traits,
             setIsLoading,
-            1,
+            OPTIONS[selected].id,
             collectionContract,
             nftGeneralInfo.price,
             activeWallet,

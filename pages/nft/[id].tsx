@@ -78,7 +78,6 @@ const NFTPage = () => {
 
   const isRehydrated = useStoreRehydrated();
   const { nft } = useStoreState((state) => state.nftView);
-
   return (
     <BasePage>
       {isRehydrated && (

@@ -40,6 +40,8 @@ export async function useCreateCollection({
     royalties: royalties,
   });
 
+  console.log(collectionURI, 'URI');
+
   const tx = await contract.createCollection(collectionURI);
   const receipt = await tx.wait();
 
@@ -48,6 +50,7 @@ export async function useCreateCollection({
   );
   const collectionID = Number(CollectionCreatedEvent.args?.[0]);
 
+  console.log(collectionID, 'ID');
   const refactoredGeneralInfo = excludeEmptyKeys(generalInformation);
   axios
     .post(

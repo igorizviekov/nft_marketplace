@@ -15,9 +15,11 @@ const CollectionForm = () => {
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
   const { collections } = useStoreState((state) => state.profile);
 
-  const OPTIONS = collections.map((collection) => {
-    return collection.name;
-  });
+  const OPTIONS: Array<{ name: string; id: number }> = collections.map(
+    (collection) => {
+      return { name: collection.name, id: collection.tokenId };
+    }
+  );
 
   const [selected, setSelected] = useState<number>(0);
 
@@ -32,7 +34,12 @@ const CollectionForm = () => {
     <div className={classNames('flex-col-center', styles.form)}>
       <Dropdown
         heading="Select a collection"
-        options={[...OPTIONS, ADD_COLLECTION]}
+        options={[
+          ...OPTIONS.map((option) => {
+            return option.name;
+          }),
+          ADD_COLLECTION.name,
+        ]}
         checked={selected}
         required
         placeholder="Or create a new one"

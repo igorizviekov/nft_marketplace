@@ -21,7 +21,7 @@ export function Dropdown({
   const toggleOptions = () => setExpanded(!expanded);
 
   const handleClick = (index: number, option: string) => {
-    if (option === ADD_COLLECTION) {
+    if (option === ADD_COLLECTION.name) {
       openModal();
     } else {
       toggleOptions();
@@ -32,11 +32,6 @@ export function Dropdown({
   const OptionList = () => {
     return (
       <ul className={styles.options}>
-        {!required && (
-          <p onClick={() => handleClick(-1, 'None')} className={styles.item}>
-            None
-          </p>
-        )}
         {options.map((option, index) => (
           <p
             key={option + index}

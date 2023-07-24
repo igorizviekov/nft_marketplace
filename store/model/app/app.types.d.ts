@@ -31,6 +31,7 @@ export interface ICollection {
   blockchain_id: string;
   contract_address: string;
   description: string;
+  tokenId: number;
   image: string;
   website: string;
   royalties: number;
