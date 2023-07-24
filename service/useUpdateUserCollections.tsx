@@ -6,10 +6,10 @@ const useUpdateUserCollections = (
   updateCollections: (collections: ICollection[]) => void,
   isModalOpen?: boolean
 ) => {
-  const token = localStorage.getItem('token');
-  const id = localStorage.getItem('usersUID');
-
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    const id = localStorage.getItem('usersUID');
+    
     axios
       .get(
         `https://nft-api-production-4aa1.up.railway.app/collection/user/${id}`,
