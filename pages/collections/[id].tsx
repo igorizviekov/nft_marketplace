@@ -49,6 +49,7 @@ const SingleCollectionPage = () => {
   useFetchAlchemyCollection();
 
   useEffect(() => {
+    setNFTS(undefined);
     const fetchNFTS = async () => {
       if (collectionData) {
         const nfts = await useGetNFTsInCollection(
@@ -64,7 +65,7 @@ const SingleCollectionPage = () => {
     } catch (error) {
       console.error(error);
     }
-  }, []);
+  }, [collectionData]);
 
   return (
     <BasePage>

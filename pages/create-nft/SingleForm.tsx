@@ -64,30 +64,20 @@ const SingleForm = () => {
     (actions) => actions.createCollection
   );
   const { updateCollections } = useStoreActions((actions) => actions.profile);
-
-  const OPTIONS: Array<{ name: string; id: number }> = [
-    { name: 'None', id: 1 },
-  ];
   const [selected, setSelected] = useState<number>(0);
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
-
+  const [options, setOptions] = useState<{ name: string; id: number }[]>([
+    { name: 'None', id: 1 },
+    ...collections.map((collection) => {
+      return { name: collection.name, id: Number(collection.tokenId) };
+    }),
+  ]);
   const changeHandler = (e: React.ChangeEvent<Element>) => {
     editGeneralInformation({
       ...nftGeneralInfo,
       [e.target.id]: (e.target as HTMLInputElement).value,
     });
   };
-
-  useEffect(() => {
-    collections.forEach((collection) => {
-      OPTIONS.push({ name: collection.name, id: collection.tokenId });
-    });
-    OPTIONS.length > 0 &&
-      editGeneralInformation({
-        ...nftGeneralInfo,
-        collection: OPTIONS[selected].name,
-      });
-  }, []);
 
   useUpdateUserCollections(updateCollections, isModalOpen);
 
@@ -147,11 +137,11 @@ const SingleForm = () => {
           nftGeneralInfo.price
         )}
       />
-      {OPTIONS && (
+      {collections && (
         <Dropdown
           heading="Select a collection (Optional)"
           options={[
-            ...OPTIONS.map((option) => {
+            ...options.map((option) => {
               return option.name;
             }),
             ADD_COLLECTION.name,
@@ -162,7 +152,7 @@ const SingleForm = () => {
           openModal={() => setModalOpen(true)}
         />
       )}
-      {selected === -1 && (
+      {selected === 0 && (
         <>
           <Royalties
             royalties={royalties}
@@ -219,7 +209,7 @@ const SingleForm = () => {
             nftGeneralInfo,
             traits,
             setIsLoading,
-            OPTIONS[selected].id,
+            options[selected].id,
             nftGeneralInfo.price,
             activeWallet,
             editGeneralInformation,

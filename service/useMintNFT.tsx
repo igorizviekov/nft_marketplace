@@ -1,15 +1,11 @@
 import { toast } from 'react-toastify';
-
 import { ethers } from 'ethers';
-import { collectionsAddress, CollectionsABI } from '../mocks/constants.mock';
 import axios from 'axios';
-import Web3Modal from 'web3modal';
 import { INFTGeneralInfo, Trait } from '../store/model/nft-mint/nft-mint.types';
 import { useIPFSImageUpload } from './useIPFSImageUpload';
 import useIPFSJSONUpload from './useIPFSJSONUpload';
-import { NextRouter, useRouter } from 'next/router';
+import { NextRouter } from 'next/router';
 import { IShimmerNFT } from '../components/ui/NFTCard/ShimmerNFTCard.types';
-import { getContractAddress } from 'ethers/lib/utils';
 import { getCollectionContract } from './collection/utilts';
 
 const useMintNFT = async (
@@ -24,9 +20,8 @@ const useMintNFT = async (
   router: NextRouter,
   setNFT: (nft: IShimmerNFT) => void
 ) => {
-  setIsLoading(true);
-
   console.log(collectionID);
+  setIsLoading(true);
   const uploadedImage = await useIPFSImageUpload(nftGeneralInfo.image);
 
   const metadata = JSON.stringify({
