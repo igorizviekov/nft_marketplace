@@ -114,27 +114,5 @@ const useMintNFT = async (
     setIsLoading(false);
   }
 };
-
-const getCollectionById = async (
-  id: number,
-  collectionContract: ethers.Contract
-) => {
-  try {
-    const tx = await collectionContract.getCollection(id);
-    const { data } = await axios.get(tx[0]);
-
-    const collection = {
-      metadata: data,
-      id: tx[1].toNumber(),
-      owner: tx[2],
-    };
-    console.log({ collection });
-    return collection;
-  } catch (err) {
-    console.log({ err });
-    const message = getErrMessage(err);
-    toast.error(message);
-  }
-};
 export const getErrMessage = (err: any) => err?.reason || 'Error...';
 export default useMintNFT;

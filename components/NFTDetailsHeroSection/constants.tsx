@@ -5,9 +5,9 @@ import Icon from '../ui/Icon/Icon';
 import DescriptionSticker from '../DescriptionSticker/DescriptionSticker';
 import { refactorAttributeDate } from '../../utils/NFTViewUtils';
 import { formatAddress } from '../BaseTable/TableBodies/ActivityBody/utils';
+import useGetCollectionOfToken from '../../service/collection/useGetCollectionOfToken';
 
 export const collectionDescription = (nft: IShimmerNFT) => {
-  console.log(nft)
   return [
     {
       title: (
@@ -24,24 +24,32 @@ export const collectionDescription = (nft: IShimmerNFT) => {
     },
     {
       title: (
-        <div className={styles.title}>
-          <h2>{'Attributes'}</h2>
-          <Icon icon={<BsChevronDown />} />
-        </div>
+        <>
+          {nft.metadata.traits && (
+            <div className={styles.title}>
+              <h2>{'Attributes'}</h2>
+              <Icon icon={<BsChevronDown />} />
+            </div>
+          )}
+        </>
       ),
       content: (
-        <div className={styles.filter}>
-          {nft.metadata.traits &&
-            nft.metadata.traits.map((attribute: any, index: number) => (
-              <DescriptionSticker
-                key={index}
-                title={attribute.trait_type}
-                data={refactorAttributeDate(attribute)}
-                type={'PRIMARY'}
-                givenClassName={styles.sticker}
-              />
-            ))}
-        </div>
+        <>
+          {nft.metadata.traits && (
+            <div className={styles.filter}>
+              {nft.metadata.traits &&
+                nft.metadata.traits.map((attribute: any, index: number) => (
+                  <DescriptionSticker
+                    key={index}
+                    title={attribute.trait_type}
+                    data={refactorAttributeDate(attribute)}
+                    type={'PRIMARY'}
+                    givenClassName={styles.sticker}
+                  />
+                ))}
+            </div>
+          )}
+        </>
       ),
     },
     {
@@ -54,16 +62,16 @@ export const collectionDescription = (nft: IShimmerNFT) => {
       content: (
         <div className={styles.filter}>
           <div>
-            <p>Contract Address</p>
+            {nft.collection && <p>Contract Address</p>}
             <p>Token ID</p>
             <p>Token Standard</p>
             <p>Owner</p>
             {nft.metadata.royalty && <p>Royalty</p>}
           </div>
-          <div>
-            <p>{formatAddress(nft.owner)}</p>
-            <p>{formatAddress(nft.owner)}</p>
-            <p>{nft.metadata.name}</p>
+          <div className="text-end">
+            {nft.collection && <p>{formatAddress(nft.collection.owner)}</p>}
+            <p>{nft.id}</p>
+            <p>{'Need token standard in metadata'}</p>
             <p>{formatAddress(nft.owner)}</p>
             <p>{nft.metadata.royalty && nft.metadata.royalty}</p>
           </div>

@@ -1,4 +1,4 @@
-import { action } from 'easy-peasy';
+import { action, useStoreActions } from 'easy-peasy';
 import { INFTLog, IProfileModel } from './profile.types';
 
 export const ProfileModel: IProfileModel = {
@@ -44,5 +44,11 @@ export const ProfileModel: IProfileModel = {
   }),
   setShimmerOwnedNFTS: action((state, payload) => {
     state.shimmerOwnedNfts = payload;
+  }),
+  setShimmerOwnedNFTSCollections: action((state, payload) => {
+    state.shimmerOwnedNfts[payload.index] = {
+      ...state.shimmerOwnedNfts[payload.index],
+      collection: payload.collection,
+    };
   }),
 };

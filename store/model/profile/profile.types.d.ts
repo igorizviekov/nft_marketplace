@@ -20,6 +20,7 @@ export interface IProfileModel {
 
   setOwnedNFTS: Action<IProfileModel, OwnedNft[]>;
   setShimmerOwnedNFTS: Action<IProfileModel, IShimmerNFT[]>;
+  setShimmerOwnedNFTSCollections: Action<ProfileModel, any>;
   setIsOwnedNFTsLoading: Action<IProfileModel, boolean>;
 }
 

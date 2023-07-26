@@ -12,7 +12,6 @@ import classNames from 'classnames';
 import { OwnedNft } from 'alchemy-sdk';
 
 const NFTDetailsHeroSection = ({ nft }: { nft: OwnedNft }) => {
-  console.log(nft);
   const collectionDescription = [
     {
       title: (

@@ -4,10 +4,17 @@ import { useStoreActions, useStoreState } from '../store';
 import { Alchemy, Network, OwnedNft } from 'alchemy-sdk';
 import useGetNFTsInCollection from './collection/useGetNFTsInCollection';
 import { IShimmerNFT } from '../components/ui/NFTCard/ShimmerNFTCard.types';
+import useGetCollectionOfToken from './collection/useGetCollectionOfToken';
 
 export const useFetchNFTS = (address: string) => {
-  const { setOwnedNFTS, setIsOwnedNFTsLoading, setShimmerOwnedNFTS } =
-    useStoreActions((actions) => actions.profile);
+  const {
+    setOwnedNFTS,
+    setIsOwnedNFTsLoading,
+    setShimmerOwnedNFTS,
+    setShimmerOwnedNFTSCollections,
+  } = useStoreActions((actions) => actions.profile);
+
+  const { shimmerOwnedNfts } = useStoreState((state) => state.profile);
   const { activeWallet } = useStoreState((state) => state.wallet);
 
   const { selectedBlockchain } = useStoreState((state) => state.app);
@@ -41,6 +48,15 @@ export const useFetchNFTS = (address: string) => {
           (nft) => nft.owner.toLowerCase() === activeWallet
         );
         setShimmerOwnedNFTS(ownedNfts as IShimmerNFT[]);
+
+        shimmerOwnedNfts &&
+          shimmerOwnedNfts.forEach(async (nft, index) => {
+            const collection = await useGetCollectionOfToken(nft.id);
+            setShimmerOwnedNFTSCollections({
+              index: index,
+              collection: collection,
+            });
+          });
       };
 
       try {

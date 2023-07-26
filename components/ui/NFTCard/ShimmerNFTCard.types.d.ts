@@ -17,4 +17,16 @@ export interface IShimmerNFT {
     price: string;
     royalty?: number;
   };
+  collection?: {
+    id: number;
+    metadata: {
+      category_primary: string;
+      category_secondary: string;
+      description: string;
+      name: string;
+      symbol: string;
+      website: string;
+    };
+    owner: string;
+  };
 }
