@@ -1,12 +1,9 @@
 import { getErrMessage } from '../useMintNFT';
 import { toast } from 'react-toastify';
-import { ethers } from 'ethers';
-import useApproveMarketplace from '../marketplace/useApproveMarketplace';
-const isListed = async (
-  tokenID: number,
-  marketplaceContract: ethers.Contract
-) => {
+import { getMarketplaceContract } from '../collection/utilts';
+const isListed = async (tokenID: number) => {
   try {
+    const marketplaceContract = await getMarketplaceContract();
     const tx = await marketplaceContract.isTokenListed(tokenID);
     return tx;
   } catch (err) {

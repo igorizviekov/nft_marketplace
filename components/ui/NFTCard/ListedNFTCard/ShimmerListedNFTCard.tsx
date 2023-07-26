@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { IShimmerNFTCardProps } from '../ShimmerNFTCard.types';
 import styles from '../NFTCard.module.scss';
 import { FaArrowRight } from 'react-icons/fa';
@@ -7,25 +7,8 @@ import Shimmer from '../../../../assets/icons/network-icons/Shimmer';
 import { toast } from 'react-toastify';
 import BaseImage from '../../Base/BaseImage/BaseImage';
 import useBuyNFT from '../../../../service/nft/useBuyNFT';
-import { ethers } from 'ethers';
-import {
-  CollectionsABI,
-  MarketplaceABI,
-  collectionsAddress,
-  marketplaceAddress,
-} from '../../../../mocks/constants.mock';
-const ShimmerListedNFTCard = ({ nft }: IShimmerNFTCardProps) => {
-  const provider = useMemo(
-    () =>
-      new ethers.providers.JsonRpcProvider(
-        'https://json-rpc.evm.testnet.shimmer.network'
-      ),
-    []
-  );
-  const collectionContract = useMemo(() => {
-    return new ethers.Contract(collectionsAddress, CollectionsABI, provider);
-  }, []);
 
+const ShimmerListedNFTCard = ({ nft }: IShimmerNFTCardProps) => {
   const handleClick = () => {
     nft.uri && useBuyNFT(nft.id, 1, nft.uri);
   };

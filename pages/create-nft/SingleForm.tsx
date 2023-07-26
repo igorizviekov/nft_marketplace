@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import Input from '../../components/ui/Input';
 import { Button } from '../../components/ui/Button';
 import { Dropdown } from '../../components/ui/dropdown';
@@ -16,8 +16,6 @@ import RoyaltiesList from '../../components/Royalties/RoyaltiesList';
 import Traits from '../../components/Traits/Traits';
 import TraitsList from '../../components/Traits/TraitsList';
 import ProfileImageUpload from '../../components/ProfileImageUpload/ProfileImageUpload';
-import { ethers } from 'ethers';
-import { CollectionsABI, collectionsAddress } from '../../mocks/constants.mock';
 import useMintNFT from '../../service/useMintNFT';
 import { Spinner } from '../../components/spinner';
 import { useRouter } from 'next/router';
@@ -92,18 +90,6 @@ const SingleForm = () => {
   }, []);
 
   useUpdateUserCollections(updateCollections, isModalOpen);
-
-  const provider = useMemo(
-    () =>
-      new ethers.providers.JsonRpcProvider(
-        'https://json-rpc.evm.testnet.shimmer.network'
-      ),
-    []
-  );
-
-  const collectionContract = useMemo(() => {
-    return new ethers.Contract(collectionsAddress, CollectionsABI, provider);
-  }, []);
 
   useEffect(() => {
     if (
@@ -234,7 +220,6 @@ const SingleForm = () => {
             traits,
             setIsLoading,
             OPTIONS[selected].id,
-            collectionContract,
             nftGeneralInfo.price,
             activeWallet,
             editGeneralInformation,

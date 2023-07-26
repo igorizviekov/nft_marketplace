@@ -9,8 +9,7 @@ import { useStoreActions } from '../../store';
 import { IShimmerNFT } from '../../components/ui/NFTCard/ShimmerNFTCard.types';
 const useGetTokensListedInCollection = async (
   collectionID: number,
-  marketplaceContract: ethers.Contract,
-  isForWallet: boolean,
+  isForWallet: boolean
 ) => {
   const { setShimmerListedNFTS } = useStoreActions(
     (actions) => actions.listedNFTS
@@ -22,6 +21,8 @@ const useGetTokensListedInCollection = async (
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = provider.getSigner();
+
+    const marketplaceContract = await getMarketplaceContract();
 
     const collectionContract = await getCollectionContract();
 

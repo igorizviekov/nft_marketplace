@@ -1,10 +1,9 @@
 import BasePage from '../components/ui/Base/BasePage/BasePage';
 import PopularCollection from '../components/PopularCollection/PopularCollection';
 import styles from '../styles/pages/HomePage.module.scss';
-import { LaunchpadDropsMocks } from '../mocks/LaunchpadDrops.mock';
 import LaunchpadDrops from '../components/CollectionCard/CollectionCard';
 import Filter from '../components/Filter/Filter';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { INFTCategories } from '../components/Filter/Filter.types';
 import HomeHero from '../components/HomeHero/HomeHero';
 import HorizontalScroll from '../components/HorizontalScroll/HorizontalScroll';
@@ -14,9 +13,6 @@ import NoCollectionCard from '../components/CollectionCard/NoCollectionCard';
 import { useFetchCollections } from '../service/useFetchCollections';
 import { useStoreState } from '../store';
 import useGetTokensListedInCollection from '../service/collection/useGetTokensListedInCollection';
-import { ethers } from 'ethers';
-import { MarketplaceABI, marketplaceAddress } from '../mocks/constants.mock';
-import ShimmerNFTCard from '../components/ui/NFTCard/ShimmerNFTCard';
 import ShimmerListedNFTCard from '../components/ui/NFTCard/ListedNFTCard/ShimmerListedNFTCard';
 import { Spinner } from '../components/spinner';
 export default function Home() {
@@ -73,21 +69,9 @@ export default function Home() {
       }
     });
 
-  const provider = useMemo(
-    () =>
-      new ethers.providers.JsonRpcProvider(
-        'https://json-rpc.evm.testnet.shimmer.network'
-      ),
-    []
-  );
-  const marketplaceContract = useMemo(() => {
-    return new ethers.Contract(marketplaceAddress, MarketplaceABI, provider);
-  }, []);
-
   useFetchCollections();
 
-  isWalletConnected &&
-    useGetTokensListedInCollection(1, marketplaceContract, false);
+  isWalletConnected && useGetTokensListedInCollection(1, false);
 
   return (
     <BasePage>

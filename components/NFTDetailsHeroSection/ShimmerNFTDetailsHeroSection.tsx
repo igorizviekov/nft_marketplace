@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import BaseImage from '../ui/Base/BaseImage/BaseImage';
 import { Accordion } from 'react-accordion-ts';
 import styles from '../../styles/pages/NFTPage.module.scss';
@@ -10,13 +10,6 @@ import { collectionDescription } from './constants';
 import useListNFT from '../../service/nft/useListNFT';
 import isListed from '../../service/nft/isListed';
 import useDelistNFT from '../../service/nft/useDelistNFT';
-import { ethers } from 'ethers';
-import {
-  CollectionsABI,
-  MarketplaceABI,
-  collectionsAddress,
-  marketplaceAddress,
-} from '../../mocks/constants.mock';
 import useGetCollectionOfToken from '../../service/collection/useGetCollectionOfToken';
 
 const ShimmerNFTDetailsHeroSection = ({ nft }: { nft: IShimmerNFT }) => {
@@ -26,21 +19,10 @@ const ShimmerNFTDetailsHeroSection = ({ nft }: { nft: IShimmerNFT }) => {
   const isOwner = activeWallet === nft.owner.toLowerCase();
   const [listedNFT, setListedNFT] = useState<boolean>(false);
 
-  const provider = useMemo(
-    () =>
-      new ethers.providers.JsonRpcProvider(
-        'https://json-rpc.evm.testnet.shimmer.network'
-      ),
-    []
-  );
-  const marketplaceContract = useMemo(() => {
-    return new ethers.Contract(marketplaceAddress, MarketplaceABI, provider);
-  }, []);
-
   useEffect(() => {
     setIsListedLoading(true);
     const getIsListed = async () => {
-      const tx = await isListed(nft.id, marketplaceContract);
+      const tx = await isListed(nft.id);
       setListedNFT(tx);
       setIsListedLoading(false);
     };

@@ -9,13 +9,14 @@ import { useIPFSImageUpload } from './useIPFSImageUpload';
 import useIPFSJSONUpload from './useIPFSJSONUpload';
 import { NextRouter, useRouter } from 'next/router';
 import { IShimmerNFT } from '../components/ui/NFTCard/ShimmerNFTCard.types';
+import { getContractAddress } from 'ethers/lib/utils';
+import { getCollectionContract } from './collection/utilts';
 
 const useMintNFT = async (
   nftGeneralInfo: INFTGeneralInfo,
   traits: Trait[],
   setIsLoading: (loaded: boolean) => void,
   collectionID: number,
-  collectionContract: ethers.Contract,
   nftPrice: number,
   mintAddress: string,
   editGeneralInformation: (nftGeneralInfo: INFTGeneralInfo) => void,
@@ -39,15 +40,7 @@ const useMintNFT = async (
   const tokenURI = await useIPFSJSONUpload(metadata);
   try {
     //getcontract
-    const web3Modal = new Web3Modal();
-    const connection = await web3Modal.connect();
-    const provider = new ethers.providers.Web3Provider(connection);
-    const signer = provider.getSigner();
-    const contract = new ethers.Contract(
-      collectionsAddress,
-      CollectionsABI,
-      signer
-    );
+    const contract = await getCollectionContract();
     const price = ethers.utils.parseUnits(nftPrice.toString(), 'ether');
 
     //mint
@@ -59,7 +52,7 @@ const useMintNFT = async (
 
     if (tokenMintedEvent) {
       const newTokenID = Number(tokenMintedEvent.args?.tokenId);
-      console.log('collection contract', collectionContract);
+      console.log('collection contract', contract);
       console.log('newTokenID', newTokenID);
 
       const date = new Date();
