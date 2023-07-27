@@ -1,5 +1,13 @@
 @use '../../styles/mixins' as *;
 
+.warning {
+  width: 100%;
+  text-align: center;
+  padding: var(--spacing-sm);
+
+  background-color: red;
+}
+
 .header {
   width: 100%;
   position: sticky;
