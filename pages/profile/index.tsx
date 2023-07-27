@@ -19,9 +19,7 @@ import useFetchNFTLogs from '../../service/useFetchNFTLogs';
 import BaseTable from '../../components/BaseTable/BaseTable';
 import ActivityBody from '../../components/BaseTable/TableBodies/ActivityBody/ActivityBody';
 import { useFetchNFTS } from '../../service/useFetchNFTS';
-import axios from 'axios';
 import { useStoreRehydrated } from 'easy-peasy';
-import useGetNFTsInCollection from '../../service/collection/useGetNFTsInCollection';
 import ShimmerNFTCard from '../../components/ui/NFTCard/ShimmerNFTCard';
 
 const ProfilePage = () => {
@@ -38,7 +36,7 @@ const ProfilePage = () => {
 
   const [selectedTab, setSelectedTab] = useState<number>(0);
   const [isOwnProfile, setIsOwnProfile] = useState<boolean>(true);
-  const options = ['My NFTs', 'Listed', 'Created', 'Liked', 'Activity'];
+  const options = ['My NFTs', 'Listed', 'Collections', 'Activity'];
 
   const foundNfts =
     selectedBlockchain?.currency_symbol !== 'SMR'

@@ -5,7 +5,6 @@ import Icon from '../ui/Icon/Icon';
 import DescriptionSticker from '../DescriptionSticker/DescriptionSticker';
 import { refactorAttributeDate } from '../../utils/NFTViewUtils';
 import { formatAddress } from '../BaseTable/TableBodies/ActivityBody/utils';
-import useGetCollectionOfToken from '../../service/collection/useGetCollectionOfToken';
 
 export const collectionDescription = (nft: IShimmerNFT) => {
   return [

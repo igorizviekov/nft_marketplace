@@ -10,7 +10,6 @@ import { collectionDescription } from './constants';
 import useListNFT from '../../service/nft/useListNFT';
 import isListed from '../../service/nft/isListed';
 import useDelistNFT from '../../service/nft/useDelistNFT';
-import useGetCollectionOfToken from '../../service/collection/useGetCollectionOfToken';
 
 const ShimmerNFTDetailsHeroSection = ({ nft }: { nft: IShimmerNFT }) => {
   const { activeWallet } = useStoreState((state) => state.wallet);
@@ -27,14 +26,8 @@ const ShimmerNFTDetailsHeroSection = ({ nft }: { nft: IShimmerNFT }) => {
       setIsListedLoading(false);
     };
 
-    const getCollection = async () => {
-      const tx = await useGetCollectionOfToken(nft.id);
-      console.log(tx);
-    };
-
     try {
       getIsListed();
-      getCollection();
     } catch (err) {
       console.log(err);
     } finally {
