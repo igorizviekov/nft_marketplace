@@ -4,7 +4,10 @@ import BaseImage from '../../../ui/Base/BaseImage/BaseImage';
 import { ICollectionsBodyProps } from './CollectionsBody.types.d';
 import { useStoreState } from '../../../../store';
 import styles from './CollectionsBody.module.scss';
-const CollectionsBody = ({ collections }: ICollectionsBodyProps) => {
+const CollectionsBody = ({
+  collections,
+  isProfileCollections,
+}: ICollectionsBodyProps) => {
   const router = useRouter();
   const { blockchains } = useStoreState((state) => state.app);
 
@@ -36,11 +39,23 @@ const CollectionsBody = ({ collections }: ICollectionsBodyProps) => {
             </div>
             <div className={styles.collectionName}>{collection.name}</div>
           </td>
-          <td>' - '</td>
-          <td>0</td>
-          <td>0</td>
-          <td>0</td>
-          <td>0</td>
+          {isProfileCollections ? (
+            <>
+              <td>{collection.tokenId}</td>
+              <td>{collection.symbol}</td>
+              <td>{collection.website}</td>
+              <td>{collection.categoryPrimary}</td>
+              <td>{collection.categorySecondary}</td>
+            </>
+          ) : (
+            <>
+              <td>' - '</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </>
+          )}
         </tr>
       ))}
     </tbody>

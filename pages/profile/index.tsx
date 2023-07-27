@@ -11,7 +11,7 @@ import DescriptionSticker from '../../components/DescriptionSticker/DescriptionS
 import { FiEdit } from 'react-icons/fi';
 import { useRouter } from 'next/router';
 import useFetchProfile from '../../service/useFetchProfile';
-import { useStoreState } from '../../store';
+import { useStoreState, useStoreActions } from '../../store';
 import { Spinner } from '../../components/spinner';
 import BaseLink from '../../components/ui/Base/BaseLink/BaseLink';
 import { NoNFTCard } from '../../components/ui/NFTCard/NoNFTCard';
@@ -21,14 +21,23 @@ import ActivityBody from '../../components/BaseTable/TableBodies/ActivityBody/Ac
 import { useFetchNFTS } from '../../service/useFetchNFTS';
 import { useStoreRehydrated } from 'easy-peasy';
 import ShimmerNFTCard from '../../components/ui/NFTCard/ShimmerNFTCard';
+import useUpdateUserCollections from '../../service/useUpdateUserCollections';
+import CollectionsBody from '../../components/BaseTable/TableBodies/CollectionsBody/CollectionsBody';
 
 const ProfilePage = () => {
   const router = useRouter();
-  const { profile, nftLogs, ownedNfts, shimmerOwnedNfts, isOwnedNFTSLoading } =
-    useStoreState((state) => state.profile);
+  const {
+    profile,
+    nftLogs,
+    ownedNfts,
+    shimmerOwnedNfts,
+    isOwnedNFTSLoading,
+    collections,
+  } = useStoreState((state) => state.profile);
   const { activeWallet, isWalletConnected } = useStoreState(
     (state) => state.wallet
   );
+  const { updateCollections } = useStoreActions((actions) => actions.profile);
 
   const { selectedBlockchain } = useStoreState((state) => state.app);
 
@@ -52,6 +61,7 @@ const ProfilePage = () => {
   useFetchProfile();
   useFetchNFTS(activeWallet);
   useFetchNFTLogs(activeWallet);
+  useUpdateUserCollections(updateCollections);
 
   return (
     <BasePage>
@@ -135,6 +145,23 @@ const ProfilePage = () => {
                       'Buyer',
                       'Time',
                       'Amount',
+                    ]}
+                  />
+                ) : options[selectedTab] === 'Collections' ? (
+                  <BaseTable
+                    body={
+                      <CollectionsBody
+                        collections={collections}
+                        isProfileCollections
+                      />
+                    }
+                    header={[
+                      'Name',
+                      'ID',
+                      'Symbol',
+                      'Website',
+                      'Primary Category',
+                      'Secondary Category',
                     ]}
                   />
                 ) : !foundNfts.every((nft) => nft === undefined) ? (
