@@ -29,11 +29,11 @@ export const ProfileModel: IProfileModel = {
     payload.map((log: INFTLog) => {
       const isDuplicated = state.nftLogs.some((nft) => nft.id === log.id);
 
-      if (!isDuplicated)
+      if (!isDuplicated) {
         state.nftLogs.push({
           ...log,
-          date: new Date(log.date),
         });
+      }
     });
   }),
   setOwnedNFTS: action((state, payload) => {

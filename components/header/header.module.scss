@@ -1,17 +1,25 @@
 @use '../../styles/mixins' as *;
 
 .warning {
+
+  position: sticky;
+  top: 0;
+  z-index: 5;
+
+  height: 40px;
+
   width: 100%;
   text-align: center;
   padding: var(--spacing-sm);
 
   background-color: red;
+
 }
 
 .header {
   width: 100%;
   position: sticky;
-  top: 0;
+  top: 40px;
   z-index: 5;
 
   display: flex;

@@ -10,9 +10,10 @@ export function formatAddress(address: string): string {
 }
 
 export const formatDate = (date: Date): string => {
+  const dateObject = new Date(date);
   const now = new Date().getTime();
 
-  var timeleft = now - date.getTime();
+  var timeleft = now - dateObject.getTime();
 
   var days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
   var hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -35,6 +36,7 @@ export const formatDate = (date: Date): string => {
 };
 
 export function formatTooltipDate(date: Date): string {
+  const dateObject = new Date(date);
   const monthNames = [
     'Jan',
     'Feb',
@@ -50,13 +52,13 @@ export function formatTooltipDate(date: Date): string {
     'Dec',
   ];
 
-  const month = date.getMonth();
-  const day = date.getDate();
-  const year = date.getFullYear();
+  const month = dateObject.getMonth();
+  const day = dateObject.getDate();
+  const year = dateObject.getFullYear();
 
-  const refactoredHours = date.getHours().toString().padStart(2, '0');
-  const refactoredMinutes = date.getMinutes().toString().padStart(2, '0');
-  const refactoredSeconds = date.getSeconds().toString().padStart(2, '0');
+  const refactoredHours = dateObject.getHours().toString().padStart(2, '0');
+  const refactoredMinutes = dateObject.getMinutes().toString().padStart(2, '0');
+  const refactoredSeconds = dateObject.getSeconds().toString().padStart(2, '0');
 
   return `Time: ${monthNames[month]} ${day} ${year} - ${refactoredHours}:${refactoredMinutes}:${refactoredSeconds}`;
 }

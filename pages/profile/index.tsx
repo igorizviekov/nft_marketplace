@@ -60,7 +60,6 @@ const ProfilePage = () => {
 
   useFetchProfile();
   useFetchNFTS(activeWallet);
-  useFetchNFTLogs(activeWallet);
   useUpdateUserCollections(updateCollections);
 
   return (

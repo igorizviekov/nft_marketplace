@@ -1,9 +1,7 @@
 import axios from 'axios';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useStoreActions, useStoreState } from '../store';
 import { useAuth } from './useAuth';
-import { local } from 'web3modal';
-import useUpdateUserCollections from './useUpdateUserCollections';
 
 const useFetchProfile = () => {
   useAuth();

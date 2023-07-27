@@ -2,25 +2,22 @@ import React, { useRef, useState } from 'react';
 import styles from './ActivityBody.module.scss';
 import { IActivityBodyProps } from './ActivityBody.types';
 import BaseImage from '../../../ui/Base/BaseImage/BaseImage';
-import { useRouter } from 'next/router';
-import { toast } from 'react-toastify';
 import { useStoreState } from '../../../../store';
 import { formatAddress, formatDate } from './utils';
 import TimeTooltip from './TimeTooltip';
-import useHover from '../../../../hooks/useHover';
 import { INFTLog } from '../../../../store/model/profile/profile.types';
 const ActivityBody = ({ activities }: IActivityBodyProps) => {
-  const router = useRouter();
   const { currency } = useStoreState((state) => state.wallet);
 
+  const reversedArray = [...activities].reverse();
   return (
     <tbody className={styles.body}>
-      {activities.map((activity, index) => {
+      {reversedArray.map((activity, index) => {
         return (
-          <tr key={index}>
+          <tr key={index} className={styles.table}>
             <td>
               <div className={styles.image}>
-                <BaseImage />
+                <BaseImage imageUrl={activity.image_uri} />
               </div>
               <p>{activity.nft_id}</p>
             </td>
@@ -44,7 +41,6 @@ const ActivityBody = ({ activities }: IActivityBodyProps) => {
 
 export const TimeTD = ({ activity }: { activity: INFTLog }) => {
   const [showTooltip, setShowTooltip] = useState<boolean>(false);
-
   return (
     <td
       className={styles.time}
