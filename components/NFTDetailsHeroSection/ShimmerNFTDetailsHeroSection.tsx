@@ -18,6 +18,7 @@ const ShimmerNFTDetailsHeroSection = ({ nft }: { nft: IShimmerNFT }) => {
   const isOwner = activeWallet === nft.owner.toLowerCase();
   const [listedNFT, setListedNFT] = useState<boolean>(false);
 
+  console.log(nft);
   useEffect(() => {
     setIsListedLoading(true);
     const getIsListed = async () => {
@@ -47,7 +48,7 @@ const ShimmerNFTDetailsHeroSection = ({ nft }: { nft: IShimmerNFT }) => {
             <h1>{`${nft.metadata.name}`}</h1>
             <p>{nft.metadata.description}</p>
             <div className={styles.price}>
-              <h2>{nft.metadata.price}</h2>
+              <h2>Price: {nft.metadata.price}</h2>
             </div>
           </div>
           <div>

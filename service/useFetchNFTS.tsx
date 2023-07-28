@@ -47,7 +47,10 @@ export const useFetchNFTS = (address: string) => {
          * Fetch NFTS on public collection first
          */
         const nfts = await useGetNFTsInCollection(1, 0, 100);
-        setShimmerOwnedNFTS(nfts as IShimmerNFT[]);
+        const ownedNfts = nfts?.filter(
+          (nft) => nft.owner.toLowerCase() === activeWallet
+        );
+        setShimmerOwnedNFTS(ownedNfts as IShimmerNFT[]);
 
         collections.forEach(async (collection) => {
           const nfts = await useGetNFTsInCollection(collection.tokenId, 0, 100);
@@ -56,14 +59,14 @@ export const useFetchNFTS = (address: string) => {
           );
           setShimmerOwnedNFTS(ownedNfts as IShimmerNFT[]);
         });
-        shimmerOwnedNfts &&
-          shimmerOwnedNfts.forEach(async (nft, index) => {
-            const collection = await useGetCollectionOfToken(nft.id);
-            setShimmerOwnedNFTSCollections({
-              index: index,
-              collection: collection,
-            });
-          });
+        // shimmerOwnedNfts &&
+        //   shimmerOwnedNfts.forEach(async (nft, index) => {
+        //     const collection = await useGetCollectionOfToken(nft.id);
+        //     setShimmerOwnedNFTSCollections({
+        //       index: index,
+        //       collection: collection,
+        //     });
+        //   });
       };
 
       //@TODO Add collection metadata to nft when minting

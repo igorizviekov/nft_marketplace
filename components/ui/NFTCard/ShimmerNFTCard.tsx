@@ -31,7 +31,7 @@ const ShimmerNFTCard = ({ nft }: IShimmerNFTCardProps) => {
             className={styles.collectionName}
             onClick={() => toast.warn('OpenCollection')}
           >
-            {nft.collection?.metadata.name}
+            {nft.metadata.collection?.name}
           </p>
         </div>
         <div className={styles.bottom}>

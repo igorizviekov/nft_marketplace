@@ -43,12 +43,17 @@ export const ProfileModel: IProfileModel = {
     state.isOwnedNFTSLoading = payload;
   }),
   setShimmerOwnedNFTS: action((state, payload) => {
+    if (state.shimmerOwnedNfts.length === 0) {
+      state.shimmerOwnedNfts.push(...payload);
+    }
     payload.forEach((nft) => {
-      const isDuplicated = state.shimmerOwnedNfts.includes(nft);
-
-      if (!isDuplicated) {
-        state.shimmerOwnedNfts.push(nft);
-      }
+      state.shimmerOwnedNfts.forEach((shimmerNft) => {
+        const isDuplicated =
+          shimmerNft.id === nft.id && shimmerNft.owner === nft.owner;
+        if (!isDuplicated) {
+          state.shimmerOwnedNfts.push(nft);
+        }
+      });
     });
   }),
   setShimmerOwnedNFTSCollections: action((state, payload) => {

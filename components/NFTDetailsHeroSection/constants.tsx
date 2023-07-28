@@ -61,14 +61,16 @@ export const collectionDescription = (nft: IShimmerNFT) => {
       content: (
         <div className={styles.filter}>
           <div>
-            {nft.collection && <p>Contract Address</p>}
+            {nft.metadata.collection?.owner && <p>Contract Address</p>}
             <p>Token ID</p>
             <p>Token Standard</p>
             <p>Owner</p>
             {nft.metadata.royalty && <p>Royalty</p>}
           </div>
           <div className="text-end">
-            {nft.collection && <p>{formatAddress(nft.collection.owner)}</p>}
+            {nft.metadata.collection && (
+              <p>{formatAddress(nft.metadata.collection?.owner)}</p>
+            )}
             <p>{nft.id}</p>
             <p>{'Need token standard in metadata'}</p>
             <p>{formatAddress(nft.owner)}</p>

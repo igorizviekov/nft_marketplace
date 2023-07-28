@@ -7,12 +7,13 @@ import useIPFSJSONUpload from './useIPFSJSONUpload';
 import { NextRouter } from 'next/router';
 import { IShimmerNFT } from '../components/ui/NFTCard/ShimmerNFTCard.types';
 import { getCollectionContract } from './collection/utilts';
+import { ICollection } from '../store/model/app/app.types';
 
 const useMintNFT = async (
   nftGeneralInfo: INFTGeneralInfo,
   traits: Trait[],
   setIsLoading: (loaded: boolean) => void,
-  collectionID: number,
+  collection: ICollection,
   nftPrice: number,
   mintAddress: string,
   editGeneralInformation: (nftGeneralInfo: INFTGeneralInfo) => void,
@@ -20,17 +21,28 @@ const useMintNFT = async (
   router: NextRouter,
   setNFT: (nft: IShimmerNFT) => void
 ) => {
-  console.log(collectionID);
+  console.log(collection);
   setIsLoading(true);
   const uploadedImage = await useIPFSImageUpload(nftGeneralInfo.image);
 
-  //@TODO Include collection data in metadata to save a headache
   const metadata = JSON.stringify({
     name: nftGeneralInfo.name,
     description: nftGeneralInfo.description,
     price: nftGeneralInfo.price,
     image: uploadedImage,
     traits: traits,
+    collection: {
+      id: collection.tokenId,
+      metadata: {
+        category_primary: collection.categoryPrimary,
+        category_secondary: collection.categorySecondary,
+        description: collection.description,
+        name: collection.name,
+        symbol: collection.symbol,
+        website: collection.website,
+      },
+      owner: collection.contract_address,
+    },
   });
 
   const tokenURI = await useIPFSJSONUpload(metadata);
@@ -40,7 +52,7 @@ const useMintNFT = async (
     const price = ethers.utils.parseUnits(nftPrice.toString(), 'ether');
 
     //mint
-    const tx = await contract.mint(collectionID, tokenURI, price);
+    const tx = await contract.mint(collection.tokenId, tokenURI, price);
     const receipt = await tx.wait();
     const tokenMintedEvent = receipt.events?.find(
       (e: any) => e.event === 'TokenMinted'
@@ -85,6 +97,7 @@ const useMintNFT = async (
           price: nftGeneralInfo.price.toString(),
           image: uploadedImage,
           traits: traits,
+          collection: collection,
         },
       };
       setNFT(newNFT);

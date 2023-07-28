@@ -20,6 +20,7 @@ import useMintNFT from '../../service/useMintNFT';
 import { Spinner } from '../../components/spinner';
 import { useRouter } from 'next/router';
 import useUpdateUserCollections from '../../service/useUpdateUserCollections';
+import { ICollection } from '../../store/model/app/app.types';
 export interface IFormInput {
   name: string;
   description: string;
@@ -66,10 +67,26 @@ const SingleForm = () => {
   const { updateCollections } = useStoreActions((actions) => actions.profile);
   const [selected, setSelected] = useState<number>(0);
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
-  const [options, setOptions] = useState<{ name: string; id: number }[]>([
-    { name: 'None', id: 1 },
+  const [options, setOptions] = useState<ICollection[]>([
+    {
+      name: 'None',
+      id: '1',
+      creator_id: '',
+      symbol: 'PHO',
+      categoryPrimary: 'art',
+      categorySecondary: 'collectibles',
+      description:
+        'Welcome to our Public Collection, the heart of our NFT marketplace and a testament to the collective creativity of our vibrant community. This public collection is open to everyone, artists and non-artists alike, encouraging the creation and exchange of unique digital art pieces represented as Non-Fungible Tokens (NFTs).',
+      blockchain_id: '',
+      contract_address: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
+      owner: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
+      tokenId: 1,
+      image: '',
+      website: '',
+      royalties: 0,
+    },
     ...collections.map((collection) => {
-      return { name: collection.name, id: Number(collection.tokenId) };
+      return collection;
     }),
   ]);
   const changeHandler = (e: React.ChangeEvent<Element>) => {
@@ -209,7 +226,7 @@ const SingleForm = () => {
             nftGeneralInfo,
             traits,
             setIsLoading,
-            options[selected].id,
+            options[selected],
             nftGeneralInfo.price,
             activeWallet,
             editGeneralInformation,

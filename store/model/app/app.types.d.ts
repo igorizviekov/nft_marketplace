@@ -30,6 +30,7 @@ export interface ICollection {
   categorySecondary: string;
   blockchain_id: string;
   contract_address: string;
+  owner: string;
   description: string;
   tokenId: number;
   image: string;

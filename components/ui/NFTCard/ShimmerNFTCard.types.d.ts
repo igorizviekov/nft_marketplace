@@ -1,3 +1,4 @@
+import { ICollection } from '../../../store/model/app/app.types';
 import { Trait } from '../../../store/model/nft-mint/nft-mint.types';
 
 export interface IShimmerNFTCardProps {
@@ -16,17 +17,6 @@ export interface IShimmerNFT {
     traits: Trait[];
     price: string;
     royalty?: number;
-  };
-  collection?: {
-    id: number;
-    metadata: {
-      category_primary: string;
-      category_secondary: string;
-      description: string;
-      name: string;
-      symbol: string;
-      website: string;
-    };
-    owner: string;
+    collection?: ICollection;
   };
 }

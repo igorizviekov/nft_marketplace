@@ -13,40 +13,37 @@ const useUpdateProfile = async (
 ) => {
   const ipfsImagePath = file && (await useIPFSImageUpload(file));
 
-  useEffect(() => {
-    const id = localStorage.getItem('usersUID');
-    const token = localStorage.getItem('token');
-
-    axios
-      .patch(
-        `https://nft-api-production-4aa1.up.railway.app/users/${id}`,
-        {
-          image: ipfsImagePath ? ipfsImagePath : profile.image,
-          name: profile.name,
-          description: profile.description,
-          email: profile.email,
-          location: profile.location,
-          website: profile.website,
-          discord: profile.discord,
-          twitter: profile.twitter,
-          instagram: profile.instagram,
+  const id = localStorage.getItem('usersUID');
+  const token = localStorage.getItem('token');
+  axios
+    .patch(
+      `https://nft-api-production-4aa1.up.railway.app/users/${id}`,
+      {
+        image: ipfsImagePath ? ipfsImagePath : profile.image,
+        name: profile.name,
+        description: profile.description,
+        email: profile.email,
+        location: profile.location,
+        website: profile.website,
+        discord: profile.discord,
+        twitter: profile.twitter,
+        instagram: profile.instagram,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .then((response) => {
-        console.log(response);
-        toast.success('Profile saved correctly');
-        router.push('/profile');
-      })
-      .catch((error) => {
-        const message = getErrMessage(error);
-        console.log(message);
-      });
-  }, []);
+      }
+    )
+    .then((response) => {
+      console.log(response);
+      toast.success('Profile saved correctly');
+      router.push('/profile');
+    })
+    .catch((error) => {
+      const message = getErrMessage(error);
+      console.log(message);
+    });
 };
 
 export default useUpdateProfile;
