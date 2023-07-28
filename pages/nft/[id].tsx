@@ -10,13 +10,14 @@ import NFTDetailsHeroSection from '../../components/NFTDetailsHeroSection/NFTDet
 import ShimmerNFTDetailsHeroSection from '../../components/NFTDetailsHeroSection/ShimmerNFTDetailsHeroSection';
 import { OwnedNft } from 'alchemy-sdk';
 import { IShimmerNFT } from '../../components/ui/NFTCard/ShimmerNFTCard.types';
+import { TEST_IMAGE_URL } from '../../components/ui/Base/BaseImage/BaseImage';
 
 const NFTPage = () => {
   const { selectedBlockchain } = useStoreState((state) => state.app);
   const mockNFTLogs: INFTLog[] = [
     {
       id: '1f7fc062-e508-43c3-be1a-cee1a5eb91d0',
-      image_uri: 'string',
+      image_uri: TEST_IMAGE_URL,
       nft_id: '102',
       transaction_type: 'listing',
       seller_address: '',
@@ -26,7 +27,7 @@ const NFTPage = () => {
     },
     {
       id: '1f7fc062-e508-43c3-be1a-cee1a5eb91d0',
-      image_uri: 'string',
+      image_uri: TEST_IMAGE_URL,
       nft_id: '102',
       transaction_type: 'listing',
       seller_address: '',
@@ -36,7 +37,7 @@ const NFTPage = () => {
     },
     {
       id: '1f7fc062-e508-43c3-be1a-cee1a5eb91d0',
-      image_uri: 'string',
+      image_uri: TEST_IMAGE_URL,
       nft_id: '12',
       transaction_type: 'listing',
       seller_address: '',
@@ -46,7 +47,7 @@ const NFTPage = () => {
     },
     {
       id: '1f7fc062-e508-43c3-be1a-cee1a5eb91d0',
-      image_uri: 'string',
+      image_uri: TEST_IMAGE_URL,
       nft_id: '12',
       transaction_type: 'listing',
       seller_address: '',
@@ -56,7 +57,7 @@ const NFTPage = () => {
     },
     {
       id: '1f7fc062-e508-43c3-be1a-cee1a5eb91d0',
-      image_uri: 'string',
+      image_uri: TEST_IMAGE_URL,
       nft_id: '12',
       transaction_type: 'listing',
       seller_address: '',

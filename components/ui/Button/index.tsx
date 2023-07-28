@@ -9,7 +9,6 @@ interface IButtonProps {
 
 import classNames from 'classnames';
 import styles from './Button.module.scss';
-import { Children } from 'react';
 
 export const Button = ({
   label,

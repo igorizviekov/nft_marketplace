@@ -24,6 +24,7 @@ const useMintNFT = async (
   setIsLoading(true);
   const uploadedImage = await useIPFSImageUpload(nftGeneralInfo.image);
 
+  //@TODO Include collection data in metadata to save a headache
   const metadata = JSON.stringify({
     name: nftGeneralInfo.name,
     description: nftGeneralInfo.description,

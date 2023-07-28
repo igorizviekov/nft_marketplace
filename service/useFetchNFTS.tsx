@@ -1,7 +1,6 @@
-import axios from 'axios';
 import { useEffect } from 'react';
 import { useStoreActions, useStoreState } from '../store';
-import { Alchemy, Network, OwnedNft } from 'alchemy-sdk';
+import { Alchemy, Network } from 'alchemy-sdk';
 import useGetNFTsInCollection from './collection/useGetNFTsInCollection';
 import { IShimmerNFT } from '../components/ui/NFTCard/ShimmerNFTCard.types';
 import useGetCollectionOfToken from './collection/useGetCollectionOfToken';
@@ -14,7 +13,9 @@ export const useFetchNFTS = (address: string) => {
     setShimmerOwnedNFTSCollections,
   } = useStoreActions((actions) => actions.profile);
 
-  const { shimmerOwnedNfts } = useStoreState((state) => state.profile);
+  const { shimmerOwnedNfts, collections } = useStoreState(
+    (state) => state.profile
+  );
   const { activeWallet } = useStoreState((state) => state.wallet);
 
   const { selectedBlockchain } = useStoreState((state) => state.app);
@@ -42,13 +43,19 @@ export const useFetchNFTS = (address: string) => {
       }
     } else if (selectedBlockchain?.currency_symbol === 'SMR') {
       const fetchNfts = async () => {
+        /**
+         * Fetch NFTS on public collection first
+         */
         const nfts = await useGetNFTsInCollection(1, 0, 100);
+        setShimmerOwnedNFTS(nfts as IShimmerNFT[]);
 
-        const ownedNfts = nfts?.filter(
-          (nft) => nft.owner.toLowerCase() === activeWallet
-        );
-        setShimmerOwnedNFTS(ownedNfts as IShimmerNFT[]);
-
+        collections.forEach(async (collection) => {
+          const nfts = await useGetNFTsInCollection(collection.tokenId, 0, 100);
+          const ownedNfts = nfts?.filter(
+            (nft) => nft.owner.toLowerCase() === activeWallet
+          );
+          setShimmerOwnedNFTS(ownedNfts as IShimmerNFT[]);
+        });
         shimmerOwnedNfts &&
           shimmerOwnedNfts.forEach(async (nft, index) => {
             const collection = await useGetCollectionOfToken(nft.id);
@@ -58,6 +65,8 @@ export const useFetchNFTS = (address: string) => {
             });
           });
       };
+
+      //@TODO Add collection metadata to nft when minting
 
       try {
         fetchNfts();

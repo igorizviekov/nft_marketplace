@@ -43,7 +43,13 @@ export const ProfileModel: IProfileModel = {
     state.isOwnedNFTSLoading = payload;
   }),
   setShimmerOwnedNFTS: action((state, payload) => {
-    state.shimmerOwnedNfts = payload;
+    payload.forEach((nft) => {
+      const isDuplicated = state.shimmerOwnedNfts.includes(nft);
+
+      if (!isDuplicated) {
+        state.shimmerOwnedNfts.push(nft);
+      }
+    });
   }),
   setShimmerOwnedNFTSCollections: action((state, payload) => {
     state.shimmerOwnedNfts[payload.index] = {

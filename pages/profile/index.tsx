@@ -45,7 +45,7 @@ const ProfilePage = () => {
 
   const [selectedTab, setSelectedTab] = useState<number>(0);
   const [isOwnProfile, setIsOwnProfile] = useState<boolean>(true);
-  const options = ['My NFTs', 'Listed', 'Collections', 'Activity'];
+  const options = ['All NFTs', 'Listed', 'Collections', 'Activity'];
 
   const foundNfts =
     selectedBlockchain?.currency_symbol !== 'SMR'
@@ -120,7 +120,7 @@ const ProfilePage = () => {
                 />
                 <DescriptionSticker
                   title={'Owned'}
-                  data={'12'}
+                  data={shimmerOwnedNfts.length.toString()}
                   type={'SECONDARY'}
                 />
               </div>

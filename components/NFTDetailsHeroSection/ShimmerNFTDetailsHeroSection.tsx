@@ -35,10 +35,11 @@ const ShimmerNFTDetailsHeroSection = ({ nft }: { nft: IShimmerNFT }) => {
     }
   }, [useDelistNFT, useListNFT]);
 
+  console.log(nft.metadata.image);
   return (
     <div className={styles.hero}>
       <div className={styles.image}>
-        <BaseImage imageUrl={nft.metadata.image} />
+        {nft.metadata && <BaseImage imageUrl={nft.metadata.image} />}
       </div>
       <div className={classNames(styles.textContainer, 'flex-col-start')}>
         <div className={styles.top}>
