@@ -31,6 +31,7 @@ const useMintNFT = async (
     price: nftGeneralInfo.price,
     image: uploadedImage,
     traits: traits,
+    tokenStandard: 'ERC721',
     collection: {
       id: collection.tokenId,
       metadata: {
