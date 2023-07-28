@@ -17,6 +17,17 @@ export interface IShimmerNFT {
     traits: Trait[];
     price: string;
     royalty?: number;
-    collection?: ICollection;
+    tokenStandard?: string;
+    collection?: {
+      id: number;
+      category_primary: string;
+      category_secondary: string;
+      description: string;
+      name: string;
+      symbol: string;
+      website: string;
+      owner: string;
+      contract_address: string;
+    };
   };
 }

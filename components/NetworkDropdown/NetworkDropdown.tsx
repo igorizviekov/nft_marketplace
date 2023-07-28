@@ -53,7 +53,7 @@ const NetworkDropdown = ({ networks, isLoading }: INetworkProps) => {
               {selectedBlockchain && (
                 <div className={styles.selected}>
                   <NetworkIcon symbol={selectedBlockchain.currency_symbol} />
-                  <h3>{selectedBlockchain.currency_symbol}</h3>
+                  <h5>{selectedBlockchain.currency_symbol}</h5>
                 </div>
               )}
               <Icon icon={<BsChevronDown />} />

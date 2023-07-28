@@ -34,14 +34,12 @@ const useMintNFT = async (
     tokenStandard: 'ERC721',
     collection: {
       id: collection.tokenId,
-      metadata: {
-        category_primary: collection.categoryPrimary,
-        category_secondary: collection.categorySecondary,
-        description: collection.description,
-        name: collection.name,
-        symbol: collection.symbol,
-        website: collection.website,
-      },
+      category_primary: collection.categoryPrimary,
+      category_secondary: collection.categorySecondary,
+      description: collection.description,
+      name: collection.name,
+      symbol: collection.symbol,
+      website: collection.website,
       owner: collection.contract_address,
     },
   });
@@ -98,7 +96,18 @@ const useMintNFT = async (
           price: nftGeneralInfo.price.toString(),
           image: uploadedImage,
           traits: traits,
-          collection: collection,
+          tokenStandard: 'ERC721',
+          collection: {
+            id: collection.tokenId,
+            category_primary: collection.categoryPrimary,
+            category_secondary: collection.categorySecondary,
+            description: collection.description,
+            name: collection.name,
+            symbol: collection.symbol,
+            website: collection.website,
+            owner: collection.owner,
+            contract_address: collection.contract_address,
+          },
         },
       };
       setNFT(newNFT);

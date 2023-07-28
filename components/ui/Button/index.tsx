@@ -30,7 +30,7 @@ export const Button = ({
       className
     )}
   >
-    {label && <h3>{label}</h3>}
+    {label && <h5>{label}</h5>}
     {children}
   </button>
 );
