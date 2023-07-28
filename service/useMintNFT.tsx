@@ -8,6 +8,7 @@ import { NextRouter } from 'next/router';
 import { IShimmerNFT } from '../components/ui/NFTCard/ShimmerNFTCard.types';
 import { getCollectionContract } from './collection/utilts';
 import { ICollection } from '../store/model/app/app.types';
+import { collectionsAddress } from '../mocks/constants.mock';
 
 const useMintNFT = async (
   nftGeneralInfo: INFTGeneralInfo,
@@ -41,6 +42,7 @@ const useMintNFT = async (
       symbol: collection.symbol,
       website: collection.website,
       owner: collection.contract_address,
+      contract_address: collectionsAddress,
     },
   });
 
@@ -106,7 +108,7 @@ const useMintNFT = async (
             symbol: collection.symbol,
             website: collection.website,
             owner: collection.owner,
-            contract_address: collection.contract_address,
+            contract_address: collectionsAddress,
           },
         },
       };
