@@ -11,7 +11,7 @@ const useListNFT = async (
   setIsListedLoading: (isListedLoading: boolean) => void
 ) => {
   const isApproved = await useIsMarketplaceApproved();
-  setIsListedLoading(true)
+  setIsListedLoading(true);
   if (!isApproved) {
     await useApproveMarketplace();
     await useListNFT(tokenID, newPrice, setListedNFT, setIsListedLoading);
@@ -34,7 +34,7 @@ const useListNFT = async (
     }
   }
 
-  setIsListedLoading(false)
+  setIsListedLoading(false);
 };
 
 export default useListNFT;

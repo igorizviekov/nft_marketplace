@@ -5,7 +5,6 @@ import { useAuth } from './useAuth';
 
 const useFetchProfile = () => {
   useAuth();
-
   const { activeWallet } = useStoreState((state) => state.wallet);
 
   const { updateProfile, updateNFTLogs, updateCollections } = useStoreActions(

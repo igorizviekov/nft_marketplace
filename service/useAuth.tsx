@@ -9,7 +9,6 @@ export async function useAuth() {
   const { isWalletConnected, activeWallet } = useStoreState(
     (state) => state.wallet
   );
-
   useEffect(() => {
     if (isWalletConnected) {
       axios

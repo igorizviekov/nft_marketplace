@@ -96,7 +96,9 @@ const SingleForm = () => {
     });
   };
 
-  useUpdateUserCollections(updateCollections, isModalOpen);
+  useEffect(() => {
+    useUpdateUserCollections(updateCollections);
+  }, [isModalOpen]);
 
   useEffect(() => {
     if (

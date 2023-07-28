@@ -12,7 +12,6 @@ export function isWalletValid(
     (royalty) => royalty.walletAddress === wallet
   );
 
-  console.log(wallet);
   useEffect(() => {
     if (walletRegex.test(wallet)) {
       if (isDuplicate) {

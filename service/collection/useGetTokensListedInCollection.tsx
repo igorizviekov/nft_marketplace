@@ -51,10 +51,8 @@ const useGetTokensListedInCollection = async (
 
     const tokensData = (await Promise.all(tokenDataPromises)).filter(Boolean);
 
-    console.log({ nfts: tokensData });
     setShimmerListedNFTS(tokensData as IShimmerNFT[]);
   } catch (err) {
-    console.log({ err });
     const message = getErrMessage(err);
     toast.error(message);
   }

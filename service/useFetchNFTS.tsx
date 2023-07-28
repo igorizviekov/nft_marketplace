@@ -12,7 +12,6 @@ export const useFetchNFTS = (address: string) => {
     setShimmerOwnedNFTS,
     setShimmerOwnedNFTSCollections,
   } = useStoreActions((actions) => actions.profile);
-
   const { shimmerOwnedNfts, collections } = useStoreState(
     (state) => state.profile
   );
@@ -68,8 +67,6 @@ export const useFetchNFTS = (address: string) => {
         //     });
         //   });
       };
-
-      //@TODO Add collection metadata to nft when minting
 
       try {
         fetchNfts();

@@ -60,7 +60,9 @@ const ProfilePage = () => {
 
   useFetchProfile();
   useFetchNFTS(activeWallet);
-  useUpdateUserCollections(updateCollections);
+  useEffect(() => {
+    useUpdateUserCollections(updateCollections);
+  }, []);
   return (
     <BasePage>
       {profile && isWalletConnected && isRehydrated ? (
