@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Input from '../../components/ui/Input';
 import { Button } from '../../components/ui/Button';
 import { Dropdown } from '../../components/ui/dropdown';
@@ -10,6 +10,7 @@ import styles from '../../styles/pages/CreateNFTPage.module.scss';
 import classNames from 'classnames';
 import { toast } from 'react-toastify';
 import { useStoreActions, useStoreState } from '../../store';
+import { validatePrice } from '../../components/ui/Input/utils';
 
 const CollectionForm = () => {
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
@@ -29,6 +30,16 @@ const CollectionForm = () => {
   const { editBulkInformation, setFormError } = useStoreActions(
     (actions) => actions.bulkUpload
   );
+
+  useEffect(() => {
+    if (
+      bulkInformation.images !== null &&
+      bulkInformation.metadata !== null &&
+      bulkInformation.price !== 0
+    ) {
+      setFormError(false);
+    }
+  }, [bulkInformation]);
 
   return (
     <div className={classNames('flex-col-center', styles.form)}>

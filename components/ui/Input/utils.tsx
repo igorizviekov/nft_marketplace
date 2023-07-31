@@ -48,8 +48,8 @@ export function validateDescription(
 
 export function validatePrice(
   price: number,
-  name: string,
-  description: string
+  name?: string,
+  description?: string
 ): string {
   const [message, setMessage] = useState<string>('');
   const { setFormError } = useStoreActions((actions) => actions.nftMint);

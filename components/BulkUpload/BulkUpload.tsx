@@ -38,7 +38,7 @@ const BulkUpload = ({
       onDragOver={() => setFileOver(true)}
       onDragLeave={() => setFileOver(false)}
       disabled={disabled}
-      maxSize={600000}
+      maxSize={undefined}
       {...props}
     >
       {({ getRootProps, getInputProps }) => (
@@ -71,6 +71,7 @@ const BulkUpload = ({
       onReplace={() => {
         dropzoneRef?.open();
       }}
+      isBulkupload
     />
   );
   return (

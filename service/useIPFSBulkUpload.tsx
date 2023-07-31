@@ -1,6 +1,6 @@
 import { create as ipfsClient } from 'ipfs-http-client';
 
-const useIPFSJSONUpload = async (
+const useIPFSBulkUpload = async (
   metadata: any
 ): Promise<string | undefined> => {
   const auth =
@@ -28,4 +28,4 @@ const useIPFSJSONUpload = async (
   }
 };
 
-export default useIPFSJSONUpload;
+export default useIPFSBulkUpload;
