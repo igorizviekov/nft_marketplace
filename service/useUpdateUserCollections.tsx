@@ -10,7 +10,7 @@ const useUpdateUserCollections = (
   const id = localStorage.getItem('usersUID');
   axios
     .get(
-      `https://nft-api-production-4aa1.up.railway.app/collection/user/${id}`,
+      `${process.env.NEXT_PUBLIC_API_KEY}/collection/user/${id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

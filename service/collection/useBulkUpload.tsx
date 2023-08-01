@@ -26,7 +26,7 @@ const useBulkUpload = async (
   zip.generateAsync({ type: 'binarystring' }).then((content) => {
     axios
       .post(
-        `https://nft-api-production-4aa1.up.railway.app/collection/ipfs/${collection.id}`,
+        `${process.env.NEXT_PUBLIC_API_KEY}/collection/ipfs/${collection.id}`,
         {
           media: content,
         },

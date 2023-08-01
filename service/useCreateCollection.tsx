@@ -54,7 +54,7 @@ export async function useCreateCollection({
   const refactoredGeneralInfo = excludeEmptyKeys(generalInformation);
   axios
     .post(
-      'https://nft-api-production-4aa1.up.railway.app/collection',
+      `${process.env.NEXT_PUBLIC_API_KEY}/collection`,
       {
         image: ipfsImagePath,
         ...refactoredGeneralInfo,

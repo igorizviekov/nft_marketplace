@@ -2,7 +2,7 @@ import axios from 'axios';
 const useFetchNFTLogs = (wallet: string) => {
   axios
     .get(
-      `https://nft-api-production-4aa1.up.railway.app/nft-logs/users/${wallet}`
+      `${process.env.NEXT_PUBLIC_API_KEY}/nft-logs/users/${wallet}`
     )
     .then((response) => {
       return response;

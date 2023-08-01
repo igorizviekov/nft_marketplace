@@ -10,7 +10,7 @@ export const useFetchCollections = () => {
 
   useEffect(() => {
     axios
-      .get('https://nft-api-production-4aa1.up.railway.app/collection')
+      .get(`${process.env.NEXT_PUBLIC_API_KEY}/collection`)
       .then((response) => {
         response.data.data.map((collection: ICollection) => {
           setCollections(collection);

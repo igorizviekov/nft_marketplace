@@ -12,7 +12,7 @@ export async function useAuth() {
   useEffect(() => {
     if (isWalletConnected) {
       axios
-        .post('https://nft-api-production-4aa1.up.railway.app/users/signin', {
+        .post(`${process.env.NEXT_PUBLIC_API_KEY}/users/signin`, {
           wallet: activeWallet,
         })
         .then((response) => {
@@ -24,7 +24,7 @@ export async function useAuth() {
 
     if (status === 401 && activeWallet) {
       axios
-        .post('https://nft-api-production-4aa1.up.railway.app/users/signup', {
+        .post(`${process.env.NEXT_PUBLIC_API_KEY}/users/signup`, {
           wallet: activeWallet,
           blockchain_id: blockchains[0].id,
         })

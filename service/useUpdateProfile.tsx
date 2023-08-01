@@ -17,7 +17,7 @@ const useUpdateProfile = async (
   const token = localStorage.getItem('token');
   axios
     .patch(
-      `https://nft-api-production-4aa1.up.railway.app/users/${id}`,
+      `${process.env.NEXT_PUBLIC_API_KEY}/users/${id}`,
       {
         image: ipfsImagePath ? ipfsImagePath : profile.image,
         name: profile.name,
