@@ -11,6 +11,7 @@ import classNames from 'classnames';
 import { toast } from 'react-toastify';
 import { useStoreActions, useStoreState } from '../../store';
 import { validatePrice } from '../../components/ui/Input/utils';
+import useBulkUpload from '../../service/collection/useBulkUpload';
 
 const CollectionForm = () => {
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
@@ -120,7 +121,14 @@ const CollectionForm = () => {
         isPrimary
         label="Upload"
         disabled={formError}
-        onClick={() => toast.warn('Upload bulk')}
+        onClick={() =>
+          useBulkUpload(
+            collections[selected],
+            bulkInformation.images,
+            bulkInformation.metadata,
+            bulkInformation.price
+          )
+        }
       />
     </div>
   );
