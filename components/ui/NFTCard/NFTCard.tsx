@@ -6,8 +6,6 @@ import Icon from '../Icon/Icon';
 import { FaArrowRight, FaEthereum } from 'react-icons/fa';
 import { INftCardProps } from './NFTCard.types';
 import { useRouter } from 'next/router';
-import BaseImage from '../Base/BaseImage/BaseImage';
-import Shimmer from '../../../assets/icons/network-icons/Shimmer';
 import Ethereum from '../../../assets/icons/network-icons/Ethereum';
 
 export const NftCard = ({ nft }: INftCardProps) => {
