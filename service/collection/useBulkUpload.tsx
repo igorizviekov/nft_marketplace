@@ -2,6 +2,8 @@ import { ICollection } from '../../store/model/app/app.types';
 import axios from 'axios';
 import JSZip from 'jszip';
 import saveAs from 'file-saver';
+import csvParser from 'csv-parser';
+import { parseCSVToJson } from './utilts';
 
 const useBulkUpload = async (
   collection: ICollection,
@@ -11,6 +13,7 @@ const useBulkUpload = async (
 ) => {
   const token = localStorage.getItem('token');
 
+  const parsedCSV = await parseCSVToJson(metadata);
   const zip = new JSZip();
 
   const artFolder = zip.folder('art');
@@ -20,9 +23,12 @@ const useBulkUpload = async (
     artFolder.file(`${collection.name}.zip`, images);
   }
   if (metadataFolder && metadata) {
-    metadataFolder.file(`${collection.name}.JSON`, JSON.stringify(metadata));
+    metadataFolder.file(`${collection.name}.JSON`, parsedCSV);
   }
 
+  zip.file('price.txt', `${price}`);
+
+  console.log(zip.files);
   zip.generateAsync({ type: 'binarystring' }).then((content) => {
     axios
       .post(
