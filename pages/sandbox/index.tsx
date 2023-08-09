@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Button } from '../../components/ui/Button';
 import { toast } from 'react-toastify';
-
 import { BigNumber, ethers } from 'ethers';
 import {
   marketplaceAddress,
@@ -13,6 +12,13 @@ import {
 } from '../../mocks/constants/constants';
 import axios from 'axios';
 import Web3Modal from 'web3modal';
+
+interface IListing {
+  nftAddress: string;
+  tokenId: number;
+  price: number;
+  seller: string;
+}
 
 const ContractSandbox = () => {
   const provider = useMemo(
@@ -74,8 +80,8 @@ const ContractSandbox = () => {
   const getNFTsInCollection = async () => {
     const collectionId = window.prompt('Please enter the collection ID:');
     const isForWallet = window.confirm('isForWallet - filter NFTs by wallet');
-    const startIndex = window.prompt('Please enter the offset:');
-    const pageSize = window.prompt('Please enter the limit:');
+    const startIndex = window.prompt('Please enter the offset:', '0');
+    const pageSize = window.prompt('Please enter the limit:', '50');
     try {
       const web3Modal = new Web3Modal();
       const connection = await web3Modal.connect();
@@ -116,19 +122,6 @@ const ContractSandbox = () => {
     }
   };
 
-  const getPrice = async (tokenId: number) => {
-    try {
-      const tx = await collectionContract.getPrice(tokenId);
-      const tokenPrice = ethers.utils.formatEther(tx);
-      console.log({ tokenPrice });
-      return tokenPrice;
-    } catch (err) {
-      console.log({ err });
-      const message = getErrMessage(err);
-      toast.error(message);
-    }
-  };
-
   const getCollectionOwner = async (collectionId: number) => {
     try {
       const tx = await collectionContract.getCollectionOwner(collectionId);
@@ -141,14 +134,23 @@ const ContractSandbox = () => {
     }
   };
 
-  const mintNFT = async (collectionId: number, tokenURI = mockTokenURI) => {
+  const mintNFT = async () => {
+    const collectionId = window.prompt('Please enter the collection ID:');
+    const tokenURI = window.prompt('Please enter the token URI:');
+    const royaltyPercentage = window.prompt(
+      'Please enter the token royaltyPercentage:'
+    );
+    const isMintToMarketplace = window.confirm(
+      'isMintToMarketplace - mint to a marketplace'
+    );
+    const nftPrice = window.prompt('Please enter the token price:') || '1';
+
     try {
       // get a collection where to mint
-      const collection = await getCollectionById(collectionId);
+      const collection = await getCollectionById(Number(collectionId));
       if (!collection) {
         return;
       }
-      const nftPrice = 1;
 
       // get contract
       const web3Modal = new Web3Modal();
@@ -163,7 +165,13 @@ const ContractSandbox = () => {
       const price = ethers.utils.parseUnits(nftPrice.toString(), 'ether');
 
       // mint
-      const tx = await contract.mint(collection.id, tokenURI, price);
+      const tx = await contract.mint(
+        collection.id,
+        tokenURI,
+        price,
+        royaltyPercentage,
+        isMintToMarketplace
+      );
       const receipt = await tx.wait();
       console.log({ receipt });
 
@@ -184,7 +192,18 @@ const ContractSandbox = () => {
     }
   };
 
-  const createCollection = async (uri: string) => {
+  const createCollection = async () => {
+    const uri = mockCollectionURI;
+    const mintDate =
+      window.prompt(
+        'Please enter the starting mint date:',
+        new Date().toISOString()
+      ) || new Date().toISOString();
+    const mintPrice =
+      window.prompt('Please enter the base NFT price:', '1') || '1';
+    const royaltyPercentage =
+      window.prompt('Please enter the royalty percentage:', '5') || '5';
+
     try {
       const web3Modal = new Web3Modal();
       const connection = await web3Modal.connect();
@@ -196,7 +215,12 @@ const ContractSandbox = () => {
         signer
       );
 
-      const tx = await contract.createCollection(uri);
+      const tx = await contract.createCollection(
+        uri,
+        +mintDate,
+        Number(mintPrice),
+        Number(royaltyPercentage)
+      );
       const receipt = await tx.wait();
       console.log({ receipt });
       // console.log({ ID: Number(receipt.args.id) });
@@ -214,61 +238,9 @@ const ContractSandbox = () => {
     }
   };
 
-  const setPrice = async (tokenId: number, newPrice: number) => {
+  const isTokenListed = async (nftAddress: string, tokenId: number) => {
     try {
-      // get contract
-      const web3Modal = new Web3Modal();
-      const connection = await web3Modal.connect();
-      const provider = new ethers.providers.Web3Provider(connection);
-      const signer = provider.getSigner();
-      const contract = new ethers.Contract(
-        collectionsAddress,
-        CollectionsABI,
-        signer
-      );
-      const price = ethers.utils.parseUnits(newPrice.toString(), 'ether');
-
-      const tx = await contract.setPrice(tokenId, price);
-      const receipt = await tx.wait();
-      console.log({ receipt });
-
-      const PriceSetEvent = receipt.events?.find(
-        (e: any) => e.event === 'PriceSet'
-      );
-      console.log({ PriceSetEvent });
-    } catch (err) {
-      console.log({ err });
-      const message = getErrMessage(err);
-      toast.error(message);
-    }
-  };
-
-  const setMarketplace = async () => {
-    try {
-      // get contract
-      const web3Modal = new Web3Modal();
-      const connection = await web3Modal.connect();
-      const provider = new ethers.providers.Web3Provider(connection);
-      const signer = provider.getSigner();
-      const contract = new ethers.Contract(
-        collectionsAddress,
-        CollectionsABI,
-        signer
-      );
-      const tx = await contract.setMarketplace(
-        '0xc0Bb1650A8eA5dDF81998f17B5319afD656f4c11'
-      );
-      const receipt = await tx.wait();
-      console.log({ receipt });
-    } catch (err) {
-      const message = getErrMessage(err);
-      toast.error(message);
-    }
-  };
-
-  const isTokenListed = async (tokenId: number) => {
-    try {
-      const tx = await marketplaceContract.isTokenListed(tokenId);
+      const tx = await marketplaceContract.isTokenListed(nftAddress, tokenId);
       console.log({ tx });
       return tx;
     } catch (err) {
@@ -279,10 +251,15 @@ const ContractSandbox = () => {
   };
 
   const getListedTokensInCollection = async () => {
-    const collectionId = window.prompt('Please enter the collection ID:');
+    const nftAddress =
+      window.prompt(
+        'Please enter the collection contract address:',
+        collectionsAddress
+      ) || collectionsAddress;
+    const collectionId = window.prompt('Please enter the collection ID:') || '';
     const isForWallet = window.confirm('isForWallet - filter NFTs by wallet');
-    const startIndex = window.prompt('Please enter the offset:');
-    const pageSize = window.prompt('Please enter the limit:');
+    const startIndex = window.prompt('Please enter the offset:', '0') || '0';
+    const pageSize = window.prompt('Please enter the limit:', '50') || '50';
     try {
       const web3Modal = new Web3Modal();
       const connection = await web3Modal.connect();
@@ -290,9 +267,10 @@ const ContractSandbox = () => {
       const signer = provider.getSigner();
       const yourAddress = await signer.getAddress();
       const tokenIds = await marketplaceContract.getListedTokensInCollection(
-        collectionId,
-        startIndex,
-        pageSize
+        Number(collectionId),
+        Number(startIndex),
+        Number(pageSize),
+        nftAddress
       );
       const tokenDataPromises = tokenIds.map(async (tokenId: BigNumber) => {
         const tokenURI = await collectionContract.tokenURI(tokenId);
@@ -322,7 +300,11 @@ const ContractSandbox = () => {
     }
   };
 
-  const listNFT = async (tokenId: number, newPrice: number) => {
+  const listNFT = async (
+    tokenId: number,
+    newPrice: number,
+    nftAddress: string
+  ) => {
     try {
       // get contract
       const web3Modal = new Web3Modal();
@@ -337,7 +319,7 @@ const ContractSandbox = () => {
 
       const price = ethers.utils.parseUnits(newPrice.toString(), 'ether');
 
-      const tx = await contract.listNFT(tokenId, price);
+      const tx = await contract.listNFT(tokenId, price, nftAddress);
 
       console.log('Transaction sent: ', tx.hash);
       await tx.wait();
@@ -349,7 +331,7 @@ const ContractSandbox = () => {
     }
   };
 
-  const delistNFT = async (tokenId: number) => {
+  const delistNFT = async (tokenId: number, nftAddress: string) => {
     try {
       // get contract
       const web3Modal = new Web3Modal();
@@ -361,7 +343,7 @@ const ContractSandbox = () => {
         MarketplaceABI,
         signer
       );
-      const tx = await contract.delistNFT(tokenId);
+      const tx = await contract.delistNFT(nftAddress, tokenId);
 
       console.log('Transaction sent: ', tx.hash);
       await tx.wait();
@@ -373,7 +355,7 @@ const ContractSandbox = () => {
     }
   };
 
-  const approveMintRequest = async (requestId: number) => {
+  const buyNFT = async (tokenId: number, nftAddress: string) => {
     try {
       // get contract
       const web3Modal = new Web3Modal();
@@ -385,70 +367,22 @@ const ContractSandbox = () => {
         MarketplaceABI,
         signer
       );
-      const transaction = await contract.approveMintRequest(requestId);
-      await transaction.wait();
-    } catch (err) {
-      console.log({ err });
-      const message = getErrMessage(err);
-      toast.error(message);
-    }
-  };
-
-  const buyNFT = async (
-    tokenId: number,
-    collectionId: number,
-    tokenURI: string
-  ) => {
-    try {
-      // get contract
-      const web3Modal = new Web3Modal();
-      const connection = await web3Modal.connect();
-      const provider = new ethers.providers.Web3Provider(connection);
-      const signer = provider.getSigner();
-      const contract = new ethers.Contract(
-        marketplaceAddress,
-        MarketplaceABI,
-        signer
+      const listing = await contract.getListingByTokenIdAndAddress(
+        Number(tokenId),
+        nftAddress
       );
-
-      let price;
-      if (tokenId) {
-        const tokenPrice = (await getPrice(tokenId)) || '';
-        price = ethers.utils.parseUnits(tokenPrice.toString(), 'ether');
-        const transaction = await contract.buyNFT(tokenId, 0, '', {
+      const price = ethers.utils.parseUnits(
+        Number(listing.price).toString(),
+        'ether'
+      );
+      const transaction = await contract.buyNFT(
+        listing.nftAddress,
+        listing.tokenId,
+        {
           value: price,
-        });
-        await transaction.wait();
-      } else {
-        price = ethers.utils.parseUnits('6.0', 'ether');
-        const transaction = await contract.buyNFT(
-          tokenId,
-          collectionId,
-          tokenURI,
-          {
-            value: price,
-          }
-        );
-        const receipt = await transaction.wait();
-        const TokenBoughtEvent = receipt.events?.find(
-          (e: any) => e.event === 'NFTBought'
-        );
-        const TokenMintRequestEvent = receipt.events?.find(
-          (e: any) => e.event === 'TokenMintRequest'
-        );
-        console.log({ receipt });
-        console.log({ TokenBoughtEvent });
-        if (TokenMintRequestEvent) {
-          console.log({
-            TokenMintRequestEvent: {
-              requestId: Number(TokenMintRequestEvent.args[0]),
-              buyer: TokenMintRequestEvent.args[1],
-              tokenURI: TokenMintRequestEvent.args[2],
-              price: ethers.utils.formatEther(TokenMintRequestEvent.args[3]),
-            },
-          });
         }
-      }
+      );
+      await transaction.wait();
     } catch (err) {
       console.log({ err });
       const message = getErrMessage(err);
@@ -543,6 +477,193 @@ const ContractSandbox = () => {
     }
   };
 
+  const getRoyaltyInfo = async () => {
+    const tokenId = window.prompt('Please enter the token Id:') || '';
+    const salePrice = window.prompt('Please enter the token sale price:') || '';
+
+    try {
+      const salePriceInWei = ethers.utils.parseEther(salePrice);
+
+      const { receiver, royaltyAmount } = await collectionContract.royaltyInfo(
+        Number(tokenId),
+        salePriceInWei
+      );
+
+      const royaltyInfo = {
+        receiver,
+        royaltyAmount: ethers.utils.formatUnits(royaltyAmount, 'ether'),
+      };
+      console.log({ royaltyInfo });
+      return royaltyInfo;
+    } catch (err) {
+      console.log({ err });
+      const message = getErrMessage(err);
+      toast.error(message);
+    }
+  };
+
+  const getAllListings = async () => {
+    const page = window.prompt('Please enter the page number:', '1') || '1';
+
+    try {
+      const listings = await marketplaceContract.getAllListings(Number(page));
+
+      const processedListings = listings.map((listing: IListing) => ({
+        tokenId: Number(listing.tokenId),
+        price: ethers.utils.formatUnits(listing.price.toString(), 'ether'),
+        seller: listing.seller,
+        nftAddress: listing.nftAddress,
+      }));
+      console.log({ listings: processedListings });
+      return processedListings;
+    } catch (err) {
+      console.log({ err });
+      const message = getErrMessage(err);
+      toast.error(message);
+    }
+  };
+
+  const getListingsBySeller = async () => {
+    try {
+      const web3Modal = new Web3Modal();
+      const connection = await web3Modal.connect();
+      const provider = new ethers.providers.Web3Provider(connection);
+      const signer = provider.getSigner();
+      const yourAddress = await signer.getAddress();
+
+      const seller =
+        window.prompt('Please enter the seller address:', yourAddress) ||
+        yourAddress;
+      const pagePrompt =
+        window.prompt('Please enter the page number:', '1') || '1';
+      const page = Number(pagePrompt) - 1;
+      const pageSize =
+        window.prompt('Please enter the page size number:', '50') || '50';
+
+      const listings = await marketplaceContract.getListingsBySeller(
+        seller,
+        page,
+        Number(pageSize)
+      );
+      const processedListings = listings.map((listing: IListing) => ({
+        tokenId: Number(listing.tokenId),
+        price: ethers.utils.formatUnits(listing.price.toString(), 'ether'),
+        seller: listing.seller,
+        nftAddress: listing.nftAddress,
+      }));
+      console.log({ listings: processedListings });
+      return processedListings;
+    } catch (err) {
+      console.log({ err });
+      const message = getErrMessage(err);
+      toast.error(message);
+    }
+  };
+
+  const getListingsByNFTContract = async () => {
+    try {
+      const nftAddress =
+        window.prompt(
+          'Please enter the collection contract address:',
+          collectionsAddress
+        ) || collectionsAddress;
+      const pagePrompt =
+        window.prompt('Please enter the page number:', '1') || '1';
+      const page = Number(pagePrompt) - 1;
+      const pageSize =
+        window.prompt('Please enter the page size number:', '50') || '50';
+
+      const listings = await marketplaceContract.getListingsByNFTContract(
+        nftAddress,
+        page,
+        Number(pageSize)
+      );
+      const processedListings = listings.map((listing: IListing) => ({
+        tokenId: Number(listing.tokenId),
+        price: ethers.utils.formatUnits(listing.price.toString(), 'ether'),
+        seller: listing.seller,
+        nftAddress: listing.nftAddress,
+      }));
+      console.log({ listings: processedListings });
+      return processedListings;
+    } catch (err) {
+      console.log({ err });
+      const message = getErrMessage(err);
+      toast.error(message);
+    }
+  };
+
+  const getListingByTokenIdAndAddress = async () => {
+    try {
+      const nftAddressPrompt =
+        window.prompt(
+          'Please enter the collection contract address:',
+          collectionsAddress
+        ) || collectionsAddress;
+
+      const tokenIdPrompt =
+        window.prompt('Please enter the token ID:', '1') || '1';
+      const listing = await marketplaceContract.getListingByTokenIdAndAddress(
+        Number(tokenIdPrompt),
+        nftAddressPrompt
+      );
+      const { tokenId, price, seller, nftAddress } = listing;
+      const processedListing = {
+        tokenId: Number(tokenId),
+        price: ethers.utils.formatUnits(price.toString(), 'ether'),
+        seller: seller,
+        nftAddress: nftAddress,
+      };
+      console.log({ listing: processedListing });
+      return processedListing;
+    } catch (err) {
+      console.log({ err });
+      const message = getErrMessage(err);
+      toast.error(message);
+    }
+  };
+
+  const buyFromCollection = async () => {
+    const collectionId =
+      window.prompt('Please enter the collection ID:') || '1';
+    const tokenURIPrompt =
+      window.prompt('Please enter the tokenUri:', mockTokenURI) || mockTokenURI;
+
+    try {
+      const collection = await collectionContract.getCollection(
+        Number(collectionId)
+      );
+      console.log({ collection });
+      const web3Modal = new Web3Modal();
+      const connection = await web3Modal.connect();
+      const provider = new ethers.providers.Web3Provider(connection);
+      const signer = provider.getSigner();
+      const contract = new ethers.Contract(
+        marketplaceAddress,
+        MarketplaceABI,
+        signer
+      );
+
+      const price = ethers.utils.parseUnits(
+        Number(collection.mintPrice).toString(),
+        'ether'
+      );
+
+      const transaction = await contract.buyFromCollection(
+        collection.id,
+        tokenURIPrompt,
+        {
+          value: price,
+        }
+      );
+      await transaction.wait();
+    } catch (err) {
+      console.log({ err });
+      const message = getErrMessage(err);
+      toast.error(message);
+    }
+  };
+
   useEffect(() => {
     console.log({ collectionContract });
     console.log({ marketplaceContract });
@@ -569,25 +690,6 @@ const ContractSandbox = () => {
     };
   }, []);
 
-  const getMintRequestDetails = async () => {
-    const requestId = window.prompt('Please enter the mint request ID:');
-    try {
-      const result = await marketplaceContract.getMintRequestDetails(requestId);
-      const mintRequest = {
-        collectionId: Number(result[0]),
-        tokenURI: result[1],
-        price: ethers.utils.formatUnits(result[2].toString(), 'ether'),
-        buyer: result[3],
-        approved: result[4],
-      };
-      console.log({ mintRequest });
-    } catch (err) {
-      console.log({ err });
-      const message = getErrMessage(err);
-      toast.error(message);
-    }
-  };
-
   return (
     <div className="w-full ml-auto overflow-auto ">
       <h1 className="mb-4 text-4xl font-extrabold tracking-tight md:text-5xl lg:text-6xl text-white flex left-0 sticky">
@@ -598,7 +700,7 @@ const ContractSandbox = () => {
           isPrimary
           label="createCollection"
           disabled={false}
-          onClick={() => createCollection(mockCollectionURI)}
+          onClick={() => createCollection()}
         />
         <Button
           isPrimary
@@ -650,40 +752,6 @@ const ContractSandbox = () => {
         />
         <Button
           isPrimary
-          label="getPrice"
-          disabled={false}
-          onClick={() => {
-            const collectionId = window.prompt('Please enter the token ID:');
-            if (collectionId !== null) {
-              const id = Number(collectionId);
-              // Call your contract function
-              if (!isNaN(id)) {
-                getPrice(id);
-              } else {
-                toast.error('Invalid token ID. Please try again.');
-              }
-            }
-          }}
-        />
-        <Button
-          isPrimary
-          label="setPrice"
-          disabled={false}
-          onClick={() => {
-            const collectionId = window.prompt('Please enter the token ID:');
-            if (collectionId !== null) {
-              const id = Number(collectionId);
-              // Call your contract function
-              if (!isNaN(id)) {
-                setPrice(id, 5);
-              } else {
-                toast.error('Invalid token ID. Please try again.');
-              }
-            }
-          }}
-        />
-        <Button
-          isPrimary
           label="getCollectionOwner"
           disabled={false}
           onClick={() => {
@@ -713,7 +781,7 @@ const ContractSandbox = () => {
               const id = Number(collectionId);
               // Call your contract function
               if (!isNaN(id)) {
-                mintNFT(id);
+                mintNFT();
               } else {
                 toast.error('Invalid collection ID. Please try again.');
               }
@@ -722,15 +790,46 @@ const ContractSandbox = () => {
         />
         <Button
           isPrimary
-          label="setMarketplace"
+          label="royaltyInfo"
           disabled={false}
-          onClick={setMarketplace}
+          onClick={getRoyaltyInfo}
+        />
+        <Button
+          isPrimary
+          label="approveMarketplace"
+          disabled={false}
+          onClick={approveMarketplaceForAll}
         />
       </div>
       <h1 className="mb-4 text-4xl font-extrabold tracking-tight  md:text-5xl lg:text-6xl text-white flex left-0 sticky">
         Marketplace
       </h1>
+
       <div className="flex gap-2 mb-5">
+        <Button
+          isPrimary
+          label="getAllListings"
+          disabled={false}
+          onClick={getAllListings}
+        />
+        <Button
+          isPrimary
+          label="getListingsBySeller"
+          disabled={false}
+          onClick={getListingsBySeller}
+        />
+        <Button
+          isPrimary
+          label="getListingsByNFTContract"
+          disabled={false}
+          onClick={getListingsByNFTContract}
+        />
+        <Button
+          isPrimary
+          label="getListingByTokenIdAndAddress"
+          disabled={false}
+          onClick={getListingByTokenIdAndAddress}
+        />
         <Button
           isPrimary
           label="approveMarketplace"
@@ -739,21 +838,20 @@ const ContractSandbox = () => {
         />
         <Button
           isPrimary
-          label="getMintRequestDetails"
-          disabled={false}
-          onClick={getMintRequestDetails}
-        />
-        <Button
-          isPrimary
           label="isTokenListed"
           disabled={false}
           onClick={() => {
             const tokenID = window.prompt('Please enter the token ID:');
+            const nftAddress =
+              window.prompt(
+                'Please enter the collection contract address:',
+                collectionsAddress
+              ) || collectionsAddress;
             if (tokenID !== null) {
               const id = Number(tokenID);
               // Call your contract function
               if (!isNaN(id)) {
-                isTokenListed(id);
+                isTokenListed(nftAddress, id);
               } else {
                 toast.error('Invalid token ID. Please try again.');
               }
@@ -773,12 +871,17 @@ const ContractSandbox = () => {
           disabled={false}
           onClick={() => {
             const tokenID = window.prompt('Please enter the token ID:');
+            const nftAddress =
+              window.prompt(
+                'Please enter the collection contract address:',
+                collectionsAddress
+              ) || collectionsAddress;
             if (tokenID !== null) {
               const id = Number(tokenID);
               // Call your contract function
               if (!isNaN(id)) {
                 const price = Number(prompt('New price:'));
-                listNFT(id, price);
+                listNFT(id, price, nftAddress);
               } else {
                 toast.error('Invalid token ID. Please try again.');
               }
@@ -791,38 +894,43 @@ const ContractSandbox = () => {
           disabled={false}
           onClick={() => {
             const tokenID = window.prompt('Please enter the token ID:');
+            const nftAddress =
+              window.prompt(
+                'Please enter the collection contract address:',
+                collectionsAddress
+              ) || collectionsAddress;
             if (tokenID !== null) {
               const id = Number(tokenID);
               // Call your contract function
               if (!isNaN(id)) {
-                delistNFT(id);
+                delistNFT(id, nftAddress);
               } else {
                 toast.error('Invalid token ID. Please try again.');
               }
             }
           }}
         />
+
         <Button
           isPrimary
           label="buyNFT"
           disabled={false}
           onClick={() => {
             const tokenId = Number(prompt('Enter token ID:'));
-            const collectionId = Number(prompt('Enter collection ID:'));
-            const tokenURI = prompt('Enter token URI:');
-            buyNFT(tokenId, collectionId, tokenURI || '');
+            const nftAddress =
+              window.prompt(
+                'Please enter the collection contract address:',
+                collectionsAddress
+              ) || collectionsAddress;
+            buyNFT(tokenId, nftAddress);
           }}
         />
         <Button
           isPrimary
-          label="approveMintRequest"
+          label="buyFromCollection"
           disabled={false}
-          onClick={() => {
-            const reqId = Number(prompt('Enter request ID:'));
-            approveMintRequest(reqId);
-          }}
+          onClick={buyFromCollection}
         />
-
         <Button
           isPrimary
           label="total released amount"
