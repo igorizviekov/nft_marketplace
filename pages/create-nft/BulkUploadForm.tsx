@@ -34,9 +34,9 @@ const CollectionForm = () => {
 
   useEffect(() => {
     if (
-      bulkInformation.images !== null &&
-      bulkInformation.metadata !== null &&
-      bulkInformation.price !== 0
+      bulkInformation.images !== null
+      // bulkInformation.metadata !== null
+      // bulkInformation.price !== 0
     ) {
       setFormError(false);
     }
@@ -72,36 +72,18 @@ const CollectionForm = () => {
             images: null,
           })
         }
-        title={'Upload all images for the collection'}
+        title={'Upload collections compressed files'}
         subTitle={'as a .zip or .rar'}
         isCsv={false}
-      />
-      <BulkUpload
-        file={bulkInformation.metadata}
-        onDropAccepted={(arr) => {
-          editBulkInformation({
-            ...bulkInformation,
-            metadata: arr?.[0],
-          });
-        }}
-        onUploadAbort={() =>
-          editBulkInformation({
-            ...bulkInformation,
-            metadata: null,
-          })
-        }
-        title={'Upload metadata'}
-        subTitle={'as a .csv file'}
-        isCsv={true}
       />
       <BaseLink
         href={
           'https://docs.google.com/spreadsheets/d/1t4EPrrKsbTUEjfAJMUgnWkyBRNFLO6bSycB8RyXIQy8/edit#gid=1841889481'
         }
       >
-        <p>You can dowload our template here!</p>
+        <p>You can check our template here!</p>
       </BaseLink>
-      <Input
+      {/* <Input
         title={'NFT Price'}
         inputType={'number'}
         placeholder={'Enter NFT price'}
@@ -113,7 +95,7 @@ const CollectionForm = () => {
           })
         }
         id={''}
-      />
+      /> */}
       {isModalOpen && (
         <AddCollectionModal handleModalClose={() => setModalOpen(false)} />
       )}
@@ -124,9 +106,9 @@ const CollectionForm = () => {
         onClick={() =>
           useBulkUpload(
             collections[selected],
-            bulkInformation.images,
-            bulkInformation.metadata,
-            bulkInformation.price
+            bulkInformation.images
+            // bulkInformation.metadata,
+            // bulkInformation.price
           )
         }
       />
