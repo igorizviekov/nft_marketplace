@@ -7,5 +7,13 @@ export const ListedNFTSModel: IListedNFTSModel = {
     if (state.shimmerListedNFTS.length === 0) {
       state.shimmerListedNFTS = payload;
     }
+
+    payload.forEach((nft) => {
+      const isDuplicated = state.shimmerListedNFTS.some(
+        (shimmerNFT) => shimmerNFT.id === nft.id
+      );
+
+      if (!isDuplicated) state.shimmerListedNFTS.push(nft);
+    });
   }),
 };

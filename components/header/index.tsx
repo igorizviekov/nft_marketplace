@@ -63,12 +63,12 @@ export const Header = () => {
     <>
       {isRehydrated && (
         <>
-          <div className={styles.warning}>
+          {/* <div className={styles.warning}>
             <h2>
               WARNING! THIS A TEST WEBSITE - DO NOT ENTER REAL INFORMATION OR
               USE A MAINNET{' '}
             </h2>
-          </div>
+          </div> */}
           <nav className={styles.header}>
             <Link href="/">
               <div className={styles.network}>

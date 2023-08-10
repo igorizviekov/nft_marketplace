@@ -3,7 +3,7 @@ import PopularCollection from '../components/PopularCollection/PopularCollection
 import styles from '../styles/pages/HomePage.module.scss';
 import LaunchpadDrops from '../components/CollectionCard/CollectionCard';
 import Filter from '../components/Filter/Filter';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { INFTCategories } from '../components/Filter/Filter.types';
 import HomeHero from '../components/HomeHero/HomeHero';
 import HorizontalScroll from '../components/HorizontalScroll/HorizontalScroll';
@@ -71,7 +71,7 @@ export default function Home() {
 
   useFetchCollections();
 
-  isWalletConnected && useGetTokensListedInCollection(1, false);
+  isWalletConnected && useGetTokensListedInCollection(false);
 
   return (
     <BasePage>

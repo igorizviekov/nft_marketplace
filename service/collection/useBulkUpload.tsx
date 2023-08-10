@@ -27,6 +27,7 @@ const useBulkUpload = async (
   zip.file('price.txt', `${price}`);
 
   zip.generateAsync({ type: 'binarystring' }).then((content) => {
+    console.log(content);
     axios
       .post(
         `${process.env.NEXT_PUBLIC_API_KEY}/collection/ipfs/${collection.id}`,
