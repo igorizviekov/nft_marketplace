@@ -13,7 +13,7 @@ export interface IShimmerNFT {
   /**
    * Price after token is listed
    */
-  price: string;
+  price?: string;
   metadata: {
     description: string;
     image: string | undeifned;
