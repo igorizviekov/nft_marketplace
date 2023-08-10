@@ -10,6 +10,8 @@ import { collectionDescription } from './constants';
 import useListNFT from '../../service/nft/useListNFT';
 import isListed from '../../service/nft/isListed';
 import useDelistNFT from '../../service/nft/useDelistNFT';
+import Input from '../ui/Input';
+import { validatePrice } from '../ui/Input/utils';
 
 const ShimmerNFTDetailsHeroSection = ({ nft }: { nft: IShimmerNFT }) => {
   const { activeWallet } = useStoreState((state) => state.wallet);
@@ -17,10 +19,11 @@ const ShimmerNFTDetailsHeroSection = ({ nft }: { nft: IShimmerNFT }) => {
   const { setIsListedLoading } = useStoreActions((actions) => actions.nftView);
   const isOwner = activeWallet === nft.owner.toLowerCase();
   const [listedNFT, setListedNFT] = useState<boolean>(false);
+  const [price, setPrice] = useState<number>(0);
 
-  console.log(nft);
   useEffect(() => {
     setIsListedLoading(true);
+
     const getIsListed = async () => {
       const tx = await isListed(nft.id);
       setListedNFT(tx);
@@ -36,7 +39,6 @@ const ShimmerNFTDetailsHeroSection = ({ nft }: { nft: IShimmerNFT }) => {
     }
   }, [useDelistNFT, useListNFT]);
 
-  console.log(nft.metadata.image);
   return (
     <div className={styles.hero}>
       <div className={styles.image}>
@@ -63,14 +65,31 @@ const ShimmerNFTDetailsHeroSection = ({ nft }: { nft: IShimmerNFT }) => {
               />
             ) : (
               !listedNFT && (
-                <Button
-                  isPrimary={true}
-                  disabled={isListedLoading}
-                  label={'List NFT'}
-                  onClick={() =>
-                    useListNFT(nft.id, 500, setListedNFT, setIsListedLoading)
-                  }
-                />
+                <div className={styles.listButton}>
+                  <Input
+                    inputType={'number'}
+                    title={'New Price'}
+                    placeholder={'0'}
+                    id={'price'}
+                    value={price > 0 ? price : ''}
+                    handleChange={(e) =>
+                      setPrice(Number((e.target as HTMLInputElement).value))
+                    }
+                  />
+                  <Button
+                    isPrimary={true}
+                    disabled={isListedLoading || price <= 0}
+                    label={'List NFT'}
+                    onClick={() =>
+                      useListNFT(
+                        nft.id,
+                        price,
+                        setListedNFT,
+                        setIsListedLoading
+                      )
+                    }
+                  />
+                </div>
               )
             )}
           </div>
