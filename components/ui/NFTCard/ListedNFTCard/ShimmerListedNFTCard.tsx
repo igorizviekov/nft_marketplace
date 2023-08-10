@@ -12,6 +12,9 @@ const ShimmerListedNFTCard = ({ nft }: IShimmerNFTCardProps) => {
   const handleClick = () => {
     nft.uri && useBuyNFT(nft.id, 1, nft.uri);
   };
+
+  console.log(nft);
+
   return (
     <div className={styles.card}>
       <div className={styles.image}>
@@ -30,7 +33,7 @@ const ShimmerListedNFTCard = ({ nft }: IShimmerNFTCardProps) => {
         <div className={styles.bottom}>
           <div className={styles.price}>
             <Icon icon={<Shimmer className={styles.icon} />} />
-            {nft?.metadata && <h2>{nft.metadata.price}</h2>}
+            {nft.price && <h2>{nft.price}</h2>}
           </div>
           <div className={styles.arrow} onClick={handleClick}>
             <p>Buy NFT</p>

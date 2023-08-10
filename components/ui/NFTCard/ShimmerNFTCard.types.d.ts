@@ -10,11 +10,18 @@ export interface IShimmerNFT {
   name: string;
   uri: string | undefined;
   owner: string;
+  /**
+   * Price after token is listed
+   */
+  price: string;
   metadata: {
     description: string;
     image: string | undeifned;
     name: string;
     traits: Trait[];
+    /**
+     * Price inside metadata, doesn't reflect when token is listed
+     */
     price: string;
     royalty?: number;
     tokenStandard?: string;
