@@ -1,8 +1,6 @@
 import { ICollection } from '../../store/model/app/app.types';
 import axios from 'axios';
 import JSZip from 'jszip';
-import saveAs from 'file-saver';
-import csvParser from 'csv-parser';
 import { parseCSVToJson } from './utilts';
 
 const useBulkUpload = async (

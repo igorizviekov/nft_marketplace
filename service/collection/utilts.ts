@@ -7,6 +7,7 @@ import {
 } from '../../mocks/constants.mock';
 import Web3Modal from 'web3modal';
 import csvParser from 'csv-parser';
+import axios from 'axios';
 export const getCollectionContract = async (): Promise<ethers.Contract> => {
   const web3Modal = new Web3Modal();
   const connection = await web3Modal.connect();
