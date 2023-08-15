@@ -238,6 +238,64 @@ const ContractSandbox = () => {
     }
   };
 
+  const changeMintPrice = async () => {
+    const collectionId = window.prompt('Please enter the collection ID:');
+    const newMintPrice = window.prompt('Please enter the new mint price:');
+
+    if (collectionId === null || newMintPrice === null) {
+      return;
+    }
+
+    try {
+      // Validate inputs
+      const collection = await getCollectionById(Number(collectionId));
+      if (!collection) {
+        toast.error('Collection not found');
+        return;
+      }
+
+      const web3Modal = new Web3Modal();
+      const connection = await web3Modal.connect();
+      const provider = new ethers.providers.Web3Provider(connection);
+      const signer = provider.getSigner();
+      const contract = new ethers.Contract(
+        collectionsAddress,
+        CollectionsABI,
+        signer
+      );
+
+      // Change mint price
+      const newPrice = ethers.utils.parseUnits(
+        newMintPrice.toString(),
+        'ether'
+      );
+      const tx = await contract.changeMintPrice(collection.id, newPrice);
+      const receipt = await tx.wait();
+      console.log({ receipt });
+
+      const MintPriceChangedEvent = receipt.events?.find(
+        (e: any) => e.event === 'MintPriceChanged'
+      );
+
+      if (MintPriceChangedEvent) {
+        const collectionId = Number(MintPriceChangedEvent.args?.collectionId);
+        const newPrice = ethers.utils.formatUnits(
+          MintPriceChangedEvent.args?.newPrice,
+          'ether'
+        );
+        console.log(
+          `Mint price for collection ${collectionId} changed to ${newPrice}`
+        );
+      } else {
+        console.error('MintPriceChanged event not found in receipt');
+      }
+    } catch (err) {
+      console.log({ err });
+      const message = getErrMessage(err);
+      toast.error(message);
+    }
+  };
+
   const isTokenListed = async (nftAddress: string, tokenId: number) => {
     try {
       const tx = await marketplaceContract.isTokenListed(nftAddress, tokenId);
@@ -799,6 +857,12 @@ const ContractSandbox = () => {
           label="approveMarketplace"
           disabled={false}
           onClick={approveMarketplaceForAll}
+        />
+        <Button
+          isPrimary
+          label="changeMintPrice"
+          disabled={false}
+          onClick={changeMintPrice}
         />
       </div>
       <h1 className="mb-4 text-4xl font-extrabold tracking-tight  md:text-5xl lg:text-6xl text-white flex left-0 sticky">
