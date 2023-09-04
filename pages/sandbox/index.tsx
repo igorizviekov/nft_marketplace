@@ -728,7 +728,7 @@ const ContractSandbox = () => {
   }, []);
 
   useEffect(() => {
-    marketplaceContract.on('NFTBought', (tokenId, event) => {
+    marketplaceContract.on('NFTSold', (tokenId, event) => {
       console.log(`NFT bought: ${tokenId}`);
       console.log({ event });
     });
@@ -742,7 +742,7 @@ const ContractSandbox = () => {
       console.log('Event: ', event);
     });
     return () => {
-      marketplaceContract.removeAllListeners('NFTBought');
+      marketplaceContract.removeAllListeners('NFTSold');
       marketplaceContract.removeAllListeners('NFTListed');
       marketplaceContract.removeAllListeners('NFTDelisted');
     };
