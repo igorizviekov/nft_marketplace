@@ -20,7 +20,7 @@ export async function useAuth() {
           localStorage.setItem('token', response.data.data.accessToken);
           localStorage.setItem('usersUID', response.data.data.usersUID);
         })
-        .catch((error) => setStatus(error.response.status));
+        .catch((error) => setStatus(error.response?.status));
     }
 
     if (status === 401 && activeWallet) {
