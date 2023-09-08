@@ -14,7 +14,7 @@ import axios from 'axios';
 import Web3Modal from 'web3modal';
 
 interface IListing {
-  nftAddress: string;
+  collection: string;
   tokenId: number;
   price: number;
   seller: string;
@@ -246,10 +246,9 @@ const ContractSandbox = () => {
         CollectionsABI,
         signer
       );
-
       const tx = await contract.createCollection(
         uri,
-        +mintDate,
+        Math.floor(new Date(mintDate).getTime() / 1000),
         Number(mintPrice),
         Number(royaltyPercentage)
       );
@@ -364,18 +363,25 @@ const ContractSandbox = () => {
       );
       const tokenDataPromises = tokenIds.map(async (tokenId: BigNumber) => {
         const tokenURI = await collectionContract.tokenURI(tokenId);
-        const price = await collectionContract.getPrice(tokenId);
-        const owner = await collectionContract.ownerOf(tokenId);
-        if (isForWallet && owner !== yourAddress) {
+        const listing = await marketplaceContract.getListingByTokenIdAndAddress(
+          Number(tokenId),
+          nftAddress
+        );
+
+        if (isForWallet && listing.seller !== yourAddress) {
           return;
         }
         const { data } = await axios.get(tokenURI);
         return {
+          id: Number(tokenId),
           uri: tokenURI,
           metadata: data,
-          price: ethers.utils.formatUnits(price.toString(), 'ether'),
-          owner: owner,
-          id: Number(tokenId),
+          listing: {
+            tokenId: Number(listing.tokenId),
+            price: ethers.utils.formatUnits(listing.price.toString(), 'ether'),
+            seller: listing.seller,
+            collection: listing.collection,
+          },
         };
       });
 
@@ -604,7 +610,7 @@ const ContractSandbox = () => {
         tokenId: Number(listing.tokenId),
         price: ethers.utils.formatUnits(listing.price.toString(), 'ether'),
         seller: listing.seller,
-        nftAddress: listing.nftAddress,
+        collection: listing.collection,
       }));
       console.log({ listings: processedListings });
       return processedListings;
@@ -626,22 +632,17 @@ const ContractSandbox = () => {
       const seller =
         window.prompt('Please enter the seller address:', yourAddress) ||
         yourAddress;
-      const pagePrompt =
-        window.prompt('Please enter the page number:', '1') || '1';
-      const page = Number(pagePrompt) - 1;
-      const pageSize =
-        window.prompt('Please enter the page size number:', '50') || '50';
+      const page = window.prompt('Please enter the page number:', '1') || '1';
 
       const listings = await marketplaceContract.getListingsBySeller(
         seller,
-        page,
-        Number(pageSize)
+        Number(page)
       );
       const processedListings = listings.map((listing: IListing) => ({
         tokenId: Number(listing.tokenId),
         price: ethers.utils.formatUnits(listing.price.toString(), 'ether'),
         seller: listing.seller,
-        nftAddress: listing.nftAddress,
+        collection: listing.collection,
       }));
       console.log({ listings: processedListings });
       return processedListings;
@@ -659,22 +660,16 @@ const ContractSandbox = () => {
           'Please enter the collection contract address:',
           collectionsAddress
         ) || collectionsAddress;
-      const pagePrompt =
-        window.prompt('Please enter the page number:', '1') || '1';
-      const page = Number(pagePrompt) - 1;
-      const pageSize =
-        window.prompt('Please enter the page size number:', '50') || '50';
-
+      const page = window.prompt('Please enter the page number:', '1') || '1';
       const listings = await marketplaceContract.getListingsByNFTContract(
         nftAddress,
-        page,
-        Number(pageSize)
+        Number(page)
       );
       const processedListings = listings.map((listing: IListing) => ({
         tokenId: Number(listing.tokenId),
         price: ethers.utils.formatUnits(listing.price.toString(), 'ether'),
         seller: listing.seller,
-        nftAddress: listing.nftAddress,
+        collection: listing.collection,
       }));
       console.log({ listings: processedListings });
       return processedListings;
@@ -699,13 +694,14 @@ const ContractSandbox = () => {
         Number(tokenIdPrompt),
         nftAddressPrompt
       );
-      const { tokenId, price, seller, nftAddress } = listing;
+      const { tokenId, price, seller, collection } = listing;
       const processedListing = {
         tokenId: Number(tokenId),
         price: ethers.utils.formatUnits(price.toString(), 'ether'),
-        seller: seller,
-        nftAddress: nftAddress,
+        seller,
+        collection,
       };
+
       console.log({ listing: processedListing });
       return processedListing;
     } catch (err) {
@@ -915,7 +911,7 @@ const ContractSandbox = () => {
           disabled={false}
           onClick={() => {
             const tokenID = window.prompt('Please enter the token ID:');
-            const nftAddress =
+            const collectionAddress =
               window.prompt(
                 'Please enter the collection contract address:',
                 collectionsAddress
@@ -924,7 +920,7 @@ const ContractSandbox = () => {
               const id = Number(tokenID);
               // Call your contract function
               if (!isNaN(id)) {
-                isTokenListed(nftAddress, id);
+                isTokenListed(collectionAddress, id);
               } else {
                 toast.error('Invalid token ID. Please try again.');
               }
@@ -945,16 +941,15 @@ const ContractSandbox = () => {
           disabled={false}
           onClick={() => {
             const tokenID = window.prompt('Please enter the token ID:');
-            const nftAddress =
+            const collectionAddress =
               window.prompt(
                 'Please enter the collection contract address:',
                 collectionsAddress
               ) || collectionsAddress;
             if (tokenID !== null) {
               const id = Number(tokenID);
-              // Call your contract function
               if (!isNaN(id)) {
-                delistNFT(id, nftAddress);
+                delistNFT(id, collectionAddress);
               } else {
                 toast.error('Invalid token ID. Please try again.');
               }
@@ -968,12 +963,12 @@ const ContractSandbox = () => {
           disabled={false}
           onClick={() => {
             const tokenId = Number(prompt('Enter token ID:'));
-            const nftAddress =
+            const collectionAddress =
               window.prompt(
                 'Please enter the collection contract address:',
                 collectionsAddress
               ) || collectionsAddress;
-            buyNFT(tokenId, nftAddress);
+            buyNFT(tokenId, collectionAddress);
           }}
         />
         <Button
