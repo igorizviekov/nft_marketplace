@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { Button } from '../../components/ui/Button';
 import { toast } from 'react-toastify';
 import { BigNumber, Contract, ethers } from 'ethers';
@@ -60,8 +60,12 @@ const ContractSandbox = () => {
 
       const collection = {
         metadata: data,
-        id: tx[1].toNumber(),
-        owner: tx[2],
+        id: Number(tx.id),
+        uri: tx.uri,
+        owner: tx.owner,
+        mintDate: new Date(+tx.mintDate * 1000).toISOString(),
+        mintPrice: ethers.utils.formatUnits(tx.mintPrice.toString(), 'ether'),
+        royaltyPercent: +tx.royaltyPercent,
       };
       console.log({ collection });
       return collection;
@@ -74,9 +78,10 @@ const ContractSandbox = () => {
 
   const getAllCollections = async (offset: number, limit: number) => {
     const tx = await collectionContract.getAllCollections(offset, limit);
-    console.log({ tx });
+
     const collectionsData = tx.map((collection: any) => {
       return {
+        id: Number(collection.id),
         uri: collection.uri,
         owner: collection.owner,
         mintDate: new Date(+collection.mintDate * 1000).toISOString(),
@@ -84,7 +89,7 @@ const ContractSandbox = () => {
           collection.mintPrice.toString(),
           'ether'
         ),
-        royaltyPercentage: +collection.royaltyPercentage,
+        royaltyPercent: +collection.royaltyPercent,
       };
     });
 
@@ -153,12 +158,12 @@ const ContractSandbox = () => {
         }
         const { data } = await axios.get(tokenURI);
         return {
-          id: Number(tokenId),
           collection: collectionContract.address,
           collectionId: Number(collectionId),
           uri: tokenURI,
           owner: owner,
           metadata: data,
+          id: +tokenId,
           listing: listing
             ? {
                 tokenId: Number(listing.tokenId),
@@ -196,7 +201,6 @@ const ContractSandbox = () => {
   const mintNFT = async (
     collectionId: number,
     tokenURI: string,
-    royaltyPercentage: number,
     isMintToMarketplace: boolean,
     nftPrice: number | null
   ) => {
@@ -224,7 +228,6 @@ const ContractSandbox = () => {
         collection.id,
         tokenURI,
         price,
-        royaltyPercentage,
         isMintToMarketplace
       );
 
@@ -276,7 +279,6 @@ const ContractSandbox = () => {
         collectionMintPrice,
         Number(royaltyPercentage)
       );
-
       const receipt = await tx.wait();
       console.log({ receipt });
       // console.log({ ID: Number(receipt.args.id) });
@@ -285,8 +287,6 @@ const ContractSandbox = () => {
         (e: any) => e.event === 'CollectionCreated'
       );
       console.log({ CollectionCreatedEvent });
-      const collectionId = Number(CollectionCreatedEvent?.args?.[0]);
-      console.log({ collectionId });
     } catch (err) {
       console.log({ err });
       const message = getErrMessage(err);
@@ -507,15 +507,11 @@ const ContractSandbox = () => {
         Number(tokenId),
         nftAddress
       );
-      const price = ethers.utils.parseUnits(
-        Number(listing.price).toString(),
-        'ether'
-      );
       const transaction = await contract.buyNFT(
-        listing.nftAddress,
-        listing.tokenId,
+        listing.collection,
+        +listing.tokenId,
         {
-          value: price,
+          value: listing.price,
         }
       );
       await transaction.wait();
@@ -713,17 +709,11 @@ const ContractSandbox = () => {
         MarketplaceABI,
         signer
       );
-
-      const price = ethers.utils.parseUnits(
-        Number(collection.mintPrice).toString(),
-        'ether'
-      );
-
       const transaction = await contract.buyFromCollection(
-        collection.id,
+        +collection.id,
         tokenURI,
         {
-          value: price,
+          value: collection.mintPrice,
         }
       );
       await transaction.wait();
@@ -733,8 +723,7 @@ const ContractSandbox = () => {
       toast.error(message);
     }
   };
-
-  // Marketplace contract methods
+  // Marketplace contract methods ends
 
   useEffect(() => {
     console.log({ collectionContract });
@@ -745,17 +734,8 @@ const ContractSandbox = () => {
     marketplaceContract.on('NFTSold', (tokenId, event) => {
       console.log(`NFT bought: ${tokenId}`);
     });
-
-    marketplaceContract.on('NFTDelisted', (tokenId, event) => {
-      console.log('NFT delisted with token ID: ', tokenId.toString());
-    });
-    marketplaceContract.on('NFTListed', (tokenId, event) => {
-      console.log('NFT listed with token ID: ', tokenId.toString());
-    });
     return () => {
       marketplaceContract.removeAllListeners('NFTSold');
-      marketplaceContract.removeAllListeners('NFTListed');
-      marketplaceContract.removeAllListeners('NFTDelisted');
     };
   }, []);
 
@@ -853,10 +833,7 @@ const ContractSandbox = () => {
               'Please enter the token URI:',
               mockTokenURI
             );
-            const royaltyPercentage = window.prompt(
-              'Please enter the token royaltyPercentage:',
-              '25'
-            );
+
             const isMintToMarketplace = window.confirm(
               'isMintToMarketplace - mint to a marketplace'
             );
@@ -865,14 +842,8 @@ const ContractSandbox = () => {
               ? Number(window.prompt('Please enter the token price:', '50'))
               : 0;
 
-            if (collectionId && tokenURI && royaltyPercentage) {
-              mintNFT(
-                +collectionId,
-                tokenURI,
-                +royaltyPercentage,
-                isMintToMarketplace,
-                nftPrice
-              );
+            if (collectionId && tokenURI) {
+              mintNFT(+collectionId, tokenURI, isMintToMarketplace, nftPrice);
             }
           },
         },
