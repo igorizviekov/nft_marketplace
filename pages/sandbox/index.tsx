@@ -77,23 +77,61 @@ const ContractSandbox = () => {
   };
 
   const getAllCollections = async (offset: number, limit: number) => {
-    const tx = await collectionContract.getAllCollections(offset, limit);
+    try {
+      const tx = await collectionContract.getAllCollections(offset, limit);
+      const collectionsData = tx.map((collection: any) => {
+        return {
+          id: Number(collection.id),
+          uri: collection.uri,
+          owner: collection.owner,
+          mintDate: new Date(+collection.mintDate * 1000).toISOString(),
+          mintPrice: ethers.utils.formatUnits(
+            collection.mintPrice.toString(),
+            'ether'
+          ),
+          royaltyPercent: +collection.royaltyPercent,
+        };
+      });
+      console.log({ collectionsData });
+      return collectionsData;
+    } catch (err) {
+      console.log({ err });
+      const message = getErrMessage(err);
+      toast.error(message);
+    }
+  };
 
-    const collectionsData = tx.map((collection: any) => {
-      return {
-        id: Number(collection.id),
-        uri: collection.uri,
-        owner: collection.owner,
-        mintDate: new Date(+collection.mintDate * 1000).toISOString(),
-        mintPrice: ethers.utils.formatUnits(
-          collection.mintPrice.toString(),
-          'ether'
-        ),
-        royaltyPercent: +collection.royaltyPercent,
-      };
-    });
-
-    console.log({ collectionsData });
+  const getCollectionsForOwner = async (
+    address: string,
+    offset: number,
+    limit: number
+  ) => {
+    try {
+      const tx = await collectionContract.getCollectionsForOwner(
+        address,
+        offset,
+        limit
+      );
+      const collections = tx.map((collection: any) => {
+        return {
+          id: Number(collection.id),
+          uri: collection.uri,
+          owner: collection.owner,
+          mintDate: new Date(+collection.mintDate * 1000).toISOString(),
+          mintPrice: ethers.utils.formatUnits(
+            collection.mintPrice.toString(),
+            'ether'
+          ),
+          royaltyPercent: +collection.royaltyPercent,
+        };
+      });
+      console.log({ collections });
+      return collections;
+    } catch (err) {
+      console.log({ err });
+      const message = getErrMessage(err);
+      toast.error(message);
+    }
   };
 
   const getCollectionOfToken = async (id: number) => {
@@ -761,7 +799,27 @@ const ContractSandbox = () => {
             }
           },
         },
+        {
+          label: 'getCollectionsForOwner',
+          action: async () => {
+            const web3Modal = new Web3Modal();
+            const connection = await web3Modal.connect();
+            const provider = new ethers.providers.Web3Provider(connection);
+            const signer = provider.getSigner();
+            const yourAddress = await signer.getAddress();
 
+            const address = window.prompt(
+              'Please enter the page owner address:',
+              yourAddress
+            );
+
+            const offset = window.prompt('Please enter the page offset:', '0');
+            const limit = window.prompt('Please enter the page limit:', '50');
+            if (address && offset && limit) {
+              getCollectionsForOwner(address, +offset, +limit);
+            }
+          },
+        },
         {
           label: 'getCollectionOfToken',
           action: () => {
