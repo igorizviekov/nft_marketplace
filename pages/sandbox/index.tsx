@@ -522,14 +522,10 @@ const ContractSandbox = () => {
     }
   };
 
-  async function approveMarketplaceForAll() {
+  async function approveMarketplaceForAll(address: string) {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
-    const nftContract = new ethers.Contract(
-      collectionsAddress,
-      CollectionsABI,
-      signer
-    );
+    const nftContract = new ethers.Contract(address, CollectionsABI, signer);
     const tx = await nftContract.setApprovalForAll(marketplaceAddress, true);
     console.log('Transaction sent: ', tx.hash);
     await tx.wait();
@@ -1024,7 +1020,15 @@ const ContractSandbox = () => {
         },
         {
           label: 'approveMarketplaceForAll',
-          action: approveMarketplaceForAll,
+          action: () => {
+            const collectionAddress = window.prompt(
+              'Please enter the collection contract address:',
+              collectionsAddress
+            );
+            if (collectionAddress) {
+              approveMarketplaceForAll(collectionAddress);
+            }
+          },
         },
 
         {
