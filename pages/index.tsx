@@ -15,6 +15,7 @@ import { useStoreState } from '../store';
 import useGetTokensListedInCollection from '../service/collection/useGetTokensListedInCollection';
 import ShimmerListedNFTCard from '../components/ui/NFTCard/ListedNFTCard/ShimmerListedNFTCard';
 import { Spinner } from '../components/spinner';
+import useGetAllListings from '../service/nft/useGetAllListings';
 export default function Home() {
   const [selected, setSelected] = useState<number | null>(null);
   const { isCollectionsLoading, collections, selectedBlockchain } =
@@ -71,7 +72,7 @@ export default function Home() {
 
   useFetchCollections();
 
-  isWalletConnected && useGetTokensListedInCollection(false);
+  useGetAllListings();
 
   return (
     <BasePage>
