@@ -52,8 +52,14 @@ const useMintNFT = async (
     const contract = await getCollectionContract();
     const price = ethers.utils.parseUnits(nftPrice.toString(), 'ether');
 
+    const isMintedToMarketplace = false;
     //mint
-    const tx = await contract.mint(collection.tokenId, tokenURI, price);
+    const tx = await contract.mint(
+      collection.tokenId,
+      tokenURI,
+      price,
+      isMintedToMarketplace
+    );
     const receipt = await tx.wait();
     const tokenMintedEvent = receipt.events?.find(
       (e: any) => e.event === 'TokenMinted'

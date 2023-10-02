@@ -84,6 +84,7 @@ const ShimmerNFTDetailsHeroSection = ({ nft }: { nft: IShimmerNFT }) => {
                       useListNFT(
                         nft.id,
                         price,
+                        nft.metadata.collection?.contract_address,
                         setListedNFT,
                         setIsListedLoading
                       )
