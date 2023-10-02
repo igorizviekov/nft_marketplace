@@ -17,16 +17,14 @@ import { Spinner } from '../../components/spinner';
 import BaseLink from '../../components/ui/Base/BaseLink/BaseLink';
 import { Searchbar } from '../../components/Searchbar/Searchbar';
 import { useFetchAlchemyCollection } from '../../service/useFetchAlchemyCollection';
-import { Nft, OwnedNft } from 'alchemy-sdk';
-import { useFetchNFTS } from '../../service/useFetchNFTS';
+import { OwnedNft } from 'alchemy-sdk';
 import useGetNFTsInCollection from '../../service/collection/useGetNFTsInCollection';
-import { useStore } from 'easy-peasy';
 import { IShimmerNFT } from '../../components/ui/NFTCard/ShimmerNFTCard.types';
 import ShimmerNFTCard from '../../components/ui/NFTCard/ShimmerNFTCard';
 
 const SingleCollectionPage = () => {
   const router = useRouter();
-  const { query } = router;
+  const { id } = router.query;
 
   const { filters } = useStoreState((state) => state.filter);
   const { collectionData, isLoading, collectionNFTS } = useStoreState(
@@ -45,7 +43,7 @@ const SingleCollectionPage = () => {
     return hasFilter;
   }
 
-  useFetchSingleCollection(query.uid);
+  useFetchSingleCollection(id);
   useFetchAlchemyCollection();
 
   useEffect(() => {
