@@ -43,17 +43,7 @@ export const useFetchNFTS = (address: string) => {
       }
     } else if (selectedBlockchain?.currency_symbol === 'SMR') {
       const fetchNfts = async () => {
-        /**
-         * Fetch NFTS on public collection first
-         */
-        const nfts = await useGetNFTsInCollection(1, 0, 100);
-        const ownedNfts = nfts?.filter(
-          (nft) => nft.owner.toLowerCase() === activeWallet
-        );
-        setShimmerOwnedNFTS(ownedNfts as IShimmerNFT[]);
-
         collections.forEach(async (collection) => {
-          console.log(collection);
           const nfts = await useGetNFTsInCollection(collection.tokenId, 0, 100);
           const ownedNfts = nfts?.filter(
             (nft) => nft.owner.toLowerCase() === activeWallet
@@ -64,7 +54,6 @@ export const useFetchNFTS = (address: string) => {
 
       try {
         fetchNfts();
-        console.log('fetch');
       } catch (error) {
         console.error(error);
       } finally {
