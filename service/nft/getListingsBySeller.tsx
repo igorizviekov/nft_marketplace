@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { getMarketplaceContract } from '../collection/utilts';
 import { ethers } from 'ethers';
+import { useStoreActions } from '../../store';
 
 export interface IListing {
   collection: string;
@@ -10,6 +11,7 @@ export interface IListing {
 }
 
 const getListingsBySeller = (seller: string) => {
+  const { setListings } = useStoreActions((actions) => actions.profile);
   useEffect(() => {
     const getListings = async () => {
       const marketplaceContract = await getMarketplaceContract();
@@ -21,7 +23,8 @@ const getListingsBySeller = (seller: string) => {
         seller: listing.seller,
         collection: listing.collection,
       }));
-      console.log(proceedListings);
+
+      setListings(proceedListings);
     };
     try {
       getListings();

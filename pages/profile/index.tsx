@@ -24,6 +24,7 @@ import ShimmerNFTCard from '../../components/ui/NFTCard/ShimmerNFTCard';
 import useUpdateUserCollections from '../../service/useUpdateUserCollections';
 import CollectionsBody from '../../components/BaseTable/TableBodies/CollectionsBody/CollectionsBody';
 import getListingsBySeller from '../../service/nft/getListingsBySeller';
+import ListingsBody from '../../components/BaseTable/TableBodies/ListingsBody/ListingsBody';
 
 const ProfilePage = () => {
   const router = useRouter();
@@ -139,7 +140,10 @@ const ProfilePage = () => {
             {!isOwnedNFTSLoading ? (
               <div className={styles.nftRow}>
                 {options[selectedTab] === 'Listed' ? (
-                  <>Listings</>
+                  <BaseTable
+                    body={<ListingsBody listings={listings} />}
+                    header={['Token ID', 'Price', 'Collection']}
+                  />
                 ) : options[selectedTab] === 'Activity' ? (
                   <BaseTable
                     body={<ActivityBody activities={nftLogs} />}
