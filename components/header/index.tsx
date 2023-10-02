@@ -33,7 +33,9 @@ export const Header = () => {
       }
       return;
     }
+
     const wallet = await connectWallet(mode);
+    console.log(wallet);
     const { isConnected, account } = wallet;
 
     setIsWalletConnected(isConnected);

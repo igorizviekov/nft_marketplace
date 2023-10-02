@@ -14,6 +14,7 @@ export const ProfileModel: IProfileModel = {
     instagram: '',
   },
   collections: [],
+  listings: [],
   nftLogs: [],
   ownedNfts: [],
   shimmerOwnedNfts: [],
@@ -61,5 +62,10 @@ export const ProfileModel: IProfileModel = {
       ...state.shimmerOwnedNfts[payload.index],
       collection: payload.collection,
     };
+  }),
+  setListings: action((state, payload) => {
+    if (state.listings.length === 0) {
+      state.listings.push(...payload);
+    }
   }),
 };

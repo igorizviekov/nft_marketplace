@@ -4,6 +4,7 @@ import { ICollection } from '../app/app.types';
 import { ITraits } from '../../../components/ui/NFTCard/NFTCard.types';
 import { Nft, OwnedNft } from 'alchemy-sdk';
 import { IShimmerNFT } from '../../../components/ui/NFTCard/ShimmerNFTCard.types';
+import { IListing } from '../../../service/nft/getListingsBySeller';
 
 export interface IProfileModel {
   profile: IProfile;
@@ -12,12 +13,14 @@ export interface IProfileModel {
   shimmerOwnedNfts: IShimmerNFT[];
   isOwnedNFTSLoading: boolean;
   collections: ICollection[];
+  listings: IListing[];
 
   updateCollections: Action<IProfileModel, ICollection[]>;
 
   updateProfile: Action<IProfileModel, IProfile>;
   updateNFTLogs: Action<IProfileModel, INFTLog>;
 
+  setListings: Action<IProfileModel, IListing[]>;
   setOwnedNFTS: Action<IProfileModel, OwnedNft[]>;
   setShimmerOwnedNFTS: Action<IProfileModel, IShimmerNFT[]>;
   setShimmerOwnedNFTSCollections: Action<ProfileModel, any>;

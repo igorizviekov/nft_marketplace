@@ -23,6 +23,7 @@ import { useStoreRehydrated } from 'easy-peasy';
 import ShimmerNFTCard from '../../components/ui/NFTCard/ShimmerNFTCard';
 import useUpdateUserCollections from '../../service/useUpdateUserCollections';
 import CollectionsBody from '../../components/BaseTable/TableBodies/CollectionsBody/CollectionsBody';
+import getListingsBySeller from '../../service/nft/getListingsBySeller';
 
 const ProfilePage = () => {
   const router = useRouter();
@@ -33,6 +34,7 @@ const ProfilePage = () => {
     shimmerOwnedNfts,
     isOwnedNFTSLoading,
     collections,
+    listings,
   } = useStoreState((state) => state.profile);
   const { activeWallet, isWalletConnected } = useStoreState(
     (state) => state.wallet
@@ -58,6 +60,7 @@ const ProfilePage = () => {
           return <ShimmerNFTCard nft={nft} key={index} />;
         });
 
+  getListingsBySeller(activeWallet);
   useFetchProfile();
   useFetchNFTS(activeWallet);
   useEffect(() => {
@@ -135,7 +138,9 @@ const ProfilePage = () => {
             />
             {!isOwnedNFTSLoading ? (
               <div className={styles.nftRow}>
-                {options[selectedTab] === 'Activity' ? (
+                {options[selectedTab] === 'Listed' ? (
+                  <>Listings</>
+                ) : options[selectedTab] === 'Activity' ? (
                   <BaseTable
                     body={<ActivityBody activities={nftLogs} />}
                     header={[
