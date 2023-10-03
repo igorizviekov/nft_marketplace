@@ -240,7 +240,8 @@ const ContractSandbox = () => {
     collectionId: number,
     tokenURI: string,
     isMintToMarketplace: boolean,
-    nftPrice: number | null
+    nftPrice: number | null,
+    airdropAddress: string
   ) => {
     try {
       const price =
@@ -261,12 +262,12 @@ const ContractSandbox = () => {
         CollectionsABI,
         signer
       );
-
       const tx = await contract.mint(
         collection.id,
         tokenURI,
         price,
-        isMintToMarketplace
+        isMintToMarketplace,
+        airdropAddress || '0x0000000000000000000000000000000000000000'
       );
 
       const receipt = await tx.wait();
@@ -896,8 +897,18 @@ const ContractSandbox = () => {
               ? Number(window.prompt('Please enter the token price:', '50'))
               : 0;
 
+            const airdropAddress = window.prompt(
+              'If it is an airdrop, enter the recipient address:'
+            );
+
             if (collectionId && tokenURI) {
-              mintNFT(+collectionId, tokenURI, isMintToMarketplace, nftPrice);
+              mintNFT(
+                +collectionId,
+                tokenURI,
+                isMintToMarketplace,
+                nftPrice,
+                airdropAddress
+              );
             }
           },
         },
