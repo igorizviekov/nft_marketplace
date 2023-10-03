@@ -241,7 +241,7 @@ const ContractSandbox = () => {
     tokenURI: string,
     isMintToMarketplace: boolean,
     nftPrice: number | null,
-    airdropAddress: string
+    airdropAddress: string | null
   ) => {
     try {
       const price =
