@@ -8,12 +8,12 @@ import Web3Modal from 'web3modal';
 import { ethers } from 'ethers';
 import { CollectionsABI, collectionsAddress } from '../mocks/constants.mock';
 import { excludeEmptyKeys } from '../components/AddCollectionModal/utils';
-import { ICollection } from '../store/model/app/app.types';
 export async function useCreateCollection({
   image,
   generalInformation,
   networkInformation,
   royalties,
+  mintPrice,
   isCollectionCreated,
   handleModalClose,
 }: ICreateCollection) {
@@ -42,7 +42,7 @@ export async function useCreateCollection({
 
   console.log(collectionURI, 'URI');
 
-  const tx = await contract.createCollection(collectionURI);
+  const tx = await contract.createCollection(collectionURI, 1000, mintPrice, Number(2));
   const receipt = await tx.wait();
 
   const CollectionCreatedEvent = receipt.events?.find(
@@ -88,6 +88,7 @@ interface ICreateCollection {
   generalInformation: GeneralInformation;
   networkInformation: NetworkInformation;
   royalties: Royalty[];
+  mintPrice: number;
   isCollectionCreated: (isCreated: boolean) => void;
   handleModalClose: () => void;
 }

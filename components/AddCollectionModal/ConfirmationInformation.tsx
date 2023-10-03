@@ -12,6 +12,7 @@ const ConfirmationInformation = ({ handleModalClose }: IConfirmationModal) => {
     royalties,
     networkInformation,
     isCreatingCollection,
+    mintPrice,
   } = useStoreState((state) => state.createCollection);
 
   const { isCollectionCreated } = useStoreActions(
@@ -66,6 +67,7 @@ const ConfirmationInformation = ({ handleModalClose }: IConfirmationModal) => {
             generalInformation,
             networkInformation,
             royalties,
+            mintPrice,
             isCollectionCreated,
             handleModalClose,
           })

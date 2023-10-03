@@ -23,6 +23,7 @@ export const CreateCollectionModel: ICreateCollectionModel = {
   gralInfoFormError: true,
   networkInformationError: true,
   royaltiesError: false,
+  mintPrice: 0,
 
   isCreatingCollection: false,
   isCollectionCreated: action((state, payload) => {
@@ -44,6 +45,9 @@ export const CreateCollectionModel: ICreateCollectionModel = {
   setRoyaltiesError: action((state, payload) => {
     state.royaltiesError = payload;
   }),
+  setMintPrice: action((state, payload) => {
+    state.mintPrice = payload;
+  }),
 
   /**
    * General information Actions
@@ -63,7 +67,6 @@ export const CreateCollectionModel: ICreateCollectionModel = {
   /**
    * Network information Actions
    */
-
   setNetworkInformation: action((state, payload) => {
     state.networkInformation = {
       ...payload,

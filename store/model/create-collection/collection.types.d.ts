@@ -18,6 +18,9 @@ export interface ICreateCollectionModel {
   royalties: Royalty[];
   royaltiesError: boolean;
 
+  mintPrice: number;
+  setMintPrice: Action<ICreateCollectionModel, number>;
+
   addRoyalty: Action<ICreateCollectionModel, Royalty>;
   deleteRoyalty: Action<ICreateCollectionModel, Royalty>;
   setRoyaltiesError: Action<ICreateCollectionModel, boolean>;
