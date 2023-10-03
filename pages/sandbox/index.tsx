@@ -758,6 +758,67 @@ const ContractSandbox = () => {
       toast.error(message);
     }
   };
+
+  const pause = async () => {
+    try {
+      const web3Modal = new Web3Modal();
+      const connection = await web3Modal.connect();
+      const provider = new ethers.providers.Web3Provider(connection);
+      const signer = provider.getSigner();
+      const contract = new ethers.Contract(
+        marketplaceAddress,
+        MarketplaceABI,
+        signer
+      );
+      const transaction = await contract.pause();
+      console.log({ transaction });
+    } catch (err) {
+      console.log({ err });
+      const message = getErrMessage(err);
+      toast.error(message);
+    }
+  };
+
+  const unpause = async () => {
+    try {
+      const web3Modal = new Web3Modal();
+      const connection = await web3Modal.connect();
+      const provider = new ethers.providers.Web3Provider(connection);
+      const signer = provider.getSigner();
+      const contract = new ethers.Contract(
+        marketplaceAddress,
+        MarketplaceABI,
+        signer
+      );
+      const transaction = await contract.unpause();
+      console.log({ transaction });
+    } catch (err) {
+      console.log({ err });
+      const message = getErrMessage(err);
+      toast.error(message);
+    }
+  };
+
+  const getPauseState = async () => {
+    try {
+      const web3Modal = new Web3Modal();
+      const connection = await web3Modal.connect();
+      const provider = new ethers.providers.Web3Provider(connection);
+      const signer = provider.getSigner();
+      const contract = new ethers.Contract(
+        marketplaceAddress,
+        MarketplaceABI,
+        signer
+      );
+      const transaction = await contract.paused();
+      console.log({ isPaused: transaction });
+      return transaction;
+    } catch (err) {
+      console.log({ err });
+      const message = getErrMessage(err);
+      toast.error(message);
+    }
+  };
   // Marketplace contract methods ends
 
   useEffect(() => {
@@ -1111,6 +1172,18 @@ const ContractSandbox = () => {
         {
           label: 'release',
           action: release,
+        },
+        {
+          label: 'Pause contract',
+          action: pause,
+        },
+        {
+          label: 'Unpause contract',
+          action: unpause,
+        },
+        {
+          label: 'Get pause contract state',
+          action: getPauseState,
         },
       ],
     },
