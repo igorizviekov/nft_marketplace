@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import Input from '../../components/ui/Input';
 import { Button } from '../../components/ui/Button';
 import { Dropdown } from '../../components/ui/dropdown';
@@ -16,10 +16,11 @@ import RoyaltiesList from '../../components/Royalties/RoyaltiesList';
 import Traits from '../../components/Traits/Traits';
 import TraitsList from '../../components/Traits/TraitsList';
 import ProfileImageUpload from '../../components/ProfileImageUpload/ProfileImageUpload';
-import { ethers } from 'ethers';
-import { CollectionsABI, collectionsAddress } from '../../mocks/constants.mock';
 import useMintNFT from '../../service/useMintNFT';
 import { Spinner } from '../../components/spinner';
+import { useRouter } from 'next/router';
+import useUpdateUserCollections from '../../service/useUpdateUserCollections';
+import { ICollection } from '../../store/model/app/app.types';
 export interface IFormInput {
   name: string;
   description: string;
@@ -28,7 +29,10 @@ export interface IFormInput {
   collection?: string;
 }
 
-export const ADD_COLLECTION = '+ Add Collection';
+export const ADD_COLLECTION: { name: string; id: number } = {
+  name: '+ Add Collection',
+  id: 0,
+};
 const SingleForm = () => {
   const {
     royalties,
@@ -52,18 +56,39 @@ const SingleForm = () => {
     setIsLoading,
   } = useStoreActions((actions) => actions.nftMint);
 
+  const router = useRouter();
   const { collections } = useStoreState((state) => state.profile);
   const { activeWallet } = useStoreState((state) => state.wallet);
+
+  const { setNFT } = useStoreActions((actions) => actions.nftView);
   const { isCollectionCreated } = useStoreActions(
     (actions) => actions.createCollection
   );
-
-  const OPTIONS = collections.map((collection) => {
-    return collection.name;
-  });
-  const [selected, setSelected] = useState<number>(-1);
+  const { updateCollections } = useStoreActions((actions) => actions.profile);
+  const [selected, setSelected] = useState<number>(0);
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
-
+  const [options, setOptions] = useState<ICollection[]>([
+    {
+      name: 'None',
+      id: '1',
+      creator_id: '',
+      symbol: 'PHO',
+      categoryPrimary: 'art',
+      categorySecondary: 'collectibles',
+      description:
+        'Welcome to our Public Collection, the heart of our NFT marketplace and a testament to the collective creativity of our vibrant community. This public collection is open to everyone, artists and non-artists alike, encouraging the creation and exchange of unique digital art pieces represented as Non-Fungible Tokens (NFTs).',
+      blockchain_id: '',
+      contract_address: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
+      owner: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
+      tokenId: 1,
+      image: '',
+      website: '',
+      royalties: 0,
+    },
+    ...collections.map((collection) => {
+      return collection;
+    }),
+  ]);
   const changeHandler = (e: React.ChangeEvent<Element>) => {
     editGeneralInformation({
       ...nftGeneralInfo,
@@ -72,23 +97,8 @@ const SingleForm = () => {
   };
 
   useEffect(() => {
-    editGeneralInformation({
-      ...nftGeneralInfo,
-      collection: OPTIONS[selected],
-    });
-  }, []);
-
-  const provider = useMemo(
-    () =>
-      new ethers.providers.JsonRpcProvider(
-        'https://json-rpc.evm.testnet.shimmer.network'
-      ),
-    []
-  );
-
-  const collectionContract = useMemo(() => {
-    return new ethers.Contract(collectionsAddress, CollectionsABI, provider);
-  }, []);
+    useUpdateUserCollections(updateCollections);
+  }, [isModalOpen]);
 
   useEffect(() => {
     if (
@@ -146,15 +156,22 @@ const SingleForm = () => {
           nftGeneralInfo.price
         )}
       />
-      <Dropdown
-        heading="Select a collection (Optional)"
-        options={[...OPTIONS, ADD_COLLECTION]}
-        checked={selected}
-        placeholder="Or create a new one"
-        onChange={setSelected}
-        openModal={() => setModalOpen(true)}
-      />
-      {selected === -1 && (
+      {collections && (
+        <Dropdown
+          heading="Select a collection (Optional)"
+          options={[
+            ...options.map((option) => {
+              return option.name;
+            }),
+            ADD_COLLECTION.name,
+          ]}
+          checked={selected}
+          placeholder="Or create a new one"
+          onChange={setSelected}
+          openModal={() => setModalOpen(true)}
+        />
+      )}
+      {selected === 0 && (
         <>
           <Royalties
             royalties={royalties}
@@ -211,12 +228,13 @@ const SingleForm = () => {
             nftGeneralInfo,
             traits,
             setIsLoading,
-            1,
-            collectionContract,
+            options[selected],
             nftGeneralInfo.price,
             activeWallet,
             editGeneralInformation,
-            resetTraits
+            resetTraits,
+            router,
+            setNFT
           )
         }
       />

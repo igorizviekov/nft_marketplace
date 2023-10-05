@@ -1,10 +1,9 @@
 import BasePage from '../components/ui/Base/BasePage/BasePage';
 import PopularCollection from '../components/PopularCollection/PopularCollection';
 import styles from '../styles/pages/HomePage.module.scss';
-import { LaunchpadDropsMocks } from '../mocks/LaunchpadDrops.mock';
 import LaunchpadDrops from '../components/CollectionCard/CollectionCard';
 import Filter from '../components/Filter/Filter';
-import { useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { INFTCategories } from '../components/Filter/Filter.types';
 import HomeHero from '../components/HomeHero/HomeHero';
 import HorizontalScroll from '../components/HorizontalScroll/HorizontalScroll';
@@ -14,14 +13,15 @@ import NoCollectionCard from '../components/CollectionCard/NoCollectionCard';
 import { useFetchCollections } from '../service/useFetchCollections';
 import { useStoreState } from '../store';
 import useGetTokensListedInCollection from '../service/collection/useGetTokensListedInCollection';
-import { ethers } from 'ethers';
-import { MarketplaceABI, marketplaceAddress } from '../mocks/constants.mock';
-import ShimmerNFTCard from '../components/ui/NFTCard/ShimmerNFTCard';
 import ShimmerListedNFTCard from '../components/ui/NFTCard/ListedNFTCard/ShimmerListedNFTCard';
+import { Spinner } from '../components/spinner';
+import useGetAllListings from '../service/nft/useGetAllListings';
 export default function Home() {
   const [selected, setSelected] = useState<number | null>(null);
   const { isCollectionsLoading, collections, selectedBlockchain } =
     useStoreState((state) => state.app);
+
+  const { isWalletConnected } = useStoreState((state) => state.wallet);
 
   const { shimmerListedNFTS } = useStoreState((state) => state.listedNFTS);
   const filterOptions: INFTCategories[] = [
@@ -71,18 +71,8 @@ export default function Home() {
     });
 
   useFetchCollections();
-  const provider = useMemo(
-    () =>
-      new ethers.providers.JsonRpcProvider(
-        'https://json-rpc.evm.testnet.shimmer.network'
-      ),
-    []
-  );
-  const marketplaceContract = useMemo(() => {
-    return new ethers.Contract(marketplaceAddress, MarketplaceABI, provider);
-  }, []);
 
-  useGetTokensListedInCollection(1, marketplaceContract, false);
+  useGetAllListings();
 
   return (
     <BasePage>
@@ -96,8 +86,7 @@ export default function Home() {
       <div>
         <h1>Popular Collections</h1>
         <div className={'grid-container'}>
-          {collections &&
-            !isCollectionsLoading &&
+          {collections && !isCollectionsLoading ? (
             collections.map((collection, index) => (
               <PopularCollection
                 id={collection.id}
@@ -106,7 +95,10 @@ export default function Home() {
                 key={index}
                 index={index}
               />
-            ))}
+            ))
+          ) : (
+            <Spinner />
+          )}
         </div>
         <div className={styles.button}>
           <Button
@@ -121,14 +113,17 @@ export default function Home() {
         <h1>Available NFTS</h1>
         <br />
         <div className={styles.listedNFTScontainer}>
-          {shimmerListedNFTS &&
+          {shimmerListedNFTS && isWalletConnected ? (
             shimmerListedNFTS.map((nft, index) => (
               <ShimmerListedNFTCard key={index} nft={nft} />
-            ))}
+            ))
+          ) : (
+            <h1>Connect wallet to see available NFTS</h1>
+          )}
         </div>
       </div>
 
-      <div>
+      {/* <div>
         <h1>New Launches</h1>
         <br />
         <HorizontalScroll>
@@ -146,7 +141,7 @@ export default function Home() {
               />
             ))}
         </HorizontalScroll>
-      </div>
+      </div> */}
 
       <div>
         <h1>Trending by Category</h1>

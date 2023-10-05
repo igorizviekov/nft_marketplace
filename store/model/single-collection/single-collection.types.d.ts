@@ -1,25 +1,13 @@
 import { Action } from 'easy-peasy';
 import { OwnedNft } from 'alchemy-sdk';
+import { ICollection } from '../app/app.types';
 
 export interface ISingleCollectionModel {
-  collectionData: ISingleCollection | undefined;
+  collectionData: ICollection | undefined;
   collectionNFTS: OwnedNft[] | undefined;
   isLoading: boolean;
 
   setCollectionNFTS: Action<ISingleCollectionModel, OwnedNft[]>;
-  setCollectionData: Action<ISingleCollectionModel, ISingleCollection>;
+  setCollectionData: Action<ISingleCollectionModel, ICollection>;
   setIsLoading: Action<ISingleCollectionModel, boolean>;
-}
-
-export interface ISingleCollection {
-  blockchain_id: string;
-  categoryPrimary: string;
-  categorySecondary: string;
-  creator_id: string;
-  description: string;
-  image: string;
-  name: string;
-  royalties: number;
-  symbol: string;
-  website: string;
 }

@@ -15,8 +15,12 @@
 
   cursor: pointer;
 
+  transition: 0.2s ease-in-out;
+
+
   &:hover {
-    border: 2px dashed var(--accent);
-    color: var(--text-color-hover);
+    border: 2px dashed var(--green);
+    background-color: rgba(0, 0, 0, 0.504);
+    backdrop-filter: blur(5px);
   }
 }

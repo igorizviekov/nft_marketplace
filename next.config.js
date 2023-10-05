@@ -20,6 +20,7 @@ const nextConfig = {
       'i.seadn.io',
       'res.cloudinary.com',
       'nft-cdn.alchemy.com',
+      'www.google.com',
     ],
   },
 };

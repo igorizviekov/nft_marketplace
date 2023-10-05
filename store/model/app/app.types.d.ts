@@ -16,7 +16,7 @@ export interface IAppModel {
 
 export interface IBlockchain {
   id: string;
-  chain_id: number | null;
+  blockchain_id: number | null;
   currency_symbol: string;
   rpc_url: string;
 }
@@ -30,7 +30,9 @@ export interface ICollection {
   categorySecondary: string;
   blockchain_id: string;
   contract_address: string;
+  owner: string;
   description: string;
+  tokenId: number;
   image: string;
   website: string;
   royalties: number;

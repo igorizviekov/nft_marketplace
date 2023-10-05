@@ -36,9 +36,13 @@
     }
 
     td {
-      padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-sm) 0;
+      padding: var(--spacing-sm) 0 var(--spacing-sm) 0;
       transition: 0.1s ease-in-out;
 
+    }
+
+    td:last-child {
+      padding-right: var(--spacing-sm);
     }
 
     td:first-child {

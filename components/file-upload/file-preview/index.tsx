@@ -3,11 +3,13 @@ import { IFilePreviewProps } from './file-preview.types';
 import { Button } from '../../ui/Button';
 import Icon from '../../ui/Icon/Icon';
 import { TiDelete } from 'react-icons/ti';
+import { FaFile } from 'react-icons/fa';
 
 export const FilePreview = ({
   file,
   onDelete,
   onReplace,
+  isBulkupload,
 }: IFilePreviewProps) => {
   const thumb = URL.createObjectURL(file);
 
@@ -18,15 +20,22 @@ export const FilePreview = ({
         className={styles.icon}
         onClick={onDelete}
       />
-      <img
-        src={thumb}
-        alt={file.name}
-        // Revoke data uri after image is loaded
-        onLoad={() => URL.revokeObjectURL(thumb)}
-        className={styles['file-preview__thumb']}
-      />
+      {isBulkupload ? (
+        <div className="flex-row-center">
+          <Icon icon={<FaFile />} />
+          <p>{file.name}</p>
+        </div>
+      ) : (
+        <img
+          src={thumb}
+          alt={file.name}
+          // Revoke data uri after image is loaded
+          onLoad={() => URL.revokeObjectURL(thumb)}
+          className={styles['file-preview__thumb']}
+        />
+      )}
       <div className={styles['file-preview__controls']}>
-        <Button label="Replace" onClick={onReplace} isPrimary={false} />
+        <Button label="Change Image" onClick={onReplace} isPrimary={false} />
       </div>
     </div>
   );

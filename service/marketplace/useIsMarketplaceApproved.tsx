@@ -6,7 +6,7 @@ const useIsMarketplaceApproved = () => {
 
   const isApprovedMarketplace = axios
     .post(
-      `https://nft-api-production-4aa1.up.railway.app/users/approve/${userID}`,
+      `${process.env.NEXT_PUBLIC_API_KEY}/users/approve/${userID}`,
       {},
       {
         headers: {

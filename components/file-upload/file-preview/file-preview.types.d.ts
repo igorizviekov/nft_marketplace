@@ -17,4 +17,6 @@ export interface IFilePreviewProps {
   isCsv?: boolean;
 
   isRar?: boolean;
+
+  isBulkupload?: boolean;
 }

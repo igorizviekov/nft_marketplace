@@ -48,6 +48,30 @@
 
 .trait {
   width: 100%;
+
+}
+
+.traitBox {
+  width: fit-content;
+
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: var(--spacing-md);
+
+
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  border: var(--border-color);
+
+
+  transition: 0.2s ease-in;
+
+  &:hover {
+    border: var(--border-color-green);
+    box-shadow: var(--box-shadow-hover);
+    color: var(--text-color-hover);
+  }
 }
 
 .error {
@@ -59,16 +83,14 @@
 
 .traitsContainer {
   max-height: 50vh;
-  width: 100%;
 
-  padding-right: 10px;
+
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: var(--spacing-md);
 
 
   scroll-behavior: smooth;
-  overflow-y: auto;
 
   /* width */
   &::-webkit-scrollbar {

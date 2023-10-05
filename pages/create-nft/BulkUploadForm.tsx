@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Input from '../../components/ui/Input';
 import { Button } from '../../components/ui/Button';
 import { Dropdown } from '../../components/ui/dropdown';
@@ -10,14 +10,18 @@ import styles from '../../styles/pages/CreateNFTPage.module.scss';
 import classNames from 'classnames';
 import { toast } from 'react-toastify';
 import { useStoreActions, useStoreState } from '../../store';
+import { validatePrice } from '../../components/ui/Input/utils';
+import useBulkUpload from '../../service/collection/useBulkUpload';
 
 const CollectionForm = () => {
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
   const { collections } = useStoreState((state) => state.profile);
 
-  const OPTIONS = collections.map((collection) => {
-    return collection.name;
-  });
+  const OPTIONS: Array<{ name: string; id: number }> = collections.map(
+    (collection) => {
+      return { name: collection.name, id: collection.tokenId };
+    }
+  );
 
   const [selected, setSelected] = useState<number>(0);
 
@@ -28,11 +32,26 @@ const CollectionForm = () => {
     (actions) => actions.bulkUpload
   );
 
+  useEffect(() => {
+    if (
+      bulkInformation.images !== null
+      // bulkInformation.metadata !== null
+      // bulkInformation.price !== 0
+    ) {
+      setFormError(false);
+    }
+  }, [bulkInformation]);
+
   return (
     <div className={classNames('flex-col-center', styles.form)}>
       <Dropdown
         heading="Select a collection"
-        options={[...OPTIONS, ADD_COLLECTION]}
+        options={[
+          ...OPTIONS.map((option) => {
+            return option.name;
+          }),
+          ADD_COLLECTION.name,
+        ]}
         checked={selected}
         required
         placeholder="Or create a new one"
@@ -53,36 +72,18 @@ const CollectionForm = () => {
             images: null,
           })
         }
-        title={'Upload all images for the collection'}
+        title={'Upload collections compressed files'}
         subTitle={'as a .zip or .rar'}
         isCsv={false}
-      />
-      <BulkUpload
-        file={bulkInformation.metadata}
-        onDropAccepted={(arr) => {
-          editBulkInformation({
-            ...bulkInformation,
-            metadata: arr?.[0],
-          });
-        }}
-        onUploadAbort={() =>
-          editBulkInformation({
-            ...bulkInformation,
-            metadata: null,
-          })
-        }
-        title={'Upload metadata'}
-        subTitle={'as a .csv file'}
-        isCsv={true}
       />
       <BaseLink
         href={
           'https://docs.google.com/spreadsheets/d/1t4EPrrKsbTUEjfAJMUgnWkyBRNFLO6bSycB8RyXIQy8/edit#gid=1841889481'
         }
       >
-        <p>You can dowload our template here!</p>
+        <p>You can check our template here!</p>
       </BaseLink>
-      <Input
+      {/* <Input
         title={'NFT Price'}
         inputType={'number'}
         placeholder={'Enter NFT price'}
@@ -94,7 +95,7 @@ const CollectionForm = () => {
           })
         }
         id={''}
-      />
+      /> */}
       {isModalOpen && (
         <AddCollectionModal handleModalClose={() => setModalOpen(false)} />
       )}
@@ -102,7 +103,14 @@ const CollectionForm = () => {
         isPrimary
         label="Upload"
         disabled={formError}
-        onClick={() => toast.warn('Upload bulk')}
+        onClick={() =>
+          useBulkUpload(
+            collections[selected],
+            bulkInformation.images
+            // bulkInformation.metadata,
+            // bulkInformation.price
+          )
+        }
       />
     </div>
   );

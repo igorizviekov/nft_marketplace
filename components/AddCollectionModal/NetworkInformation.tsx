@@ -90,7 +90,7 @@ const NetworkInformation = ({ handleSteps }: IModalSteps) => {
         }}
       />
       <Dropdown
-        heading={'categorySecondary'}
+        heading={'Sub Category'}
         required
         placeholder={'Select a sub category'}
         options={categories}

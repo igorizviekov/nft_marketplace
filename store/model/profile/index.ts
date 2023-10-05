@@ -1,4 +1,4 @@
-import { action } from 'easy-peasy';
+import { action, useStoreActions } from 'easy-peasy';
 import { INFTLog, IProfileModel } from './profile.types';
 
 export const ProfileModel: IProfileModel = {
@@ -14,6 +14,7 @@ export const ProfileModel: IProfileModel = {
     instagram: '',
   },
   collections: [],
+  listings: [],
   nftLogs: [],
   ownedNfts: [],
   shimmerOwnedNfts: [],
@@ -26,14 +27,14 @@ export const ProfileModel: IProfileModel = {
     state.profile = { ...payload };
   }),
   updateNFTLogs: action((state, payload) => {
-    payload.map((log: INFTLog) => {
+    payload.forEach((log: INFTLog) => {
       const isDuplicated = state.nftLogs.some((nft) => nft.id === log.id);
 
-      if (!isDuplicated)
+      if (!isDuplicated) {
         state.nftLogs.push({
           ...log,
-          date: new Date(log.date),
         });
+      }
     });
   }),
   setOwnedNFTS: action((state, payload) => {
@@ -43,6 +44,28 @@ export const ProfileModel: IProfileModel = {
     state.isOwnedNFTSLoading = payload;
   }),
   setShimmerOwnedNFTS: action((state, payload) => {
-    state.shimmerOwnedNfts = payload;
+    if (state.shimmerOwnedNfts.length === 0) {
+      state.shimmerOwnedNfts.push(...payload);
+    } else {
+      payload.forEach((nft) => {
+        const isDuplicated = state.shimmerOwnedNfts.some(
+          (shimmerNFT) => shimmerNFT.id === nft.id
+        );
+        if (!isDuplicated) {
+          state.shimmerOwnedNfts.push(nft);
+        }
+      });
+    }
+  }),
+  setShimmerOwnedNFTSCollections: action((state, payload) => {
+    state.shimmerOwnedNfts[payload.index] = {
+      ...state.shimmerOwnedNfts[payload.index],
+      collection: payload.collection,
+    };
+  }),
+  setListings: action((state, payload) => {
+    if (state.listings.length === 0) {
+      state.listings.push(...payload);
+    }
   }),
 };

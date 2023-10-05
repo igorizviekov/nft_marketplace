@@ -4,7 +4,7 @@ import Input from '../ui/Input';
 import { IRoyaltiesForm, IRoyaltiesProps } from './Royalties.types';
 import Icon from '../ui/Icon/Icon';
 import { BsPlusCircleFill } from 'react-icons/bs';
-import { isWalletValid, validatePercentage } from './utils';
+import { isWalletValid, validatePercentage, validateRoyalties } from './utils';
 import classNames from 'classnames';
 
 const Royalties = ({
@@ -17,6 +17,13 @@ const Royalties = ({
     walletAddress: '',
     percentage: undefined,
   });
+
+  const errorMessage = validateRoyalties(
+    Number(formInput.percentage),
+    formInput.walletAddress,
+    royalties,
+    setFormError
+  );
   return (
     <div className={styles.container}>
       <div className={styles.upperContainer}>
@@ -32,11 +39,7 @@ const Royalties = ({
             })
           }
           id={''}
-          error={isWalletValid(
-            formInput.walletAddress,
-            royalties,
-            setFormError
-          )}
+          error={errorMessage.walletMessage}
         />
         <div className={styles.percentage}>
           <Input
@@ -50,22 +53,23 @@ const Royalties = ({
                 percentage: (e.target as HTMLInputElement).value,
               })
             }
-            error={validatePercentage(
-              Number(formInput.percentage),
-              setFormError
-            )}
+            error={errorMessage.percentageMessage}
             id={''}
           />
         </div>
       </div>
       <div
         className={classNames(styles.addButton, royaltiesError && styles.error)}
-        onClick={() =>
+        onClick={() => {
           addRoyalty({
             walletAddress: formInput.walletAddress,
             percentage: Number(formInput.percentage),
-          })
-        }
+          });
+          setFormInput({
+            walletAddress: '',
+            percentage: '',
+          });
+        }}
       >
         <p>Add Royalty</p>
         <Icon

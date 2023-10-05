@@ -11,7 +11,7 @@ import { NFTViewModel } from './nft-view';
 import { persist } from 'easy-peasy';
 import { ListedNFTSModel } from './listed-nfts';
 export const model: IStoreModel = {
-  app: AppModel,
+  app: persist(AppModel),
   wallet: persist(WalletModel),
   profile: persist(ProfileModel),
   filter: FilterModel,

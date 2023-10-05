@@ -2,17 +2,22 @@ import axios from 'axios';
 import { IProfile } from '../store/model/profile/profile.types';
 import { useIPFSImageUpload } from './useIPFSImageUpload';
 import { getErrMessage } from './useMintNFT';
+import { toast } from 'react-toastify';
+import { NextRouter, useRouter } from 'next/router';
+import { useEffect } from 'react';
 
-const useUpdateProfile = async (profile: IProfile, file: File | null) => {
-  //@TODO replace id once the method on the api changed
-  const id = localStorage.getItem('usersUID');
-  const token = localStorage.getItem('token');
-
+const useUpdateProfile = async (
+  profile: IProfile,
+  file: File | null,
+  router: NextRouter
+) => {
   const ipfsImagePath = file && (await useIPFSImageUpload(file));
 
+  const id = localStorage.getItem('usersUID');
+  const token = localStorage.getItem('token');
   axios
     .patch(
-      `https://nft-api-production-4aa1.up.railway.app/users/${id}`,
+      `${process.env.NEXT_PUBLIC_API_KEY}/users/${id}`,
       {
         image: ipfsImagePath ? ipfsImagePath : profile.image,
         name: profile.name,
@@ -32,6 +37,8 @@ const useUpdateProfile = async (profile: IProfile, file: File | null) => {
     )
     .then((response) => {
       console.log(response);
+      toast.success('Profile saved correctly');
+      router.push('/profile');
     })
     .catch((error) => {
       const message = getErrMessage(error);

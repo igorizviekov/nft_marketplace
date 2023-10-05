@@ -33,7 +33,9 @@ export const Header = () => {
       }
       return;
     }
+
     const wallet = await connectWallet(mode);
+    console.log(wallet);
     const { isConnected, account } = wallet;
 
     setIsWalletConnected(isConnected);
@@ -62,32 +64,40 @@ export const Header = () => {
   return (
     <>
       {isRehydrated && (
-        <nav className={styles.header}>
-          <Link href="/">
-            <div className={styles.network}>
-              <div className="flex-row-start">
-                <div className={styles.logo}>
-                  <BaseImage imageUrl={PhoenixLogo} />
-                </div>
-                <div className={styles.logoText}>
-                  <BaseImage imageUrl={LogoText} className={styles.text} />
+        <>
+          {/* <div className={styles.warning}>
+            <h2>
+              WARNING! THIS A TEST WEBSITE - DO NOT ENTER REAL INFORMATION OR
+              USE A MAINNET{' '}
+            </h2>
+          </div> */}
+          <nav className={styles.header}>
+            <Link href="/">
+              <div className={styles.network}>
+                <div className="flex-row-start">
+                  <div className={styles.logo}>
+                    <BaseImage imageUrl={PhoenixLogo} />
+                  </div>
+                  <div className={styles.logoText}>
+                    <BaseImage imageUrl={LogoText} className={styles.text} />
+                  </div>
                 </div>
               </div>
+            </Link>
+            <div className={styles.searchBar}>
+              <Searchbar
+                onHandleSearch={() => console.log('should serach')}
+                onClearSearch={() => console.log('clear search')}
+              />
             </div>
-          </Link>
-          <div className={styles.searchBar}>
-            <Searchbar
-              onHandleSearch={() => console.log('should serach')}
-              onClearSearch={() => console.log('clear search')}
-            />
-          </div>
-          <div className={styles.network}>
-            {blockchains && (
-              <NetworkDropdown isLoading={isLoading} networks={blockchains} />
-            )}
-            {actionBtn}
-          </div>
-        </nav>
+            <div className={styles.network}>
+              {blockchains && (
+                <NetworkDropdown isLoading={isLoading} networks={blockchains} />
+              )}
+              {actionBtn}
+            </div>
+          </nav>
+        </>
       )}
     </>
   );

@@ -12,11 +12,12 @@
 .timeTooltip {
   text-align: center;
   position: absolute;
-  top: -25px;
+  top: -15px;
+  right: -50px;
   width: 190px;
 
   padding: 0 var(--spacing-xs);
-  background-color: var(--background-light);
+  background-color: var(--background);
 
   border-radius: var(--border-radius-sm);
 }

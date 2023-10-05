@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useEffect, useState } from 'react';
 import BasePage from '../../components/ui/Base/BasePage/BasePage';
 import styles from '../../styles/pages/SingleCollectionPage.module.scss';
 import BaseImage from '../../components/ui/Base/BaseImage/BaseImage';
@@ -17,16 +17,22 @@ import { Spinner } from '../../components/spinner';
 import BaseLink from '../../components/ui/Base/BaseLink/BaseLink';
 import { Searchbar } from '../../components/Searchbar/Searchbar';
 import { useFetchAlchemyCollection } from '../../service/useFetchAlchemyCollection';
-import { Nft, OwnedNft } from 'alchemy-sdk';
+import { OwnedNft } from 'alchemy-sdk';
+import useGetNFTsInCollection from '../../service/collection/useGetNFTsInCollection';
+import { IShimmerNFT } from '../../components/ui/NFTCard/ShimmerNFTCard.types';
+import ShimmerNFTCard from '../../components/ui/NFTCard/ShimmerNFTCard';
 
 const SingleCollectionPage = () => {
   const router = useRouter();
-  const { query } = router;
+  const { id } = router.query;
 
   const { filters } = useStoreState((state) => state.filter);
   const { collectionData, isLoading, collectionNFTS } = useStoreState(
     (state) => state.singleCollection
   );
+
+  const [nfts, setNFTS] = useState<IShimmerNFT[] | undefined>([]);
+
   function hasTrait(nft: OwnedNft): boolean | undefined {
     const hasFilter = nft.rawMetadata?.attributes?.some((trait) => {
       return filters.some(
@@ -37,8 +43,27 @@ const SingleCollectionPage = () => {
     return hasFilter;
   }
 
-  useFetchSingleCollection(query.uid);
+  useFetchSingleCollection(id);
   useFetchAlchemyCollection();
+
+  useEffect(() => {
+    setNFTS(undefined);
+    const fetchNFTS = async () => {
+      if (collectionData) {
+        const nfts = await useGetNFTsInCollection(
+          collectionData.tokenId,
+          0,
+          50
+        );
+        setNFTS(nfts);
+      }
+    };
+    try {
+      fetchNFTS();
+    } catch (error) {
+      console.error(error);
+    }
+  }, [collectionData]);
 
   return (
     <BasePage>
@@ -120,6 +145,13 @@ const SingleCollectionPage = () => {
                         return <NftCard nft={nft} key={index + nft.tokenId} />;
                       }
                     })}
+                </div>
+
+                <div className="flex-row-start">
+                  {nfts &&
+                    nfts.map((nft, index) => (
+                      <ShimmerNFTCard nft={nft} key={index + nft.id} />
+                    ))}
                 </div>
               </div>
             </div>

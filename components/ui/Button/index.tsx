@@ -9,7 +9,6 @@ interface IButtonProps {
 
 import classNames from 'classnames';
 import styles from './Button.module.scss';
-import { Children } from 'react';
 
 export const Button = ({
   label,
@@ -31,7 +30,7 @@ export const Button = ({
       className
     )}
   >
-    {label && <h3>{label}</h3>}
+    {label && <h5>{label}</h5>}
     {children}
   </button>
 );

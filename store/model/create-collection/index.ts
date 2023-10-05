@@ -3,8 +3,8 @@ import { ICreateCollectionModel } from './collection.types';
 
 export const CreateCollectionModel: ICreateCollectionModel = {
   royalties: [],
+  image: null,
   generalInformation: {
-    file: null,
     name: '',
     description: '',
     website: '',
@@ -14,7 +14,7 @@ export const CreateCollectionModel: ICreateCollectionModel = {
     network: {
       currency_symbol: '',
       id: '',
-      chain_id: 0,
+      blockchain_id: 0,
       rpc_url: '',
     },
     categoryPrimary: 'Art',
@@ -23,6 +23,7 @@ export const CreateCollectionModel: ICreateCollectionModel = {
   gralInfoFormError: true,
   networkInformationError: true,
   royaltiesError: false,
+  mintPrice: 0,
 
   isCreatingCollection: false,
   isCollectionCreated: action((state, payload) => {
@@ -44,16 +45,19 @@ export const CreateCollectionModel: ICreateCollectionModel = {
   setRoyaltiesError: action((state, payload) => {
     state.royaltiesError = payload;
   }),
+  setMintPrice: action((state, payload) => {
+    state.mintPrice = payload;
+  }),
 
   /**
    * General information Actions
    */
+  setImage: action((state, payload) => {
+    state.image = payload;
+  }),
   editGeneralInformation: action((state, payload) => {
     state.generalInformation = {
-      file: payload.file,
-      name: payload.name,
-      description: payload.description,
-      website: payload.website,
+      ...payload,
     };
   }),
   setGralInfoFormError: action((state, payload) => {
@@ -63,13 +67,9 @@ export const CreateCollectionModel: ICreateCollectionModel = {
   /**
    * Network information Actions
    */
-
   setNetworkInformation: action((state, payload) => {
     state.networkInformation = {
-      symbol: payload.symbol,
-      network: payload.network,
-      categoryPrimary: payload.categoryPrimary,
-      categorySecondary: payload.categorySecondary,
+      ...payload,
     };
   }),
   setNetworkInformationError: action((state, payload) => {

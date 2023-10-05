@@ -6,6 +6,9 @@ export interface ICreateCollectionModel {
   isCreatingCollection: boolean;
   isCollectionCreated: Action<ICreateCollectionModel, boolean>;
 
+  image: File | null;
+  setImage: Action<ICreateCollectionModel, File | null>;
+
   generalInformation: GeneralInformation;
   gralInfoFormError: boolean;
 
@@ -14,6 +17,9 @@ export interface ICreateCollectionModel {
 
   royalties: Royalty[];
   royaltiesError: boolean;
+
+  mintPrice: number;
+  setMintPrice: Action<ICreateCollectionModel, number>;
 
   addRoyalty: Action<ICreateCollectionModel, Royalty>;
   deleteRoyalty: Action<ICreateCollectionModel, Royalty>;
@@ -38,7 +44,6 @@ export interface Royalty {
 }
 
 export interface GeneralInformation {
-  file: File | null;
   name: string;
   description: string;
   website?: string;

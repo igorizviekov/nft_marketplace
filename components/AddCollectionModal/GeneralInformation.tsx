@@ -7,12 +7,11 @@ import { Button } from '../ui/Button';
 import { useStoreActions, useStoreState } from '../../store';
 
 const GeneralInformation = ({ handleSteps }: IModalSteps) => {
-  const { generalInformation, gralInfoFormError } = useStoreState(
+  const { generalInformation, gralInfoFormError, image } = useStoreState(
     (state) => state.createCollection
   );
-  const { setGralInfoFormError, editGeneralInformation } = useStoreActions(
-    (actions) => actions.createCollection
-  );
+  const { setGralInfoFormError, editGeneralInformation, setImage } =
+    useStoreActions((actions) => actions.createCollection);
 
   function handleClick() {
     handleSteps();
@@ -26,11 +25,7 @@ const GeneralInformation = ({ handleSteps }: IModalSteps) => {
   };
 
   const handleError = () => {
-    if (
-      generalInformation.name &&
-      generalInformation.description &&
-      generalInformation.file
-    ) {
+    if (generalInformation.name && generalInformation.description && image) {
       setGralInfoFormError(false);
     } else {
       setGralInfoFormError(true);
@@ -45,16 +40,9 @@ const GeneralInformation = ({ handleSteps }: IModalSteps) => {
     <>
       <h1>General Information</h1>
       <ProfileImageUpload
-        file={generalInformation.file}
-        onUploadAbort={() =>
-          editGeneralInformation({ ...generalInformation, file: null })
-        }
-        onDropAccepted={(arr) =>
-          editGeneralInformation({
-            ...generalInformation,
-            file: arr[0],
-          })
-        }
+        file={image}
+        onUploadAbort={() => setImage(null)}
+        onDropAccepted={(arr) => setImage(arr[0])}
         title={'Upload'}
         subTitle={'Collection Avatar'}
       />

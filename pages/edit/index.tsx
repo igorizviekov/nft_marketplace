@@ -10,6 +10,7 @@ import { useRouter } from 'next/router';
 import { Spinner } from '../../components/spinner';
 import { useStoreRehydrated } from 'easy-peasy';
 import BaseImage from '../../components/ui/Base/BaseImage/BaseImage';
+import classNames from 'classnames';
 const EditProfile = () => {
   const [file, setFile] = useState<File | null>(null);
   const { updateProfile } = useStoreActions((actions) => actions.profile);
@@ -25,17 +26,43 @@ const EditProfile = () => {
     });
   };
 
+  const [isDropAccepted, setDropAccepted] = useState<boolean>(false);
+  const onDropAccepted = (arr: any[]) => {
+    arr && setFile(arr[0]);
+    setDropAccepted(true);
+  };
+
+  const onUploadAbort = () => {
+    setFile(null);
+    setDropAccepted(false);
+  };
+
   return (
     <BasePage>
       {isWalletConnected && isRehydrated ? (
         <div className={styles.page}>
           <div className={styles.image}>
             {profile.image ? (
-              <BaseImage imageUrl={profile.image} />
+              <>
+                <BaseImage imageUrl={profile.image} className={styles.image} />
+                <div
+                  className={classNames(
+                    isDropAccepted ? styles.fileAccepted : styles.fileUpload
+                  )}
+                >
+                  <ProfileImageUpload
+                    file={file}
+                    onUploadAbort={onUploadAbort}
+                    onDropAccepted={(arr) => onDropAccepted(arr)}
+                    title={'Upload an Image'}
+                    subTitle={'or Select and NFT'}
+                  />
+                </div>
+              </>
             ) : (
               <ProfileImageUpload
                 file={file}
-                onUploadAbort={() => setFile(null)}
+                onUploadAbort={onUploadAbort}
                 onDropAccepted={(arr) => setFile(arr?.[0])}
                 title={'Upload an Image'}
                 subTitle={'or Select and NFT'}
@@ -133,7 +160,7 @@ const EditProfile = () => {
             <Button
               isPrimary={false}
               label={'Save Settings'}
-              onClick={() => useUpdateProfile(profile, file)}
+              onClick={() => useUpdateProfile(profile, file, router)}
             />
           </div>
         </div>

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useStoreActions, useStoreState } from '../store';
+import { useStoreActions } from '../store';
 import axios from 'axios';
 
 export const useFetchSingleCollection = (id: string | string[] | undefined) => {
@@ -11,7 +11,7 @@ export const useFetchSingleCollection = (id: string | string[] | undefined) => {
     if (id) {
       setIsLoading(true);
       axios
-        .get(`https://nft-api-production-4aa1.up.railway.app/collection/${id}`)
+        .get(`${process.env.NEXT_PUBLIC_API_KEY}/collection/${id}`)
         .then((response) => {
           setCollectionData(response.data.data);
           setIsLoading(false);

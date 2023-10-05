@@ -8,9 +8,11 @@ import { Spinner } from '../spinner';
 const ConfirmationInformation = ({ handleModalClose }: IConfirmationModal) => {
   const {
     generalInformation,
+    image,
     royalties,
     networkInformation,
     isCreatingCollection,
+    mintPrice,
   } = useStoreState((state) => state.createCollection);
 
   const { isCollectionCreated } = useStoreActions(
@@ -61,9 +63,11 @@ const ConfirmationInformation = ({ handleModalClose }: IConfirmationModal) => {
         disabled={isCreatingCollection}
         onClick={() =>
           useCreateCollection({
+            image,
             generalInformation,
             networkInformation,
             royalties,
+            mintPrice,
             isCollectionCreated,
             handleModalClose,
           })

@@ -22,12 +22,12 @@ const DropdownMenuItem = ({
           onClick={onClick}
         >
           <Icon icon={icon} />
-          <h3>{label}</h3>
+          <h5>{label}</h5>
         </Link>
       ) : (
         <div className={styles.dropdownItem} onClick={onClick}>
           <Icon icon={icon} />
-          <h3>{label}</h3>
+          <h5>{label}</h5>
         </div>
       )}
     </>

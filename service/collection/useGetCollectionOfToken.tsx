@@ -1,14 +1,13 @@
-import React from 'react';
-import { getCollectionContract } from './utilts';
 import axios from 'axios';
 import { getErrMessage } from '../useMintNFT';
-import { error } from 'console';
 import { toast } from 'react-toastify';
+import { getCollectionContract } from './utilts';
+import { ethers } from 'ethers';
 
 const useGetCollectionOfToken = async (id: number) => {
   try {
-    const collectionContract = await getCollectionContract();
-    const tx = collectionContract.getCollectionOfToken(id);
+    const contract = await getCollectionContract();
+    const tx = await contract.getCollectionOfToken(id);
     const { data } = await axios.get(tx[0]);
 
     const collection = {
@@ -20,7 +19,7 @@ const useGetCollectionOfToken = async (id: number) => {
     return collection;
   } catch (error) {
     const message = getErrMessage(error);
-    toast.error(message);
+    toast.error(message + 'here');
   }
 };
 

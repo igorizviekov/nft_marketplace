@@ -4,13 +4,13 @@ import { useStoreState, useStoreActions } from '../../store';
 import { IModalSteps } from './AddCollectionModal.types';
 import { Button } from '../ui/Button';
 import RoyaltiesList from '../Royalties/RoyaltiesList';
+import Input from '../ui/Input';
 const RoyaltiesInformation = ({ handleSteps }: IModalSteps) => {
-  const { royalties, royaltiesError } = useStoreState(
+  const { royalties, royaltiesError, mintPrice } = useStoreState(
     (state) => state.createCollection
   );
-  const { deleteRoyalty, addRoyalty, setRoyaltiesError } = useStoreActions(
-    (actions) => actions.createCollection
-  );
+  const { deleteRoyalty, addRoyalty, setRoyaltiesError, setMintPrice } =
+    useStoreActions((actions) => actions.createCollection);
 
   function handleClick() {
     handleSteps();
@@ -25,6 +25,16 @@ const RoyaltiesInformation = ({ handleSteps }: IModalSteps) => {
         setFormError={setRoyaltiesError}
       />
       <RoyaltiesList royalties={royalties} deleteRoyalty={deleteRoyalty} />
+      <Input
+        inputType={'number'}
+        title={'Mint Price'}
+        placeholder={'Initial price'}
+        id={'price'}
+        value={mintPrice}
+        handleChange={(e) =>
+          setMintPrice(Number((e.target as HTMLInputElement).value))
+        }
+      />
       <Button
         isPrimary={false}
         disabled={false}

@@ -16,11 +16,8 @@ export interface IFormInput {
 const CreateNFT: NextPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { isWalletConnected } = useStoreState((state) => state.wallet);
-  const router = useRouter();
 
-  const isRehydrated = useStoreRehydrated();
-
-  return isLoading || !isRehydrated || !isWalletConnected ? (
+  return isLoading || !isWalletConnected ? (
     <Spinner />
   ) : (
     <BasePage>

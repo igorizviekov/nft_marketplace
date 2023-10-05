@@ -10,7 +10,7 @@ const BaseLink = ({ href, children, active, isExternal }: IBaseLinkProps) => {
       target="_blank"
       className={classNames(styles.link, active === children && styles.active)}
     >
-      <h3>{children}</h3>
+      <h5>{children}</h5>
     </Link>
   );
 };

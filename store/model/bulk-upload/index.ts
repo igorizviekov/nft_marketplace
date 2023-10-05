@@ -9,7 +9,7 @@ export const BulkUploadModel: IBulkUploadModel = {
     price: 0,
   },
 
-  formError: false,
+  formError: true,
   setFormError: action((state, payload) => {
     state.formError = payload;
   }),

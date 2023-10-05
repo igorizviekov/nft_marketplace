@@ -1,10 +1,10 @@
-import { getMarketplaceContract } from './utilts';
 import { getErrMessage } from '../useMintNFT';
 import { toast } from 'react-toastify';
 import { useStoreActions } from '../../store';
 import { IShimmerNFT } from '../../components/ui/NFTCard/ShimmerNFTCard.types';
 import { useEffect } from 'react';
-const useGetTokensListedInCollection = async () => {
+import { getMarketplaceContract } from '../collection/utilts';
+const useGetAllListings = async () => {
   const { setShimmerListedNFTS } = useStoreActions(
     (actions) => actions.listedNFTS
   );
@@ -27,4 +27,4 @@ const useGetTokensListedInCollection = async () => {
     }
   }, []);
 };
-export default useGetTokensListedInCollection;
+export default useGetAllListings;

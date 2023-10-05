@@ -9,7 +9,7 @@ const TraitsList = ({ traits, deleteTrait }: ITraitListProps) => {
       {traits.length > 0 && (
         <div className={styles.traitsContainer}>
           {traits.map((trait, index) => (
-            <div className={styles.trait} key={index + trait.trait_type}>
+            <div className={styles.traitBox} key={index + trait.trait_type}>
               <div>
                 <p>Type: {trait.trait_type}</p>
                 <p>Value: {trait.value}</p>

@@ -1,4 +1,4 @@
-import { ethers } from 'ethers';
+import { ethers, utils } from 'ethers';
 import { JsonRpcProvider, JsonRpcSigner } from '@ethersproject/providers';
 import { INftCardProps } from '../components/ui/NFTCard/NFTCard.types';
 import { ActiveSelectOption } from '../components/SortBy/SortBy.types';
@@ -35,7 +35,7 @@ export const connectWallet = async (
   if (accounts.length) {
     return {
       isConnected: true,
-      account: accounts[0],
+      account: utils.getAddress(accounts[0]),
     };
   } else {
     return {

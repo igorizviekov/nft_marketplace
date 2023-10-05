@@ -11,7 +11,7 @@ import DescriptionSticker from '../../components/DescriptionSticker/DescriptionS
 import { FiEdit } from 'react-icons/fi';
 import { useRouter } from 'next/router';
 import useFetchProfile from '../../service/useFetchProfile';
-import { useStoreState } from '../../store';
+import { useStoreState, useStoreActions } from '../../store';
 import { Spinner } from '../../components/spinner';
 import BaseLink from '../../components/ui/Base/BaseLink/BaseLink';
 import { NoNFTCard } from '../../components/ui/NFTCard/NoNFTCard';
@@ -19,18 +19,28 @@ import useFetchNFTLogs from '../../service/useFetchNFTLogs';
 import BaseTable from '../../components/BaseTable/BaseTable';
 import ActivityBody from '../../components/BaseTable/TableBodies/ActivityBody/ActivityBody';
 import { useFetchNFTS } from '../../service/useFetchNFTS';
-import axios from 'axios';
 import { useStoreRehydrated } from 'easy-peasy';
-import useGetNFTsInCollection from '../../service/collection/useGetNFTsInCollection';
 import ShimmerNFTCard from '../../components/ui/NFTCard/ShimmerNFTCard';
+import useUpdateUserCollections from '../../service/useUpdateUserCollections';
+import CollectionsBody from '../../components/BaseTable/TableBodies/CollectionsBody/CollectionsBody';
+import getListingsBySeller from '../../service/nft/getListingsBySeller';
+import ListingsBody from '../../components/BaseTable/TableBodies/ListingsBody/ListingsBody';
 
 const ProfilePage = () => {
   const router = useRouter();
-  const { profile, nftLogs, ownedNfts, shimmerOwnedNfts, isOwnedNFTSLoading } =
-    useStoreState((state) => state.profile);
+  const {
+    profile,
+    nftLogs,
+    ownedNfts,
+    shimmerOwnedNfts,
+    isOwnedNFTSLoading,
+    collections,
+    listings,
+  } = useStoreState((state) => state.profile);
   const { activeWallet, isWalletConnected } = useStoreState(
     (state) => state.wallet
   );
+  const { updateCollections } = useStoreActions((actions) => actions.profile);
 
   const { selectedBlockchain } = useStoreState((state) => state.app);
 
@@ -38,7 +48,7 @@ const ProfilePage = () => {
 
   const [selectedTab, setSelectedTab] = useState<number>(0);
   const [isOwnProfile, setIsOwnProfile] = useState<boolean>(true);
-  const options = ['My NFTs', 'Listed', 'Created', 'Liked', 'Activity'];
+  const options = ['All NFTs', 'Listed', 'Collections', 'Activity'];
 
   const foundNfts =
     selectedBlockchain?.currency_symbol !== 'SMR'
@@ -51,10 +61,12 @@ const ProfilePage = () => {
           return <ShimmerNFTCard nft={nft} key={index} />;
         });
 
+  getListingsBySeller(activeWallet);
   useFetchProfile();
   useFetchNFTS(activeWallet);
-  useFetchNFTLogs(activeWallet);
-
+  useEffect(() => {
+    useUpdateUserCollections(updateCollections);
+  }, []);
   return (
     <BasePage>
       {profile && isWalletConnected && isRehydrated ? (
@@ -113,7 +125,7 @@ const ProfilePage = () => {
                 />
                 <DescriptionSticker
                   title={'Owned'}
-                  data={'12'}
+                  data={shimmerOwnedNfts.length.toString()}
                   type={'SECONDARY'}
                 />
               </div>
@@ -127,7 +139,12 @@ const ProfilePage = () => {
             />
             {!isOwnedNFTSLoading ? (
               <div className={styles.nftRow}>
-                {options[selectedTab] === 'Activity' ? (
+                {options[selectedTab] === 'Listed' ? (
+                  <BaseTable
+                    body={<ListingsBody listings={listings} />}
+                    header={['Token ID', 'Price', 'Collection']}
+                  />
+                ) : options[selectedTab] === 'Activity' ? (
                   <BaseTable
                     body={<ActivityBody activities={nftLogs} />}
                     header={[
@@ -137,6 +154,23 @@ const ProfilePage = () => {
                       'Buyer',
                       'Time',
                       'Amount',
+                    ]}
+                  />
+                ) : options[selectedTab] === 'Collections' ? (
+                  <BaseTable
+                    body={
+                      <CollectionsBody
+                        collections={collections}
+                        isProfileCollections
+                      />
+                    }
+                    header={[
+                      'Name',
+                      'ID',
+                      'Symbol',
+                      'Website',
+                      'Primary Category',
+                      'Secondary Category',
                     ]}
                   />
                 ) : !foundNfts.every((nft) => nft === undefined) ? (

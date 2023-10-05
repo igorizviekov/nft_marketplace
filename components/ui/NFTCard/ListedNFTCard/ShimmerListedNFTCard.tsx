@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { IShimmerNFTCardProps } from '../ShimmerNFTCard.types';
 import styles from '../NFTCard.module.scss';
 import { FaArrowRight } from 'react-icons/fa';
@@ -7,28 +7,14 @@ import Shimmer from '../../../../assets/icons/network-icons/Shimmer';
 import { toast } from 'react-toastify';
 import BaseImage from '../../Base/BaseImage/BaseImage';
 import useBuyNFT from '../../../../service/nft/useBuyNFT';
-import { ethers } from 'ethers';
-import {
-  CollectionsABI,
-  MarketplaceABI,
-  collectionsAddress,
-  marketplaceAddress,
-} from '../../../../mocks/constants.mock';
-const ShimmerListedNFTCard = ({ nft }: IShimmerNFTCardProps) => {
-  const provider = useMemo(
-    () =>
-      new ethers.providers.JsonRpcProvider(
-        'https://json-rpc.evm.testnet.shimmer.network'
-      ),
-    []
-  );
-  const collectionContract = useMemo(() => {
-    return new ethers.Contract(collectionsAddress, CollectionsABI, provider);
-  }, []);
 
+const ShimmerListedNFTCard = ({ nft }: IShimmerNFTCardProps) => {
   const handleClick = () => {
-    useBuyNFT(nft.id, 1, nft.uri);
+    nft.uri && useBuyNFT(nft.id, 1, nft.uri);
   };
+
+  console.log(nft);
+
   return (
     <div className={styles.card}>
       <div className={styles.image}>
@@ -41,13 +27,13 @@ const ShimmerListedNFTCard = ({ nft }: IShimmerNFTCardProps) => {
             className={styles.collectionName}
             onClick={() => toast.warn('OpenCollection')}
           >
-            COLLECTION
+            {nft.metadata.collection?.name}
           </p>
         </div>
         <div className={styles.bottom}>
           <div className={styles.price}>
             <Icon icon={<Shimmer className={styles.icon} />} />
-            {nft?.metadata && <h2>{nft.metadata.price}</h2>}
+            {nft.price && <h2>{nft.price}</h2>}
           </div>
           <div className={styles.arrow} onClick={handleClick}>
             <p>Buy NFT</p>
